@@ -1,5 +1,6 @@
 const Command = require("../../structures/Command.js");
 const fetch = require("node-fetch");
+const AbortController = require('abort-controller');
 const { MessageEmbed } = require("discord.js");
 
 class HentaiList extends Command {
@@ -17,9 +18,13 @@ class HentaiList extends Command {
   async run(ctx, args) {
     if (!args.length) return ctx.reply("What am I supposed to search for?");
     var args = args.join('-').toString().split('-')[0];
-    
-    var data = await fetch(`http://localhost:4445/api/hanime/${encodeURIComponent(args)}`)
-      .then((r) => r.ok ? r.json() : '');
+
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 5000);
+    var data = await fetch(`http://localhost:4445/api/hanime/${encodeURIComponent(args)}`, {
+      signal: controller.signal
+    }).then((r) => r.ok ? r.json() : '');
+    clearTimeout(timeout);
 
     if (!data) return ctx.reply("No results found.");
 
@@ -39,7 +44,7 @@ class HentaiList extends Command {
       .setThumbnail(data.cover_url)
       .setImage(data.poster_url)
       .addField(`Description`, data.description ? this.client.utils.shorten(data.description.replace(/(<([^>]+)>)/ig, '').replace(/\/r/g, '').replace(/\/n/g, '')) : 'No description given.')
-      .addField(`Release Date`, data.released_at.slice(0, 10), true)
+      .addField(`Release Date`, data.released_at, true)
       .addField(`Producer`, data.brand)
       .addField(`Views`, data.views, true)
       .addField(`Likes`, data.likes, true)
