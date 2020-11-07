@@ -28,7 +28,7 @@ class HentaiList extends Command {
       }).then((r) => r.ok ? r.json() : '')
       clearTimeout(timeout)
 
-      if (!data || data.invalid == true) return ctx.reply('No results found.')
+      if (!data) return ctx.reply('No results found.')
 
       var tags = []
       for (var i = 0; i < data.tags.length; i++) {
