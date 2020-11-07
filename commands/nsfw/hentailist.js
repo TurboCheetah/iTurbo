@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command.js')
 const fetch = require('node-fetch')
+const cheerio = require('cheerio')
 const AbortController = require('abort-controller')
 const { MessageEmbed } = require('discord.js')
 
