@@ -8,17 +8,17 @@
  */
 
 class DBLMock {
-  async hasVoted() {
-    return false;
+  async hasVoted () {
+    return false
   }
 
-  async isWeekend() {
-    return false;
+  async isWeekend () {
+    return false
   }
 
-  async getVotes() {
-    return [];
+  async getVotes () {
+    return []
   }
 }
 
-module.exports = DBLMock;
+module.exports = DBLMock

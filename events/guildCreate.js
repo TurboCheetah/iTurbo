@@ -1,33 +1,33 @@
-const Event = require("../structures/Event.js");
-const { MessageEmbed } = require("discord.js");
+const Event = require('../structures/Event.js')
+const { MessageEmbed } = require('discord.js')
 
 class GuildCreate extends Event {
-  async run(guild) {
-    if(!guild.available) return;
+  async run (guild) {
+    if (!guild.available) return
 
-    const channel = this.client.channels.cache.get("735636902102827108");
+    const channel = this.client.channels.cache.get('735636902102827108')
 
-    if(!guild.owner && guild.ownerID) await guild.members.fetch(guild.ownerID);
+    if (!guild.owner && guild.ownerID) await guild.members.fetch(guild.ownerID)
 
     // If it exists in the settings then definitely an unavailable guild came back.
-    const exists = this.client.settings.guilds.cache.has(guild.id);
+    const exists = this.client.settings.guilds.cache.has(guild.id)
 
     const embed = new MessageEmbed()
-      .setTitle(exists ? "An unavailable guild came back" : "iTurbo joined a new server!")
+      .setTitle(exists ? 'An unavailable guild came back' : 'iTurbo joined a new server!')
       .setDescription(guild.name)
       .setColor(0x9590EE)
       .setThumbnail(guild.iconURL())
-      .addField("Owner", guild.owner.user.tag)
-      .addField("Member Count", guild.memberCount)
-      .setFooter(guild.id);
+      .addField('Owner', guild.owner.user.tag)
+      .addField('Member Count', guild.memberCount)
+      .setFooter(guild.id)
 
     /* if (this.client.settings.guildBlacklist.includes(guild.id)) { TODO
       embed.setFooter(guild.id + " | Blacklisted");
       guild.leave();
       this.client.emit("warn", `Blacklisted guild detected: ${guild.name} [${guild.id}]`);
-    }*/
-    
-    return channel.send({ embed });
+    } */
+
+    return channel.send({ embed })
 
     /* TODO
     const join = guild.channels.find((c) => c.type === "text" && c.postable);
@@ -48,4 +48,4 @@ class GuildCreate extends Event {
   }
 }
 
-module.exports = GuildCreate;
+module.exports = GuildCreate

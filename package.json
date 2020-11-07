@@ -31,6 +31,7 @@
     "img-api": "^1.0.3",
     "module-alias": "^2.2.2",
     "pg": "^8.0.3",
+    "pornsearch": "^2.4.3",
     "rule34js": "^2.2.0"
   }
 }

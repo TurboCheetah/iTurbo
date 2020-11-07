@@ -1,33 +1,33 @@
-const Command = require("../../structures/Command.js");
-const { MessageAttachment } = require("discord.js");
+const Command = require('../../structures/Command.js')
+const { MessageAttachment } = require('discord.js')
 
 class Father extends Command {
-  constructor(...args) {
+  constructor (...args) {
     super(...args, {
       description: "As a father it's my job to respect my son's opinions",
       cooldown: 3,
       cost: 5,
-      usage: "father [@user] <text>"
-    });
+      usage: 'father [@user] <text>'
+    })
   }
 
-  async run(ctx, [user, ...args]) {
+  async run (ctx, [user, ...args]) {
     user = await this.verifyUser(ctx, user, true)
       .catch(() => {
-        args.unshift(user);
-        return ctx.author;
-      });
+        args.unshift(user)
+        return ctx.author
+      })
 
-    if(!args.length) return ctx.reply("You need to provide some text.");
+    if (!args.length) return ctx.reply('You need to provide some text.')
 
-    const text = args.join(" ");
+    const text = args.join(' ')
 
-    if(text.length > 42) return ctx.reply("Text cannot be longer than 42 characters.");
+    if (text.length > 42) return ctx.reply('Text cannot be longer than 42 characters.')
 
-    const img = await this.client.img.father(user.displayAvatarURL({ size: 256, format: "png" }), text);
+    const img = await this.client.img.father(user.displayAvatarURL({ size: 256, format: 'png' }), text)
 
-    return ctx.reply(new MessageAttachment(img, "father.png"));
+    return ctx.reply(new MessageAttachment(img, 'father.png'))
   }
 }
 
-module.exports = Father;
+module.exports = Father

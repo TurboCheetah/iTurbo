@@ -1,24 +1,24 @@
-const Command = require("../../structures/Command.js");
-const fetch = require("node-fetch");
+const Command = require('../../structures/Command.js')
+const fetch = require('node-fetch')
 
 class YoMomma extends Command {
-  constructor(...args) {
+  constructor (...args) {
     super(...args, {
-      description: "Yo momma so fat.",
-      aliases: ["urmom"],
+      description: 'Yo momma so fat.',
+      aliases: ['urmom'],
       cooldown: 3,
-      usage: "yomomma [@user]"
-    });
+      usage: 'yomomma [@user]'
+    })
   }
-  
-  async run(ctx, [user]) {
-    user = await this.verifyUser(ctx, user, true);
 
-    const { joke } = await fetch("http://api.yomomma.info")
-      .then((res) => res.json());
+  async run (ctx, [user]) {
+    user = await this.verifyUser(ctx, user, true)
 
-    return ctx.reply(`${user}, ${joke}`);
+    const { joke } = await fetch('http://api.yomomma.info')
+      .then((res) => res.json())
+
+    return ctx.reply(`${user}, ${joke}`)
   }
 }
 
-module.exports = YoMomma;
+module.exports = YoMomma

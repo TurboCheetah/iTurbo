@@ -1,14 +1,13 @@
-const { Structures } = require("discord.js");
+const { Structures } = require('discord.js')
 
-module.exports = Structures.extend("DMChannel", (DMChannel) => class MiyakoDMChannel extends DMChannel {
-
-  get readable() {
+module.exports = Structures.extend('DMChannel', (DMChannel) => class MiyakoDMChannel extends DMChannel {
+  get readable () {
     // DMs always readable.
-    return true;
+    return true
   }
 
-  get postable() {
+  get postable () {
     // DMs always postable.
-    return true;
+    return true
   }
-});
+})

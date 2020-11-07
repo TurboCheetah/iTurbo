@@ -1,22 +1,22 @@
-const Command = require("../../structures/Command.js");
+const Command = require('../../structures/Command.js')
 
 class RandomCase extends Command {
-  constructor(...args) {
+  constructor (...args) {
     super(...args, {
-      description: "Random case a message.",
-      usage: "randomcase <text>",
-      aliases: ["rcase"]
-    });
+      description: 'Random case a message.',
+      usage: 'randomcase <text>',
+      aliases: ['rcase']
+    })
   }
 
-  async run(ctx, args) {
-    if(!args.length) return ctx.reply("You didn't give me any input.");
+  async run (ctx, args) {
+    if (!args.length) return ctx.reply("You didn't give me any input.")
 
-    return ctx.reply(args.join(" ").replace(/\w/g, (ch) => {
-      const fn = this.client.utils.random([ch.toUpperCase, ch.toLowerCase]);
-      return fn.apply(ch);
-    }));
+    return ctx.reply(args.join(' ').replace(/\w/g, (ch) => {
+      const fn = this.client.utils.random([ch.toUpperCase, ch.toLowerCase])
+      return fn.apply(ch)
+    }))
   }
 }
 
-module.exports = RandomCase;
+module.exports = RandomCase
