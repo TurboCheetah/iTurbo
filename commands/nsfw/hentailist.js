@@ -71,7 +71,7 @@ class HentaiList extends Command {
 
         newestID = await hentailist(newestID)
 
-        newestID = newestID[0].id
+        newestID = newestID.id
 
         await hentailist(Math.random() * (newestID - 5) + 5)
         break
