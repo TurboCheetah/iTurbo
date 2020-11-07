@@ -9,7 +9,7 @@ class HackBan extends Command {
       userPermissions: ['BAN_MEMBERS'],
       aliases: ['hban'],
       botPermissions: ['BAN_MEMBERS'],
-      usage: '<userID> [reason...]',
+      usage: 'hackban <userID> [reason]',
       guildOnly: true
     })
   }
