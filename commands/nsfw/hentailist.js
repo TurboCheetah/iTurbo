@@ -18,32 +18,6 @@ class HentaiList extends Command {
   async run (ctx, args) {
     if (!args.length) return ctx.reply('What am I supposed to search for?')
     var args = args.join('-').toString().split('-')[0]
-    switch (args) {
-      case 'random':
-        // Get latest HAnime upload ID
-        const controller = new AbortController()
-        const timeout = setTimeout(() => controller.abort(), 5000)
-        var $ = await fetch('https://hanime.tv/', {
-          signal: controller.signal
-        }).then((r) => {
-          if (!r.ok) throw new Error('Something went wrong.')
-          return r.text()
-        }).then((html) => cheerio.load(html))
-        clearTimeout(timeout)
-
-        var newestID = $('.elevation-3.mb-3.hvc.item.card').first().find('a').attr('alt')
-
-        newestID = await hentailist(newestID)
-
-        newestID = newestID[0].id
-
-        await hentailist(Math.random() * (newestID - 5) + 5)
-        break
-
-      default:
-        await hentailist(args)
-        break
-    }
 
     const hentailist = async (id) => {
       const controller = new AbortController()
@@ -77,6 +51,33 @@ class HentaiList extends Command {
         .setFooter(`ID: ${data.id} | Requested by: ${ctx.author.tag} • Powered by HentaiList.io`, ctx.author.displayAvatarURL({ size: 32 }))
 
       return ctx.reply({ embed })
+    }
+
+    switch (args) {
+      case 'random':
+        // Get latest HAnime upload ID
+        const controller = new AbortController()
+        const timeout = setTimeout(() => controller.abort(), 5000)
+        var $ = await fetch('https://hanime.tv/', {
+          signal: controller.signal
+        }).then((r) => {
+          if (!r.ok) throw new Error('Something went wrong.')
+          return r.text()
+        }).then((html) => cheerio.load(html))
+        clearTimeout(timeout)
+
+        var newestID = $('.elevation-3.mb-3.hvc.item.card').first().find('a').attr('alt')
+
+        newestID = await hentailist(newestID)
+
+        newestID = newestID[0].id
+
+        await hentailist(Math.random() * (newestID - 5) + 5)
+        break
+
+      default:
+        await hentailist(args)
+        break
     }
   }
 }
