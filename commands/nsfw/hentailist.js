@@ -33,7 +33,11 @@ class HentaiList extends Command {
 
         var newestID = $('.elevation-3.mb-3.hvc.item.card').first().find('a').attr('alt')
 
-        await hentailist(newestID)
+        newestID = await hentailist(newestID)
+
+        newestID = newestID[0].id
+
+        await hentailist(Math.random() * (newestID - 5) + 5)
         break
 
       default:
