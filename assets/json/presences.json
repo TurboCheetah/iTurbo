@@ -1,19 +1,19 @@
 [
   {
     "type": "PLAYING",
-    "message": "@iTurbo help ￮ {{guilds}} servers"
+    "message": "@iTurbo help ● {{guilds}} servers"
   },
   {
     "type": "PLAYING",
-    "message": "|help ￮ {{guilds}} servers"
+    "message": "|help ● {{guilds}} servers"
   },
   {
     "type": "PLAYING",
-    "message": "|invite ￮ {{guilds}} servers"
+    "message": "|invite ● {{guilds}} servers"
   },
   {
     "type": "PLAYING",
-    "message": "|support ￮ {{guilds}} servers"
+    "message": "|support ● {{guilds}} servers"
   },
   {
     "type": "LISTENING",
