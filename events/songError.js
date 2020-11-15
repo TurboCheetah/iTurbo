@@ -2,7 +2,7 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class songError extends Event {
-  async run (msg, queue, song) {
+  async run (msg, err) {
     /*     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(':musical_note: Playing :musical_note:')

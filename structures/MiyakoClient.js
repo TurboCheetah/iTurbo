@@ -35,9 +35,6 @@ class MiyakoClient extends Client {
     this.distube = new DisTube(this, { searchSongs: true, emitNewSongOnly: true, highWaterMark: 1 << 25 }) // Distube instance for playing music
 
     // More DisTube stuff
-    // Queue status template
-    const status = (queue) => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || 'Off'}\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off'}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
-
     this.distube.on('playSong', (msg, queue, song) => this.emit('playSong', msg, queue, song))
       .on('addSong', (msg, queue, song) => this.emit('addSong', msg, queue, song))
       .on('playList', (msg, queue, playlist, song) => this.emit('playList', msg, queue, playlist, song))
