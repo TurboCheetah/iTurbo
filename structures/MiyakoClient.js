@@ -38,7 +38,7 @@ class MiyakoClient extends Client {
     // Queue status template
     const status = (queue) => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || 'Off'}\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off'}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
 
-    this.client.distube.on('playSong', (msg, queue, song) => this.emit('playSong', msg, queue, song))
+    this.distube.on('playSong', (msg, queue, song) => this.emit('playSong', msg, queue, song))
       .on('addSong', (msg, queue, song) => this.emit('addSong', msg, queue, song))
       .on('playList', (msg, queue, playlist, song) => this.emit('playList', msg, queue, playlist, song))
       .on('addList', (msg, queue, playlist) => this.emit('addList', msg, queue, playlist))
