@@ -8,7 +8,7 @@ class playSong extends Event {
       .setAuthor(':musical_note: Playing :musical_note:')
       .setTitle(song.name)
       .setURL(song.url)
-      .setThumbnail(data.cover_url)
+      .setThumbnail(song.thumbnail)
       .addField('Requested by', song.user, true)
       .addField('Duration', song.formattedDuration, true)
       .addField('Queue', `${queue.songs.length === 1 ? `${queue.songs.length} song` : `${queue.songs.length} songs`} - (${queue.formattedDuration})`, true)
