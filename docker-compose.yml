@@ -1,0 +1,17 @@
+version: '3.3'
+services:
+    iturbo:
+        build: .
+        container_name: iTurbo
+        restart: always
+    database:
+        image: "postgres"
+        environment: 
+          - POSTGRES_USER=turbo
+          - POSTGRES_PASSWORD=turbodb
+          - POSTGRES_DB=miyako
+        volumes:
+          - database-data:/home/turbo/iTurbo/db
+
+volumes:
+  database-data:

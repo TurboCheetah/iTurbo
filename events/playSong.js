@@ -5,7 +5,7 @@ class playSong extends Event {
   async run (msg, queue, song) {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(':musical_note: Playing :musical_note:')
+      .setAuthor('🎵 Playing 🎵')
       .setTitle(song.name)
       .setURL(song.url)
       .setThumbnail(song.thumbnail)
