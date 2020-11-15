@@ -153,6 +153,7 @@ class MessageEvent extends Event {
 
     this.client.distube.on('playSong', (msg, queue, song) => msg.channel.send(`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`))
       .on('addSong', (msg, queue, song) => {
+        console.log(song);
         msg.channel.send(`Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`)
       })
       .on('playList', (msg, queue, playlist, song) => msg.channel.send(`Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`))
