@@ -151,18 +151,28 @@ class MessageEvent extends Event {
     // Queue status template
     const status = (queue) => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || 'Off'}\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off'}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
 
-    this.client.distube.on('playSong', (msg, queue, song) => msg.channel.send(
-      `Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
-    ))
-      .on('addSong', (msg, queue, song) => msg.channel.send(
-      `Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`
-      ))
-      .on('playList', (msg, queue, playlist, song) => msg.channel.send(
-      `Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`
-      ))
-      .on('addList', (msg, queue, playlist) => msg.channel.send(
-      `Added \`${playlist.title}\` playlist (${playlist.total_items} songs) to queue\n${status(queue)}`
-      ))
+    this.client.distube.on('playSong', (msg, queue, song) => msg.channel.send(`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`))
+      .on('addSong', (msg, queue, song) => {
+        console.log(song);
+/*         const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setTitle(song.name)
+        .setURL(data.url)
+        .setThumbnail(data.cover_url)
+        .setImage(data.poster_url)
+        .addField('Description', data.description ? this.client.utils.shorten(data.description.replace(/(<([^>]+)>)/ig, '').replace(/\/r/g, '').replace(/\/n/g, '')) : 'No description given.')
+        .addField('Release Date', data.released_at, true)
+        .addField('Producer', data.brand, true)
+        .addField('Censored', this.client.utils.toProperCase(data.is_censored.toString()), true)
+        .addField('Views', data.views, true)
+        .addField('Likes', data.likes, true)
+        .addField('Interests', data.interests, true)
+        .addField('Tags', `\`\`\`${tags.join(', ')}\`\`\``)
+        .setFooter(`ID: ${data.id} | Requested by: ${ctx.author.tag} • Powered by HentaiList.io`, ctx.author.displayAvatarURL({ size: 32 })) */
+        msg.channel.send(`Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`)
+      })
+      .on('playList', (msg, queue, playlist, song) => msg.channel.send(`Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`))
+      .on('addList', (msg, queue, playlist) => msg.channel.send(`Added \`${playlist.title}\` playlist (${playlist.total_items} songs) to queue\n${status(queue)}`))
     // DisTubeOptions.searchSongs = true
       .on('searchResult', (msg, result) => {
         let i = 0
@@ -170,9 +180,7 @@ class MessageEvent extends Event {
       })
     // DisTubeOptions.searchSongs = true
       .on('searchCancel', (msg) => msg.channel.send('Searching canceled'))
-      .on('error', (msg, err) => msg.channel.send(
-        'An error encountered: ' + err
-      ))
+      .on('error', (msg, err) => msg.channel.send('An error encountered: ' + err))
 
     // Create a context and prepare to execute the command.
     const ctx = new CommandContext(this.client, msg)
