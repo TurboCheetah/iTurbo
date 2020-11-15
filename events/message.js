@@ -148,7 +148,7 @@ class MessageEvent extends Event {
       await msg.member.takePoints(cost)
     }
 
-    this.distube.on('playSong', (msg, queue, song) => msg.channel.send(
+    this.client.distube.on('playSong', (msg, queue, song) => msg.channel.send(
       `Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
     ))
       .on('addSong', (msg, queue, song) => msg.channel.send(
