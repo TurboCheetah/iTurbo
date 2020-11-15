@@ -148,27 +148,6 @@ class MessageEvent extends Event {
       await msg.member.takePoints(cost)
     }
 
-    // Queue status template
-    const status = (queue) => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || 'Off'}\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off'}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
-
-    this.client.distube.on('playSong', (msg, queue, song) => {
-      console.log(song);
-      msg.channel.send(`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`)
-    })
-      .on('addSong', (msg, queue, song) => {
-        msg.channel.send(`Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`)
-      })
-      .on('playList', (msg, queue, playlist, song) => msg.channel.send(`Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`))
-      .on('addList', (msg, queue, playlist) => msg.channel.send(`Added \`${playlist.title}\` playlist (${playlist.total_items} songs) to queue\n${status(queue)}`))
-    // DisTubeOptions.searchSongs = true
-      .on('searchResult', (msg, result) => {
-        let i = 0
-        msg.channel.send(`**Choose an option from below**\n${result.map(song => `**${++i}**. ${song.name} - \`${song.formattedDuration}\``).join('\n')}\n*Enter anything else or wait 60 seconds to cancel*`)
-      })
-    // DisTubeOptions.searchSongs = true
-      .on('searchCancel', (msg) => msg.channel.send('Searching canceled'))
-      .on('error', (msg, err) => msg.channel.send('An error encountered: ' + err))
-
     // Create a context and prepare to execute the command.
     const ctx = new CommandContext(this.client, msg)
 
