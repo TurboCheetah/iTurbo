@@ -16,7 +16,6 @@ class playSong extends Event {
       .addField('Loop', queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off', true)
       .addField('Autoplay', queue.autoplay ? 'On' : 'Off', true)
       .addField('Enabled Filters', queue.filter || 'Off', true)
-      .setFooter(`ID: ${data.id} | Requested by: ${ctx.author.tag} • Powered by HentaiList.io`, ctx.author.displayAvatarURL({ size: 32 }))
     msg.channel.send({ embed })
   }
 }
