@@ -10,6 +10,7 @@ const loadSchema = require('../utils/schema.js')
 const Settings = require('./Settings.js')
 const presences = require('../assets/json/presences.json')
 const imgapi = require('img-api')
+const DisTube = require('distube')
 
 class MiyakoClient extends Client {
   constructor (dev) {
@@ -31,6 +32,7 @@ class MiyakoClient extends Client {
     this.sweeper = new MemorySweeper(this)
     this.responses = require('../utils/responses.js')
     this.img = new imgapi.Client()
+    this.distube = new DisTube(Client, { searchSongs: true, emitNewSongOnly: true, highWaterMark: 1 << 25 })
 
     // Settings.
     this.settings = {
