@@ -151,9 +151,11 @@ class MessageEvent extends Event {
     // Queue status template
     const status = (queue) => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || 'Off'}\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off'}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
 
-    this.client.distube.on('playSong', (msg, queue, song) => msg.channel.send(`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`))
+    this.client.distube.on('playSong', (msg, queue, song) => {
+      console.log(song);
+      msg.channel.send(`Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`)
+    })
       .on('addSong', (msg, queue, song) => {
-        msg.channel.send(song.name)
         msg.channel.send(`Added ${song.name} - \`${song.formattedDuration}\` to the queue by ${song.user}`)
       })
       .on('playList', (msg, queue, playlist, song) => msg.channel.send(`Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`))
