@@ -14,9 +14,10 @@ class Play extends Command {
   }
 
   async run (ctx, args) {
-    if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
+/*     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
 
-    this.client.distube.play(ctx.message, args.join(' '))
+    this.client.distube.play(ctx.message, args.join(' ')) */
+    console.log(this.client);
   }
 }
 

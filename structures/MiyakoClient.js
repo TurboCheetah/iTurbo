@@ -32,7 +32,7 @@ class MiyakoClient extends Client {
     this.sweeper = new MemorySweeper(this)
     this.responses = require('../utils/responses.js')
     this.img = new imgapi.Client()
-    this.distube = new DisTube(Client, { searchSongs: true, emitNewSongOnly: true, highWaterMark: 1 << 25 })
+    this.distube = new DisTube(this, { searchSongs: true, emitNewSongOnly: true, highWaterMark: 1 << 25 })
 
     // Settings.
     this.settings = {
