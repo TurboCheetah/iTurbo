@@ -148,6 +148,9 @@ class MessageEvent extends Event {
       await msg.member.takePoints(cost)
     }
 
+    // Queue status template
+    const status = (queue) => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || 'Off'}\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off'}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
+
     this.client.distube.on('playSong', (msg, queue, song) => msg.channel.send(
       `Playing \`${song.name}\` - \`${song.formattedDuration}\`\nRequested by: ${song.user}\n${status(queue)}`
     ))
