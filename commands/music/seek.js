@@ -18,7 +18,7 @@ class Seek extends Command {
       return ctx.reply('Please supply a valid number!')
     }
 
-    distube.seek(ctx.message, Number(args[0]))
+    this.client.distube.seek(ctx.message, Number(args[0]))
     ctx.reply('🛑 Stopped')
   }
 }

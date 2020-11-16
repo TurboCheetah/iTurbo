@@ -14,7 +14,7 @@ class Stop extends Command {
   }
 
   async run (ctx) {
-    distube.stop(ctx.message)
+    this.client.distube.stop(ctx.message)
     ctx.reply('🛑 Stopped')
   }
 }
