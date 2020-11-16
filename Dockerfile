@@ -4,7 +4,8 @@ WORKDIR /iTurbo
 COPY package*.json ./
 COPY ecosystem.config.js ./
 
-ENV PM2_ENV dev
+ARG PM2_ENV
+ENV PM2_ENV "$PM2_ENV"
 RUN npm install
 COPY . .
-CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", $PM2_ENV]
+CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "$PM2_ENV"]

@@ -1,12 +1,14 @@
 version: '3.3'
 services:
     iturbo:
-        build: .
+        build:
+        context: .
+        dockerfile: ./Dockerfile
+        args:
+          - PM2_ENV=production
         image: iturbo-discord
         container_name: iTurbo
         restart: always
-        environment: 
-          - PM2_ENV=production
         depends_on: 
           - iturbo-db
           - iturbo-img-api
