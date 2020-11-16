@@ -85,7 +85,7 @@ class Help extends Command {
       .setAuthor('Help', this.client.user.displayAvatarURL({ size: 64 }))
       .setDescription(`For all commands in a category run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <category>\`\nIf you need further help feel free to join the [support server](https://discord.gg/FFGrsWE).`)
       .addField('Available Categories', keys.map(key => `\`${key}\``).join(' '))
-      .setImage('https://heroin.is-ne.at/pRxRuE.gif')
+      .setImage('https://i.imgur.com/g3jV9fg.gif')
       .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 32 }))
 
     /*     for (const category of keys) {
