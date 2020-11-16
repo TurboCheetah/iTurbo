@@ -14,6 +14,11 @@ class Volume extends Command {
   }
 
   async run (ctx, args) {
+    if (!args[0]) {
+      const queue = this.client.distube.getQueue(ctx.message)
+      return ctx.reply(`The volume is currently at ${queue.volume}%.`)
+    }
+
     if (!Number(args[0])) {
       return ctx.reply('Invalid number! Please choose a percent from 0-100%')
     }
