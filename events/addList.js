@@ -9,7 +9,7 @@ class addList extends Event {
       .setTitle(playlist.name)
       .setURL(playlist.url)
       .setThumbnail(playlist.thumbnail)
-      .addField('Requested by', song.user, true)
+      .addField('Requested by', playlist.user, true)
       .addField('Length', `${playlist.songs.length === 1 ? `1 song` : `${playlist.songs.length} songs`} - ${playlist.formattedDuration}`, true)
       .addField('Queue', `${queue.songs.length === 1 ? `1 song` : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)
       .addField('Volume', `${queue.volume}%`, true)
