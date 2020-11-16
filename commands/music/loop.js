@@ -15,7 +15,7 @@ class Loop extends Command {
 
   async run (ctx, args) {
     // if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
-    switch (args) {
+    switch (args[0]) {
       case 'disable' || 'off':
         this.client.distube.setRepeatMode(ctx.message, 0)
         break
