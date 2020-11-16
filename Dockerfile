@@ -1,6 +1,11 @@
-FROM keymetrics/pm2:latest-alpine
+FROM keymetrics/pm2:latest-stretch
 
-RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    python3.8 \
+    python3-pip \
+    && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 RUN python3 -m ensurepip
 RUN pip3 install --no-cache --upgrade pip setuptools
 
