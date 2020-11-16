@@ -6,7 +6,7 @@ class Loop extends Command {
       description: 'Turns looping on',
       aliases: ['repeat'],
       botPermissions: ['CONNECT', 'SPEAK'],
-      usage: 'loop <0 (off) or 1 (on)>',
+      usage: 'loop <disable | song | queue>',
       guildOnly: true,
       cost: 0,
       cooldown: 20
@@ -14,10 +14,21 @@ class Loop extends Command {
   }
 
   async run (ctx, args) {
-    if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
-
-    this.client.distube.setRepeatMode(ctx.message, parseInt(args[0]))
-    ctx.reply('⏸ Paused')
+    // if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
+    switch (args) {
+      case 'disable' || 'off':
+        this.client.distube.setRepeatMode(ctx.message, 0)
+        break
+      case 'song':
+        this.client.distube.setRepeatMode(ctx.message, 1)
+        break
+      case 'queue':
+        this.client.distube.setRepeatMode(ctx.message, 2)
+        break
+      default:
+        ctx.reply('Invalid option!')
+        break
+    }
   }
 }
 
