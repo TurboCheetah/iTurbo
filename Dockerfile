@@ -1,8 +1,7 @@
 FROM keymetrics/pm2:latest-stretch
 
-RUN apt-get update && apt-get -y install \
-    python3.8 \
-    python3.8-dev \
+RUN apt-get update -qq && apt-get install -qq -y --no-install-recommends \
+    python3.6 \
     python3-pip \
     && \
     apt-get clean && \
