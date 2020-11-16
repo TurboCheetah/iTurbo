@@ -20,63 +20,63 @@ class Filter extends Command {
         break
       case '3d':
         this.client.distube.setFilter(ctx.message, '3d')
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'bassboost':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'echo':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'karaoke':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'nightcore':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'vaporwave':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'flanger':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'gate':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'haas':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'reverse':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'surround':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'mcompand':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'phaser':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'tremolo':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       case 'earwax':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+        ctx.reply(`Enabled \`${args[0].toLowerCase()}\` filter.`)
         break
       default:
         ctx.reply(`Invalid filter! Use \`${ctx.guild ? ctx.guild.settings.prefix : '|'}filter list\` to get a list of available filters.`)
