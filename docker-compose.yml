@@ -2,8 +2,10 @@ version: '3.3'
 services:
     iturbo:
         build: .
+        image: iturbo-discord
         container_name: iTurbo
         restart: always
+        depends_on: iturbo-db
     iturbo-db:
         image: "postgres"
         environment: 
@@ -11,7 +13,6 @@ services:
           - POSTGRES_PASSWORD=turbodb
           - POSTGRES_DB=miyako
         volumes:
-          - database-data:/home/turbo/iTurbo/db
-
-volumes:
-  database-data:
+          - ./db:/var/lib/postgresql/data
+        ports: 
+          - '5432:5432'
