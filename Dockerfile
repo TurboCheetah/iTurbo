@@ -6,7 +6,6 @@ RUN pip3 install --no-cache --upgrade pip setuptools
 
 WORKDIR /iTurbo
 COPY package*.json ./
-COPY ecosystem.config.js ./
 
 RUN npm install
 COPY . .
