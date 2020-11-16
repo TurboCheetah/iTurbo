@@ -15,8 +15,9 @@ class Queue extends Command {
   }
 
   async run (ctx) {
-    let queue = this.client.distube.getQueue(ctx.message)
-    let upcoming = queue.songs.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
+    const queue = this.client.distube.getQueue(ctx.message)
+    let upcoming = queue.songs.filter((song, id) => id > 0)
+    upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
 
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
@@ -26,10 +27,6 @@ class Queue extends Command {
       .setThumbnail(queue.songs[0].thumbnail)
       .setDescription(`**Next Songs**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
     ctx.reply({ embed })
-
-    ctx.reply('Current queue:\n' + queue.songs.map((song, id) =>
-    `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``
-    ).join('\n'))
   }
 }
 
