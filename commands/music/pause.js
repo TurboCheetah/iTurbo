@@ -3,10 +3,10 @@ const Command = require('../../structures/Command.js')
 class Pause extends Command {
   constructor (...args) {
     super(...args, {
-      description: 'Plays the desired song',
-      aliases: ['pl'],
+      description: 'Pauses the currently playing song',
+      aliases: [],
       botPermissions: ['CONNECT', 'SPEAK'],
-      usage: 'play <search query or URL>',
+      usage: 'pause',
       guildOnly: true,
       cost: 0,
       cooldown: 20
