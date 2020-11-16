@@ -15,7 +15,7 @@ class Resume extends Command {
 
   async run (ctx) {
     if (!this.client.distube.isPaused(ctx.message)) {
-        return ctx.reply('The queue has not been paused!')
+      return ctx.reply('The queue has not been paused!')
     }
 
     this.client.distube.resume(ctx.message)
