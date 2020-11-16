@@ -6,6 +6,8 @@ services:
           dockerfile: ./Dockerfile
           args:
             - PM2_ENV=production
+            - PM2_PUBLIC_KEY=2iln68dz43vcpg3
+            - PM2_SECRET_KEY=i0ny7y1ewq5ehmo
         image: iturbo-discord
         container_name: iTurbo
         restart: always
