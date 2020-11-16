@@ -20,7 +20,7 @@ class Volume extends Command {
 
     this.client.distube.setVolume(ctx.message, Number(args[0]))
 
-    ctx.reply(`Set volume to ${args[0]} percent!`)
+    ctx.reply(`Set volume to ${args[0]}%!`)
   }
 }
 
