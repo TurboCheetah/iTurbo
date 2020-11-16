@@ -66,7 +66,7 @@ class Stats extends Command {
         `**Commands Ran:** ${this.store.ran}`
       ].join('\n'))
       .addField('Links', [
-        ':envelope_with_arrow: [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249592583979008&permissions=2016537702&scope=bot)',
+        ':envelope_with_arrow: [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)',
         ':video_game: [Join our Discord Server](https://discord.gg/FFGrsWE)'
       ].join('\n')))
   }
