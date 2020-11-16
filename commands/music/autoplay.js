@@ -14,9 +14,9 @@ class Autoplay extends Command {
   }
 
   async run (ctx) {
-    let mode = this.client.distube.toggleAutoplay(ctx.message);
-    
-    ctx.reply(`Turned autoplay ${mode ? 'on': 'off'}.`)
+    const mode = this.client.distube.toggleAutoplay(ctx.message)
+
+    ctx.reply(`Turned autoplay ${mode ? 'on' : 'off'}.`)
   }
 }
 
