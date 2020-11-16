@@ -8,6 +8,7 @@ WORKDIR /iTurbo
 COPY package*.json ./
 
 RUN npm install
+RUN rm ./node_modules/distube/youtube-dl/youtube-dl
 COPY youtube-dl ./node_modules/distube/youtube-dl/
 RUN chmod +x ./node_modules/distube/youtube-dl/youtube-dl
 COPY . .
