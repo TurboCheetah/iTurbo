@@ -2,10 +2,10 @@ version: '3.3'
 services:
     iturbo:
         build:
-        context: .
-        dockerfile: ./Dockerfile
-        args:
-          - PM2_ENV=production
+          context: .
+          dockerfile: ./Dockerfile
+          args:
+            - PM2_ENV=production
         image: iturbo-discord
         container_name: iTurbo
         restart: always
