@@ -18,7 +18,7 @@ class Play extends Command {
       this.client.distube.resume(ctx.message)
       return ctx.reply('▶ Resumed')
     }
-    
+
     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
 
     this.client.distube.play(ctx.message, args.join(' '))
