@@ -57,8 +57,8 @@ class MiyakoClient extends Client {
     this.points = new Points(this)
     this.on('ready', this.onReady.bind(this))
 
-    const { user, password, database } = this.config.postgresql
-    this.db = new Pool({ user, password, database })
+    const { host, user, password, database } = this.config.postgresql
+    this.db = new Pool({ host, user, password, database })
     this.dbconn = null
   }
 
