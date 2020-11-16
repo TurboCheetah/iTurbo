@@ -13,9 +13,7 @@ class Pause extends Command {
     })
   }
 
-  async run (ctx, args) {
-    if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
-
+  async run (ctx) {
     this.client.distube.pause(ctx.message)
     ctx.reply('⏸ Paused')
   }
