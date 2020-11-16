@@ -1,8 +1,8 @@
 FROM keymetrics/pm2:latest-alpine
 
-RUN apk add --update --no-cache python2.7 && ln -sf python2.7 /usr/bin/python
-RUN python2.7 -m ensurepip
-RUN pip2.7 install --no-cache --upgrade pip setuptools
+RUN apk add --update --no-cache python2 && ln -sf python2 /usr/bin/python
+RUN python2 -m ensurepip
+RUN pip2 install --no-cache --upgrade pip setuptools
 
 WORKDIR /iTurbo
 COPY package*.json ./
