@@ -13,7 +13,7 @@ class Seek extends Command {
     })
   }
 
-  async run (ctx) {
+  async run (ctx, args) {
     if (isNaN(args[0])) {
       return ctx.reply('Please supply a valid number!')
     }
