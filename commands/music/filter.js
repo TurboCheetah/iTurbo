@@ -3,10 +3,10 @@ const Command = require('../../structures/Command.js')
 class Filter extends Command {
   constructor (...args) {
     super(...args, {
-      description: 'Enable or disable a filter',
+      description: 'Enable or disable a filter. Run the command again to disable a filter.',
       aliases: [],
       botPermissions: ['CONNECT', 'SPEAK'],
-      usage: 'skip',
+      usage: 'filter <filter>',
       guildOnly: true,
       cost: 0,
       cooldown: 20
@@ -78,10 +78,6 @@ class Filter extends Command {
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
         ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
         break
-        case 'off':
-            this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-            ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
-            break
       default:
         ctx.reply(`Invalid filter! Use \`${ctx.guild ? ctx.guild.settings.prefix : '|'}filter list\` to get a list of available filters.`)
         break
