@@ -5,7 +5,9 @@ services:
         image: iturbo-discord
         container_name: iTurbo
         restart: always
-        depends_on: iturbo-db
+        depends_on: 
+          - iturbo-db
+          - iturbo-img-api
     iturbo-db:
         image: "postgres"
         environment: 
@@ -16,3 +18,7 @@ services:
           - ./db:/var/lib/postgresql/data
         ports: 
           - '5432:5432'
+    iturbo-img-api:
+        ports:
+          - '3030:3030'
+        image: 'iceemc/img-api:latest'
