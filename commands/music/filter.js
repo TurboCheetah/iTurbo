@@ -16,7 +16,7 @@ class Filter extends Command {
   async run (ctx, args) {
     switch (args[0]) {
       case 'list':
-        ctx.reply('Available filters:\n```3D\nbassboost\necho\nkaraoke\nnightcore\nvaporwave\nflanger\ngate\nhaas\nreverse\nsurround\nmcompand\nphaser\ntremolo\nearwax')
+        ctx.reply('Available filters:\n```3D\nbassboost\necho\nkaraoke\nnightcore\nvaporwave\nflanger\ngate\nhaas\nreverse\nsurround\nmcompand\nphaser\ntremolo\nearwax```')
         break
       case '3d':
         this.client.distube.setFilter(ctx.message, '3d')
