@@ -16,7 +16,7 @@ class Pause extends Command {
   async run (ctx) {
     if (this.client.distube.isPaused(ctx.message)) {
       this.client.distube.resume(ctx.message)
-      ctx.reply('▶ Resumed')
+      return ctx.reply('▶ Resumed')
     }
 
     this.client.distube.pause(ctx.message)
