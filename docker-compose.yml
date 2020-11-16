@@ -5,6 +5,8 @@ services:
         image: iturbo-discord
         container_name: iTurbo
         restart: always
+        environment: 
+          - PM2_ENV=production
         depends_on: 
           - iturbo-db
           - iturbo-img-api

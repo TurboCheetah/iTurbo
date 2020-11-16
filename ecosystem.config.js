@@ -1,11 +1,12 @@
 module.exports = {
   apps: [{
     name: 'Bot',
-    script: 'index.js'
-  },
-  {
-    name: 'IMG-API',
-    cwd: '/home/turbo/bot/miyako/img-api',
-    script: 'main'
+    script: 'index.js',
+    env: {
+      NODE_ENV: 'dev'
+    },
+    env_production: {
+      NODE_ENV: 'prod'
+    }
   }]
 }

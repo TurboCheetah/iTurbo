@@ -1,7 +1,10 @@
-FROM node:14
+FROM keymetrics/pm2:latest-alpine
 
 WORKDIR /iTurbo
 COPY package*.json ./
+COPY ecosystem.config.js ./
+
+ENV PM2_ENV dev
 RUN npm install
 COPY . .
-CMD ["node", "index.js"]
+CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", PM2_ENV]
