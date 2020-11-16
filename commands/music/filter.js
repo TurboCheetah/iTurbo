@@ -78,6 +78,10 @@ class Filter extends Command {
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
         ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
         break
+        case 'off':
+            this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
+            ctx.reply(`Set current filter to ${args[0].toLowerCase()}`)
+            break
       default:
         ctx.reply(`Invalid filter! Use \`${ctx.guild ? ctx.guild.settings.prefix : '|'}filter list\` to get a list of available filters.`)
         break
