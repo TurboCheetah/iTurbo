@@ -19,7 +19,7 @@ class playList extends Event {
       .setFooter(`ID: ${data.id} | Requested by: ${ctx.author.tag} • Powered by HentaiList.io`, ctx.author.displayAvatarURL({ size: 32 }))
     msg.channel.send({ embed })
     msg.channel.send(`Play \`${playlist.title}\` playlist (${playlist.total_items} songs).\nRequested by: ${song.user}\nNow playing \`${song.name}\` - \`${song.formattedDuration}\`\n${status(queue)}`) */
-    console.log(playlist);
+    console.log(`Name: ${playlist.name}\nTitle: ${playlist.title}\nTotal: ${playlist.total_items}`);
   }
 }
 
