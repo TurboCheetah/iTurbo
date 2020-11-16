@@ -16,6 +16,11 @@ class Queue extends Command {
 
   async run (ctx) {
     const queue = this.client.distube.getQueue(ctx.message)
+
+    if (queue.songs.length === 0) {
+      return ctx.reply('There is nothing in the queue!')
+    }
+
     let upcoming = queue.songs.filter((song, id) => id > 0)
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
 
