@@ -82,7 +82,6 @@ class Filter extends Command {
         ctx.reply(`Invalid filter! Use \`${ctx.guild ? ctx.guild.settings.prefix : '|'}filter list\` to get a list of available filters.`)
         break
     }
-    this.client.distube.setFilter(ctx.message)
   }
 }
 
