@@ -1,13 +1,6 @@
-FROM keymetrics/pm2:latest-stretch
+FROM keymetrics/pm2:latest-alpine
 
-RUN apt-get update -qq && apt-get install software-properties-common -y -qq
-
-RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update -qq && apt-get install -qq -y --no-install-recommends \
-    python3.7 \
-    python3-pip \
-    && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
 RUN pip3 install --no-cache --upgrade pip setuptools
 
