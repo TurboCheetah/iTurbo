@@ -17,7 +17,7 @@ class Queue extends Command {
   async run (ctx) {
     const queue = this.client.distube.getQueue(ctx.message)
 
-    if (!queue.songs) {
+    if (!queue || queue === undefined) {
       return ctx.reply('There is nothing in the queue!')
     }
 
