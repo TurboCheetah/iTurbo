@@ -6,7 +6,7 @@ class Seek extends Command {
       description: 'Seeks to a desired time in the song',
       aliases: [],
       botPermissions: ['CONNECT', 'SPEAK'],
-      usage: 'seek <time>',
+      usage: 'seek <time in seconds>',
       guildOnly: true,
       cost: 0,
       cooldown: 10
@@ -18,7 +18,7 @@ class Seek extends Command {
       return ctx.reply('Please supply a valid number!')
     }
 
-    this.client.distube.seek(ctx.message, Number(args[0]))
+    this.client.distube.seek(ctx.message, Number(args[0]) * 1000)
     ctx.reply(`Moved ${args[0]} seconds ahead!`)
   }
 }
