@@ -30,7 +30,7 @@ class NowPlaying extends Command {
       .addField('Loop', queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off', true)
       .addField('Autoplay', queue.autoplay ? 'On' : 'Off', true)
       .addField('Enabled Filters', queue.filter || 'No filters have been enabled', true)
-    msg.channel.send({ embed })
+    ctx.reply({ embed })
   }
 }
 
