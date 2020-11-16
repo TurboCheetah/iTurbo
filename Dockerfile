@@ -1,6 +1,8 @@
 FROM keymetrics/pm2:latest-stretch
 
-RUN apt-get update -qq && apt-get install -qq -y --no-install-recommends \
+RUN apt-get update -qq && apt-get install software-properties-common
+
+RUN add-apt-repository ppa:deadsnakes/ppa && apt-get update -qq && apt-get install -qq -y --no-install-recommends \
     python3.6 \
     python3-pip \
     && \
