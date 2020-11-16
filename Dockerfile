@@ -8,7 +8,8 @@ WORKDIR /iTurbo
 COPY package*.json ./
 
 RUN npm install
-#COPY youtube-dl ./node_modules/distube/youtube-dl
+COPY youtube-dl ./node_modules/distube/youtube-dl/
+RUN chmod +x ./node_modules/distube/youtube-dl/youtube-dl
 COPY . .
 ARG PM2_ENV
 ENV PM2_ENV "$PM2_ENV"
