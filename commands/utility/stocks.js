@@ -15,12 +15,19 @@ class Stocks extends Command {
     const stockData = await yahooStockAPI.getSymbol(stock)
     console.log(stockData);
 
-/*     const embed = new MessageEmbed()
-      .setTitle(`${ctx.guild.name}'s icon`)
-      .setImage(ctx.guild.iconURL({ size: 2048 }))
+    const embed = new MessageEmbed()
+      .setTitle(`${stock}`)
       .setColor(0x9590EE)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-    return ctx.reply({ embed }) */
+      .addField('Previous Close', stockData.previousClose, true)
+      .addField('Open', stockData.open, true)
+      .addField('Bid', stockData.bid, true)
+      .addField('Ask', stockData.ask, true)
+      .addField('Today\'s Range', stockData.dayRange, true)
+      .addField('52 Week Range', stockData.fiftyTwoWeekRange, true)
+      .addField('Volume', stockData.volume, true)
+      .addField('Average Volume', stockData.avgVolume, true)
+      .addField('Market Cap', stockData.marketCap, true)
+    return ctx.reply({ embed })
   }
 }
 
