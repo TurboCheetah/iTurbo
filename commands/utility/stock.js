@@ -30,8 +30,8 @@ class Stock extends Command {
       .addField('Volume', `$${stockData.response.volume}`, true)
       .addField('Average Volume', `$${stockData.response.avgVolume}`, true)
       .addField('Market Cap', `$${stockData.response.marketCap}`, true)
-      .addField('Earnings Date', `${stockData.response.earningsDate}`, true)
       .addField('One Year Target', `$${stockData.response.oneYearTargetEst}`, true)
+      .addField('Earnings Date', `${stockData.response.earningsDate}`, true)
     return ctx.reply({ embed })
   }
 }
