@@ -13,7 +13,6 @@ class Stocks extends Command {
 
   async run (ctx, [stock]) {
     const stockData = await yahooStockAPI.getSymbol(stock)
-    console.log(stockData);
 
     const embed = new MessageEmbed()
       .setTitle(`${stock}`)
