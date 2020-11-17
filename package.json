@@ -36,6 +36,7 @@
     "pg": "^8.0.3",
     "pornsearch": "^2.4.3",
     "rule34js": "^2.2.0",
+    "yahoo-stock-api": "^1.0.5",
     "ytdl-core": "^4.0.5"
   }
 }
