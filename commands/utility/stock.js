@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const yahooStockAPI  = require('yahoo-stock-api')
 const { MessageEmbed } = require('discord.js')
 
-class Stocks extends Command {
+class Stock extends Command {
   constructor (...args) {
     super(...args, {
       description: "Get information about a certain stock.",
@@ -30,4 +30,4 @@ class Stocks extends Command {
   }
 }
 
-module.exports = Stocks
+module.exports = Stock
