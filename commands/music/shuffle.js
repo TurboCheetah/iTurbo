@@ -15,6 +15,7 @@ class Shuffle extends Command {
 
   async run (ctx) {
     this.client.distube.shuffle(ctx.message)
+    ctx.reply('Shuffled queue!')
   }
 }
 
