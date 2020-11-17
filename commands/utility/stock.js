@@ -14,6 +14,10 @@ class Stock extends Command {
   async run (ctx, [stock]) {
     const stockData = await yahooStockAPI.getSymbol(stock)
 
+    if (!stockData.response) {
+      return ctx.reply('Invalid stock!')
+    }
+
     const embed = new MessageEmbed()
       .setTitle(`${stock.toUpperCase()}`)
       .setColor(0x9590EE)
