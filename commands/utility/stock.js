@@ -15,7 +15,7 @@ class Stock extends Command {
     const stockData = await yahooStockAPI.getSymbol(stock)
 
     const embed = new MessageEmbed()
-      .setTitle(`${stock}`)
+      .setTitle(`${stock.toUpperCase()}`)
       .setColor(0x9590EE)
       .addField('Previous Close', `$${stockData.response.previousClose}`, true)
       .addField('Open', `$${stockData.response.open}`, true)
