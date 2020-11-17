@@ -1,6 +1,5 @@
 FROM keymetrics/pm2:latest-stretch
 
-#RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-venv \
