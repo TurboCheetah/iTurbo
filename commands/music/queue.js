@@ -4,13 +4,13 @@ const { MessageEmbed } = require('discord.js')
 class Queue extends Command {
   constructor (...args) {
     super(...args, {
-      description: 'Plays the desired song',
-      aliases: ['pl'],
+      description: 'Displays the music queue',
+      aliases: ['q'],
       botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
-      usage: 'play <search query or URL>',
+      usage: 'queue',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 10
     })
   }
 

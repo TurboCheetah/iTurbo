@@ -9,7 +9,7 @@ class Stop extends Command {
       usage: 'stop',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 10
     })
   }
 

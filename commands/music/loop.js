@@ -9,7 +9,7 @@ class Loop extends Command {
       usage: 'loop <disable | song | queue>',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 5
     })
   }
 

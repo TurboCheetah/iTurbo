@@ -9,7 +9,7 @@ class Skip extends Command {
       usage: 'skip',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 3
     })
   }
 

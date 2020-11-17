@@ -10,7 +10,7 @@ class NowPlaying extends Command {
       usage: 'nowplaying',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 5
     })
   }
 

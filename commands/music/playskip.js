@@ -9,7 +9,7 @@ class PlaySkip extends Command {
       usage: 'playskip <search query or URL>',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 10
     })
   }
 

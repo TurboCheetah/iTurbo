@@ -9,7 +9,7 @@ class Resume extends Command {
       usage: 'resume',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 10
     })
   }
 

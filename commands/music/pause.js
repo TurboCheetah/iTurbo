@@ -9,7 +9,7 @@ class Pause extends Command {
       usage: 'pause',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 5
     })
   }
 

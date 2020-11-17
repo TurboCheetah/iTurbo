@@ -9,7 +9,7 @@ class Jump extends Command {
       usage: 'jump <song number>',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 5
     })
   }
 

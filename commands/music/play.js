@@ -8,8 +8,7 @@ class Play extends Command {
       botPermissions: ['CONNECT', 'SPEAK'],
       usage: 'play <search query or URL>',
       guildOnly: true,
-      cost: 0,
-      cooldown: 20
+      cost: 0
     })
   }
 

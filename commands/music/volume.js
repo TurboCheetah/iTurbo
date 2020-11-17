@@ -9,7 +9,7 @@ class Volume extends Command {
       usage: 'volume <percent>',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 5
     })
   }
 

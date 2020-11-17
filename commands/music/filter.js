@@ -9,7 +9,7 @@ class Filter extends Command {
       usage: 'filter <filter>',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 5
     })
   }
 

@@ -9,7 +9,7 @@ class Autoplay extends Command {
       usage: 'autoplay',
       guildOnly: true,
       cost: 0,
-      cooldown: 20
+      cooldown: 5
     })
   }
 
