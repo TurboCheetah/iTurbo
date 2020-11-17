@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get install -y software-properties-common && add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get update
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3.6 \
+    python3.9 \
     python3-pip \
     && \
     apt-get clean && \
