@@ -14,6 +14,9 @@ class Mimic extends Command {
   }
 
   async run (ctx, [user, ...message]) {
+    if (!message || message.length === 0) {
+      return ctx.reply('Please specify a message!')
+    }
     user = await this.verifyUser(ctx, user)
     if (ctx.message.deletable) await ctx.message.delete()
     const avatar = user.displayAvatarURL({ format: 'png', size: 2048 })
