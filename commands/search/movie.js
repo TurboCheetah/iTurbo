@@ -9,7 +9,8 @@ class Movie extends Command {
       description: 'Finds a movie on TMDB.org',
       extendedHelp: 'e.g. `!movie infinity war, 2`',
       usage: 'movie <query>, [page]',
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

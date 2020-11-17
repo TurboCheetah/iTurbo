@@ -9,7 +9,8 @@ class HentaiGIF extends Command {
       cooldown: 5,
       cost: 15,
       nsfw: true,
-      aliases: ['hgif']
+      aliases: ['hgif'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

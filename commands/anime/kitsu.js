@@ -7,7 +7,8 @@ class Kitsu extends Command {
     super(...args, {
       description: 'Search an Anime on Kitsu.io',
       usage: 'kitsu <title>, [page]',
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

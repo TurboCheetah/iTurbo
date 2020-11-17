@@ -6,7 +6,7 @@ class Ban extends Command {
     super(...args, {
       description: 'Bans a user.',
       userPermissions: ['BAN_MEMBERS'],
-      botPermissions: ['BAN_MEMBERS'],
+      botPermissions: ['BAN_MEMBERS', 'EMBED_LINKS'],
       guildOnly: true,
       usage: 'ban <@member> [reason]'
     })

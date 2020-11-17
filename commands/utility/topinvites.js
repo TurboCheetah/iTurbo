@@ -6,7 +6,7 @@ class TopInvites extends Command {
     super(...args, {
       guildOnly: true,
       aliases: ['ti'],
-      botPermissions: ['MANAGE_GUILD'],
+      botPermissions: ['MANAGE_GUILD', 'EMBED_LINKS'],
       description: 'Shows the top invites in a server.'
     })
   }

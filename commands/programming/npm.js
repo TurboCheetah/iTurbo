@@ -8,7 +8,8 @@ class NPM extends Command {
       description: 'Search the NPM Registry for a package information',
       usage: 'npm <package>',
       aliases: ['npmpackage', 'npmpkg', 'nodepackagemanager'],
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

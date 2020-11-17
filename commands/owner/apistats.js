@@ -7,7 +7,8 @@ class APIStats extends Command {
       description: 'View statistics about the IMG API process.',
       ownerOnly: true,
       hidden: true,
-      aliases: ['imgapi', 'imgapistats']
+      aliases: ['imgapi', 'imgapistats'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

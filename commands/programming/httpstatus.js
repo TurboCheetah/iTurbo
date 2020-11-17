@@ -7,7 +7,8 @@ class HttpStatus extends Command {
     super(...args, {
       description: 'HTTP Status codes with Cats!',
       aliases: ['httpcat', 'cathttp'],
-      usage: 'httpstatus <status>'
+      usage: 'httpstatus <status>',
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

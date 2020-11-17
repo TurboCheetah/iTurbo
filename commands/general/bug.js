@@ -7,7 +7,8 @@ class Bug extends Command {
       description: 'Found a bug? report with this.',
       cooldown: 60,
       usage: 'bug <report>',
-      aliases: ['reportbug', 'bugreport']
+      aliases: ['reportbug', 'bugreport'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

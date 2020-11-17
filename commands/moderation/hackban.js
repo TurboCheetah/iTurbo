@@ -8,7 +8,7 @@ class HackBan extends Command {
       extendedHelp: 'This command will ban a user that is not in the server to prevent them from joining in the future.',
       userPermissions: ['BAN_MEMBERS'],
       aliases: ['hban'],
-      botPermissions: ['BAN_MEMBERS'],
+      botPermissions: ['BAN_MEMBERS', 'EMBED_LINKS'],
       usage: 'hackban <userID> [reason]',
       guildOnly: true
     })

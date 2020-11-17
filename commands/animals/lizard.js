@@ -8,7 +8,8 @@ class Lizard extends Command {
       aliases: ['randomlizard'],
       description: 'Grabs a random lizard image from nekos.life.',
       extendedHelp: 'This command grabs a random lizard from https://nekos.life/api/v2/img/lizard',
-      cooldown: 3
+      cooldown: 3,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

@@ -8,7 +8,8 @@ class hAnal extends Command {
       description: 'Hentai Anal',
       cooldown: 5,
       cost: 15,
-      nsfw: true
+      nsfw: true,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

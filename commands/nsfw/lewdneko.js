@@ -9,7 +9,8 @@ class LewdNeko extends Command {
       cooldown: 5,
       cost: 15,
       nsfw: true,
-      aliases: ['lneko']
+      aliases: ['lneko'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

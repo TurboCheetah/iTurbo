@@ -8,7 +8,8 @@ class Daily extends Command {
       extendedHelp: 'You can give/donate your daily for others and it will reward bonus for them.',
       guildOnly: true,
       usage: 'daily [userToDonate]',
-      aliases: ['dailies', 'dailycredits', 'dailypoints']
+      aliases: ['dailies', 'dailycredits', 'dailypoints'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

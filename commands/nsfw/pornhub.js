@@ -9,7 +9,8 @@ class Pornhub extends Command {
       usage: 'pornhub [gif] <query>',
       cooldown: 15,
       nsfw: true,
-      aliases: ['ph']
+      aliases: ['ph'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

@@ -10,7 +10,8 @@ class Boobs extends Command {
       aliases: ['tits', 'tiddies', 'titties', 'boobies'],
       cooldown: 3,
       cost: 3,
-      nsfw: true
+      nsfw: true,
+      botPermissions: ['EMBED_LINKS']
     })
 
     this.errorMessage = 'There was an error.'

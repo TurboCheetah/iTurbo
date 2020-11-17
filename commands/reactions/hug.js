@@ -9,7 +9,8 @@ class Hug extends Command {
       usage: 'hug <@member>',
       guildOnly: true,
       cooldown: 3,
-      cost: 5
+      cost: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

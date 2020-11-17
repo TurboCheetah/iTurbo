@@ -11,7 +11,8 @@ class Reddit extends Command {
       aliases: ['nsfwr', 'rnsfw'],
       cooldown: 3,
       cost: 3,
-      nsfw: true
+      nsfw: true,
+      botPermissions: ['EMBED_LINKS']
     })
 
     this.errorMessage = 'There was an error. Reddit may be down, or the subreddit doesnt exist.'

@@ -7,7 +7,8 @@ class Wikipedia extends Command {
     super(...args, {
       aliases: ['wiki'],
       description: 'Finds a Wikipedia Article by title.',
-      usage: 'wikipedia <query>'
+      usage: 'wikipedia <query>',
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

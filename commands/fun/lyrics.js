@@ -8,7 +8,8 @@ class Lyrics extends Command {
     super(...args, {
       description: "Get a song's lyrics.",
       usage: 'lyrics <song>',
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

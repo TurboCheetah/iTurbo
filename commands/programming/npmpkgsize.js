@@ -8,7 +8,8 @@ class NPMPkgSize extends Command {
       description: 'Shows the install/publish size of a npm package.',
       usage: 'npmpkgsize express',
       aliases: ['pkgsize', 'npmsize'],
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

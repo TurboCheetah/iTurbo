@@ -9,7 +9,8 @@ class Pat extends Command {
       usage: 'pat <@member>',
       guildOnly: true,
       cooldown: 3,
-      cost: 5
+      cost: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

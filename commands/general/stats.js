@@ -6,7 +6,8 @@ class Stats extends Command {
   constructor (...args) {
     super(...args, {
       description: 'View bot statistics and information.',
-      aliases: ['info', 'uptime']
+      aliases: ['info', 'uptime'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

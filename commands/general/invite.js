@@ -5,7 +5,8 @@ class Invite extends Command {
   constructor (...args) {
     super(...args, {
       description: 'Invite me to your server!',
-      aliases: ['inv']
+      aliases: ['inv'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

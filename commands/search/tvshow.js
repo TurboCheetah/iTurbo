@@ -9,7 +9,8 @@ class TVShow extends Command {
       description: 'Finds a TV show on TMDB.org',
       extendedHelp: 'e.g. `!tvshow universe, 2`',
       usage: 'tvshow <query>, [page]',
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

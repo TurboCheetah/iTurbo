@@ -8,7 +8,8 @@ class hPussy extends Command {
       description: 'Hentai Pussy',
       cooldown: 5,
       cost: 0,
-      nsfw: true
+      nsfw: true,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

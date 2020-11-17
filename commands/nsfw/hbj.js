@@ -9,7 +9,8 @@ class hBJ extends Command {
       cooldown: 5,
       cost: 15,
       nsfw: true,
-      aliases: ['hblowjob']
+      aliases: ['hblowjob'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

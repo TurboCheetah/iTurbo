@@ -6,7 +6,8 @@ class ServerIcon extends Command {
     super(...args, {
       description: 'Returns the server icon.',
       aliases: ['serverlogo'],
-      guildOnly: true
+      guildOnly: true,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

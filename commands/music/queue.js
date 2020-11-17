@@ -6,7 +6,7 @@ class Queue extends Command {
     super(...args, {
       description: 'Plays the desired song',
       aliases: ['pl'],
-      botPermissions: ['CONNECT', 'SPEAK'],
+      botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
       usage: 'play <search query or URL>',
       guildOnly: true,
       cost: 0,

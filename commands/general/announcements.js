@@ -7,7 +7,8 @@ class Announcements extends Command {
       name: 'announcements',
       description: 'Get bot related announcements.',
       usage: 'announcements',
-      aliases: ['announce', 'news']
+      aliases: ['announce', 'news'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

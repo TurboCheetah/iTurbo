@@ -4,7 +4,8 @@ const { MessageEmbed } = require('discord.js')
 class Support extends Command {
   constructor (...args) {
     super(...args, {
-      description: 'Get the link to our support server.'
+      description: 'Get the link to our support server.',
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

@@ -1,13 +1,12 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
-class UserPrefix extends Command {
+class Playlist extends Command {
   constructor (...args) {
     super(...args, {
-      description: 'Manage Per-User Global prefixes.',
-      aliases: ['uprefix'],
-      usage: 'userprefix <add|remove|list:default> <prefix>',
-      extendedHelp: 'With this command you can add a prefix that only you can use everywhere this bot is available. Convenient for those who find the prefix uncomfortable or just wants to stick with one prefix everywhere. Keep in mind prefixes are case insensitives so do not worry about that.',
+      description: 'Create custom playlists.',
+      aliases: [],
+      usage: 'playlist <add|remove|list:default> <playlist>',
       botPermissions: ['EMBED_LINKS']
     })
   }
@@ -19,24 +18,25 @@ class UserPrefix extends Command {
   }
 
   async add (ctx, args) {
-    if (ctx.author.settings.prefix && ctx.author.settings.prefix.length >= 10) { return ctx.reply("You can't have more than 10 prefixes. Remove some before trying again.") }
+    if (ctx.author.settings.playlist && ctx.author.settings.playlist.length >= 10) { return ctx.reply("You can't have more than 10 playlists. Remove some before trying again.") }
 
-    const prefixInput = args.join(' ').toLowerCase()
-    if (!prefixInput) return ctx.reply('You must provide a prefix.')
+    const playlistName = args.join(' ').split(';')[0]
+    const playlistContent = args.join(' ').split(';')[1]
+    if (!playlistName) return ctx.reply('You must provide a prefix.')
 
     // User prefixes get an extra 5 chars compared to guild prefixes.
-    if (prefixInput.length > 15) return ctx.reply('Prefix cannot be longer than 15 characters!')
+    if (playlistName.length > 15) return ctx.reply('Prefix cannot be longer than 15 characters!')
 
     // Get existing prefixes to append to.
     const prefix = ctx.author.settings.prefix || []
 
     // Avoid duplicates.
-    if (prefix.includes(prefixInput)) return ctx.reply('That prefix is already on the list.')
+    if (prefix.includes(playlistName)) return ctx.reply('That prefix is already on the list.')
 
-    prefix.push(prefixInput)
+    prefix.push(playlistName)
 
     await ctx.author.update({ prefix })
-    return ctx.reply(`Successfully added the prefix \`${prefixInput}\` to your list of prefixes.`)
+    return ctx.reply(`Successfully added the prefix \`${playlistName}\` to your list of prefixes.`)
   }
 
   async list (ctx) {
@@ -68,4 +68,4 @@ class UserPrefix extends Command {
   }
 }
 
-module.exports = UserPrefix
+module.exports = Playlist

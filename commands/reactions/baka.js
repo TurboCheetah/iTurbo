@@ -7,7 +7,8 @@ class Baka extends Command {
     super(...args, {
       description: 'Baka baka baka!',
       cooldown: 3,
-      cost: 5
+      cost: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

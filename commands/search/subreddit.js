@@ -8,7 +8,8 @@ class SubReddit extends Command {
       aliases: ['sub', 'reddit'],
       description: 'Returns information on a subreddit.',
       usage: 'subreddit <name>',
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
 
     this.errorMessage = 'There was an error. Reddit may be down, or the subreddit doesnt exist.'

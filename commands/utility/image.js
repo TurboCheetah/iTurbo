@@ -10,7 +10,8 @@ class Image extends Command {
       usage: 'image <query>',
       aliases: ['imagesearch', 'img', 'imgsearch'],
       cooldown: 5,
-      extendedHelp: 'Use --index=<n> to retrieve nth image, by default it picks a random one everytime.'
+      extendedHelp: 'Use --index=<n> to retrieve nth image, by default it picks a random one everytime.',
+      botPermissions: ['EMBED_LINKS']
     })
 
     this.url = (query, nsfw) => `https://www.bing.com/images/search?q=${query}&view=detailv2&safeSearch=${nsfw ? 'off' : 'strict'}`

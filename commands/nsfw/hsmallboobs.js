@@ -9,7 +9,8 @@ class hSmallBoobs extends Command {
       cooldown: 5,
       cost: 15,
       nsfw: true,
-      aliases: ['hsboobs']
+      aliases: ['hsboobs'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

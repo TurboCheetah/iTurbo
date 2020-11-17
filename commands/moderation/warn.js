@@ -6,6 +6,7 @@ class Warn extends Command {
     super(...args, {
       description: 'Warns a member',
       userPermissions: ['KICK_MEMBERS'],
+      botPermissions: ['EMBED_LINKS'],
       usage: 'warn <@user> <reason>',
       guildOnly: true
     })

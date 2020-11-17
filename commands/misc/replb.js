@@ -5,7 +5,8 @@ class RepLB extends Command {
   constructor (...args) {
     super(...args, {
       description: 'View top people with most reputations.',
-      aliases: ['repleaderboard', 'reputationleaderboard', 'reputationlb']
+      aliases: ['repleaderboard', 'reputationleaderboard', 'reputationlb'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

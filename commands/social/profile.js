@@ -6,7 +6,8 @@ class Profile extends Command {
     super(...args, {
       description: "View your profile or someone's",
       usage: 'profile [@user]',
-      guildOnly: true
+      guildOnly: true,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

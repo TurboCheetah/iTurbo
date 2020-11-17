@@ -7,7 +7,8 @@ class Jisho extends Command {
     super(...args, {
       description: 'Search for a word on Jisho.org',
       usage: 'jisho <word>, [page]',
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

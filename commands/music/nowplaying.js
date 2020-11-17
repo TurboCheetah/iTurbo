@@ -6,7 +6,7 @@ class NowPlaying extends Command {
     super(...args, {
       description: 'Gets information about the currently playing song',
       aliases: ['np', 'song'],
-      botPermissions: ['CONNECT', 'SPEAK'],
+      botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
       usage: 'nowplaying',
       guildOnly: true,
       cost: 0,

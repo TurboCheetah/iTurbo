@@ -7,7 +7,8 @@ class Suggestion extends Command {
       description: 'Got a suggestion to improve the bot?',
       usage: 'suggestion <idea>',
       aliases: ['suggest'],
-      cooldown: 60
+      cooldown: 60,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

@@ -7,7 +7,8 @@ class Joke extends Command {
     super(...args, {
       description: 'Get a random joke.',
       cooldown: 3,
-      aliases: ['jk']
+      aliases: ['jk'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

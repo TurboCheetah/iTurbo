@@ -5,7 +5,8 @@ class Help extends Command {
   constructor (...args) {
     super(...args, {
       description: 'View help for commands.',
-      usage: 'help [command]'
+      usage: 'help [command]',
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

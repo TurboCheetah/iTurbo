@@ -8,7 +8,8 @@ class Wolfram extends Command {
       description: 'Query Wolfram Alpha with any mathematical question.',
       usage: 'wolfram <query>',
       aliases: ['what', 'when', 'where', 'who', 'why', 'how'],
-      cooldown: 5
+      cooldown: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

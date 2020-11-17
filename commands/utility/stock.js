@@ -1,13 +1,14 @@
 const Command = require('../../structures/Command.js')
-const yahooStockAPI  = require('yahoo-stock-api')
+const yahooStockAPI = require('yahoo-stock-api')
 const { MessageEmbed } = require('discord.js')
 
 class Stock extends Command {
   constructor (...args) {
     super(...args, {
-      description: "Get information about a certain stock.",
+      description: 'Get information about a certain stock.',
       aliases: [],
-      usage: 'stock <stock>'
+      usage: 'stock <stock>',
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

@@ -6,7 +6,8 @@ class ServerInfo extends Command {
     super(...args, {
       guildOnly: true,
       aliases: ['guild', 'si', 'server'],
-      description: 'Get information on the current server.'
+      description: 'Get information on the current server.',
+      botPermissions: ['EMBED_LINKS']
     })
 
     this.verificationLevels = {

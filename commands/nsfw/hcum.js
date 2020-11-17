@@ -9,7 +9,8 @@ class hCum extends Command {
       cooldown: 5,
       cost: 15,
       nsfw: true,
-      aliases: ['hcreampie']
+      aliases: ['hcreampie'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

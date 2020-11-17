@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS users (
   reputation INTEGER DEFAULT 0,
   repcooldown TIMESTAMP,
   title TEXT,
-  prefix TEXT[]
+  prefix TEXT[],
+  playlists TEXT[][]
 );
 
 CREATE TABLE IF NOT EXISTS bot (

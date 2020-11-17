@@ -9,7 +9,8 @@ class hLesbian extends Command {
       cooldown: 5,
       cost: 15,
       nsfw: true,
-      aliases: ['les']
+      aliases: ['les'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

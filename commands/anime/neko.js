@@ -7,7 +7,8 @@ class Neko extends Command {
     super(...args, {
       description: 'Get a random Neko.',
       cooldown: 3,
-      cost: 5
+      cost: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

@@ -8,7 +8,8 @@ class AAvatar extends Command {
       description: 'Get an Anime Avatar.',
       extendedHelp: 'The output will be NSFW only if the channel is a NSFW channel',
       cooldown: 3,
-      cost: 5
+      cost: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

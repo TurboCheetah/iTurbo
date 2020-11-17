@@ -7,7 +7,8 @@ class UserInfo extends Command {
       description: 'Get information on a mentioned user.',
       usage: 'userinfo [@user]',
       guildOnly: true,
-      aliases: ['ui', 'user']
+      aliases: ['ui', 'user'],
+      botPermissions: ['EMBED_LINKS']
     })
 
     this.statuses = {

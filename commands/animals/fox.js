@@ -8,7 +8,8 @@ class Fox extends Command {
       aliases: ['randomfox'],
       description: 'Grabs a random fox image from randomfox.ca',
       extendedHelp: 'This command grabs a random fox from https://randomfox.ca/floof/',
-      cooldown: 3
+      cooldown: 3,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

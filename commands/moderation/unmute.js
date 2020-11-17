@@ -6,7 +6,7 @@ class Unmute extends Command {
     super(...args, {
       description: 'Unmutes a user.',
       userPermissions: ['KICK_MEMBERS'],
-      botPermissions: ['KICK_MEMBERS'],
+      botPermissions: ['KICK_MEMBERS', 'EMBED_LINKS'],
       guildOnly: true,
       usage: 'unmute <@member> [reason]'
     })

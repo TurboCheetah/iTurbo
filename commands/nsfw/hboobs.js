@@ -8,7 +8,8 @@ class hBoobs extends Command {
       description: 'Hentai Boobs',
       cooldown: 5,
       cost: 15,
-      nsfw: true
+      nsfw: true,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

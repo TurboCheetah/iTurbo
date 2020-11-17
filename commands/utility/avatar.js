@@ -6,7 +6,8 @@ class Avatar extends Command {
     super(...args, {
       description: "Grab someone's avatar.",
       aliases: ['av', 'pfp'],
-      usage: 'avatar [@user]'
+      usage: 'avatar [@user]',
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

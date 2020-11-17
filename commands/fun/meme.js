@@ -7,7 +7,8 @@ class Meme extends Command {
     super(...args, {
       description: 'Get a random meme from r/dankmemes',
       cooldown: 5,
-      aliases: ['memes', 'dankmemes']
+      aliases: ['memes', 'dankmemes'],
+      botPermissions: ['EMBED_LINKS']
     })
     this.cost = 5
   }

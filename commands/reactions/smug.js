@@ -7,7 +7,8 @@ class Smug extends Command {
     super(...args, {
       description: 'Someone feels a bit smug',
       cooldown: 3,
-      cost: 5
+      cost: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

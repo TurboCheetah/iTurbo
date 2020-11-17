@@ -9,7 +9,8 @@ class Cuddle extends Command {
       usage: 'cuddle <@member>',
       guildOnly: true,
       cooldown: 3,
-      cost: 5
+      cost: 5,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

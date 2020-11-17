@@ -9,7 +9,8 @@ class LewdNekoGIF extends Command {
       cooldown: 5,
       cost: 15,
       nsfw: true,
-      aliases: ['lnekogif', 'lewdnekogif']
+      aliases: ['lnekogif', 'lewdnekogif'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

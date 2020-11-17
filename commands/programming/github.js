@@ -8,7 +8,8 @@ class GitHub extends Command {
       description: 'View a GitHub repository details.',
       aliases: ['gh'],
       usage: 'github ffmpeg/ffmpeg',
-      cooldown: 3
+      cooldown: 3,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

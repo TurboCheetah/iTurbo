@@ -12,7 +12,8 @@ class Rule34 extends Command {
       aliases: ['r34'],
       cooldown: 3,
       cost: 3,
-      nsfw: true
+      nsfw: true,
+      botPermissions: ['EMBED_LINKS']
     })
 
     this.errorMessage = 'There was an error.'

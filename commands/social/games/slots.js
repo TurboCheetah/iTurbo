@@ -9,7 +9,8 @@ class Slots extends Command {
       aliases: ['slot', 'slotmachine', 'slot-machine'],
       guildOnly: true,
       category: 'Fun',
-      cost: 10
+      cost: 10,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

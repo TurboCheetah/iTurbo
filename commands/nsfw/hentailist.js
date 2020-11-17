@@ -12,7 +12,8 @@ class HentaiList extends Command {
       aliases: ['hl', 'hlist'],
       cooldown: 5,
       cost: 5,
-      nsfw: true
+      nsfw: true,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

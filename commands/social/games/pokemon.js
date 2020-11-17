@@ -9,7 +9,8 @@ class Pokemon extends Command {
       category: 'Fun',
       aliases: ['guessthatpokemon'],
       guildOnly: true,
-      cost: 20
+      cost: 20,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

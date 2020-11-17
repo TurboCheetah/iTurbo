@@ -10,7 +10,8 @@ class Weed extends Command {
       usage: 'weed <strain|type|feeling|wellness|popular|trending|underrated>',
       extendedHelp: 'Search for info about a strain, best strains in certain categories, popular strains, trending strains, and more!',
       cooldown: 15,
-      aliases: ['strain', 'cannabis', 'marijuana', 'leafly']
+      aliases: ['strain', 'cannabis', 'marijuana', 'leafly'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

@@ -7,7 +7,8 @@ class Cat extends Command {
     super(...args, {
       description: 'Get a picture of a random cat!',
       cooldown: 3,
-      aliases: ['meow', 'catpic', 'randomcat']
+      aliases: ['meow', 'catpic', 'randomcat'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

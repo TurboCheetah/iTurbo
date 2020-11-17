@@ -8,7 +8,8 @@ class Duck extends Command {
       aliases: ['randomduck', 'ducc'],
       description: 'Grabs a random duck image from random-d.uk.',
       extendedHelp: 'This command grabs a random duck from https://random-d.uk/api/v1/random',
-      cooldown: 3
+      cooldown: 3,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

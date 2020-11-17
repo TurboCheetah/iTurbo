@@ -8,7 +8,8 @@ class Dog extends Command {
       aliases: ['randomdog', 'woof'],
       description: 'Grabs a random dog image from random.dog.',
       extendedHelp: 'This command grabs a random dog from https://dog.ceo/api/breeds/image/random',
-      cooldown: 3
+      cooldown: 3,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 

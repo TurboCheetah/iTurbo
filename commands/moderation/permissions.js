@@ -7,7 +7,8 @@ class Permissions extends Command {
       description: 'View all permissions of a User.',
       usage: 'permissions [user]',
       guildOnly: true,
-      aliases: ['perms']
+      aliases: ['perms'],
+      botPermissions: ['EMBED_LINKS']
     })
   }
 
