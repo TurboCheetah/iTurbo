@@ -4,12 +4,10 @@ FROM keymetrics/pm2:latest-stretch
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3 \
     python3-venv \
-    python3-ensurepip \
     python3-pip \
     && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-RUN python3 -m ensurepip
 RUN pip3 install --no-cache --upgrade pip setuptools
 
 WORKDIR /iTurbo
