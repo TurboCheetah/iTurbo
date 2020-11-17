@@ -1,7 +1,7 @@
 FROM keymetrics/pm2:latest-stretch
 
 #RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
-RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get install -y software-properties-common && add-apt-repository ppa:deadsnakes/ppa
 RUN apt-get update
 RUN apt-get update && apt-get install -y --no-install-recommends \
     python3.6 \
