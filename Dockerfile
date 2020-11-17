@@ -1,4 +1,4 @@
-FROM keymetrics/pm2:latest-alpine
+FROM node:10
 
 RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
@@ -19,4 +19,5 @@ ARG PM2_SECRET_KEY
 ENV PM2_PUBLIC_KEY "$PM2_PUBLIC_KEY"
 ENV PM2_SECRET_KEY "$PM2_SECRET_KEY"
 RUN echo "Running in $PM2_ENV mode"
-CMD pm2-runtime start ecosystem.config.js --env $PM2_ENV
+#CMD pm2-runtime start ecosystem.config.js --env $PM2_ENV
+CMD [ "node", "index.js" ]
