@@ -31,6 +31,7 @@ class Queue extends Command {
       .setURL(queue.songs[0].url)
       .setThumbnail(queue.songs[0].thumbnail)
       .setDescription(`**Next Songs**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
+      .setFooter(`Volume: ${queue.volume} ● Looping: ${queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off'} ● Autoplay: ${queue.autoplay ? 'On' : 'Off'}`)
     ctx.reply({ embed })
   }
 }
