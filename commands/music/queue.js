@@ -21,7 +21,7 @@ class Queue extends Command {
       return ctx.reply('There is nothing in the queue!')
     }
 
-    let upcoming = queue.songs.filter((song, id) => id > 0 < 15)
+    let upcoming = queue.songs.filter((song, id) => id > 0 && id < 15)
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
 
     const embed = new MessageEmbed()
