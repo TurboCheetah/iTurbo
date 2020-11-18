@@ -59,6 +59,7 @@ class Stats extends Command {
         `**Memory Usage:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`
       ].join('\n'))
       .addField('Versions', [
+        `**Bot Version:** ${this.client.version}`,
         `**Node.js Version:** ${process.version}`,
         `**Discord.js Version:** v${version}`
       ].join('\n'))
