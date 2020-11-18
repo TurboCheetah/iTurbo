@@ -28,9 +28,9 @@ class Prefix extends Command {
   }
 
   async reset (ctx) {
-    if (ctx.guild.settings.prefix === '!') return ctx.reply('The prefix is already the default.')
-    await ctx.guild.update({ prefix: '!' })
-    return ctx.reply('Reset the prefix for this server to `!`')
+    if (ctx.guild.settings.prefix === '|') return ctx.reply('The prefix is already the default.')
+    await ctx.guild.update({ prefix: '|' })
+    return ctx.reply('Reset the prefix for this server to `|`')
   }
 }
 
