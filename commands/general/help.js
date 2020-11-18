@@ -41,9 +41,9 @@ class Help extends Command {
           .setColor(0x9590EE)
           .setAuthor(`Help - ${category}`, this.client.user.displayAvatarURL({ size: 32 }))
           .setDescription(`For more information about a command run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <command>\``)
-          .addField('Commands', cmds.substr(0, cmds.substr(0, 1024 - 3).lastIndexOf(' [')))
+          .addField('Commands', cmds.substr(0, cmds.substr(0, 950 - 3).lastIndexOf(' [')))
           .setFooter(`Requested by ${ctx.author.tag} • Hover over commands for info!`, ctx.author.displayAvatarURL({ size: 32 }))
-        splitCategory(embed, cmds, 1000)
+        splitCategory(embed, cmds, 950)
         return ctx.reply({ embed })
       }
 
