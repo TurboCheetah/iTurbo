@@ -43,7 +43,7 @@ class Help extends Command {
           .setDescription(`For more information about a command run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <command>\``)
           .addField('Commands', cmds.substr(0, cmds.substr(0, 1024 - 3).lastIndexOf(' [')))
           .setFooter(`Requested by ${ctx.author.tag} • Hover over commands for info!`, ctx.author.displayAvatarURL({ size: 32 }))
-        splitCategory(embed, cmds)
+        splitCategory(embed, cmds, 1000)
         return ctx.reply({ embed })
       }
 
