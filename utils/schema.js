@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS "guilds" (
   levelup BOOLEAN DEFAULT true,
   social BOOLEAN DEFAULT true,
   starboard TEXT,
-  "starboardLimit" INTEGER DEFAULT 2
+  "starboardLimit" INTEGER DEFAULT 2,
+  nowplaying BOOLEAN DEFAULT true
 );
 
 CREATE TABLE IF NOT EXISTS members (

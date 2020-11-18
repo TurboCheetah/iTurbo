@@ -3,6 +3,10 @@ const { MessageEmbed } = require('discord.js')
 
 class playSong extends Event {
   async run (msg, queue, song) {
+    if (msg.guild.settings.nowplaying === false) {
+      return
+    }
+
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('🎵 Now Playing 🎵')
