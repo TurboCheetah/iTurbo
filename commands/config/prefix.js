@@ -15,7 +15,7 @@ class Prefix extends Command {
       return ctx.reply(`The prefix for this server is \`${ctx.guild.settings.prefix}\``)
     }
 
-    if (!ctx.member.permissions.has('MANAGE_GUILD')) { return ctx.reply('You need the `Manage Server` permissions to change the prerix.') }
+    if (!ctx.member.permissions.has('MANAGE_GUILD')) { return ctx.reply('You need the `Manage Server` permissions to change the prefix.') }
 
     const prefix = args.join(' ')
 
