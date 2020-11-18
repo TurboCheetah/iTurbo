@@ -11,7 +11,7 @@ class Help extends Command {
   }
 
   async run (ctx, [command]) {
-    function splitCategory (embedObj, text, maxLen = 1024) {
+    const splitCategory = (embedObj, text, maxLen = 1024) => {
       if (text.length > maxLen) {
         for (let fieldNum = 1; fieldNum < Math.ceil(text.length / 1024); fieldNum++) {
           embedObj.addField('Continued', text.substr(text.substr(0, maxLen - 3).lastIndexOf(' ['), maxLen - 3))
