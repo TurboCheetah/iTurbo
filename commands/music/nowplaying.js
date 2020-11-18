@@ -24,7 +24,7 @@ class NowPlaying extends Command {
       .setURL(queue.songs[0].url)
       .setThumbnail(queue.songs[0].thumbnail)
       .addField('Requested by', queue.songs[0].user, true)
-      .addField('Duration', queue.songs[0].formattedDuration, true)
+      .addField('Duration', `${queue.songs[0].formattedCurrentTime}/${queue.songs[0].formattedDuration}`, true)
       .addField('Queue', `${queue.songs.length === 1 ? '1 song' : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)
       .addField('Volume', `${queue.volume}%`, true)
       .addField('Loop', queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off', true)
