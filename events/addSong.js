@@ -6,7 +6,7 @@ class addSong extends Event {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('➕ Added Song')
-      .setTitle(splusong.name)
+      .setTitle(song.name)
       .setURL(song.url)
       .setThumbnail(song.thumbnail)
       .addField('Requested by', song.user, true)
