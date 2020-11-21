@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Filter extends Command {
-  constructor(...args) {
+  constructor (...args) {
     super(...args, {
       description: 'Enable or disable a filter. Run the command again to disable a filter.',
       aliases: [],
@@ -14,10 +14,10 @@ class Filter extends Command {
     })
   }
 
-  async run(ctx, args) {
+  async run (ctx, args) {
     const embed = new MessageEmbed()
-    .setColor(0x9590EE)
-    .setAuthor(`| Enabled ${args[0].toLowerCase()} filter`, ctx.author.displayAvatarURL({ size: 512 }))
+      .setColor(0x9590EE)
+      .setAuthor(`| Enabled ${args[0].toLowerCase()} filter`, ctx.author.displayAvatarURL({ size: 512 }))
 
     switch (args[0].toLowerCase()) {
       case 'list':
