@@ -25,10 +25,6 @@ class Filter extends Command {
           .setColor(0x9590EE)
           .setAuthor(`| Enabled \`${args[0].toLowerCase()}\` filter`, ctx.author.displayAvatarURL({ size: 512 }))
         ctx.reply({ embed })
-        const embed = new MessageEmbed()
-          .setColor(0x9590EE)
-          .setAuthor(`| Enabled \`${args[0].toLowerCase()}\` filter`, ctx.author.displayAvatarURL({ size: 512 }))
-        ctx.reply({ embed })
         break
       case 'bassboost':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
