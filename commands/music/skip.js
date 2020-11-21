@@ -16,6 +16,7 @@ class Skip extends Command {
 
   async run (ctx) {
     this.client.distube.skip(ctx.message)
+    const queue = this.client.distube.getQueue(ctx.message)
 
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
