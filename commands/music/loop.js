@@ -18,7 +18,7 @@ class Loop extends Command {
     if (!args.length) {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
-        .setDescription('Would you like to loop the current **song**, **queue**, or **disable** looping?\n\nReply with `cancel` to cancel the message. The message will timeout after 60 seconds.')
+        .setDescription('Would you like to loop the current **song**, **queue**, or **disable** looping?\n\nReply with `cancel` to cancel the oeration. The message will timeout after 60 seconds.')
         .setTimestamp()
         .setColor(0x9590EE)
 
