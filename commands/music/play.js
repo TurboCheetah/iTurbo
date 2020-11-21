@@ -17,7 +17,7 @@ class Play extends Command {
       this.client.distube.resume(ctx.message)
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
-        .setAuthor('| ▶ Resumed the player', member.user.displayAvatarURL({ size: 512 }))
+        .setAuthor('| ▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 

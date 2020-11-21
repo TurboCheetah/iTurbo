@@ -16,18 +16,17 @@ class Pause extends Command {
 
   async run (ctx) {
     if (this.client.distube.isPaused(ctx.message)) {
-      member = await this.verifyMember(ctx, member, true)
       this.client.distube.resume(ctx.message)
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
-        .setAuthor('| ▶ Resumed the player', member.user.displayAvatarURL({ size: 512 }))
+        .setAuthor('| ▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
     this.client.distube.pause(ctx.message)
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor('| ⏸ Paused the player', member.user.displayAvatarURL({ size: 512 }))
+      .setAuthor('| ⏸ Paused the player', ctx.author.displayAvatarURL({ size: 512 }))
     ctx.reply({ embed })
   }
 }
