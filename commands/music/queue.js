@@ -26,12 +26,12 @@ class Queue extends Command {
 
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor('🎵 Current Queue 🎵')
-      .setTitle(`Now playing: ${queue.songs[0].name}`)
+      .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
+      .setTitle(`🔊 Now playing: ${queue.songs[0].name}`)
       .setURL(queue.songs[0].url)
       .setThumbnail(queue.songs[0].thumbnail)
-      .setDescription(`**Next Songs**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
-      .setFooter(`Volume: ${queue.volume}% ● Looping: ${queue.repeatMode ? queue.repeatMode == 2 ? 'All Queue' : 'This Song' : 'Off'} ● Autoplay: ${queue.autoplay ? 'On' : 'Off'}`)
+      .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
+      .setFooter(`Total length: ${queue.formattedDuration}`)
     ctx.reply({ embed })
   }
 }
