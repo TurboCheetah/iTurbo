@@ -25,7 +25,7 @@ class Kitsu extends Command {
       if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 
       if (response.toLowerCase()) {
-        page = this.verifyInt(1, 1)
+        let page = this.verifyInt(1, 1)
 
         const { data } = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(response)}`)
           .then((r) => r.json())
