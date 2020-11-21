@@ -15,7 +15,10 @@ class Play extends Command {
   async run (ctx, args) {
     if (!args.length && this.client.distube.isPaused(ctx.message)) {
       this.client.distube.resume(ctx.message)
-      return ctx.reply('▶ Resumed')
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor('| ▶ Resumed the player', member.user.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
     }
 
     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')

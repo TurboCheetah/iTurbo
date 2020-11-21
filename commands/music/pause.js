@@ -1,11 +1,12 @@
 const Command = require('../../structures/Command.js')
+const { MessageEmbed } = require('discord.js')
 
 class Pause extends Command {
   constructor (...args) {
     super(...args, {
       description: 'Pauses the currently playing song',
       aliases: [],
-      botPermissions: ['CONNECT', 'SPEAK'],
+      botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
       usage: 'pause',
       guildOnly: true,
       cost: 0,
@@ -15,12 +16,19 @@ class Pause extends Command {
 
   async run (ctx) {
     if (this.client.distube.isPaused(ctx.message)) {
+      member = await this.verifyMember(ctx, member, true)
       this.client.distube.resume(ctx.message)
-      return ctx.reply('▶ Resumed')
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor('| ▶ Resumed the player', member.user.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
     }
 
     this.client.distube.pause(ctx.message)
-    ctx.reply('⏸ Paused')
+    const embed = new MessageEmbed()
+      .setColor(0x9590EE)
+      .setAuthor('| ⏸ Paused the player', member.user.displayAvatarURL({ size: 512 }))
+    ctx.reply({ embed })
   }
 }
 
