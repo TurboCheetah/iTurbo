@@ -13,7 +13,25 @@ class Suggestion extends Command {
   }
 
   async run (ctx, args) {
-    if (!args.length) return ctx.reply("What's your idea?")
+    if (!args.length) {
+      const embed = new MessageEmbed()
+        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+        .setDescription('What would you like to suggest?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
+        .setTimestamp()
+        .setColor(0x9590EE)
+
+      const filter = (msg) => msg.author.id === ctx.author.id
+      const response = await ctx.message.awaitReply('', filter, 60000, embed)
+      if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
+
+      if (response.toLowerCase()) {
+        return ctx.reply(`Your idea has been successfully submitted${ctx.guild && ctx.guild.id !== this.client.constants.mainGuildID ? ' to the support server' : ''}.`)
+      } else if (['cancel'].includes(response)) {
+        return ctx.reply('Operation cancelled.')
+      } else {
+        return ctx.reply('Invalid response, please try again.')
+      }
+    }
 
     const channel = this.client.channels.cache.get('735638790621757461')
 
