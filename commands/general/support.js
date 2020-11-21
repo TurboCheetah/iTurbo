@@ -9,7 +9,7 @@ class Support extends Command {
     })
   }
 
-  async run (ctx, args) { // eslint-disable-line no-unused-vars
+  async run (ctx) { // eslint-disable-line no-unused-vars
     return ctx.reply(new MessageEmbed()
       .setTitle("Join Turbo's Hub")
       .setColor(0x9590EE)
