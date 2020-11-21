@@ -17,9 +17,9 @@ class Filter extends Command {
   async run(ctx, args) {
     const embed = new MessageEmbed()
     .setColor(0x9590EE)
-    .setAuthor(`| Enabled \`${args[0].toLowerCase()}\` filter`, ctx.author.displayAvatarURL({ size: 512 }))
+    .setAuthor(`| Enabled ${args[0].toLowerCase()} filter`, ctx.author.displayAvatarURL({ size: 512 }))
 
-    switch (args[0]) {
+    switch (args[0].toLowerCase()) {
       case 'list':
         ctx.reply('Available filters:\n```\n3D\nbassboost\necho\nkaraoke\nnightcore\nvaporwave\nflanger\ngate\nhaas\nreverse\nsurround\nmcompand\nphaser\ntremolo\nearwax```')
         break
