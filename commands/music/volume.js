@@ -1,11 +1,12 @@
 const Command = require('../../structures/Command.js')
+const { MessageEmbed } = require('discord.js')
 
 class Volume extends Command {
   constructor (...args) {
     super(...args, {
       description: 'Adjusts the volume',
       aliases: [],
-      botPermissions: ['CONNECT', 'SPEAK'],
+      botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
       usage: 'volume <percent>',
       guildOnly: true,
       cost: 0,
@@ -16,7 +17,10 @@ class Volume extends Command {
   async run (ctx, args) {
     if (!args[0]) {
       const queue = this.client.distube.getQueue(ctx.message)
-      return ctx.reply(`The current playback volume is at ${queue.volume}%`)
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor(`| The current playback volume is at ${queue.volume}%`, ctx.author.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
     }
 
     if (!Number(args[0])) {
@@ -24,8 +28,10 @@ class Volume extends Command {
     }
 
     this.client.distube.setVolume(ctx.message, Number(args[0]))
-
-    ctx.reply(`Set volume to ${args[0]}%!`)
+    const embed = new MessageEmbed()
+      .setColor(0x9590EE)
+      .setAuthor(`| Set volume to ${args[0]}%`, ctx.author.displayAvatarURL({ size: 512 }))
+    ctx.reply({ embed })
   }
 }
 
