@@ -5,8 +5,8 @@ class addSong extends Event {
   async run (msg, queue, song) {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor('🎵 Added Song 🎵')
-      .setTitle(song.name)
+      .setAuthor('➕ Added Song')
+      .setTitle(splusong.name)
       .setURL(song.url)
       .setThumbnail(song.thumbnail)
       .addField('Requested by', song.user, true)

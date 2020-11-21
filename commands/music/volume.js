@@ -16,7 +16,7 @@ class Volume extends Command {
   async run (ctx, args) {
     if (!args[0]) {
       const queue = this.client.distube.getQueue(ctx.message)
-      return ctx.reply(`The volume is currently at ${queue.volume}%.`)
+      return ctx.reply(`The current playback volume is at ${queue.volume}%`)
     }
 
     if (!Number(args[0])) {
