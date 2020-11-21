@@ -10,7 +10,7 @@ class Queue extends Command {
       usage: 'queue',
       guildOnly: true,
       cost: 0,
-      cooldown: 10
+      cooldown: 3
     })
   }
 

@@ -10,7 +10,7 @@ class Shuffle extends Command {
       usage: 'shuffle',
       guildOnly: true,
       cost: 0,
-      cooldown: 10
+      cooldown: 3
     })
   }
 

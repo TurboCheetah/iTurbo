@@ -1,15 +1,16 @@
 const Command = require('../../structures/Command.js')
+const { MessageEmbed } = require('discord.js')
 
 class Resume extends Command {
   constructor (...args) {
     super(...args, {
       description: 'Resumes the queue',
       aliases: [],
-      botPermissions: ['CONNECT', 'SPEAK'],
+      botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
       usage: 'resume',
       guildOnly: true,
       cost: 0,
-      cooldown: 10
+      cooldown: 3
     })
   }
 
@@ -19,7 +20,10 @@ class Resume extends Command {
     }
 
     this.client.distube.resume(ctx.message)
-    ctx.reply('▶ Resumed')
+    const embed = new MessageEmbed()
+      .setColor(0x9590EE)
+      .setAuthor('| ▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
+    ctx.reply({ embed })
   }
 }
 
