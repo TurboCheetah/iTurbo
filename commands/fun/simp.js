@@ -11,7 +11,7 @@ class Simp extends Command {
 
   async run (ctx, [member]) {
     member = await this.verifyMember(ctx, member, true)
-    if (member.user.bot) return ctx.reply("Bots aren't simps :(")
+    if (member.user.bot) return ctx.reply(`${this.client.constants.error} Bots aren't simps :(`)
 
     if (!member.user.settings.simp) {
       const percent = Math.floor(Math.random() * (100 - 1) + 1)
