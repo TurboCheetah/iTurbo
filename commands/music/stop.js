@@ -15,7 +15,16 @@ class Stop extends Command {
   }
 
   async run (ctx) {
-    this.client.distube.stop(ctx.message)
+    const queue = this.client.distube.getQueue(ctx.message)
+
+    if (queue || queue !== undefined) {
+      this.client.distube.stop(ctx.message)
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor('| 🛑 Stopped', ctx.author.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
+    }
+
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('| 🛑 Stopped', ctx.author.displayAvatarURL({ size: 512 }))
