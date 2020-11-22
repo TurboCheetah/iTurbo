@@ -24,7 +24,7 @@ class Prefix extends Command {
     if (prefix === ctx.guild.settings.prefix) throw 'That is already the current prefix.'
 
     await ctx.guild.update({ prefix })
-    return ctx.reply(`Successfully updated prefix to: \`${prefix}\``)
+    return ctx.reply(`${this.client.constants.success} Successfully updated prefix to: \`${prefix}\``)
   }
 
   async reset (ctx) {

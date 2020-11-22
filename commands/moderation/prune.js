@@ -30,7 +30,7 @@ class Prune extends Command {
 
     messages = messages.array().slice(0, limit)
     await ctx.channel.bulkDelete(messages)
-    return ctx.reply(`Successfully deleted ${messages.length} messages out of ${limit}.`).then(ctx => {
+    return ctx.reply(`${this.client.constants.success} Successfully deleted ${messages.length} messages out of ${limit}.`).then(ctx => {
       ctx.delete({ timeout: 2500 })
     })
   }

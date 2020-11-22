@@ -6,5 +6,6 @@ module.exports = {
   color: 0x9590EE,
   typing: '<a:typing:485594750871928833>',
   error: '<:error:779868196660445194>',
-  success: '<:success:779868196345348111>'
+  success: '<:success:779868196345348111>',
+  add: '<:add:779882646398042142>'
 }

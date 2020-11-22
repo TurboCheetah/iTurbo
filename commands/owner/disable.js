@@ -17,7 +17,7 @@ class Disable extends Command {
     if (piece.store === this.client.events && piece.name === 'message') { return ctx.reply("Trust me you don't want to disable that one. You won't be able to do anything otherwise.") }
     if (!piece.enabled) return ctx.reply(`**${piece.name}** is already disabled.`)
     piece.disable()
-    return ctx.reply(`Successfully disabled the ${piece.store.name.slice(0, -1)} ${piece.name}`)
+    return ctx.reply(`${this.client.constants.success} Successfully disabled the ${piece.store.name.slice(0, -1)} ${piece.name}`)
   }
 }
 

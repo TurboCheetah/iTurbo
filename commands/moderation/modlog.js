@@ -16,17 +16,17 @@ class Modlog extends Command {
     switch (action) {
       case 'disable':
         await ctx.guild.update({ modlog: null })
-        ctx.reply('Successfully disabled the modlog.')
+        ctx.reply(`${this.client.constants.success} Successfully disabled the modlog.`)
         break
 
       case 'enable':
         if (!ctx.message.mentions.channels.size) return ctx.reply('Specify the channel you want to enable it on.')
         const channel = ctx.message.mentions.channels.first()
         await ctx.guild.update({ modlog: channel.id })
-        ctx.reply(`Successfully enabled modlog for the channel ${channel}`)
+        ctx.reply(`${this.client.constants.success} Successfully enabled modlog for the channel ${channel}`)
         break
       default:
-        ctx.reply('Invalid action. Specify either `enable #channel` or `disable`')
+        ctx.reply(`${this.client.constants.success} Invalid action. Specify either \`enable #channel\` or \`disable\``)
         break
     }
   }

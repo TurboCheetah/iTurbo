@@ -28,8 +28,8 @@ class Leave extends Command {
 
     if (['yes', 'y'].includes(answer)) {
       await guild.leave()
-      if (guild.id === ctx.guild.id) return ctx.author.send(`Successfully left **${guild.name}** (${guild.id})`)
-      return ctx.reply(`Successfully left **${guild.name}** (${guild.id})`)
+      if (guild.id === ctx.guild.id) return ctx.author.send(`${this.client.constants.success} Successfully left **${guild.name}** (${guild.id})`)
+      return ctx.reply(`${this.client.constants.success} Successfully left **${guild.name}** (${guild.id})`)
     }
 
     if (['no', 'n'].includes(answer)) { return ctx.reply('Cancelled.') }

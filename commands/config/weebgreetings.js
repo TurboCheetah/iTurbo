@@ -15,14 +15,14 @@ class WeebGreetings extends Command {
 
     if (action === 'disable') {
       await ctx.guild.update({ weebGreetings: null })
-      return ctx.reply('Successfully disabled weeb greetings.')
+      return ctx.reply(`${this.client.constants.success} Successfully disabled weeb greetings.`)
     }
 
     if (action === 'enable') {
       if (!ctx.message.mentions.channels.size) return ctx.reply('Specify the channel you want to enable it on.')
       const channel = ctx.message.mentions.channels.first()
       await ctx.guild.update({ weebGreetings: channel.id })
-      return ctx.reply(`Successfully enabled weeb greetings for the channel ${channel}`)
+      return ctx.reply(`${this.client.constants.success} Successfully enabled weeb greetings for the channel ${channel}`)
     }
 
     return ctx.reply('Invalid action either specify `enable #channel` or `disable`')

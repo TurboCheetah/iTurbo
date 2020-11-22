@@ -36,7 +36,7 @@ class Playlist extends Command {
     prefix.push(playlistName)
 
     await ctx.author.update({ prefix })
-    return ctx.reply(`Successfully added the prefix \`${playlistName}\` to your list of prefixes.`)
+    return ctx.reply(`${this.client.constants.success} Successfully added the prefix \`${playlistName}\` to your list of prefixes.`)
   }
 
   async list (ctx) {
@@ -64,7 +64,7 @@ class Playlist extends Command {
 
     await ctx.author.update({ prefix })
 
-    return ctx.reply(`Successfully removed the prefix \`${prefixInput}\` from your prefix list.`)
+    return ctx.reply(`${this.client.constants.success} Successfully removed the prefix \`${prefixInput}\` from your prefix list.`)
   }
 }
 

@@ -38,7 +38,7 @@ class Store extends Command {
     await ctx.member.roles.remove(role)
     if (refund !== 0) await ctx.member.givePoints(refund)
 
-    return ctx.reply(`Successfully sold the role **${role.name}** for **¥${refund.toLocaleString()}** refund.`)
+    return ctx.reply`${this.client.constants.success} Successfully sold the role **${role.name}** for **¥${refund.toLocaleString()}** refund.`)
   }
 
   async buy (ctx, args) {
@@ -62,7 +62,7 @@ class Store extends Command {
     await ctx.member.roles.add(role)
     if (price !== 0) await ctx.member.takePoints(price)
 
-    return ctx.reply(`Successfully bought the role **${role.name}** for **¥${price.toLocaleString()}**`)
+    return ctx.reply`${this.client.constants.success} Successfully bought the role **${role.name}** for **¥${price.toLocaleString()}**`)
   }
 
   async delete (ctx, args) {
@@ -78,7 +78,7 @@ class Store extends Command {
     if (!this.client.settings.store.cache.has(role.id)) return ctx.reply("That role isn't on sale.")
 
     await this.client.settings.store.delete(role.id)
-    return ctx.reply(`Successfully removed the role **${role.name}** from the store.`)
+    return ctx.reply`${this.client.constants.success} Successfully removed the role **${role.name}** from the store.`)
   }
 
   async add (ctx, [price, ...args]) {

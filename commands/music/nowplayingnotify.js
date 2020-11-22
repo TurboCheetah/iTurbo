@@ -17,10 +17,10 @@ class nowPlayingNotify extends Command {
     if (args) {
       if (['on', 'enable'].includes(args.toLowerCase())) {
         await ctx.guild.update({ nowplaying: true })
-        return ctx.reply('Successfully turned now playing notifications on.')
+        return ctx.reply(`${this.client.constants.success} Successfully turned now playing notifications on.`)
       } else if (['off', 'disable'].includes(args.toLowerCase())) {
         await ctx.guild.update({ nowplaying: false })
-        return ctx.reply('Successfully turned now playing notifications off.')
+        return ctx.reply(`${this.client.constants.success} Successfully turned now playing notifications off.`)
       }
     }
 
@@ -36,10 +36,10 @@ class nowPlayingNotify extends Command {
 
     if (['on', 'enable'].includes(response.toLowerCase())) {
       await ctx.guild.update({ nowplaying: true })
-      return ctx.reply('Successfully turned now playing notifications on.')
+      return ctx.reply(`${this.client.constants.success} Successfully turned now playing notifications on.`)
     } else if (['off', 'disable'].includes(response)) {
       await ctx.guild.update({ nowplaying: false })
-      return ctx.reply('Successfully turned now playing notifications off.')
+      return ctx.reply(`${this.client.constants.success} Successfully turned now playing notifications off.`)
     } else if (['cancel'].includes(response)) {
       return ctx.reply('Operation cancelled.')
     } else {

@@ -16,12 +16,12 @@ class LevelUp extends Command {
 
     if (action === 'enable') {
       await ctx.guild.update({ levelup: true })
-      return ctx.reply('Successfully enabled level up messages.')
+      return ctx.reply(`${this.client.constants.success} Successfully enabled level up messages.`)
     }
 
     if (action === 'disable') {
       await ctx.guild.update({ levelup: false })
-      return ctx.reply('Successfully disabled level up messages.')
+      return ctx.reply(`${this.client.constants.success} Successfully disabled level up messages.`)
     }
   }
 }

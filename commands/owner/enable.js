@@ -16,7 +16,7 @@ class Enable extends Command {
     if (!piece) return ctx.reply('That piece does not exist!')
     if (piece.enabled) return ctx.reply(`**${piece.name}** is already enabled.`)
     piece.enable()
-    return ctx.reply(`Successfully enabled the ${piece.store.name.slice(0, -1)} ${piece.name}`)
+    return ctx.reply(`${this.client.constants.success} Successfully enabled the ${piece.store.name.slice(0, -1)} ${piece.name}`)
   }
 }
 

@@ -16,12 +16,12 @@ class Social extends Command {
 
     if (action === 'enable') {
       await ctx.guild.update({ social: true })
-      return ctx.reply('Successfully enabled the social economy system.')
+      return ctx.reply(`${this.client.constants.success} Successfully enabled the social economy system.`)
     }
 
     if (action === 'disable') {
       await ctx.guild.update({ social: false })
-      return ctx.reply('Successfully disabled the social economy system.')
+      return ctx.reply(`${this.client.constants.success} Successfully disabled the social economy system.`)
     }
   }
 }

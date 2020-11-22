@@ -5,7 +5,7 @@ class addList extends Event {
   async run (msg, queue, playlist) {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor('➕ Added playlist')
+      .setAuthor(`${this.client.constants.add} Added playlist`)
       .setTitle(playlist.name)
       .setURL(playlist.url)
       .setThumbnail(playlist.thumbnail)

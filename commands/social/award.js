@@ -32,7 +32,7 @@ class Award extends Command {
 
     await member.givePoints(amount)
 
-    return ctx.reply(`Successfully rewarded **¥${amount.toLocaleString()}** to ${member}`)
+    return ctx.reply(`${this.client.constants.success} Successfully rewarded **¥${amount.toLocaleString()}** to ${member}`)
   }
 }
 
