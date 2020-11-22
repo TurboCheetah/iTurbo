@@ -21,13 +21,17 @@ class Filter extends Command {
 
     switch (args[0].toLowerCase()) {
       case 'list':
-        ctx.reply('Available filters:\n```\n3D\nbassboost\necho\nkaraoke\nnightcore\nvaporwave\nflanger\ngate\nhaas\nreverse\nsurround\nmcompand\nphaser\ntremolo\nearwax```')
+        ctx.reply('Available filters:\n```\n3D\nbassboost\npurebass\necho\nkaraoke\nnightcore\nvaporwave\nflanger\ngate\nhaas\nreverse\nsurround\nmcompand\nphaser\ntremolo\nearwax```')
         break
       case '3d':
         this.client.distube.setFilter(ctx.message, '3d')
         ctx.reply({ embed })
         break
       case 'bassboost':
+        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
+        ctx.reply({ embed })
+        break
+      case 'purebass':
         this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
         ctx.reply({ embed })
         break
