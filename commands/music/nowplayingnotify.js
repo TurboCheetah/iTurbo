@@ -54,7 +54,7 @@ class nowPlayingNotify extends Command {
       await ctx.guild.update({ nowplaying: false })
       return ctx.reply(`${this.client.constants.success} Successfully turned now playing notifications off.`)
     }
-    this.client.utils.prompt(ctx, 'Would you like to turn now playing notifications **on** or **off**?', ['on', 'enable'], ['off', 'disable'], positive(), negative())
+    this.client.utils.prompt(ctx, 'Would you like to turn now playing notifications **on** or **off**?', ['on', 'enable'], ['off', 'disable'], positive(ctx), negative(ctx))
   }
 }
 
