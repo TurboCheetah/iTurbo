@@ -78,7 +78,7 @@ class Store extends Command {
     if (!this.client.settings.store.cache.has(role.id)) return ctx.reply("That role isn't on sale.")
 
     await this.client.settings.store.delete(role.id)
-    return ctx.reply`${this.client.constants.success} Successfully removed the role **${role.name}** from the store.`)
+    return ctx.reply(`${this.client.constants.success} Successfully removed the role **${role.name}** from the store.`)
   }
 
   async add (ctx, [price, ...args]) {
