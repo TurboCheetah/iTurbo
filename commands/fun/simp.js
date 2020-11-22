@@ -11,9 +11,20 @@ class Simp extends Command {
 
   async run (ctx, [member]) {
     member = await this.verifyMember(ctx, member, true)
+    if (member.user.bot) return ctx.reply("Bots aren't simps :(")
+
+    if (!member.user.settings.simp) {
+      const percent = Math.floor(Math.random() * (100 - 1) + 1)
+      await ctx.author.update({ simp: percent })
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor(`| ${member.user.username} is ${percent}% simp!`, member.user.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
+    }
+
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(`| ${member.user.username} is ${Math.floor(Math.random() * (100 - 1) + 1)}% simp!`, member.user.displayAvatarURL({ size: 512 }))
+      .setAuthor(`| ${member.user.username} is ${member.user.settings.simp}% simp!`, member.user.displayAvatarURL({ size: 512 }))
     return ctx.reply({ embed })
   }
 }
