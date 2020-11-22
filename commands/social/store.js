@@ -62,7 +62,7 @@ class Store extends Command {
     await ctx.member.roles.add(role)
     if (price !== 0) await ctx.member.takePoints(price)
 
-    return ctx.reply`${this.client.constants.success} Successfully bought the role **${role.name}** for **¥${price.toLocaleString()}**`)
+    return ctx.reply(`${this.client.constants.success} Successfully bought the role **${role.name}** for **¥${price.toLocaleString()}**`)
   }
 
   async delete (ctx, args) {
