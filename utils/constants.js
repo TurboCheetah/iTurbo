@@ -5,7 +5,7 @@ module.exports = {
   premiumRole: '615930972797534216',
   color: 0x9590EE,
   typing: '<a:typing:485594750871928833>',
-  error: '<:error:779868196660445194>',
-  success: '<:success:779868196345348111>',
-  add: '<:add:779882646398042142>'
+  error: '<:error:779886874533560320>',
+  success: '<:success:779886882917449728>',
+  add: '<:add:779886892102451290>'
 }
