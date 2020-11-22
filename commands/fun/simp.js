@@ -13,7 +13,7 @@ class Simp extends Command {
     member = await this.verifyMember(ctx, member, true)
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(`| ${member.username} is ${Math.floor(Math.random() * (100 - 1) + 1)}% simp!`, member.user.displayAvatarURL({ size: 512 }))
+      .setAuthor(`| ${member.user.username} is ${Math.floor(Math.random() * (100 - 1) + 1)}% simp!`, member.user.displayAvatarURL({ size: 512 }))
     return ctx.reply({ embed })
   }
 }

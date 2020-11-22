@@ -17,7 +17,7 @@ class Stop extends Command {
   async run (ctx) {
     const queue = this.client.distube.getQueue(ctx.message)
     this.client.distube.stop(ctx.message)
-/*     if (queue || queue !== undefined) {
+    /*     if (queue || queue !== undefined) {
       this.client.distube.stop(ctx.message)
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
