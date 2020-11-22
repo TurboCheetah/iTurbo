@@ -5,7 +5,7 @@ class addSong extends Event {
   async run (msg, queue, song) {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(`${this.client.constants.add} Enqueued at position ${queue.songs.length}`)
+      .setAuthor(`Enqueued at position ${queue.songs.length}`, 'https://i.imgur.com/Nmg88HS.png')
       .setTitle(song.name)
       .setURL(song.url)
       .setThumbnail(song.thumbnail)
