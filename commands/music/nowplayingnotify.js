@@ -24,7 +24,7 @@ class nowPlayingNotify extends Command {
       }
     }
 
-    const embed = new MessageEmbed()
+    /*     const embed = new MessageEmbed()
       .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
       .setDescription('Would you like to turn now playing notifications **on** or **off**?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
       .setTimestamp()
@@ -44,7 +44,17 @@ class nowPlayingNotify extends Command {
       return ctx.reply('Operation cancelled.')
     } else {
       return ctx.reply('Invalid response, please try again.')
+    } */
+    const positive = async (ctx) => {
+      await ctx.guild.update({ nowplaying: true })
+      return ctx.reply(`${this.client.constants.success} Successfully turned now playing notifications on.`)
     }
+
+    const negative = async (ctx) => {
+      await ctx.guild.update({ nowplaying: false })
+      return ctx.reply(`${this.client.constants.success} Successfully turned now playing notifications off.`)
+    }
+    this.client.utils.prompt(ctx, 'Would you like to turn now playing notifications **on** or **off**?', ['on', 'enable'], ['off', 'disable'], positive(), negative())
   }
 }
 

@@ -5,6 +5,8 @@ const suffixes = ['Bytes', 'KB', 'MB', 'GB']
 const { promises: { lstat, readdir } } = require('fs')
 const path = require('path')
 
+const { MessageEmbed } = require('discord.js')
+
 /**
  * Static class with utilities used throughout the bot.
  */
@@ -80,6 +82,38 @@ class Utils {
 
   static shorten (text, maxLen = 1024) {
     return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text
+  }
+
+  /**
+ *
+ * @param {*} ctx command context
+ * @param {string} text prompt question
+ * @param {array} yes positive response(s)
+ * @param {array} no negative response(s)
+ * @param {function} positiveFunction function that runs if response is positive
+ * @param {function} negativeFunction function that runs if response is negative
+ */
+
+  static async prompt (ctx, text, yes, no, positiveFunction, negativeFunction) {
+    const embed = new MessageEmbed()
+      .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+      .setDescription(`${text}\n\nReply with \`cancel\` to cancel the operation. The message will timeout after 60 seconds.`)
+      .setTimestamp()
+      .setColor(0x9590EE)
+
+    const filter = (msg) => msg.author.id === ctx.author.id
+    const response = await ctx.message.awaitReply('', filter, 60000, embed)
+    if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
+
+    if (yes.includes(response.toLowerCase())) {
+      await positiveFunction()
+    } else if (no.includes(response)) {
+      await negativeFunction()
+    } else if (['cancel'].includes(response)) {
+      return ctx.reply('Operation cancelled.')
+    } else {
+      return ctx.reply('Invalid response, please try again.')
+    }
   }
 }
 
