@@ -4,7 +4,8 @@ const { MessageEmbed } = require('discord.js')
 class Simp extends Command {
   constructor (...args) {
     super(...args, {
-      description: 'Based on my simp-scale I will determine the amount of simp you have in you',
+      aliases: ['simpometer', 'simp-o-meter'],
+      description: 'Based on my simp-o-meter I will determine the amount of simp you have in you',
       usage: 'simp [@user]'
     })
   }
