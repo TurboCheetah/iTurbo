@@ -37,7 +37,7 @@ class TVShow extends Command {
       .setImage(`https://image.tmdb.org/t/p/original${show.poster_path}`)
       .setTitle(`${show.name} (${page} out of ${body.results.length} results)`)
       .setDescription(show.overview)
-      .setFooter(`Powered by Powered by TheMovieDB`,
+      .setFooter('Powered by Powered by TheMovieDB',
         'https://www.themoviedb.org/assets/1/v4/logos/408x161-powered-by-rectangle-green-bb4301c10ddc749b4e79463811a68afebeae66ef43d17bcfd8ff0e60ded7ce99.png')
     if (show.title !== show.original_name) embed.addField('Original Title', show.original_name, true)
     embed
