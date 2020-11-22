@@ -15,7 +15,7 @@ class Simp extends Command {
 
     if (!member.user.settings.simp) {
       const percent = Math.floor(Math.random() * (100 - 1) + 1)
-      await member.update({ simp: percent })
+      await member.user.update({ simp: percent })
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor(`| ${member.user.username} is ${percent}% simp!`, member.user.displayAvatarURL({ size: 512 }))
