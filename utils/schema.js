@@ -26,7 +26,8 @@ CREATE TABLE IF NOT EXISTS users (
   repcooldown TIMESTAMP,
   title TEXT,
   prefix TEXT[],
-  playlists TEXT[][]
+  playlists TEXT[][],
+  simp INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS bot (
