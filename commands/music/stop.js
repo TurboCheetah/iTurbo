@@ -17,7 +17,7 @@ class Stop extends Command {
   async run (ctx) {
     const queue = this.client.distube.getQueue(ctx.message)
     this.client.distube.stop(ctx.message)
-    if (!queue || queue !== undefined) {
+    if (!queue) {
       const member = await this.verifyMember(ctx, ctx.author, true)
       const channel = member.voice.channel
 
