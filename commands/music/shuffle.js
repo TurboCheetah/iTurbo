@@ -15,6 +15,15 @@ class Shuffle extends Command {
   }
 
   async run (ctx) {
+    const queue = this.client.distube.getQueue(ctx.message)
+
+    if (!queue) {
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor('| There is nothing in the queue!', ctx.author.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
+    }
+
     this.client.distube.shuffle(ctx.message)
     const embed = new MessageEmbed()
       .setColor(0x9590EE)

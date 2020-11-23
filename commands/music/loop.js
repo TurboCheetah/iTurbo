@@ -15,6 +15,15 @@ class Loop extends Command {
   }
 
   async run (ctx, args) {
+    const queue = this.client.distube.getQueue(ctx.message)
+
+    if (!queue) {
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
+    }
+
     if (!args.length) {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))

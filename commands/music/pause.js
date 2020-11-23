@@ -15,6 +15,15 @@ class Pause extends Command {
   }
 
   async run (ctx) {
+    const queue = this.client.distube.getQueue(ctx.message)
+
+    if (!queue) {
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
+    }
+
     if (this.client.distube.isPaused(ctx.message)) {
       this.client.distube.resume(ctx.message)
       const embed = new MessageEmbed()
