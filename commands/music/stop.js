@@ -16,7 +16,6 @@ class Stop extends Command {
 
   async run (ctx) {
     const queue = this.client.distube.getQueue(ctx.message)
-    this.client.distube.stop(ctx.message)
     if (!queue) {
       const member = await this.verifyMember(ctx, ctx.author, true)
       const channel = member.voice.channel
@@ -30,6 +29,7 @@ class Stop extends Command {
       return ctx.reply({ embed })
     }
 
+    this.client.distube.stop(ctx.message)
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('| 🛑 Stopped', ctx.author.displayAvatarURL({ size: 512 }))
