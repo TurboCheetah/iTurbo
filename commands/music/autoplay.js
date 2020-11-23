@@ -15,8 +15,6 @@ class Autoplay extends Command {
   }
 
   async run (ctx) {
-    const mode = this.client.distube.toggleAutoplay(ctx.message)
-
     if (!queue) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
@@ -24,6 +22,7 @@ class Autoplay extends Command {
       return ctx.reply({ embed })
     }
 
+    const mode = this.client.distube.toggleAutoplay(ctx.message)
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(`| Turned autoplay ${mode ? 'on' : 'off'}`, ctx.author.displayAvatarURL({ size: 512 }))
