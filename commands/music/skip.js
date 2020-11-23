@@ -23,9 +23,8 @@ class Skip extends Command {
         .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
-    
+
     this.client.distube.skip(ctx.message)
-    const queue = this.client.distube.getQueue(ctx.message)
 
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
