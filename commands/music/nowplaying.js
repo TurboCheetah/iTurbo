@@ -16,11 +16,12 @@ class NowPlaying extends Command {
 
   async run (ctx) {
     const queue = this.client.distube.getQueue(ctx.message)
+    const member = await this.verifyMember(ctx, ctx.author, true)
     if (!queue) {
       const embed = new MessageEmbed()
-      .setColor(0x9590EE)
-      .setAuthor(`| Nothing is playing!`, member.user.displayAvatarURL({ size: 512 }))
-    return ctx.reply({ embed })
+        .setColor(0x9590EE)
+        .setAuthor('| Nothing is playing!', member.user.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
     }
 
     const embed = new MessageEmbed()
