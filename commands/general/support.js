@@ -13,7 +13,7 @@ class Support extends Command {
     return ctx.reply(new MessageEmbed()
       .setTitle("Join Turbo's Hub")
       .setColor(0x9590EE)
-      .setDescription("If you need help with setting me up on your server or just want to hangout, join Turbo's Hub.\nYou also get an oppurtunity to become a Premium user which can only be obtained through a role in our server.\nYou will also recieve updates about the bot and much more!\n\n[Join Turbo's Hub](https://discord.gg/FFGrsWE)")
+      .setDescription("If you need help with setting me up on your server or just want to hangout, join Turbo's Hub.\nYou also get an oppurtunity to become a Premium user which can only be obtained through a role in our server.\nYou will also recieve updates about the bot and much more!\n\n[Join Turbo's Hub](https://discord.gg/011UYuval0uSxjmuQ)")
       .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 })))
   }
 }
