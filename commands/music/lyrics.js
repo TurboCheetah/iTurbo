@@ -15,6 +15,7 @@ class Lyrics extends Command {
 
   async run (ctx, args) {
     const search = async (song) => {
+      console.log(`[LYRICS] Seaching for ${song}`)
       const hits = await fetch(`https://api.genius.com/search?q=${encodeURIComponent(song)}`, {
         headers: { Authorization: `Bearer ${this.client.config.genius}` }
       })
