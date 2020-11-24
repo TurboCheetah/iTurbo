@@ -9,7 +9,7 @@ class Mimic extends Command {
       usage: 'mimic <@user> <msg...>',
       guildOnly: true,
       cost: 20,
-      cooldown: 100
+      cooldown: 30
     })
   }
 
