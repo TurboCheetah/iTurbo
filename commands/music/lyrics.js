@@ -67,7 +67,7 @@ class Lyrics extends Command {
         return ctx.reply('Operation cancelled.')
       }
     }
-    search(args[0])
+    search(args.join(' '))
   }
 }
 
