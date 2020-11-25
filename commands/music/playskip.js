@@ -16,6 +16,7 @@ class PlaySkip extends Command {
 
   async run (ctx, args) {
     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
+    const queue = this.client.distube.getQueue(ctx.message)
 
     this.client.distube.playSkip(ctx.message, args.join(' '))
     const embed = new MessageEmbed()
