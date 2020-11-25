@@ -14,7 +14,8 @@ class Playlist extends Command {
   async run (ctx, [action = 'list', ...args]) {
     if (!['add', 'remove', 'list'].includes(action)) { return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``) }
 
-    return this[action](ctx, args)
+    //return this[action](ctx, args)
+    return ctx.reply('This command is under construction!')
   }
 
   async add (ctx, args) {
