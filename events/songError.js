@@ -5,10 +5,8 @@ class songError extends Event {
   async run (msg, err) {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(`Song Error`)
+      .setAuthor('Song Error')
       .setDescription(`An Error occured: \n\`\`\`js\n${err}\`\`\``)
-    ctx.reply({ embed })
-
     msg.channel.send({ embed })
   }
 }
