@@ -1,5 +1,8 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
+const ytpl = require('@distube/ytpl')
+const Song = require('distube/src/Song')
+const Playlist = require('distube/src/Playlist')
 
 class Playlist extends Command {
   constructor (...args) {
@@ -14,7 +17,16 @@ class Playlist extends Command {
   async run (ctx, [action = 'list', ...args]) {
     if (!['add', 'remove', 'list'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
 
-    return this[action](ctx, args)
+    let playlist
+    playlist = await ytpl(args[0], { limit: Infinity })
+    playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, message.author, true))
+    if (!playlist) throw Error('Invalid Playlist')
+    if (!(playlist instanceof Playlist)) playlist = new Playlist(playlist, ctx.author)
+    if (!playlist.songs.length) throw Error('No valid video in the playlist')
+    const songs = playlist.songs
+    return console.log(songs)
+
+    //return this[action](ctx, args)
   }
 
   async add (ctx, args) {
