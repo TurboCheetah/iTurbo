@@ -16,9 +16,9 @@ class Pornhub extends Command {
 
   async run (ctx, args) {
     switch (args[0]) {
-      case 'gif':
+      case 'gif': {
         try {
-          var args = args.splice(1)
+          args = args.splice(1)
           const search = await pornsearch.search(args).gifs()
           var result = this.client.utils.random(search)
 
@@ -27,9 +27,10 @@ class Pornhub extends Command {
           console.error(err)
         }
         break
-      default:
+      }
+      default: {
         try {
-          var result = await pornsearch.search(args).videos()
+          result = await pornsearch.search(args).videos()
           result = this.client.utils.random(result)
           var embed = new MessageEmbed()
             .setColor(0x9590EE)
@@ -46,6 +47,7 @@ class Pornhub extends Command {
           console.error(err)
         }
         break
+      }
     }
   }
 }

@@ -51,7 +51,7 @@ class Reddit extends Command {
             const post = client.utils.random(body).data
             // checks if the post url ends with an image extension
             switch ((/(\.jpg|\.png|\.gif|\.jpeg)$/ig).test(post.url)) {
-              case true:
+              case true: {
                 // resolves the payload with all the juicy data
                 const payload = {
                   url: post.url,
@@ -64,6 +64,7 @@ class Reddit extends Command {
                 }
                 resolve(payload)
                 break
+              }
               default:
                 // self explanatory (hopefully)
                 switch (post.is_video) {
@@ -80,7 +81,7 @@ class Reddit extends Command {
                       default:
                         // if the media thumbnail is from gfycat try again (thumbnails from gfycat are really low res)
                         switch (post.url.includes('redgifs')) {
-                          case false:
+                          case false: {
                             // resolve payload
                             const payload = {
                               url: post.url,
@@ -93,6 +94,7 @@ class Reddit extends Command {
                             }
                             resolve(payload)
                             break
+                          }
                           // tries again
                           default: ExtractRedditUrl(body, tries)
                         }

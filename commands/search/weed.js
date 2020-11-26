@@ -22,8 +22,8 @@ class Weed extends Command {
       default:
         ctx.reply(`Please provide a valid search query. Refer to \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help weed\` for a list of all possible queries.`)
         break
-      case 'strain':
-        var args = args.splice(1)
+      case 'strain': {
+        args = args.splice(1)
         if (!args.length) return ctx.reply('What am I supposed to search for? Please provide a strain!')
         var $ = await fetch(`https://www.leafly.com/strains/${args.join('-').toLowerCase()}`)
           .then((res) => {
@@ -77,8 +77,9 @@ class Weed extends Command {
 
         ctx.reply({ embed })
         break
-      case 'type':
-        var args = args.splice(1)
+      }
+      case 'type': {
+        args = args.splice(1)
         var valid = ['indica', 'sativa', 'hybrid']
         if (!args.length) return ctx.reply('Invalid search query! Valid queries are: indica, sativa, and hybrid.')
         if (!valid.includes(args[0])) return ctx.reply('Invalid search query! Valid queries are: indica, sativa, and hybrid.')
@@ -115,8 +116,9 @@ class Weed extends Command {
         ctx.reply({ embed })
 
         break
-      case 'feeling':
-        var args = args.splice(1)
+      }
+      case 'feeling': {
+        args = args.splice(1)
         var valid = ['euphoric', 'relaxed', 'aroused', 'focused', 'energetic', 'sleepy', 'giggly', 'happy', 'talkative', 'tingly', 'uplifted', 'creative', 'hungry']
         if (!args.length) return ctx.reply(`Invalid search query! Valid queries are: ${valid.splice(0, 12).join(', ')}, and ${valid[0]}.`)
         if (!valid.includes(args[0])) return ctx.reply(`Invalid search query! Valid queries are: ${valid.splice(0, 12).join(', ')}, and ${valid[0]}.`)
@@ -153,8 +155,9 @@ class Weed extends Command {
         ctx.reply({ embed })
 
         break
-      case 'wellness':
-        var args = args.splice(1)
+      }
+      case 'wellness': {
+        args = args.splice(1)
         var valid = ['depression', 'insomnia', 'nausea', 'inflammation', 'anxiety', 'pain']
         if (!args.length) return ctx.reply('Invalid search query! Valid queries are: depression, insomnia,  nausea, inflammation, anxiety, and pain.')
         if (!valid.includes(args[0])) return ctx.reply('Invalid search query! Valid queries are: depression, insomnia,  nausea, inflammation, anxiety, and pain.')
@@ -191,7 +194,8 @@ class Weed extends Command {
         ctx.reply({ embed })
 
         break
-      case 'popular':
+      }
+      case 'popular': {
         var $ = await fetch('https://www.leafly.com/strains/lists/curated/popular-marijuana-strains')
           .then((res) => {
             if (!res.ok) throw 'Something went wrong.'
@@ -225,7 +229,8 @@ class Weed extends Command {
         ctx.reply({ embed })
 
         break
-      case 'trending':
+      }
+      case 'trending': {
         var $ = await fetch('https://www.leafly.com/strains/lists/curated/trending-marijuana-strains')
           .then((res) => {
             if (!res.ok) throw 'Something went wrong.'
@@ -259,7 +264,8 @@ class Weed extends Command {
         ctx.reply({ embed })
 
         break
-      case 'underrated':
+      }
+      case 'underrated': {
         var $ = await fetch('https://www.leafly.com/strains/lists/curated/underrated-thc-strains')
           .then((res) => {
             if (!res.ok) throw 'Something went wrong.'
@@ -293,6 +299,7 @@ class Weed extends Command {
         ctx.reply({ embed })
 
         break
+      }
     }
   }
 }

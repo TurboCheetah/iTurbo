@@ -44,8 +44,8 @@ class Suggestion extends Command {
       .setFooter(`User ID: ${ctx.author.id}`)
 
     const message = await channel.send({ embed })
-    await message.react(this.client.constants.success);
-    await message.react(this.client.constants.error);
+    await message.react(this.client.constants.success)
+    await message.react(this.client.constants.error)
     return ctx.reply(`Your idea has been successfully submitted${ctx.guild && ctx.guild.id !== this.client.constants.mainGuildID ? ' to the support server' : ''}.`)
   }
 }

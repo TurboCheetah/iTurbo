@@ -1,6 +1,5 @@
 const Command = require('../../structures/Command.js')
 const fetch = require('node-fetch')
-const { MessageEmbed } = require('discord.js')
 
 class RedditGif extends Command {
   constructor (...args) {

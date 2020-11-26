@@ -19,7 +19,7 @@ class HentaiList extends Command {
 
   async run (ctx, args) {
     if (!args.length) return ctx.reply('What am I supposed to search for?')
-    var args = args.join('-').toString().split('-')[0]
+    args = args.join('-').toString().split('-')[0]
 
     const hentailist = async (id) => {
       const controller = new AbortController()
@@ -56,7 +56,7 @@ class HentaiList extends Command {
     }
 
     switch (args) {
-      case 'random':
+      case 'random': {
         // Get latest HAnime upload ID
         const controller = new AbortController()
         const timeout = setTimeout(() => controller.abort(), 5000)
@@ -76,7 +76,7 @@ class HentaiList extends Command {
 
         await hentailist(Math.random() * (newestID - 5) + 5)
         break
-
+      }
       default:
         await hentailist(args)
         break

@@ -41,7 +41,7 @@ class Prune extends Command {
       case 'invite': return (msg) => /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.com\/invite)\/.+/.test(msg.content)
       case 'bots': return (msg) => msg.author.bot
       case 'you': return (msg) => msg.author.id === this.client.user.id
-      case 'me': return (msg) => msg.author.id === msg.author.id
+      case 'me': return (msg) => msg.author.id
       case 'upload': return (msg) => msg.attachments.size > 0
       case 'user': return (msg) => msg.author.id === user.id
       default: return () => true
