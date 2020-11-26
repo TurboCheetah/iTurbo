@@ -14,8 +14,8 @@ class Playlist extends Command {
 
   async run (ctx, [action = 'list', ...args]) {
     if (!['add', 'remove', 'list'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
-
-    let playlist
+return console.log(args)
+/*     let playlist
     playlist = await ytpl(args[0], { limit: Infinity })
     playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, message.author, true))
     if (!playlist) throw Error('Invalid Playlist')
@@ -24,7 +24,7 @@ class Playlist extends Command {
     const songs = playlist.songs
     return console.log(songs)
 
-    //return this[action](ctx, args)
+    //return this[action](ctx, args) */
   }
 
   async add (ctx, args) {
