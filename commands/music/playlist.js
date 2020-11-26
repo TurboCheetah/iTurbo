@@ -1,8 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 const ytpl = require('@distube/ytpl')
-const Song = require('distube/src/Song')
-const Playlist = require('distube/src/Playlist')
 
 class Playlist extends Command {
   constructor (...args) {
