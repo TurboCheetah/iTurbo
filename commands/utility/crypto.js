@@ -62,7 +62,7 @@ class Crypto extends Command {
 
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(data[0].name, data[0].logo_url)
+      .setTitle(data[0].name)
       .addField('Price', `${Number(data[0].price).toFixed(2)}`)
       .addField('1H', `${Number(data[0]['1h'].price_change).toFixed(4)} (${Number(data[0]['1h'].price_change_pct).toFixed(4) * 100}%)`)
       .addField('24H', `${Number(data[0]['1d'].price_change).toFixed(4)} (${Number(data[0]['1d'].price_change_pct).toFixed(4) * 100}%)`)
