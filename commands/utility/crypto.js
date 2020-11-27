@@ -42,9 +42,9 @@ class Crypto extends Command {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setTitle('Current Crypto Prices')
-        .addField(`Bitcoin (${data[0].symbol})`, `$${data[0].price}`, true)
-        .addField(`Ethereum (${data[1].symbol})`, `$${data[1].price}`, true)
-        .addField(`Ripple (${data[2].symbol})`, `$${data[2].price}`, true)
+        .addField(`Bitcoin (${data[0].symbol})`, `$${data[0].price}`)
+        .addField(`Ethereum (${data[1].symbol})`, `$${data[1].price}`)
+        .addField(`Ripple (${data[2].symbol})`, `$${data[2].price}`)
         .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
       return ctx.reply({ embed })
     }
@@ -55,15 +55,19 @@ class Crypto extends Command {
       interval: '1h,1d,7d'
     }
 
-    const data = await axios.request(options)
+    const data = await axios.request(options).then(res => {
+      return res.data
+    }).catch(err => {
+      console.error(err)
+    })
 
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(data[0].name, data[0].logo_url)
       .addField('Price', `${data[0].price}`)
-      .addField('1H', `${data[0]['1h'].price_change} (${data[0]['1h'].price_change_pct * 100}%)`, true)
-      .addField('24H', `${data[0]['24h'].price_change} (${data[0]['24h'].price_change_pct * 100}%)`, true)
-      .addField('7D', `${data[0]['7d'].price_change} (${data[0]['7d'].price_change_pct * 100}%)`, true)
+      .addField('1H', `${data[0]['1h'].price_change} (${data[0]['1h'].price_change_pct * 100}%)`)
+      .addField('24H', `${data[0]['24h'].price_change} (${data[0]['24h'].price_change_pct * 100}%)`)
+      .addField('7D', `${data[0]['7d'].price_change} (${data[0]['7d'].price_change_pct * 100}%)`)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
     ctx.reply({ embed })
   }
