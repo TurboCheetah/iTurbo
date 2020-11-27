@@ -68,9 +68,9 @@ class Crypto extends Command {
       .setColor(0x9590EE)
       .setAuthor(data[0].name, `https://icons.bitbot.tools/api/${args[0]}/128x128`)
       .addField('Price', `${toFixedNum(Number(data[0].price), 2)}`)
-      .addField('1H', `${toFixedNum(Number(data[0]['1h'].price_change), 4)} (${toFixedNum(Number(data[0]['1h'].price_change_pct) * 100, 4)}%)`)
-      .addField('24H', `${toFixedNum(Number(data[0]['1d'].price_change), 4)} (${toFixedNum(Number(data[0]['1d'].price_change_pct) * 100, 4)}%)`)
-      .addField('7D', `${toFixedNum(Number(data[0]['7d'].price_change), 4)} (${toFixedNum(Number(data[0]['7d'].price_change_pct) * 100, 4)}%)`)
+      .addField('1H', `${toFixedNum(Number(data[0]['1h'].price_change), 4)} (${toFixedNum(Number(data[0]['1h'].price_change_pct) * 100, 2)}%)`)
+      .addField('24H', `${toFixedNum(Number(data[0]['1d'].price_change), 4)} (${toFixedNum(Number(data[0]['1d'].price_change_pct) * 100, 2)}%)`)
+      .addField('7D', `${toFixedNum(Number(data[0]['7d'].price_change), 4)} (${toFixedNum(Number(data[0]['7d'].price_change_pct) * 100, 2)}%)`)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
     ctx.reply({ embed })
   }
