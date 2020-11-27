@@ -42,8 +42,8 @@ class Crypto extends Command {
         .setColor(0x9590EE)
         .setTitle('Current Crypto Prices')
         .addField(`Bitcoin (${data[0].symbol})`, `$${Number(data[0].price).toFixed(2)}`)
-        .addField(`Ethereum (${data[1].symbol})`, `$${data[1].price}`)
-        .addField(`Ripple (${data[2].symbol})`, `$${data[2].price}`)
+        .addField(`Ethereum (${data[1].symbol})`, `$${Number(data[1].price).toFixed(2)}`)
+        .addField(`Ripple (${data[2].symbol})`, `$${Number(data[2].price).toFixed(2)}`)
         .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
       return ctx.reply({ embed })
     }
