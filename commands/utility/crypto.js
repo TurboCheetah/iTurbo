@@ -32,9 +32,13 @@ class Crypto extends Command {
         interval: '1d'
       }
 
-      const data = await axios.request(options)
+      const data = await axios.request(options).then(res => {
+        return res.data
+      }).catch(err => {
+        console.error(err)
+      })
 
-      console.log(data[0]);
+      console.log(data);
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setTitle('Current Crypto Prices')
