@@ -38,7 +38,7 @@ class Crypto extends Command {
         console.error(err)
       })
 
-      console.log(data);
+      console.log(data)
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setTitle('Current Crypto Prices')
