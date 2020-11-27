@@ -31,6 +31,7 @@ class Crypto extends Command {
         ids: 'BTC,ETH,XRP',
         interval: '1d'
       }
+      console.log(options);
 
       const data = await axios.request(options)
 
