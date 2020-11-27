@@ -1,6 +1,8 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 const ytpl = require('@distube/ytpl')
+const Song = require('distube/src/Song')
+const YTPlaylist = require('distube/src/Playlist')
 
 class Playlist extends Command {
   constructor (...args) {
@@ -22,7 +24,7 @@ class Playlist extends Command {
       playlist = await ytpl(args, { limit: Infinity })
       playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, message.author, true))
       if (!playlist) throw Error('Invalid Playlist')
-      if (!(playlist instanceof Playlist)) playlist = new Playlist(playlist, ctx.author)
+      if (!(playlist instanceof YTPlaylist)) playlist = new YTPlaylist(playlist, ctx.author)
       if (!playlist.songs.length) throw Error('No valid video in the playlist')
       const songs = playlist.songs
       return console.log(songs)
