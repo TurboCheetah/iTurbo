@@ -25,7 +25,7 @@ class Playlist extends Command {
       if (!(playlist instanceof YTPlaylist)) playlist = new YTPlaylist(playlist, ctx.author)
       if (!playlist.songs.length) throw Error('No valid video in the playlist')
       const songs = playlist.songs
-      return console.log(songs)
+      return console.log(songs[0])
     }
 
     await handlePlaylist(ctx, args[0])
