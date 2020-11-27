@@ -20,7 +20,7 @@ class Playlist extends Command {
     const handlePlaylist = async (ctx, args) => {
       let playlist
       playlist = await ytpl(args, { limit: Infinity })
-      playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, message.author, true))
+      playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, ctx.author, true))
       if (!playlist) throw Error('Invalid Playlist')
       if (!(playlist instanceof YTPlaylist)) playlist = new YTPlaylist(playlist, ctx.author)
       if (!playlist.songs.length) throw Error('No valid video in the playlist')
