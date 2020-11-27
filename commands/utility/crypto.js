@@ -45,9 +45,9 @@ class Crypto extends Command {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setTitle('Current Crypto Prices')
-        .addField(`Bitcoin (${data[0].symbol})`, `$${toFixedNum(Number(data[0].price), 2).toLocaleString()} USD`)
-        .addField(`Ethereum (${data[1].symbol})`, `$${toFixedNum(Number(data[1].price), 2).toLocaleString()} USD`)
-        .addField(`Ripple (${data[2].symbol})`, `$${toFixedNum(Number(data[2].price), 2).toLocaleString()} USD`)
+        .addField(`Bitcoin (${data[0].symbol})`, `$${toFixedNum(Number(data[0].price), 2).toLocaleString()} USD`, true)
+        .addField(`Ethereum (${data[1].symbol})`, `$${toFixedNum(Number(data[1].price), 2).toLocaleString()} USD`, true)
+        .addField(`Ripple (${data[2].symbol})`, `$${toFixedNum(Number(data[2].price), 2).toLocaleString()} USD`, true)
         .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
       return ctx.reply({ embed })
     }
