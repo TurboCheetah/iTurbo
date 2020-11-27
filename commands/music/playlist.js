@@ -17,8 +17,6 @@ class Playlist extends Command {
   async run (ctx, [action = 'list', ...args]) {
     if (!['add', 'remove', 'list'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
 
-    await handlePlaylist(ctx, args[0])
-
     const handlePlaylist = async (ctx, args) => {
       let playlist
       playlist = await ytpl(args, { limit: Infinity })
@@ -29,6 +27,8 @@ class Playlist extends Command {
       const songs = playlist.songs
       return console.log(songs)
     }
+
+    await handlePlaylist(ctx, args[0])
 
     // return this[action](ctx, args)
   }
