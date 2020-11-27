@@ -16,9 +16,9 @@ class Crypto extends Command {
   }
 
   async run (ctx, args) {
-    const toFixedNum = (num, precision ) => {
-      return (+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision);
-  }
+    const toFixedNum = (num, precision) => {
+      return (+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision)
+    }
 
     const options = {
       method: 'GET',
