@@ -15,16 +15,20 @@ class Playlist extends Command {
   async run (ctx, [action = 'list', ...args]) {
     if (!['add', 'remove', 'list'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
 
-    let playlist
-    playlist = await ytpl(args[0], { limit: Infinity })
-    playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, message.author, true))
-    if (!playlist) throw Error('Invalid Playlist')
-    if (!(playlist instanceof Playlist)) playlist = new Playlist(playlist, ctx.author)
-    if (!playlist.songs.length) throw Error('No valid video in the playlist')
-    const songs = playlist.songs
-    return console.log(songs)
+    await handlePlaylist(ctx, args[0])
 
-    //return this[action](ctx, args)
+    const handlePlaylist = async (ctx, args) => {
+      let playlist
+      playlist = await ytpl(args, { limit: Infinity })
+      playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, message.author, true))
+      if (!playlist) throw Error('Invalid Playlist')
+      if (!(playlist instanceof Playlist)) playlist = new Playlist(playlist, ctx.author)
+      if (!playlist.songs.length) throw Error('No valid video in the playlist')
+      const songs = playlist.songs
+      return console.log(songs)
+    }
+
+    // return this[action](ctx, args)
   }
 
   async add (ctx, args) {
