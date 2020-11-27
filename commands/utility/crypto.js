@@ -50,7 +50,7 @@ class Crypto extends Command {
 
     options.params = {
       key: this.client.config.nomics,
-      ids: args[0],
+      ids: args[0].toUpperCase(),
       interval: '1h,1d,7d'
     }
 
