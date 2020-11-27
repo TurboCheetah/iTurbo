@@ -60,7 +60,7 @@ class Crypto extends Command {
       console.error(err)
     })
 
-    console.log(data);
+    console.log(data.id);
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(data[0].name, data[0].logo_url)
