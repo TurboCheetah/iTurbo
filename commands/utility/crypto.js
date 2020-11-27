@@ -60,13 +60,12 @@ class Crypto extends Command {
       console.error(err)
     })
 
-    console.log(data[0]['1h'].price_change);
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(data[0].name, data[0].logo_url)
       .addField('Price', `${Number(data[0].price).toFixed(2)}`)
       .addField('1H', `${data[0]['1h'].price_change} (${data[0]['1h'].price_change_pct * 100}%)`)
-      .addField('24H', `${data[0]['24h'].price_change} (${data[0]['24h'].price_change_pct * 100}%)`)
+      .addField('24H', `${data[0]['1d'].price_change} (${data[0]['1d'].price_change_pct * 100}%)`)
       .addField('7D', `${data[0]['7d'].price_change} (${data[0]['7d'].price_change_pct * 100}%)`)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
     ctx.reply({ embed })
