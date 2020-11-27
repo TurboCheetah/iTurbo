@@ -16,6 +16,10 @@ class Crypto extends Command {
   }
 
   async run (ctx, args) {
+    const toFixedNum = (num, precision ) => {
+      return (+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision);
+  }
+
     const options = {
       method: 'GET',
       url: 'https://api.nomics.com/v1/currencies/ticker',
@@ -41,9 +45,9 @@ class Crypto extends Command {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setTitle('Current Crypto Prices')
-        .addField(`Bitcoin (${data[0].symbol})`, `$${Number(data[0].price).toFixed(2)}`)
-        .addField(`Ethereum (${data[1].symbol})`, `$${Number(data[1].price).toFixed(2)}`)
-        .addField(`Ripple (${data[2].symbol})`, `$${Number(data[2].price).toFixed(2)}`)
+        .addField(`Bitcoin (${data[0].symbol})`, `$${toFixedNum(Number(data[0].price), 2)}`)
+        .addField(`Ethereum (${data[1].symbol})`, `$${toFixedNum(Number(data[1].price), 2)}`)
+        .addField(`Ripple (${data[2].symbol})`, `$${toFixedNum(Number(data[2].price), 2)}`)
         .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
       return ctx.reply({ embed })
     }
@@ -63,10 +67,10 @@ class Crypto extends Command {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(data[0].name, `https://icons.bitbot.tools/api/${args[0]}/128x128`)
-      .addField('Price', `${Number(data[0].price).toFixed(2)}`)
-      .addField('1H', `${Number(data[0]['1h'].price_change).toFixed(4)} (${Number(data[0]['1h'].price_change_pct).toFixed(4) * 100}%)`)
-      .addField('24H', `${Number(data[0]['1d'].price_change).toFixed(4)} (${Number(data[0]['1d'].price_change_pct).toFixed(4) * 100}%)`)
-      .addField('7D', `${Number(data[0]['7d'].price_change).toFixed(4)} (${Number(data[0]['7d'].price_change_pct).toFixed(4) * 100}%)`)
+      .addField('Price', `${toFixedNum(Number(data[0].price), 2)}`)
+      .addField('1H', `${toFixedNum(Number(data[0]['1h'].price_change), 4)} (${toFixedNum(Number(data[0]['1h'].price_change_pct), 4) * 100}%)`)
+      .addField('24H', `${toFixedNum(Number(data[0]['1d'].price_change), 4)} (${toFixedNum(Number(data[0]['1d'].price_change_pct), 4) * 100}%)`)
+      .addField('7D', `${toFixedNum(Number(data[0]['7d'].price_change), 4)} (${toFixedNum(Number(data[0]['7d'].price_change_pct), 4) * 100}%)`)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
     ctx.reply({ embed })
   }
