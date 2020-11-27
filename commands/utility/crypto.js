@@ -19,7 +19,7 @@ class Crypto extends Command {
     const toFixedNum = (num, precision) => {
       return Number((+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision))
     }
-console.log(typeof toFixedNum(88.0989, 2));
+
     const options = {
       method: 'GET',
       url: 'https://api.nomics.com/v1/currencies/ticker',
