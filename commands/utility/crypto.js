@@ -60,6 +60,7 @@ class Crypto extends Command {
       console.error(err)
     })
 
+    console.log(Number(data[0]['7d'].price_change_pct).toFixed(4) * 100);
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setTitle(data[0].name)
