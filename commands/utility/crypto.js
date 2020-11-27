@@ -17,7 +17,7 @@ class Crypto extends Command {
 
   async run (ctx, args) {
     const toFixedNum = (num, precision) => {
-      return (+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision)
+      return Number((+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision))
     }
 
     const options = {
@@ -69,7 +69,7 @@ class Crypto extends Command {
       .setAuthor(data[0].name, `https://icons.bitbot.tools/api/${args[0]}/128x128`)
       .addField('Price', `${toFixedNum(Number(data[0].price), 2).toLocaleString()} USD`, true)
       .addField('Market Cap', `${toFixedNum(Number(data[0].market_cap), 2).toLocaleString()}`, true)
-      .addField('Price', `${toFixedNum(Number(data[0].circulating_supply), 2).toLocaleString()}`, true)
+      .addField('Circulating Supply', `${toFixedNum(Number(data[0].circulating_supply), 2).toLocaleString()}`, true)
       .addField('1H', `${toFixedNum(Number(data[0]['1h'].price_change), 4).toLocaleString()} (${toFixedNum(Number(data[0]['1h'].price_change_pct) * 100, 2)}%)`, true)
       .addField('24H', `${toFixedNum(Number(data[0]['1d'].price_change), 4).toLocaleString()} (${toFixedNum(Number(data[0]['1d'].price_change_pct) * 100, 2)}%)`, true)
       .addField('7D', `${toFixedNum(Number(data[0]['7d'].price_change), 4).toLocaleString()} (${toFixedNum(Number(data[0]['7d'].price_change_pct) * 100, 2)}%)`, true)
