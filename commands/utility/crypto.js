@@ -8,14 +8,14 @@ class Crypto extends Command {
       description: 'Gets information on the specified cryptocurrency',
       aliases: [],
       botPermissions: ['EMBED_LINKS'],
-      usage: 'crypto [coin]',
+      usage: 'crypto [coin] [fiat]',
       guildOnly: false,
       cost: 0,
       cooldown: 3
     })
   }
 
-  async run (ctx, args) {
+  async run (ctx, [coin, fiat = 'USD']) {
     const toFixedNum = (num, precision) => {
       return Number((+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision))
     }
@@ -29,7 +29,7 @@ class Crypto extends Command {
       }
     }
 
-    if (!args.length) {
+    if (!coin) {
       options.params = {
         key: this.client.config.nomics,
         ids: 'BTC,ETH,XRP',
@@ -54,8 +54,9 @@ class Crypto extends Command {
 
     options.params = {
       key: this.client.config.nomics,
-      ids: args[0].toUpperCase(),
-      interval: '1h,1d,7d'
+      ids: coin.toUpperCase(),
+      interval: '1h,1d,7d',
+      convert: fiat.toUpperCase()
     }
 
     const data = await axios.request(options).then(res => {
@@ -67,7 +68,7 @@ class Crypto extends Command {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(data[0].name, `https://icons.bitbot.tools/api/${args[0]}/128x128`)
-      .addField('Price', `${toFixedNum(Number(data[0].price), 2).toLocaleString()} USD`, true)
+      .addField('Price', `${toFixedNum(Number(data[0].price), 2).toLocaleString()} ${fiat.toUpperCase()}`, true)
       .addField('Market Cap', `${toFixedNum(Number(data[0].market_cap), 2).toLocaleString()}`, true)
       .addField('Circulating Supply', `${toFixedNum(Number(data[0].circulating_supply), 2).toLocaleString()}`, true)
       .addField('1H', `${toFixedNum(Number(data[0]['1h'].price_change), 4).toLocaleString()} (${toFixedNum(Number(data[0]['1h'].price_change_pct) * 100, 2)}%)`, true)
