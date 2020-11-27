@@ -64,9 +64,9 @@ class Crypto extends Command {
       .setColor(0x9590EE)
       .setAuthor(data[0].name, data[0].logo_url)
       .addField('Price', `${Number(data[0].price).toFixed(2)}`)
-      .addField('1H', `${Number(data[0]['1h'].price_change).toFixed(2)} (${Number(data[0]['1h'].price_change_pct).toFixed(2) * 100}%)`)
-      .addField('24H', `${Number(data[0]['1d'].price_change).toFixed(2)} (${Number(data[0]['1d'].price_change_pct).toFixed(2) * 100}%)`)
-      .addField('7D', `${Number(data[0]['7d'].price_change).toFixed(2)} (${Number(data[0]['7d'].price_change_pct).toFixed(2) * 100}%)`)
+      .addField('1H', `${Number(data[0]['1h'].price_change).toFixed(4)} (${Number(data[0]['1h'].price_change_pct).toFixed(4) * 100}%)`)
+      .addField('24H', `${Number(data[0]['1d'].price_change).toFixed(4)} (${Number(data[0]['1d'].price_change_pct).toFixed(4) * 100}%)`)
+      .addField('7D', `${Number(data[0]['7d'].price_change).toFixed(4)} (${Number(data[0]['7d'].price_change_pct).toFixed(4) * 100}%)`)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by Nomics`, ctx.author.displayAvatarURL({ size: 32 }))
     ctx.reply({ embed })
   }
