@@ -67,7 +67,7 @@ class Crypto extends Command {
 
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(data[0].name, `https://icons.bitbot.tools/api/${args[0]}/128x128`)
+      .setAuthor(data[0].name, `https://icons.bitbot.tools/api/${coin}/128x128`)
       .addField('Price', `${toFixedNum(Number(data[0].price), 2).toLocaleString()} ${fiat.toUpperCase()}`, true)
       .addField('Market Cap', `${toFixedNum(Number(data[0].market_cap), 2).toLocaleString()}`, true)
       .addField('Circulating Supply', `${toFixedNum(Number(data[0].circulating_supply), 2).toLocaleString()}`, true)
