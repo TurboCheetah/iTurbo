@@ -19,7 +19,7 @@ class Award extends Command {
     if (member.user.bot) return ctx.reply("Bots can't have points.")
     if (member.user.id === ctx.author.id) return ctx.reply("You can't reward yourself. Why did you even try it?")
 
-    if (amount < 0) return ctx.rely("You can't reward them a negative amount. Are you trying to rob them?")
+    if (amount < 0) return ctx.reply("You can't reward them a negative amount. Are you trying to rob them?")
     if (amount === 0) return ctx.reply('Why would you pay them nothing?')
 
     // Guard against abuse. We have to be careful not to let users add infinite points and overflow the database.
