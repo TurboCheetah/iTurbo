@@ -13,7 +13,7 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
     const data = await this.client.settings.bot.get('giveaways') || []
 
     // Add the new one
-    giveaways.push(giveawayData)
+    data.push(giveawayData)
 
     await this.client.settings.bot.update({ giveaways: [ '!', ',,', 'etst' ] })
 
