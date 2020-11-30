@@ -113,7 +113,7 @@ class Giveaway extends Command {
       if (typeof e === String && e.startsWith(`Giveaway with message ID ${giveaway.messageID} is already ended.`)) {
         ctx.reply('This giveaway has already ended!')
       } else {
-        console.error(e)
+        console.error(typeof e)
       }
     })
   }
