@@ -35,7 +35,7 @@ class UserPrefix extends Command {
 
     prefix.push(prefixInput)
 
-    await this.client.settings.bot.update({ prefix })
+    await ctx.author.update({ prefix })
     return ctx.reply(`${this.client.constants.success} Successfully added the prefix \`${prefixInput}\` to your list of prefixes.`)
   }
 
