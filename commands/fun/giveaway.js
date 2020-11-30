@@ -5,9 +5,8 @@ const ms = require('ms')
 class Giveaway extends Command {
   constructor (...args) {
     super(...args, {
-      aliases: ['catfact', 'kittenfact'],
       cooldown: 3,
-      description: 'Let me tell you a misterious cat fact.',
+      description: 'Create, end, and reroll giveaways',
       usage: 'giveaway <start <channel> <duration> <winnerCount> <prize>|end <messageID> |reroll <messageID>>',
       userPermissions: ['MANAGE_GUILD'],
       botPermissions: ['EMBED_LINKS']
@@ -15,7 +14,7 @@ class Giveaway extends Command {
   }
 
   async run (ctx, [action, ...args]) {
-    if (!['start', 'end', 'reroll'].includes(action)) {
+    if (!['start', 'end', 'reroll', 'delete'].includes(action)) {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
         .setDescription('What would you like to do? Please reply with **start**, **end**, or **reroll**.\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
@@ -139,6 +138,24 @@ class Giveaway extends Command {
       } else {
         this.client.emit('commandError', ctx, e)
       }
+    })
+  }
+
+  async delete (ctx, args) {
+    if (!args[0]) {
+      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!`)
+    }
+
+    const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
+
+    if (!giveaway) {
+      return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
+    }
+
+    this.client.giveawaysManager.delete(giveaway.messageID).then(() => {
+      ctx.reply('Giveaway deleted!')
+    }).catch((e) => {
+      this.client.emit('commandError', ctx, e)
     })
   }
 }
