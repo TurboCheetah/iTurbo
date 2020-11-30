@@ -8,18 +8,6 @@ class Giveaway extends Command {
       cooldown: 3,
       description: 'Create, end, and reroll giveaways',
       usage: 'giveaway <start|end|reroll|delete>',
-      start: {
-        usage: 'giveaway start <channel> <duration> <winnerCount> <prize>'
-      },
-      end: {
-        usage: 'giveaway end <messageID>'
-      },
-      reroll: {
-        usage: 'giveaway reroll <messageID>'
-      },
-      delete: {
-        usage: 'giveaway delete <messageID>'
-      },
       userPermissions: ['MANAGE_GUILD'],
       botPermissions: ['EMBED_LINKS']
     })
@@ -37,25 +25,25 @@ class Giveaway extends Command {
     const giveawayChannel = ctx.message.mentions.channels.first()
 
     if (!giveawayChannel) {
-      return ctx.reply(`${this.client.constants.error} No channel specified. Please mention a valid channel.\nCorrect usage: \`${ctx.guild.prefix}${this.start.usage}\``)
+      return ctx.reply(`${this.client.constants.error} No channel specified. Please mention a valid channel.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
     const duration = args[1]
 
     if (!duration || isNaN(ms(duration))) {
-      return ctx.reply(`${this.client.constants.error} Invalid duraiton specified. Please specify a valid duration, e.g 24h.\nCorrect usage: \`${ctx.guild.prefix}${this.start.usage}\``)
+      return ctx.reply(`${this.client.constants.error} Invalid duraiton specified. Please specify a valid duration, e.g 24h.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
     const winners = args[2]
 
     if (!winners || isNaN(winners) || (parseInt(winners) <= 0)) {
-      return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.\nCorrect usage: \`${ctx.guild.prefix}${this.start.usage}\``)
+      return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
     const prize = args[3]
 
     if (!prize) {
-      return ctx.reply(`${this.client.constants.error} No prize specified! Please specify a valid prize.\nCorrect usage: \`${ctx.guild.prefix}${this.start.usage}\``)
+      return ctx.reply(`${this.client.constants.error} No prize specified! Please specify a valid prize.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
     ctx.reply(`🎉 Started giveaway in ${giveawayChannel}! 🎉`)
@@ -89,7 +77,7 @@ class Giveaway extends Command {
 
   async end (ctx, args) {
     if (!args[0]) {
-      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}${this.end.usage}\``)
+      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway end <messageID>\``)
     }
 
     const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
@@ -113,7 +101,7 @@ class Giveaway extends Command {
 
   async reroll (ctx, args) {
     if (!args[0]) {
-      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}${this.reroll.usage}\``)
+      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway reroll <messageID>\``)
     }
 
     const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
@@ -135,7 +123,7 @@ class Giveaway extends Command {
 
   async delete (ctx, args) {
     if (!args[0]) {
-      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}${this.delete.usage}\``)
+      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway delete <messageID>\``)
     }
 
     const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
