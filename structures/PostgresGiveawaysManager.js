@@ -34,14 +34,25 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
   }
 
   async editGiveaway (messageID, giveawayData) {
-    // Gets all the current giveaways
+    /* // Gets all the current giveaways
     const giveaways = this.client.settings.giveaways.get(messageID) || []
     // Remove the old giveaway from the current giveaways ID
     const newGiveawaysArray = giveaways.filter((giveaway) => giveaway.messageID !== messageID)
     // Push the new giveaway to the array
     newGiveawaysArray.push(giveawayData)
-    // Save the updated array
-    await this.client.settings.giveaways.update(messageID, { newGiveawaysArray })
+    // Save the updated array */
+    await this.client.settings.giveaways.update(messageID, {
+        messageID: giveawayData.messageID,
+        channelID: giveawayData.channelID,
+        guildID: giveawayData.guildID,
+        startAt: giveawayData.startAt,
+        endAt: giveawayData.endAt,
+        ended: giveawayData.ended,
+        winnerCount: giveawayData.winnerCount,
+        prize: giveawayData.prize,
+        messages: giveawayData.messages,
+        hostedBy: giveawayData.hostedBy
+    })
     // Don't forget to return something!
     return true
   }
