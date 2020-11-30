@@ -26,15 +26,27 @@ CREATE TABLE IF NOT EXISTS users (
   repcooldown TIMESTAMP,
   title TEXT,
   prefix TEXT[],
-  playlists TEXT[],
+  playlists TEXT[][],
   simp INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS bot (
   id TEXT PRIMARY KEY NOT NULL UNIQUE,
   "guildBlacklist" TEXT[],
-  "userBlacklist" TEXT[],
-  "giveaways" TEXT[]
+  "userBlacklist" TEXT[]
+);
+
+CREATE TABLE IF NOT EXISTS giveaways (
+  id TEXT PRIMARY KEY NOT NULL UNIQUE,
+  "messageID" TEXT,
+  "channelID" TEXT,
+  "guildID" TEXT,
+  "startAt" INTEGER,
+  "endAt" INTEGER,
+  "winnerCount" TEXT,
+  "prize" TEXT,
+  "messages" JSON,
+  "hostedBy" TEXT
 );
 
 CREATE TABLE IF NOT EXISTS store (

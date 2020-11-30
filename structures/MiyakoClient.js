@@ -42,7 +42,7 @@ class MiyakoClient extends Client {
       members: new Settings(this, 'members'),
       users: new Settings(this, 'users'),
       store: new Settings(this, 'store'),
-      bot: new Settings(this, 'bot')
+      giveaways: new Settings(this, 'giveaways')
     }
 
     // More DisTube stuff
