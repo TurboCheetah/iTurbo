@@ -4,7 +4,7 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
   // This function is called when the manager needs to get all the giveaway stored in the database.
   async getAllGiveaways () {
     // Get all the giveaway in the database
-    return this.client.settings.bot.get('0').giveaways || []
+    return await this.client.settings.bot.get('0').giveaways || []
   }
 
   // This function is called when a giveaway needs to be saved in the database (when a giveaway is created or when a giveaway is edited).
@@ -36,7 +36,7 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
 
   // This function is called when a giveaway needs to be deleted from the database.
   async deleteGiveaway (messageID) {
-    const db = this.client.settings.bot.get('0').giveaways || []
+    const db = await this.client.settings.bot.get('giveaways') || []
     // Remove the giveaway from the array
     const newGiveawaysArray = db.filter((giveaway) => giveaway.messageID !== messageID)
     // Save the updated array

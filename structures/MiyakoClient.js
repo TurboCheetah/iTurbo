@@ -36,6 +36,15 @@ class MiyakoClient extends Client {
     this.distube = new DisTube(this, { searchSongs: true, emitNewSongOnly: true, highWaterMark: 1 << 25, customFilters: { purebass: 'bass=g=20,dynaudnorm=f=200,asubboost' } }) // Distube instance for playing music
     this.version = '1.0.5'
 
+    // Settings.
+    this.settings = {
+      guilds: new Settings(this, 'guilds'),
+      members: new Settings(this, 'members'),
+      users: new Settings(this, 'users'),
+      store: new Settings(this, 'store'),
+      bot: new Settings(this, 'bot')
+    }
+
     // More DisTube stuff
     this.distube.on('playSong', (msg, queue, song) => this.emit('playSong', msg, queue, song))
       .on('addSong', (msg, queue, song) => this.emit('addSong', msg, queue, song))
@@ -46,28 +55,6 @@ class MiyakoClient extends Client {
     // DisTubeOptions.searchSongs = true
       .on('searchCancel', (msg) => this.emit('searchCancel', msg))
       .on('error', (msg, err) => this.emit('songError', msg, err))
-
-    // Settings.
-    this.settings = {
-      guilds: new Settings(this, 'guilds'),
-      members: new Settings(this, 'members'),
-      users: new Settings(this, 'users'),
-      store: new Settings(this, 'store'),
-      bot: new Settings(this, 'bot')
-    }
-
-    const manager = new PostgresGiveawaysManager(this, {
-      storage: false,
-      updateCountdownEvery: 10000,
-      default: {
-        botsCanWin: false,
-        exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
-        embedColor: this.constants.color,
-        reaction: '🎉'
-      }
-    })
-
-    this.giveawaysManager = manager
 
     this.dbl = this.config.dbl && !this.dev ? new DBL(this.config.dbl, this) : new DBLMock()
     this.points = new Points(this)
@@ -133,6 +120,20 @@ class MiyakoClient extends Client {
       await settings.init()
       this.console.log(`Loaded ${settings.cache.size} ${name}`)
     }
+
+    // Spawn GiveawayManger
+    const manager = new PostgresGiveawaysManager(this, {
+      storage: false,
+      updateCountdownEvery: 10000,
+      default: {
+        botsCanWin: false,
+        exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
+        embedColor: this.constants.color,
+        reaction: '🎉'
+      }
+    })
+
+    this.giveawaysManager = manager
   }
 }
 
