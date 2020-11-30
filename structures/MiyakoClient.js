@@ -11,6 +11,7 @@ const Settings = require('./Settings.js')
 const presences = require('../assets/json/presences.json')
 const imgapi = require('img-api')
 const DisTube = require('distube')
+const { GiveawaysManager } = require('discord-giveaways')
 
 class MiyakoClient extends Client {
   constructor (dev) {
@@ -45,6 +46,19 @@ class MiyakoClient extends Client {
     // DisTubeOptions.searchSongs = true
       .on('searchCancel', (msg) => this.emit('searchCancel', msg))
       .on('error', (msg, err) => this.emit('songError', msg, err))
+
+    const manager = new GiveawaysManager(this, {
+      storage: './giveaways.json',
+      updateCountdownEvery: 30000,
+      default: {
+        botsCanWin: false,
+        exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
+        embedColor: this.constants.color,
+        reaction: '🎉'
+      }
+    })
+
+    this.giveawaysmanager = manager
 
     // Settings.
     this.settings = {
