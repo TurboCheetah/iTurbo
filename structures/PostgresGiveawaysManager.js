@@ -4,8 +4,7 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
   // This function is called when the manager needs to get all the giveaway stored in the database.
   async getAllGiveaways () {
     // Get all the giveaway in the database
-    const db = await this.client.settings.bot.get('giveaways')
-    return db
+    return await this.client.settings.bot.get('giveaways') || []
   }
 
   // This function is called when a giveaway needs to be saved in the database (when a giveaway is created or when a giveaway is edited).
