@@ -47,9 +47,18 @@ class MiyakoClient extends Client {
       .on('searchCancel', (msg) => this.emit('searchCancel', msg))
       .on('error', (msg, err) => this.emit('songError', msg, err))
 
+    // Settings.
+    this.settings = {
+      guilds: new Settings(this, 'guilds'),
+      members: new Settings(this, 'members'),
+      users: new Settings(this, 'users'),
+      store: new Settings(this, 'store'),
+      bot: new Settings(this, 'bot')
+    }
+
     const manager = new PostgresGiveawaysManager(this, {
       storage: false,
-      updateCountdownEvery: 30000,
+      updateCountdownEvery: 10000,
       default: {
         botsCanWin: false,
         exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
@@ -59,15 +68,6 @@ class MiyakoClient extends Client {
     })
 
     this.giveawaysManager = manager
-
-    // Settings.
-    this.settings = {
-      guilds: new Settings(this, 'guilds'),
-      members: new Settings(this, 'members'),
-      users: new Settings(this, 'users'),
-      store: new Settings(this, 'store'),
-      bot: new Settings(this, 'bot')
-    }
 
     this.dbl = this.config.dbl && !this.dev ? new DBL(this.config.dbl, this) : new DBLMock()
     this.points = new Points(this)
