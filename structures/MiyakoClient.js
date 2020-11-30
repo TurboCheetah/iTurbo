@@ -58,7 +58,7 @@ class MiyakoClient extends Client {
       }
     })
 
-    this.giveawaysmanager = manager
+    this.giveawaysManager = manager
 
     // Settings.
     this.settings = {
