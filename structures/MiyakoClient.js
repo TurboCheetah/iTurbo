@@ -11,7 +11,7 @@ const Settings = require('./Settings.js')
 const presences = require('../assets/json/presences.json')
 const imgapi = require('img-api')
 const DisTube = require('distube')
-const { GiveawaysManager } = require('discord-giveaways')
+const PostgresGiveawaysManager = require('./PostgresGiveawaysManager.js')
 
 class MiyakoClient extends Client {
   constructor (dev) {
@@ -47,8 +47,8 @@ class MiyakoClient extends Client {
       .on('searchCancel', (msg) => this.emit('searchCancel', msg))
       .on('error', (msg, err) => this.emit('songError', msg, err))
 
-    const manager = new GiveawaysManager(this, {
-      storage: './giveaways.json',
+    const manager = new PostgresGiveawaysManager(this, {
+      storage: false,
       updateCountdownEvery: 30000,
       default: {
         botsCanWin: false,
@@ -65,7 +65,8 @@ class MiyakoClient extends Client {
       guilds: new Settings(this, 'guilds'),
       members: new Settings(this, 'members'),
       users: new Settings(this, 'users'),
-      store: new Settings(this, 'store')
+      store: new Settings(this, 'store'),
+      bot: new Settings(this, 'bot')
     }
 
     this.dbl = this.config.dbl && !this.dev ? new DBL(this.config.dbl, this) : new DBLMock()

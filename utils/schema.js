@@ -26,14 +26,15 @@ CREATE TABLE IF NOT EXISTS users (
   repcooldown TIMESTAMP,
   title TEXT,
   prefix TEXT[],
-  playlists TEXT[][],
+  playlists TEXT[],
   simp INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS bot (
   id TEXT PRIMARY KEY NOT NULL UNIQUE,
   "guildBlacklist" TEXT[],
-  "userBlacklist" TEXT[]
+  "userBlacklist" TEXT[],
+  "giveaways" TEXT[]
 );
 
 CREATE TABLE IF NOT EXISTS store (
