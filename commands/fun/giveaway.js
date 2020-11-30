@@ -49,7 +49,7 @@ class Giveaway extends Command {
 
     const duration = args[1]
 
-    if (duration || isNan(ms(duration))) {
+    if (!duration || isNan(ms(duration))) {
       return ctx.reply(`${this.client.constants.error} Invalid duraiton specified. Please specify a valid duration, e.g 24h.`)
     }
 
