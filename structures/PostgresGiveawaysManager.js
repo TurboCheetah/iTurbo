@@ -14,9 +14,8 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
 
     // Add the new one
     data.push(giveawayData)
-    console.log({ giveaways: data });
 
-    await this.client.settings.bot.update({ giveaways: data })
+    await this.client.settings.bot.update('giveaways', { data })
 
     // Don't forget to return something!
     return true
