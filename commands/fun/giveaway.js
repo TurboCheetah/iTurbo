@@ -8,7 +8,7 @@ class Giveaway extends Command {
       aliases: ['catfact', 'kittenfact'],
       cooldown: 3,
       description: 'Let me tell you a misterious cat fact.',
-      usage: 'giveaway <start <channel> <duration> <winnerCount> <prize>|end|reroll>',
+      usage: 'giveaway <start <channel> <duration> <winnerCount> <prize>|end <messageID> |reroll <messageID>>',
       userPermissions: ['MANAGE_GUILD'],
       botPermissions: ['EMBED_LINKS']
     })
