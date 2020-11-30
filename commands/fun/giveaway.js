@@ -99,7 +99,7 @@ class Giveaway extends Command {
       return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!`)
     }
 
-    const giveaway = client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
+    const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
 
     if (!giveaway) {
       return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
