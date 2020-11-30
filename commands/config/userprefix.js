@@ -29,9 +29,11 @@ class UserPrefix extends Command {
 
     // Get existing prefixes to append to.
     const prefix = ctx.author.settings.prefix || []
+    console.log({ prefix });
 
     // Avoid duplicates.
     if (prefix.includes(prefixInput)) return ctx.reply('That prefix is already on the list.')
+    console.log({ prefix });
 
     prefix.push(prefixInput)
 console.log({ prefix });
