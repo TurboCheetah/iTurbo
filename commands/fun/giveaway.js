@@ -108,7 +108,7 @@ class Giveaway extends Command {
     this.client.giveawaysManager.edit(giveaway.messageID, {
       setEndTimestamp: Date.now()
     }).then(() => {
-      ctx.reply(`Giveaway will end in less than ${(client.giveawaysManager.options.updateCountdownEvery / 1000)} seconds!`)
+      ctx.reply(`Giveaway will end in less than ${(this.client.giveawaysManager.options.updateCountdownEvery / 1000)} seconds!`)
     }).catch((e) => {
       if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} is already ended.`)) {
         ctx.reply('This giveaway has already ended!')
