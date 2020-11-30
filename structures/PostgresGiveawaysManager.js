@@ -11,13 +11,11 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
   async saveGiveaway (messageID, giveawayData) {
     // Get existing giveaways to append to.
     const giveaways = await this.client.settings.bot.get('giveaways') || []
-console.log(typeof giveaways);
-console.log(giveaways);
+
     // Add the new one
     giveaways.push(giveawayData)
-    console.log(typeof giveaways);
-    console.log(giveaways);
-    await this.client.settings.bot.update({ giveaways })
+
+    await this.client.settings.bot.update({ giveaways: giveaways })
 
     // Don't forget to return something!
     return true
@@ -31,7 +29,7 @@ console.log(giveaways);
     // Push the new giveaway to the array
     newGiveawaysArray.push(giveawayData)
     // Save the updated array
-    await this.client.settings.bot.update({ newGiveawaysArray })
+    await this.client.settings.bot.update({ giveaways: newGiveawaysArray })
     // Don't forget to return something!
     return true
   }
@@ -42,7 +40,7 @@ console.log(giveaways);
     // Remove the giveaway from the array
     const newGiveawaysArray = db.filter((giveaway) => giveaway.messageID !== messageID)
     // Save the updated array
-    await this.client.settings.bot.update({ newGiveawaysArray })
+    await this.client.settings.bot.update({ giveaways: newGiveawaysArray })
     // Don't forget to return something!
     return true
   }
