@@ -29,7 +29,7 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
     // Push the new giveaway to the array
     newGiveawaysArray.push(giveawayData)
     // Save the updated array
-    await this.client.settings.bot.update({ giveaways: newGiveawaysArray })
+    await this.client.settings.bot.update('0', { giveaways: newGiveawaysArray })
     // Don't forget to return something!
     return true
   }
@@ -40,7 +40,7 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
     // Remove the giveaway from the array
     const newGiveawaysArray = db.filter((giveaway) => giveaway.messageID !== messageID)
     // Save the updated array
-    await this.client.settings.bot.update({ giveaways: newGiveawaysArray })
+    await this.client.settings.bot.update('0', { giveaways: newGiveawaysArray })
     // Don't forget to return something!
     return true
   }
