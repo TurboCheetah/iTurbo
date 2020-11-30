@@ -66,10 +66,10 @@ class Giveaway extends Command {
     }
 
     this.client.giveawaysManager.start(giveawayChannel, {
-      time: ms(giveawayDuration),
-      prize: giveawayPrize,
-      winnerCount: giveawayNumberWinners,
-      hostedBy: client.config.hostedBy ? message.author : null,
+      time: ms(duration),
+      prize: prize,
+      winnerCount: winners,
+      hostedBy: ctx.author,
       messages: {
         giveaway: '🎉🎉 **GIVEAWAY** 🎉🎉',
         giveawayEnded: '🎉🎉 **GIVEAWAY ENDED** 🎉🎉',
