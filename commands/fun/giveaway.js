@@ -8,6 +8,8 @@ class Giveaway extends Command {
       aliases: ['catfact', 'kittenfact'],
       cooldown: 3,
       description: 'Let me tell you a misterious cat fact.',
+      usage: 'giveaway <start <channel> <duration> <winnerCount> <prize>|end|reroll>',
+      userPermissions: ['MANAGE_GUILD'],
       botPermissions: ['EMBED_LINKS']
     })
   }
@@ -44,7 +46,7 @@ class Giveaway extends Command {
     const giveawayChannel = ctx.message.mentions.channels.first()
 
     if (!giveawayChannel) {
-      return ctx.reply(`${this.client.constants.error} No channel specified. Please mention a valid channel.`)
+      return ctx.reply(`${this.client.constants.error} No channel specified. Please mention a valid channel.\nCorrect usage: \`${ctx.guild.prefix}${this.usage}\``)
     }
 
     const duration = args[1]
@@ -77,7 +79,7 @@ class Giveaway extends Command {
         inviteToParticipate: 'React with 🎉 to participate!',
         winMessage: 'Congratulations, {winners}! You won **{prize}**!',
         embedFooter: 'Giveaways',
-        noWinner: 'Giveaway cancelled, no valid participations.',
+        noWinner: 'Giveaway ended with no valid participations.',
         hostedBy: 'Hosted by: {user}',
         winners: 'winner(s)',
         endedAt: 'Ended at',
@@ -86,8 +88,32 @@ class Giveaway extends Command {
           minutes: 'minutes',
           hours: 'hours',
           days: 'days',
-          pluralS: false // Not needed, because units end with a S so it will automatically removed if the unit value is lower than 2
+          pluralS: false
         }
+      }
+    })
+  }
+
+  async end (ctx, args) {
+    if (!args[0]) {
+      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!`)
+    }
+
+    const giveaway = client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
+
+    if (!giveaway) {
+      return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
+    }
+
+    client.giveawaysManager.edit(giveaway.messageID, {
+      setEndTimestamp: Date.now()
+    }).then(() => {
+      ctx.reply(`Giveaway will end in less than ${(client.giveawaysManager.options.updateCountdownEvery / 1000)} seconds!`)
+    }).catch((e) => {
+      if (e.startsWith(`Giveaway with message ID ${giveaway.messageID} is already ended.`)) {
+        ctx.reply('This giveaway has already ended!')
+      } else {
+        console.error(e)
       }
     })
   }
