@@ -11,10 +11,12 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
   async saveGiveaway (messageID, giveawayData) {
     // Get existing giveaways to append to.
     const giveaways = await this.client.settings.bot.get('giveaways') || []
-
+console.log(typeof giveaways);
+console.log(giveaways);
     // Add the new one
     giveaways.push(giveawayData)
-
+    console.log(typeof giveaways);
+    console.log(giveaways);
     await this.client.settings.bot.update({ giveaways })
 
     // Don't forget to return something!
