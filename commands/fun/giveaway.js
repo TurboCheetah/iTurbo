@@ -55,7 +55,7 @@ class Giveaway extends Command {
 
     const winners = args[2]
 
-    if (!winners || isNaN(winners) || (parseInt(giveawayNumberWinners) <= 0)) {
+    if (!winners || isNaN(winners) || (parseInt(winners) <= 0)) {
       return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.`)
     }
 
