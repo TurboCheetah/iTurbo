@@ -110,10 +110,32 @@ class Giveaway extends Command {
     }).then(() => {
       ctx.reply(`Giveaway will end in less than ${(this.client.giveawaysManager.options.updateCountdownEvery / 1000)} seconds!`)
     }).catch((e) => {
-      if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} is already ended.`)) {
+      if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} has already ended.`)) {
         ctx.reply('This giveaway has already ended!')
       } else {
-        console.error(e)
+        this.client.emit('commandError', ctx, e)
+      }
+    })
+  }
+
+  async reroll (ctx, args) {
+    if (!args[0]) {
+      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!`)
+    }
+
+    const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
+
+    if (!giveaway) {
+      return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
+    }
+
+    this.client.giveawaysManager.reroll(giveaway.messageID).then(() => {
+      ctx.reply(`Giveaway rerolled!`)
+    }).catch((e) => {
+      if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} has not ended.`)) {
+        ctx.reply('This giveaway has not ended!')
+      } else {
+        this.client.emit('commandError', ctx, e)
       }
     })
   }
