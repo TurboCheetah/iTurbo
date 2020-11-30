@@ -49,13 +49,13 @@ class Giveaway extends Command {
 
     const duration = args[1]
 
-    if (!duration || isNan(ms(duration))) {
+    if (!duration || isNaN(ms(duration))) {
       return ctx.reply(`${this.client.constants.error} Invalid duraiton specified. Please specify a valid duration, e.g 24h.`)
     }
 
     const winners = args[2]
 
-    if (!winners || isNan(winners) || (parseInt(giveawayNumberWinners) <= 0)) {
+    if (!winners || isNaN(winners) || (parseInt(giveawayNumberWinners) <= 0)) {
       return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.`)
     }
 
