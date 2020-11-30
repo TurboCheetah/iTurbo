@@ -105,7 +105,7 @@ class Giveaway extends Command {
       return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
     }
 
-    client.giveawaysManager.edit(giveaway.messageID, {
+    this.client.giveawaysManager.edit(giveaway.messageID, {
       setEndTimestamp: Date.now()
     }).then(() => {
       ctx.reply(`Giveaway will end in less than ${(client.giveawaysManager.options.updateCountdownEvery / 1000)} seconds!`)
