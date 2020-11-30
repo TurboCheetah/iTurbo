@@ -34,7 +34,8 @@ class UserPrefix extends Command {
     if (prefix.includes(prefixInput)) return ctx.reply('That prefix is already on the list.')
 
     prefix.push(prefixInput)
-
+console.log(typeof prefix);
+console.log(prefix);
     await ctx.author.update({ prefix })
     return ctx.reply(`${this.client.constants.success} Successfully added the prefix \`${prefixInput}\` to your list of prefixes.`)
   }
