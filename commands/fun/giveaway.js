@@ -130,7 +130,7 @@ class Giveaway extends Command {
     }
 
     this.client.giveawaysManager.reroll(giveaway.messageID).then(() => {
-      ctx.reply(`Giveaway rerolled!`)
+      ctx.reply('Giveaway rerolled!')
     }).catch((e) => {
       if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} has not ended.`)) {
         ctx.reply('This giveaway has not ended!')
