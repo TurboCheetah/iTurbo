@@ -73,6 +73,18 @@ class MiyakoClient extends Client {
 
   async login () {
     await this.init()
+    const manager = new PostgresGiveawaysManager(this, {
+      storage: false,
+      updateCountdownEvery: 10000,
+      default: {
+        botsCanWin: false,
+        exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
+        embedColor: this.constants.color,
+        reaction: '🎉'
+      }
+    })
+
+    this.giveawaysManager = manager
     const { devtoken, token } = this.config
     return super.login(this.dev ? devtoken : token)
   }
@@ -120,20 +132,6 @@ class MiyakoClient extends Client {
       await settings.init()
       this.console.log(`Loaded ${settings.cache.size} ${name}`)
     }
-
-    // Spawn GiveawayManger
-    const manager = new PostgresGiveawaysManager(this, {
-      storage: false,
-      updateCountdownEvery: 10000,
-      default: {
-        botsCanWin: false,
-        exemptPermissions: ['MANAGE_MESSAGES', 'ADMINISTRATOR'],
-        embedColor: this.constants.color,
-        reaction: '🎉'
-      }
-    })
-
-    this.giveawaysManager = manager
   }
 }
 
