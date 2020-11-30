@@ -43,6 +43,7 @@ CREATE TABLE IF NOT EXISTS giveaways (
   "guildID" TEXT,
   "startAt" INTEGER,
   "endAt" INTEGER,
+  "ended" BOOLEAN DEFAULT FALSE,
   "winnerCount" TEXT,
   "prize" TEXT,
   "messages" JSON,

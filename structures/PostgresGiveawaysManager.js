@@ -10,13 +10,24 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
   // This function is called when a giveaway needs to be saved in the database (when a giveaway is created or when a giveaway is edited).
   async saveGiveaway (messageID, giveawayData) {
     // Get existing giveaways to append to.
-    console.log(giveawayData);
+    console.log(giveawayData)
     const data = this.client.settings.giveaways.get(messageID) || []
 
     // Add the new one
     data.push(giveawayData)
 
-    await this.client.settings.giveaways.update(messageID, { messageID: giveawayData.messageID, channelID: giveawayData.channelID, guildID: giveawayData.guildID })
+    await this.client.settings.giveaways.update(messageID, {
+        messageID: giveawayData.messageID,
+        channelID: giveawayData.channelID,
+        guildID: giveawayData.guildID,
+        startAt: giveawayData.startAt,
+        endAt: giveawayData.endAt,
+        ended: giveawayData.ended,
+        winnerCount: giveawayData.winnerCount,
+        prize: giveawayData.prize,
+        messages: giveawayData.messages,
+        hostedBy: giveawayData.hostedBy
+    })
 
     // Don't forget to return something!
     return true
