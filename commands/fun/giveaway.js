@@ -52,20 +52,22 @@ class Giveaway extends Command {
     const duration = args[1]
 
     if (!duration || isNaN(ms(duration))) {
-      return ctx.reply(`${this.client.constants.error} Invalid duraiton specified. Please specify a valid duration, e.g 24h.`)
+      return ctx.reply(`${this.client.constants.error} Invalid duraiton specified. Please specify a valid duration, e.g 24h.\nCorrect usage: \`${ctx.guild.prefix}${this.usage}\``)
     }
 
     const winners = args[2]
 
     if (!winners || isNaN(winners) || (parseInt(winners) <= 0)) {
-      return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.`)
+      return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.\nCorrect usage: \`${ctx.guild.prefix}${this.usage}\``)
     }
 
     const prize = args[3]
 
     if (!prize) {
-      return ctx.reply(`${this.client.constants.error} No prize specified! Please specify a valid prize.`)
+      return ctx.reply(`${this.client.constants.error} No prize specified! Please specify a valid prize.\nCorrect usage: \`${ctx.guild.prefix}${this.usage}\``)
     }
+
+    ctx.reply(`🎉 Started giveaway in ${giveawayChannel}! 🎉`)
 
     this.client.giveawaysManager.start(giveawayChannel, {
       time: ms(duration),
@@ -96,7 +98,7 @@ class Giveaway extends Command {
 
   async end (ctx, args) {
     if (!args[0]) {
-      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!`)
+      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}${this.usage}\``)
     }
 
     const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
