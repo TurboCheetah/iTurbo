@@ -31,12 +31,12 @@ class Play extends Command {
       if (args[0].indexOf('/playlist/') > -1) {
         const data = await getTracks(args[0])
         let songs = []
-        await data.forEach(async song => {
+        data.forEach(async song => {
           const search = await ytsr(`${song.artists[0].name} - ${song.name}`, { limit: 1 })
           const results = search.items.map(i => new SearchResult(i))
           if (results.length === 0) throw Error('No result!')
-          console.log(results);
-          await songs.push(results[0].url)
+          songs.push(results[0].url)
+          console.log(songs);
         })
         console.log(songs);
         return this.client.distube.playCustomPlaylist(ctx.message, songs)
