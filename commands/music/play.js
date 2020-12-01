@@ -35,7 +35,7 @@ class Play extends Command {
       }
       const data = await getPreview(args[0])
       const search = await ytsr(`${data.artist} - ${data.title}`, { limit: 15 })
-      const results = search.items.map(i => new SearchResult(i))
+      const results = search.items.map(i => i)
       if (results.length === 0) throw Error('No result!')
       return console.log(results)
       // return this.client.distube.play(ctx.message, `${data.artist} - ${data.title}`)
