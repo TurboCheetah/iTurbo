@@ -24,15 +24,15 @@ class Play extends Command {
     }
 
     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
-
-    if (args[0].indexOf('open.spotify.com') > -1 || args[0].indexOf('play.spotify.com') > -1) {
+let url = 'https://open.spotify.com/track/4Ojj5Ld695R3riZ3LiUhVQ?si=dV2PqdZ4QJu1IQg4Gmm5Tw'
+    if (url.indexOf('open.spotify.com') > -1 || url.indexOf('play.spotify.com') > -1) {
       if (args[0].indexOf('/playlist/')) {
         const data = await getTracks(args[0])
         data.forEach(song => {
           this.client.distube.play(ctx.message, `${song.artists[0].name} - ${song.name}`)
         })
       }
-      const data = await getPreview(args[0])
+      const data = await getPreview(url)
       return console.log(data)
       // return this.client.distube.play(ctx.message, `${data.artist} - ${data.title}`)
     }
