@@ -33,7 +33,7 @@ class Play extends Command {
         let songs = []
         for (const song of data) {
           if (!song || song === null) {
-            return
+            break
           }
 
           const search = await ytsr(`${song.artists[0].name} - ${song.name}`, { limit: 1 })
