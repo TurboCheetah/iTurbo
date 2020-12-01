@@ -32,7 +32,7 @@ class Play extends Command {
         const data = await getTracks(args[0])
         let songs = []
         for (const song of data) {
-          if (!song || song === null) {
+          if (!song || song === null || !song.artists || song.artists === null) {
             break
           }
 
