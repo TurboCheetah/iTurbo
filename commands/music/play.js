@@ -25,14 +25,14 @@ class Play extends Command {
 
     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
 
-    if (args[0].includes('play.spotify.com') || args[0].includes('open.spotify.com')) {
-      if (args[0].includes('playlist')) {
+    if (['play.spotify.com', 'open.spotify.com'].some(url => /play\.spotify\.com|open\.spotify\.com/ig.test(url))) {
+      if (/playlist\//ig.test(args[0])) {
         const data = await getTracks(args[0])
         data.forEach(song => {
           this.client.distube.play(ctx.message, `${song.artists[0].name} - ${song.name}`)
         })
       }
-      const data = await getPreview('https://open.spotify.com/track/4Ojj5Ld695R3riZ3LiUhVQ?si=dV2PqdZ4QJu1IQg4Gmm5Tw')
+      const data = await getPreview(args[0])
       return console.log(data)
       // return this.client.distube.play(ctx.message, `${data.artist} - ${data.title}`)
     }
