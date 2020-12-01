@@ -40,10 +40,10 @@ class Play extends Command {
           const search = await ytsr(`${song.artists[0].name} - ${song.name}`, { limit: 1 })
           const results = search.items.map(i => new SearchResult(i))
           if (results.length === 0) throw Error('No result!')
-          m.delete()
           songs.push(results[0].url)
         }
 
+        m.delete()
         return this.client.distube.playCustomPlaylist(ctx.message, songs)
       }
       const data = await getPreview(args[0])
