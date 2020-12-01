@@ -1,6 +1,7 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 const { getPreview, getTracks } = require('spotify-url-info')
+const ytsr = require('@distube/ytsr')
 
 class Play extends Command {
   constructor (...args) {
@@ -33,7 +34,10 @@ class Play extends Command {
         })
       }
       const data = await getPreview(args[0])
-      return console.log(data)
+      const search = await ytsr(`${data.artist} - ${data.title}`, { limit: 15 })
+      const results = search.items.map(i => new SearchResult(i))
+      if (results.length === 0) throw Error('No result!')
+      return console.log(results)
       // return this.client.distube.play(ctx.message, `${data.artist} - ${data.title}`)
     }
 
