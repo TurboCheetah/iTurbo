@@ -38,12 +38,13 @@ class Play extends Command {
             const results = search.items.map(i => new SearchResult(i))
             if (results.length === 0) throw Error('No result!')
             songs.push(results[0].url)
+            console.log(i);
 
             if (i === data.length - 1) resolve()
           })
         })
         addSongs.then(() => {
-          console.log(songs)
+          console.log(songs.length)
         })
 
         return this.client.distube.playCustomPlaylist(ctx.message, songs)
