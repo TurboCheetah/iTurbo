@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
+const { getPreview, getTracks } = require('spotify-url-info')
 
 class Play extends Command {
   constructor (...args) {
@@ -23,6 +24,18 @@ class Play extends Command {
     }
 
     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
+
+    if (args[0].includes('play.spotify.com' || 'open.spotify.com')) {
+      if (args[0].includes('playlist')) {
+        const data = await getTracks(args[0])
+        data.forEach(song => {
+          this.client.distube.play(ctx.message, `${song.artists[0].name} - ${song.name}`)
+        })
+      }
+      const data = await getPreview(args[0])
+      return console.log(data)
+      // return this.client.distube.play(ctx.message, `${data.artist} - ${data.title}`)
+    }
 
     this.client.distube.play(ctx.message, args.join(' '))
   }
