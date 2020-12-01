@@ -25,7 +25,7 @@ class Play extends Command {
 
     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
 
-    if (args[0].includes('play.spotify.com' || 'open.spotify.com')) {
+    if (args[0].includes('play.spotify.com') || args[0].includes('open.spotify.com')) {
       if (args[0].includes('playlist')) {
         const data = await getTracks(args[0])
         data.forEach(song => {
