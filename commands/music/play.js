@@ -32,7 +32,7 @@ class Play extends Command {
           this.client.distube.play(ctx.message, `${song.artists[0].name} - ${song.name}`)
         })
       }
-      const data = await getPreview(args[0])
+      const data = await getPreview('https://open.spotify.com/track/4Ojj5Ld695R3riZ3LiUhVQ?si=dV2PqdZ4QJu1IQg4Gmm5Tw')
       return console.log(data)
       // return this.client.distube.play(ctx.message, `${data.artist} - ${data.title}`)
     }
