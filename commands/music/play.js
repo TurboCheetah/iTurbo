@@ -31,7 +31,7 @@ class Play extends Command {
       if (args[0].indexOf('/playlist/') > -1) {
         const data = await getTracks(args[0])
         let songs = []
-        data.forEach(song => {
+        data.forEach(async song => {
           const search = await ytsr(`${song.artists[0].name} - ${song.name}`, { limit: 1 })
           const results = search.items.map(i => new SearchResult(i))
           if (results.length === 0) throw Error('No result!')
