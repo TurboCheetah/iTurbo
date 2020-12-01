@@ -42,6 +42,7 @@ class Play extends Command {
       // return this.client.distube.play(ctx.message, `${data.artist} - ${data.title}`)
     }
 
+    console.log('test');
     this.client.distube.play(ctx.message, args.join(' '))
   }
 }
