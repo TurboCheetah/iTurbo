@@ -35,14 +35,12 @@ class Play extends Command {
         })
       }
       const data = await getPreview(args[0])
-      const search = await ytsr(`${data.artist} - ${data.title}`, { limit: 10 })
+      const search = await ytsr(`${data.artist} - ${data.title}`, { limit: 1 })
       const results = search.items.map(i => new SearchResult(i))
       if (results.length === 0) throw Error('No result!')
-      return console.log(results[0].url)
-      // return this.client.distube.play(ctx.message, `${data.artist} - ${data.title}`)
+      return this.client.distube.play(ctx.message, results[0].url)
     }
 
-    console.log('test');
     this.client.distube.play(ctx.message, args.join(' '))
   }
 }
