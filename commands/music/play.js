@@ -33,14 +33,13 @@ class Play extends Command {
         const songs = []
         console.log(data.length)
         const addSongs = new Promise((resolve, reject) => {
-          data.forEach(async (song, i) => {
+          data.forEach(async (song, i, array) => {
             const search = await ytsr(`${song.artists[0].name} - ${song.name}`, { limit: 1 })
             const results = search.items.map(i => new SearchResult(i))
             if (results.length === 0) throw Error('No result!')
             songs.push(results[0].url)
-            console.log(i);
 
-            if (i === data.length - 1) resolve()
+            if (i === array.length - 1) resolve()
           })
         })
         addSongs.then(() => {
