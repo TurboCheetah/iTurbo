@@ -30,7 +30,7 @@ class Play extends Command {
     if (args[0].indexOf('open.spotify.com') > -1 || args[0].indexOf('play.spotify.com') > -1) {
       if (args[0].indexOf('/playlist/') > -1) {
         const data = await getTracks(args[0])
-        let songs = []
+        const songs = []
         for (const song of data) {
           if (!song || song === null || !song.artists || song.artists === null) {
             break
@@ -42,7 +42,6 @@ class Play extends Command {
           songs.push(results[0].url)
         }
 
-        console.log(songs);
         return this.client.distube.playCustomPlaylist(ctx.message, songs)
       }
       const data = await getPreview(args[0])
