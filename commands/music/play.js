@@ -33,7 +33,7 @@ class Play extends Command {
         let songs = []
         await data.forEach(async song => {
           const search = await ytsr(`${song.artists[0].name} - ${song.name}`, { limit: 1 })
-          console.log(results);
+          console.log(search);
           const results = search.items.map(i => new SearchResult(i))
           if (results.length === 0) throw Error('No result!')
           return songs.push(results[0].url)
