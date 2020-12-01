@@ -29,6 +29,7 @@ class Play extends Command {
 
     if (args[0].indexOf('open.spotify.com') > -1 || args[0].indexOf('play.spotify.com') > -1) {
       if (args[0].indexOf('/playlist/') > -1) {
+        const m = await ctx.reply('Please wait, adding songs to queue...')
         const data = await getTracks(args[0])
         const songs = []
         for (const song of data) {
@@ -39,6 +40,7 @@ class Play extends Command {
           const search = await ytsr(`${song.artists[0].name} - ${song.name}`, { limit: 1 })
           const results = search.items.map(i => new SearchResult(i))
           if (results.length === 0) throw Error('No result!')
+          m.delete()
           songs.push(results[0].url)
         }
 
