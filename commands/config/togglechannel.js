@@ -11,8 +11,7 @@ class ToggleChannel extends Command {
   }
 
   async run (ctx) {
-    let channel
-    if (!ctx.message.mentions.channels.size) channel = ctx.channel
+    if (!ctx.message.mentions.channels.size) var channel = ctx.channel
     const disabledChannels = ctx.guild.settings.disabledChannels || []
     channel = ctx.message.mentions.channels.first()
 
