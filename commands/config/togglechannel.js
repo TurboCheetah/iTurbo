@@ -22,9 +22,9 @@ class ToggleChannel extends Command {
       return ctx.reply(`${this.client.constants.success} Users talking in ${channel} will earn points.`)
     }
 
-    disabledChannels.push(channel)
+    disabledChannels.push(channel.id)
     await ctx.guild.update({ disabledChannels })
-    return ctx.reply(`${this.client.constants.success} Users talking in ${channel} will earn points.`)
+    return ctx.reply(`${this.client.constants.success} Users talking in ${channel} will no longer earn points.`)
   }
 }
 
