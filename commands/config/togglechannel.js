@@ -11,10 +11,10 @@ class ToggleChannel extends Command {
   }
 
   async run (ctx) {
-    if (!ctx.message.mentions.channels.size) return ctx.reply(`${this.client.constants.error} Invalid action!\nCorrect usage: ${this.usage}`)
-
+    let channel
+    if (!ctx.message.mentions.channels.size) return channel = ctx.channel
     const disabledChannels = ctx.guild.settings.disabledChannels || []
-    const channel = ctx.message.mentions.channels.first()
+    channel = ctx.message.mentions.channels.first()
 
     if (disabledChannels.includes(channel.id)) {
       disabledChannels.splice(channel.id.indexOf(disabledChannels, 1))
