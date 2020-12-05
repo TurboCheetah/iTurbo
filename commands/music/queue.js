@@ -22,8 +22,10 @@ class Queue extends Command {
       return ctx.reply('There is nothing in the queue!')
     }
 
-    let upcoming = queue.songs.filter((song, id) => id > 0 && id < 15)
-    /*     const embed = new MessageEmbed()
+    const upcoming = queue.songs.filter((song, id) => id > 0 && id < 15)
+    /* upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
+
+        const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
       .setTitle(`🔊 Now playing: ${queue.songs[0].name}`)
@@ -40,9 +42,9 @@ class Queue extends Command {
       .setElementsPerPage(10)
       .setPage(page)
       .setPageIndicator(true)
+      .formatField('# - Song', s => s.name)
+      //.formatField('# - Song', s => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
 
-    upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
-      
     Pagination.embed
       .setColor(0x9590EE)
       .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
@@ -50,7 +52,7 @@ class Queue extends Command {
       .setURL(queue.songs[0].url)
       .setThumbnail(queue.songs[0].thumbnail)
       .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
-      //.setFooter(`Total length: ${queue.formattedDuration}`)
+      // .setFooter(`Total length: ${queue.formattedDuration}`)
 
     return Pagination.build()
   }
