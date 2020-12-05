@@ -29,6 +29,7 @@
     "cheerio": "^1.0.0-rc.3",
     "dblapi.js": "^2.4.0",
     "discord-giveaways": "^4.2.1",
+    "discord-paginationembed": "^2.1.0",
     "discord.js": "^12.2.0",
     "distube": "^2.8.6",
     "fast-levenshtein": "^2.0.6",

@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
+// const { MessageEmbed } = require('discord.js')
+const { FieldsEmbed } = require('discord-paginationembed')
 
 class Queue extends Command {
   constructor (...args) {
@@ -7,14 +8,14 @@ class Queue extends Command {
       description: 'Displays the music queue',
       aliases: ['q'],
       botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
-      usage: 'queue',
+      usage: 'queue [page]',
       guildOnly: true,
       cost: 0,
       cooldown: 3
     })
   }
 
-  async run (ctx) {
+  async run (ctx, [page = 1]) {
     const queue = this.client.distube.getQueue(ctx.message)
 
     if (!queue || queue === undefined) {
@@ -24,7 +25,7 @@ class Queue extends Command {
     let upcoming = queue.songs.filter((song, id) => id > 0 && id < 15)
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
 
-    const embed = new MessageEmbed()
+    /*     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
       .setTitle(`🔊 Now playing: ${queue.songs[0].name}`)
@@ -32,7 +33,26 @@ class Queue extends Command {
       .setThumbnail(queue.songs[0].thumbnail)
       .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
       .setFooter(`Total length: ${queue.formattedDuration}`)
-    ctx.reply({ embed })
+    ctx.reply({ embed }) */
+
+    const Pagination = new FieldsEmbed()
+      .setArray(upcoming)
+      .setAuthorizedUsers([ctx.author.id])
+      .setChannel(ctx.channel)
+      .setElementsPerPage(10)
+      .setPage(page)
+      .setPageIndicator(true)
+
+    Pagination.embed
+      .setColor(0x9590EE)
+      .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
+      .setTitle(`🔊 Now playing: ${queue.songs[0].name}`)
+      .setURL(queue.songs[0].url)
+      .setThumbnail(queue.songs[0].thumbnail)
+      .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
+      //.setFooter(`Total length: ${queue.formattedDuration}`)
+
+    return Pagination.build()
   }
 }
 
