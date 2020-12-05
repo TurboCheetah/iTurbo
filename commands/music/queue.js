@@ -23,8 +23,6 @@ class Queue extends Command {
     }
 
     let upcoming = queue.songs.filter((song, id) => id > 0 && id < 15)
-    upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
-
     /*     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
@@ -43,6 +41,8 @@ class Queue extends Command {
       .setPage(page)
       .setPageIndicator(true)
 
+    upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
+      
     Pagination.embed
       .setColor(0x9590EE)
       .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
