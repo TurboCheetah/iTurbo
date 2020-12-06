@@ -34,6 +34,7 @@ class Queue extends Command {
       .setFooter(`Total length: ${queue.formattedDuration}`)
     ctx.reply({ embed }) */
 
+    console.log(upcoming);
     const Pagination = new FieldsEmbed()
       .setArray(upcoming)
       .setAuthorizedUsers([ctx.author.id])
@@ -41,7 +42,7 @@ class Queue extends Command {
       .setElementsPerPage(10)
       .setPage(page)
       .setPageIndicator('footer')
-      .formatField('Up Next', (song, id) => `**${upcoming.indexOf(id) + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
+      .formatField('Up Next', song => `**${upcoming.indexOf(song) + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
       // `**${areTracksNothing.indexOf(t) + 1}** - [**${t.info.title}**](${t.info.uri}) by ${t.info.author} (${prettifyMs(t.info.length)})`
 
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
