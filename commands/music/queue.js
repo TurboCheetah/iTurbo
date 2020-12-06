@@ -40,8 +40,8 @@ class Queue extends Command {
       .setChannel(ctx.channel)
       .setElementsPerPage(10)
       .setPage(page)
-      .setPageIndicator('footer')
-      .formatField('Up Next', song => `**${upcoming.indexOf(song) + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
+      .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
+      .formatField('Up Next', (song, id) => `${id}`)
       // `**${areTracksNothing.indexOf(t) + 1}** - [**${t.info.title}**](${t.info.uri}) by ${t.info.author} (${prettifyMs(t.info.length)})`
 
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
