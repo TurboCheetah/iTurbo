@@ -38,7 +38,7 @@ class Queue extends Command {
       .setArray(upcoming)
       .setAuthorizedUsers([ctx.author.id])
       .setChannel(ctx.channel)
-      .setElementsPerPage(10)
+      .setElementsPerPage(5)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
       .formatField('Up Next', (song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\` by ${song.user}`)
