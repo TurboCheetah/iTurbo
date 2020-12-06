@@ -42,7 +42,7 @@ class Queue extends Command {
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
       let t = await Pagination.formatField('Up Next', song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\` by ${song.user}`)
-      console.log(t.embed.fields[0].value)
+      console.log(t.embed.fields[0].value.toString())
       // console.log(upcoming.map(song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\` by ${song.user}`));
       // `**${areTracksNothing.indexOf(t) + 1}** - [**${t.info.title}**](${t.info.uri}) by ${t.info.author} (${prettifyMs(t.info.length)})`
 
