@@ -38,12 +38,12 @@ class Queue extends Command {
       .setArray(upcoming)
       .setAuthorizedUsers([ctx.author.id])
       .setChannel(ctx.channel)
-      .setElementsPerPage(5)
+      .setElementsPerPage(10)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
       .formatField('Up Next', (song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\` by ${song.user}`)
-      console.log(upcoming.map(song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\` by ${song.user}`));
-      // `**${areTracksNothing.indexOf(t) + 1}** - [**${t.info.title}**](${t.info.uri}) by ${t.info.author} (${prettifyMs(t.info.length)})`
+    console.log(upcoming.map(song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) requested by ${song.user}`))
+    // `**${areTracksNothing.indexOf(t) + 1}** - [**${t.info.title}**](${t.info.uri}) by ${t.info.author} (${prettifyMs(t.info.length)})`
 
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
 
