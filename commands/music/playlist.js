@@ -73,7 +73,7 @@ class Playlist extends Command {
   }
 
   async list (ctx) {
-    if (!ctx.author.settings.playlist.playlists || !ctx.author.settings.playlist.playlists.length) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.length || !ctx.author.settings.playlist.playlists || !ctx.author.settings.playlist.playlists.length) return ctx.reply("You don't have any playlists yet!")
 
     const embed = new MessageEmbed()
       .setTitle('Playlists')
