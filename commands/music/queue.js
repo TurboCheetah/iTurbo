@@ -22,7 +22,7 @@ class Queue extends Command {
       return ctx.reply('There is nothing in the queue!')
     }
 
-    let upcoming = queue.songs.filter((song, id) => id > 0)
+    const upcoming = queue.songs.filter((song, id) => id > 0)
 
     /* const embed = new MessageEmbed()
       .setColor(0x9590EE)
@@ -42,8 +42,6 @@ class Queue extends Command {
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
       .formatField('Up Next', song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) requested by ${song.user}`)
-
-    //upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
 
     Pagination.embed
       .setColor(0x9590EE)
