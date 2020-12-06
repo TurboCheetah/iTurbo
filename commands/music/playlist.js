@@ -118,7 +118,7 @@ class Playlist extends Command {
 
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
-    
+
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
     if (!playlist.playlists) playlist.playlists = {}
