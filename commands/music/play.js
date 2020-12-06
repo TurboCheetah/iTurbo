@@ -27,7 +27,7 @@ class Play extends Command {
 
     if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
 
-    if (args[0].indexOf('open.spotify.com') > -1 || args[0].indexOf('play.spotify.com') > -1) {
+    if (args[0].indexOf('open.spotify.com' || 'play.spotify.com') > -1) {
       if (args[0].indexOf('/playlist/') > -1) {
         const m = await ctx.reply('Please wait, adding songs to queue...')
         const data = await getTracks(args[0])
