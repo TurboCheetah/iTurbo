@@ -41,7 +41,7 @@ class Queue extends Command {
       .setElementsPerPage(5)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
-      .formatField('Up Next', (song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\` by ${song.user}`)
+      .formatField('Up Next', (song, id) => `**${id + 2}**. [${song.name}](${song.url}) requested by ${song.user}`)
 
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
 
