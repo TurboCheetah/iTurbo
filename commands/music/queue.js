@@ -40,7 +40,7 @@ class Queue extends Command {
       .setChannel(ctx.channel)
       .setElementsPerPage(10)
       .setPage(page)
-      //.setPageIndicator('footer')
+      .setPageIndicator('footer')
       .formatField('Up Next', song => `**${upcoming.indexOf(song) + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
       // `**${areTracksNothing.indexOf(t) + 1}** - [**${t.info.title}**](${t.info.uri}) by ${t.info.author} (${prettifyMs(t.info.length)})`
 
@@ -53,7 +53,7 @@ class Queue extends Command {
       .setURL(queue.songs[0].url)
       .setThumbnail(queue.songs[0].thumbnail)
       // .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
-      // .setFooter(`Total length: ${queue.formattedDuration}`)
+      .setFooter(`Total length: ${queue.formattedDuration}`, ctx.author.displayAvatarURL({ size: 64 }))
 
     return Pagination.build()
   }
