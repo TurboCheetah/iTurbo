@@ -73,7 +73,7 @@ class Playlist extends Command {
   }
 
   async list (ctx) {
-    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.length || !ctx.author.settings.playlist.playlists || !ctx.author.settings.playlist.playlists.length) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
     const embed = new MessageEmbed()
       .setTitle('Playlists')
@@ -85,8 +85,6 @@ class Playlist extends Command {
   }
 
   async create (ctx, args) {
-    if (ctx.author.settings.playlist && ctx.author.settings.playlist.length >= 10) return ctx.reply("You can't have more than 10 playlists. Remove some before trying again.")
-
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply('You must provide a name for the playlist.')
 
@@ -114,7 +112,7 @@ class Playlist extends Command {
   }
 
   async delete (ctx, args) {
-    if (!ctx.author.settings.playlist.playlists || !ctx.author.settings.playlist.playlists.length) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
