@@ -40,8 +40,8 @@ class Queue extends Command {
       .setChannel(ctx.channel)
       .setElementsPerPage(10)
       .setPage(page)
-      .setPageIndicator(true)
-      .formatField('# - Song', song => `**${upcoming.indexOf(song) + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
+      .setPageIndicator('footer')
+      .formatField('Up Next', (song, id) => `**${upcoming.indexOf(id) + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
       // `**${areTracksNothing.indexOf(t) + 1}** - [**${t.info.title}**](${t.info.uri}) by ${t.info.author} (${prettifyMs(t.info.length)})`
 
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
@@ -52,7 +52,7 @@ class Queue extends Command {
       .setTitle(`🔊 Now playing: ${queue.songs[0].name}`)
       .setURL(queue.songs[0].url)
       .setThumbnail(queue.songs[0].thumbnail)
-      .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
+      // .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
       // .setFooter(`Total length: ${queue.formattedDuration}`)
 
     return Pagination.build()
