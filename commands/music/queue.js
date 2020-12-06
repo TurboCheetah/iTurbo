@@ -22,10 +22,9 @@ class Queue extends Command {
       return ctx.reply('There is nothing in the queue!')
     }
 
-    let upcoming = queue.songs
-    /* let upcoming = queue.songs.filter((song, id) => id > 0 && id < 15)
+    let upcoming = queue.songs.filter((song, id) => id > 0)
 
-    const embed = new MessageEmbed()
+    /* const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
       .setTitle(`🔊 Now playing: ${queue.songs[0].name}`)
@@ -42,7 +41,7 @@ class Queue extends Command {
       .setElementsPerPage(5)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
-      .formatField('Up Next', song => `**${upcoming.indexOf(song) + 1}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
+      .formatField('Up Next', song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``)
       // `**${areTracksNothing.indexOf(t) + 1}** - [**${t.info.title}**](${t.info.uri}) by ${t.info.author} (${prettifyMs(t.info.length)})`
 
     upcoming = upcoming.map((song, id) => `**${id + 2}**. [${song.name}](${song.url}) - \`${song.formattedDuration}\``).join('\n')
