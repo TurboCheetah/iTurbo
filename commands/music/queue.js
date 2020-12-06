@@ -41,7 +41,7 @@ class Queue extends Command {
       .setElementsPerPage(5)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
-      .formatField('Up Next', song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) requested by ${song.user}`)
+      .formatField('Up Next', song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) [${song.user}]`)
 
     Pagination.embed
       .setColor(0x9590EE)
