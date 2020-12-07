@@ -159,9 +159,9 @@ class Playlist extends Command {
 
       for (const song of list) {
         // Check if song is already in the playlsit
-        if (playlists[playlistName].indexOf(song) > -1) continue
+        if (playlists[playlistName].songs.indexOf(song) > -1) continue
 
-        playlists[playlistName].songs.push(song)
+        return playlists[playlistName].songs.push(song)
       }
     }
     if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
@@ -179,13 +179,13 @@ class Playlist extends Command {
       // Append song to playlistName.songs array
       for (const song of songToAppend) {
         // Check if song is already in the playlsit
-        if (playlists[playlistName].indexOf(song) > -1) continue
+        if (playlists[playlistName].songs.indexOf(song) > -1) continue
 
         playlists[playlistName].songs.push(song)
       }
     } else {
       // Check if song is already in the playlsit
-      if (playlists[playlistName].indexOf(songToAppend) > -1) return ctx.reply(`That song is already in \`${playlistName}\`!`)
+      if (playlists[playlistName].songs.indexOf(songToAppend) > -1) return ctx.reply(`That song is already in \`${playlistName}\`!`)
       // Append song to playlistName.songs array
       playlists[playlistName].songs.push(songToAppend)
     }
