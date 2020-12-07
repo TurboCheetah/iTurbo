@@ -58,7 +58,14 @@ class Playlist extends Command {
       }
       if (!this.client.distube.options.youtubeDL) throw new Error('Not Supported URL!')
       const info = await youtube_dl.getInfo(args).catch(e => { throw new Error(`[youtube-dl] ${e.stderr || e}`) })
-      if (Array.isArray(info) && info.length > 0) playlist = info.map(i => new Song(i, ctx.author))
+      if (Array.isArray(info) && info.length > 0) {
+        const soundcloudSongs = info.map(i => new Song(i, ctx.author))
+        const list = []
+        for (const song of soundcloudSongs) {
+          list.push(song.url)
+        }
+        return list
+      }
       return new Song(info, ctx.author)
     }
     if (!playlist) throw Error('Invalid Playlist')
@@ -142,7 +149,6 @@ class Playlist extends Command {
     let songToAppendMsg = songToAppend
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
-      console.log(songToAppend);
       songToAppendMsg = `${songToAppend.length} songs`
     }
 
