@@ -101,6 +101,7 @@ class Playlist extends Command {
   }
 
   async create (ctx, args) {
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}create <playlistName>`)
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply('You must provide a name for the playlist.')
 
@@ -130,6 +131,8 @@ class Playlist extends Command {
   async delete (ctx, args) {
     if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}delete <playlistName>`)
+
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
 
@@ -150,6 +153,8 @@ class Playlist extends Command {
 
   async info (ctx, args) {
     if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}info <playlistName>`)
 
     const playlistName = args.join(' ').split(';')[0]
     const page = args.join(' ').split(';')[1] || 1
@@ -186,9 +191,11 @@ class Playlist extends Command {
   async append (ctx, args) {
     if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
-    const playlistName = args.join(' ').split(';')[0]
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}append <playlistName>; <songURL|queue>`)
+
+    const playlistName = args.join(' ').split('; ')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
-    let songToAppend = args.join(' ').split(';')[1]
+    let songToAppend = args.join(' ').split('; ')[1]
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
@@ -248,9 +255,11 @@ class Playlist extends Command {
   async remove (ctx, args) {
     if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
-    const playlistName = args.join(' ').split(';')[0]
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}remove <playlistName>; <songIndex>`)
+
+    const playlistName = args.join(' ').split('; ')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
-    const songToRemove = Number(args.join(' ').split(';')[1])
+    const songToRemove = Number(args.join(' ').split('; ')[1])
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
@@ -278,6 +287,8 @@ class Playlist extends Command {
   async play (ctx, args) {
     if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}play <playlistName>`)
+
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to play.')
 
@@ -298,10 +309,6 @@ class Playlist extends Command {
     await this.client.distube.playCustomPlaylist(ctx, songs, { name: playlists[playlistName].name })
     await msg.delete()
   }
-
-  // TODO
-  // this.info(ctx, playlist) -- return info about the specified playlist (songs with an index, paginate like queue command etc)
-  // this.remove(ctx, playlist) -- allow user to remove song from playlist based on its index in the array
 }
 
 module.exports = Playlist
