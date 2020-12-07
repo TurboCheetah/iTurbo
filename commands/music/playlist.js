@@ -140,8 +140,10 @@ class Playlist extends Command {
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
     let songToAppend = args.join(' ').split(';')[1]
     if (!songToAppend || !this.isURL(songToAppend)) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
+    let songToAppendMsg = songToAppend
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
+      songToAppendMsg = `${songToAppend.length} songs`
     }
 
     // Get existing playlists
@@ -156,7 +158,7 @@ class Playlist extends Command {
 
     await ctx.author.update({ playlist })
 
-    return ctx.reply(`${this.client.constants.success} Successfully appended \`${songToAppend}\` to \`${playlistName}\`.`)
+    return ctx.reply(`${this.client.constants.success} Successfully appended \`${songToAppendMsg}\` to \`${playlistName}\`.`)
   }
 }
 
