@@ -65,7 +65,8 @@ class Playlist extends Command {
         for (const song of soundcloudSongs) {
           list.push({
             name: song.name,
-            url: song.url
+            url: song.url,
+            thumbnail: song.thumbnail
           })
         }
         return list
