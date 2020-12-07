@@ -143,6 +143,7 @@ class Playlist extends Command {
     let songToAppendMsg = songToAppend
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
+      console.log(songToAppend);
       songToAppendMsg = `${songToAppend.length} songs`
     }
 
