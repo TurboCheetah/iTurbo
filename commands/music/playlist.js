@@ -34,16 +34,16 @@ class Playlist extends Command {
     return this[action](ctx, args)
   }
 
-  async handlePlaylist (ctx, args) {
-    const isURL = string => {
-      try {
-        new URL(string)
-      } catch {
-        return false
-      }
-      return true
+  async isURL (string) {
+    try {
+      new URL(string)
+    } catch {
+      return false
     }
+    return true
+  }
 
+  async handlePlaylist (ctx, args) {
     let playlist
 
     if (!args) return null
@@ -51,7 +51,7 @@ class Playlist extends Command {
     if (args instanceof SearchResult) return new Song(await ytdl.getInfo(args.url), ctx.author, true)
     if (typeof args === 'object') return new Song(args, ctx.author)
     if (ytdl.validateURL(args)) return new Song(await ytdl.getInfo(args), ctx.author, true)
-    if (isURL(args)) {
+    if (this.isURL(args)) {
       if (args.indexOf('youtube.com' || 'youtu.be') > -1) {
         playlist = await ytpl(args, { limit: Infinity })
         playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, ctx.author, true))
@@ -130,6 +130,32 @@ class Playlist extends Command {
     await ctx.author.update({ playlist })
 
     return ctx.reply(`${this.client.constants.success} Successfully deleted the playlist \`${playlistName}\`.`)
+  }
+
+  async append (ctx, args) {
+    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+
+    const playlistName = args.join(' ').split(';')[0]
+    if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
+    let songToAppend = args.join(' ').split(';')[1]
+    if (!songToAppend || !this.isURL(songToAppend)) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
+    if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
+      songToAppend = await this.handlePlaylist(ctx, songToAppend)
+    }
+
+    // Get existing playlists
+    const playlist = ctx.author.settings.playlist || {}
+    if (!playlist.playlists) playlist.playlists = {}
+    const playlists = playlist.playlists
+
+    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
+
+    // Append song to playlistName.songs array
+    playlists[playlistName].songs.push(songToAppend)
+
+    await ctx.author.update({ playlist })
+
+    return ctx.reply(`${this.client.constants.success} Successfully appended \`${songToAppend}\` to \`${playlistName}\`.`)
   }
 }
 
