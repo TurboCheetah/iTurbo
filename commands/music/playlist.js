@@ -109,7 +109,7 @@ class Playlist extends Command {
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully created playlsit \`${playlistName}\`! Use \`${ctx.guild.settings.prefix}playlist append ${playlistName} <songURL>\` or \`${ctx.guild.settings.prefix}playlist appendQueue ${playlistName}\` to add some songs`)
+    return ctx.reply(`${this.client.constants.success} Successfully created playlist \`${playlistName}\`! Use \`${ctx.guild.settings.prefix}playlist append ${playlistName} <songURL>\` or \`${ctx.guild.settings.prefix}playlist appendQueue ${playlistName}\` to add some songs`)
   }
 
   async delete (ctx, args) {
