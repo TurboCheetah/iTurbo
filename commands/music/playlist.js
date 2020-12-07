@@ -218,7 +218,7 @@ class Playlist extends Command {
       }
     }
     if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
-    let songToAppendMsg = songToAppend
+    let songToAppendMsg
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
@@ -232,6 +232,7 @@ class Playlist extends Command {
       }
     } else {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
+      songToAppendMsg = songToAppend.name
 
       // Check if song is already in the playlsit
       if (playlists[playlistName].songs.indexOf(songToAppend) > -1) return ctx.reply(`That song is already in \`${playlistName}\`!`)
