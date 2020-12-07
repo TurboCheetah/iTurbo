@@ -157,7 +157,10 @@ class Playlist extends Command {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
       // Concat the two arrays
-      playlists[playlistName].songs.concat(songToAppend)
+      // playlists[playlistName].songs.concat(songToAppend)
+      for (const song of songToAppend) {
+        playlists[playlistName].songs.push(song)
+      }
     } else {
       // Append song to playlistName.songs array
       playlists[playlistName].songs.push(songToAppend)
