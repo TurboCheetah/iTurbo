@@ -145,7 +145,26 @@ class Playlist extends Command {
     const playlistName = args.join(' ').split(';')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
     let songToAppend = args.join(' ').split(';')[1]
-    if (!songToAppend || !this.isURL(songToAppend)) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
+    // Append queue
+    if (songToAppend && songToAppend === 'queue') {
+      const queue = this.client.distube.getQueue(ctx.message)
+      if (!queue || queue === undefined) {
+        return ctx.reply('There is nothing in the queue!')
+      }
+
+      const list = []
+      for (const song of queue) {
+        list.push(song.url)
+      }
+
+      for (const song of list) {
+        // Check if song is already in the playlsit
+        if (playlists[playlistName].indexOf(song) > -1) continue
+
+        playlists[playlistName].songs.push(song)
+      }
+    }
+    if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg = songToAppend
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
@@ -159,9 +178,14 @@ class Playlist extends Command {
 
       // Append song to playlistName.songs array
       for (const song of songToAppend) {
+        // Check if song is already in the playlsit
+        if (playlists[playlistName].indexOf(song) > -1) continue
+
         playlists[playlistName].songs.push(song)
       }
     } else {
+      // Check if song is already in the playlsit
+      if (playlists[playlistName].indexOf(songToAppend) > -1) return ctx.reply(`That song is already in \`${playlistName}\`!`)
       // Append song to playlistName.songs array
       playlists[playlistName].songs.push(songToAppend)
     }
@@ -187,6 +211,10 @@ class Playlist extends Command {
     // Add playlist to queue
     await this.client.distube.playCustomPlaylist(ctx, playlists[playlistName].songs, { name: playlists[playlistName].name })
   }
+
+  // TODO
+  // this.info(ctx, playlist) -- return info about the specified playlist (songs with an index, paginate like queue command etc)
+  // this.remove(ctx, playlist) -- allow user to remove song from playlist based on its index in the array
 }
 
 module.exports = Playlist
