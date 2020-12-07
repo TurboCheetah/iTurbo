@@ -147,20 +147,21 @@ class Playlist extends Command {
     let songToAppend = args.join(' ').split(';')[1]
     if (!songToAppend || !this.isURL(songToAppend)) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg = songToAppend
-    if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
-      songToAppend = await this.handlePlaylist(ctx, songToAppend)
-      songToAppendMsg = `${songToAppend.length} songs`
-    }
-
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
     if (!playlist.playlists) playlist.playlists = {}
     const playlists = playlist.playlists
 
     if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
-
-    // Append song to playlistName.songs array
-    playlists[playlistName].songs.push(songToAppend)
+    if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
+      songToAppend = await this.handlePlaylist(ctx, songToAppend)
+      songToAppendMsg = `${songToAppend.length} songs`
+      // Concat the two arrays
+      playlists[playlistName].songs.concat(songToAppend)
+    } else {
+      // Append song to playlistName.songs array
+      playlists[playlistName].songs.push(songToAppend)
+    }
 
     await ctx.author.update({ playlist })
 
