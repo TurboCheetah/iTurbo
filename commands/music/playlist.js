@@ -80,7 +80,8 @@ class Playlist extends Command {
     for (const song of songs) {
       list.push({
         name: song.name,
-        url: song.url
+        url: song.url,
+        thumbnail: song.thumbnail
       })
     }
     return list
@@ -173,8 +174,9 @@ class Playlist extends Command {
 
     Pagination.embed
       .setColor(0x9590EE)
-      .setAuthor(`| by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(`by ${ctx.author.tag}`)
       .setTitle(playlist.name)
+      .setThumbnail(playlist.songs[0].thumbnail)
       .setFooter(null, ctx.author.displayAvatarURL({ size: 64 }))
 
     return Pagination.build()
@@ -214,7 +216,7 @@ class Playlist extends Command {
 
     if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
-      songToAppend = await this.handlePlaylist(ctx, songToAppend)
+    songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
 
       // Append song to playlistName.songs array
@@ -225,7 +227,7 @@ class Playlist extends Command {
         playlists[playlistName].songs.push(song)
       }
     } else {
-      songToAppend = await this.handlePlaylist(ctx, songToAppend)
+    songToAppend = await this.handlePlaylist(ctx, songToAppend)
 
       // Check if song is already in the playlsit
       if (playlists[playlistName].songs.indexOf(songToAppend) > -1) return ctx.reply(`That song is already in \`${playlistName}\`!`)
