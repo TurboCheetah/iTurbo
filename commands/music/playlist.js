@@ -137,7 +137,7 @@ class Playlist extends Command {
     if (!playlist.playlists) playlist.playlists = {}
     const playlists = playlist.playlists
 
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
+    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
 
     // Delete playlistName object from playlists "array"
     delete (playlists[playlistName])
@@ -188,6 +188,14 @@ class Playlist extends Command {
     const playlistName = args.join(' ').split(';')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
     let songToAppend = args.join(' ').split(';')[1]
+
+    // Get existing playlists
+    const playlist = ctx.author.settings.playlist || {}
+    if (!playlist.playlists) playlist.playlists = {}
+    const playlists = playlist.playlists
+
+    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+
     const msg = await ctx.reply('Please wait, appending song(s) to playlist')
     // Append queue
     if (songToAppend && songToAppend === 'queue') {
@@ -210,14 +218,8 @@ class Playlist extends Command {
     }
     if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg = songToAppend
-    // Get existing playlists
-    const playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
-
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
-    songToAppend = await this.handlePlaylist(ctx, songToAppend)
+      songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
 
       // Append song to playlistName.songs array
@@ -228,7 +230,7 @@ class Playlist extends Command {
         playlists[playlistName].songs.push(song)
       }
     } else {
-    songToAppend = await this.handlePlaylist(ctx, songToAppend)
+      songToAppend = await this.handlePlaylist(ctx, songToAppend)
 
       // Check if song is already in the playlsit
       if (playlists[playlistName].songs.indexOf(songToAppend) > -1) return ctx.reply(`That song is already in \`${playlistName}\`!`)
@@ -252,7 +254,7 @@ class Playlist extends Command {
     if (!playlist.playlists) playlist.playlists = {}
     const playlists = playlist.playlists
 
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
+    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
 
     const msg = await ctx.reply('Queueing playlist...')
 
