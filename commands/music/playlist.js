@@ -69,7 +69,6 @@ class Playlist extends Command {
     for (const song of songs) {
       list.push(song.url)
     }
-    console.log(list);
     return list
   }
 
@@ -143,6 +142,7 @@ class Playlist extends Command {
     let songToAppendMsg = songToAppend
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
+      console.log(songToAppend);
       songToAppendMsg = `${songToAppend.length} songs`
     }
 
