@@ -207,7 +207,6 @@ class Playlist extends Command {
 
         return playlists[playlistName].songs.push(song)
       }
-      await msg.delete()
     }
     if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg = songToAppend
@@ -238,9 +237,8 @@ class Playlist extends Command {
     }
 
     await ctx.author.update({ playlist })
-    await msg.delete()
 
-    return ctx.reply(`${this.client.constants.success} Successfully appended \`${songToAppendMsg}\` to \`${playlistName}\`.`)
+    return msg.edit(`${this.client.constants.success} Successfully appended \`${songToAppendMsg}\` to \`${playlistName}\`.`)
   }
 
   async play (ctx, args) {
