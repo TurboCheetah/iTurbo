@@ -58,7 +58,7 @@ class Playlist extends Command {
       }
       if (!this.client.distube.options.youtubeDL) throw new Error('Not Supported URL!')
       const info = await youtube_dl.getInfo(args).catch(e => { throw new Error(`[youtube-dl] ${e.stderr || e}`) })
-      if (Array.isArray(info) && info.length > 0) return playlist = info.map(i => new Song(i, ctx.author))
+      if (Array.isArray(info) && info.length > 0) playlist = info.map(i => new Song(i, ctx.author))
       return new Song(info, ctx.author)
     }
     if (!playlist) throw Error('Invalid Playlist')
