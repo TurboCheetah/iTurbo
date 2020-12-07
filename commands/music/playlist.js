@@ -18,7 +18,7 @@ class Playlist extends Command {
   }
 
   async run (ctx, [action = 'list', ...args]) {
-    if (!['list', 'create', 'delete', 'append', 'remove'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    if (!['list', 'create', 'delete', 'append', 'remove', 'play'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
     /*
     const playlist = {
       playlist1: [{
@@ -156,8 +156,8 @@ class Playlist extends Command {
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
-      // Concat the two arrays
-      // playlists[playlistName].songs.concat(songToAppend)
+
+      // Append song to playlistName.songs array
       for (const song of songToAppend) {
         playlists[playlistName].songs.push(song)
       }
@@ -169,6 +169,23 @@ class Playlist extends Command {
     await ctx.author.update({ playlist })
 
     return ctx.reply(`${this.client.constants.success} Successfully appended \`${songToAppendMsg}\` to \`${playlistName}\`.`)
+  }
+
+  async play (ctx, args) {
+    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+
+    const playlistName = args.join(' ')
+    if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to play.')
+
+    // Get existing playlists
+    const playlist = ctx.author.settings.playlist || {}
+    if (!playlist.playlists) playlist.playlists = {}
+    const playlists = playlist.playlists
+
+    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
+
+    // Add playlist to queue
+    await this.client.distube.playCustomPlaylist(ctx, playlists[playlistName].songs, { name: playlists[playlistName].name })
   }
 }
 
