@@ -188,6 +188,7 @@ class Playlist extends Command {
     const playlistName = args.join(' ').split(';')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
     let songToAppend = args.join(' ').split(';')[1]
+    const msg = await ctx.reply('Please wait, appending song(s) to playlist')
     // Append queue
     if (songToAppend && songToAppend === 'queue') {
       const queue = this.client.distube.getQueue(ctx.message)
@@ -206,6 +207,7 @@ class Playlist extends Command {
 
         return playlists[playlistName].songs.push(song)
       }
+      await msg.delete()
     }
     if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg = songToAppend
@@ -236,6 +238,7 @@ class Playlist extends Command {
     }
 
     await ctx.author.update({ playlist })
+    await msg.delete()
 
     return ctx.reply(`${this.client.constants.success} Successfully appended \`${songToAppendMsg}\` to \`${playlistName}\`.`)
   }
@@ -253,12 +256,15 @@ class Playlist extends Command {
 
     if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
 
+    const msg = await ctx.reply('Queueing playlist...')
+
     // Add playlist to queue
     const songs = []
     for (const song of playlists[playlistName].songs) {
       songs.push(song.url)
     }
     await this.client.distube.playCustomPlaylist(ctx, songs, { name: playlists[playlistName].name })
+    await msg.delete()
   }
 
   // TODO
