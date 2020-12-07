@@ -79,7 +79,6 @@ class Playlist extends Command {
       .setTitle('Playlists')
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
       .setColor(0x9590EE)
-      .setDescription(ctx.author.settings.playlist.playlists.map((playlist) => `• ${playlist.name}`).join('\n'))
       .setDescription(Object.keys(ctx.author.settings.playlist.playlists).map((playlist) => `• ${playlist}`).join('\n'))
 
     return ctx.reply({ embed })
