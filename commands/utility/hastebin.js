@@ -16,7 +16,7 @@ class Hastebin extends Command {
 
     const { code, lang } = this.client.utils.getCodeBlock(ctx.rawArgs)
 
-    const { key } = await fetch('https://hastebin.com/documents', {
+    const { key } = await fetch('https://haste.turbo.ooo/documents', {
       method: 'POST',
       body: code
     })
@@ -25,7 +25,7 @@ class Hastebin extends Command {
         return res.json()
       })
 
-    return ctx.reply(`Hastebin-ified: https://hastebin.com/${key}${lang ? `.${lang}` : ''}`)
+    return ctx.reply(`Hastebin-ified: https://haste.turbo.ooo/${key}${lang ? `.${lang}` : ''}`)
   }
 }
 

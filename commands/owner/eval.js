@@ -31,11 +31,11 @@ class Eval extends Command {
         ctx.reply(`\`\`\`js\n${output}\n\`\`\``)
       } else {
         try {
-          const { key } = await fetch('https://hastebin.com/documents', {
+          const { key } = await fetch('https://haste.turbo.ooo/documents', {
             method: 'POST',
             body: output
           }).then((res) => res.json())
-          return ctx.reply(`Output was to long so it was uploaded to hastebin https://hastebin.com/${key}.js `)
+          return ctx.reply(`Output was to long so it was uploaded to hastebin https://haste.turbo.ooo/${key}.js `)
         } catch (error) {
           return ctx.reply(`I tried to upload the output to hastebin but encountered this error ${error.name}:${error.message}`)
         }
