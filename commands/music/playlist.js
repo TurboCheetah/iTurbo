@@ -173,7 +173,7 @@ class Playlist extends Command {
       .setArray(playlist.songs)
       .setAuthorizedUsers([ctx.author.id])
       .setChannel(ctx.channel)
-      .setElementsPerPage(10)
+      .setElementsPerPage(5)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages}`)
       .formatField('Songs', song => `**${playlist.songs.indexOf(song) + 1}**. [${song.name}](${song.url})`)
