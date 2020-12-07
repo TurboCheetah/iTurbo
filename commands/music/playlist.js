@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
+const { FieldsEmbed } = require('discord-paginationembed')
 const ytdl = require('@distube/ytdl')
 const youtube_dl = require('@distube/youtube-dl')
 const ytpl = require('@distube/ytpl')
@@ -18,7 +19,7 @@ class Playlist extends Command {
   }
 
   async run (ctx, [action = 'list', ...args]) {
-    if (!['list', 'create', 'delete', 'append', 'remove', 'play'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
     /*
     const playlist = {
       playlist1: [{
@@ -62,7 +63,10 @@ class Playlist extends Command {
         const soundcloudSongs = info.map(i => new Song(i, ctx.author))
         const list = []
         for (const song of soundcloudSongs) {
-          list.push(song.url)
+          list.push({
+            name: song.name,
+            url: song.url
+          })
         }
         return list
       }
@@ -74,7 +78,10 @@ class Playlist extends Command {
     const songs = playlist.songs
     const list = []
     for (const song of songs) {
-      list.push(song.url)
+      list.push({
+        name: song.name,
+        url: song.url
+      })
     }
     return list
   }
@@ -139,6 +146,40 @@ class Playlist extends Command {
     return ctx.reply(`${this.client.constants.success} Successfully deleted the playlist \`${playlistName}\`.`)
   }
 
+  async info (ctx, args) {
+    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+
+    const playlistName = args.join(' ').split(';')[0]
+    const page = args.join(' ').split(';')[1] || 1
+    if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to play.')
+
+    // Get existing playlists
+    let playlist = ctx.author.settings.playlist || {}
+    if (!playlist.playlists) playlist.playlists = {}
+    const playlists = playlist.playlists
+
+    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
+    playlist = playlists[playlistName]
+
+    // Send information embed
+    const Pagination = new FieldsEmbed()
+      .setArray(playlist.songs)
+      .setAuthorizedUsers([ctx.author.id])
+      .setChannel(ctx.channel)
+      .setElementsPerPage(10)
+      .setPage(page)
+      .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages}`)
+      .formatField('Songs', song => `**${playlist.songs.indexOf(song) + 1}**. [${song.name}](${song.url})`)
+
+    Pagination.embed
+      .setColor(0x9590EE)
+      .setAuthor(`| by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
+      .setTitle(playlist.name)
+      .setFooter(null, ctx.author.displayAvatarURL({ size: 64 }))
+
+    return Pagination.build()
+  }
+
   async append (ctx, args) {
     if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
@@ -172,8 +213,8 @@ class Playlist extends Command {
     const playlists = playlist.playlists
 
     if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
+    songToAppend = await this.handlePlaylist(ctx, songToAppend)
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
-      songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
 
       // Append song to playlistName.songs array
@@ -209,10 +250,15 @@ class Playlist extends Command {
     if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
 
     // Add playlist to queue
-    await this.client.distube.playCustomPlaylist(ctx, playlists[playlistName].songs, { name: playlists[playlistName].name })
+    const songs = []
+    for (const song of playlists[playlistName].songs) {
+      songs.push(song.url)
+    }
+    await this.client.distube.playCustomPlaylist(ctx, songs, { name: playlists[playlistName].name })
   }
 
   // TODO
+  // Status messages -- auto delete after action is complete, useful to know if the bot is actually doing anything
   // this.info(ctx, playlist) -- return info about the specified playlist (songs with an index, paginate like queue command etc)
   // this.remove(ctx, playlist) -- allow user to remove song from playlist based on its index in the array
 }
