@@ -244,6 +244,36 @@ class Playlist extends Command {
     return msg.edit(`${this.client.constants.success} Successfully appended \`${songToAppendMsg}\` to \`${playlistName}\`.`)
   }
 
+  async remove (ctx, args) {
+    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+
+    const playlistName = args.join(' ').split(';')[0]
+    if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
+    const songToRemove = Number(args.join(' ').split(';')[1])
+
+    // Get existing playlists
+    const playlist = ctx.author.settings.playlist || {}
+    if (!playlist.playlists) playlist.playlists = {}
+    const playlists = playlist.playlists
+
+    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+
+    const msg = await ctx.reply('Please wait, removing song from playlist')
+
+    if (!songToRemove) return ctx.reply(`Please specify a song number to remove from ${playlistName}! You can get it from \`${ctx.guild.settings.prefix}playlist info ${playlistName}\``)
+    // Check if song is already in the playlsit
+    if (!playlists[playlistName].songs[songToRemove - 1]) return ctx.reply(`That song is already in \`${playlistName}\`!`)
+
+    const songToAppendMsg = playlists[playlistName].songs[songToRemove - 1].name
+
+    // Append song to playlistName.songs array
+    playlists[playlistName].songs.splice(songToRemove - 1, 1)
+
+    await ctx.author.update({ playlist })
+
+    return msg.edit(`${this.client.constants.success} Successfully removed \`${songToAppendMsg}\` to \`${playlistName}\`.`)
+  }
+
   async play (ctx, args) {
     if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
@@ -269,7 +299,6 @@ class Playlist extends Command {
   }
 
   // TODO
-  // Status messages -- auto delete after action is complete, useful to know if the bot is actually doing anything
   // this.info(ctx, playlist) -- return info about the specified playlist (songs with an index, paginate like queue command etc)
   // this.remove(ctx, playlist) -- allow user to remove song from playlist based on its index in the array
 }
