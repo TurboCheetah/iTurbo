@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
+const createBar = require('string-progressbar')
 
 class NowPlaying extends Command {
   constructor (...args) {
@@ -31,8 +32,8 @@ class NowPlaying extends Command {
       .setURL(queue.songs[0].url)
       .setThumbnail(queue.songs[0].thumbnail)
       .addField('Requested by', queue.songs[0].user, true)
-      .addField('Duration', `${queue.formattedCurrentTime}/${queue.songs[0].formattedDuration}`, true)
       .addField('Queue', `${queue.songs.length === 1 ? '1 song' : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)
+      .addField('Duration', `\`${queue.formattedCurrentTime}\` ${createBar(queue.songs[0].formattedDuration, queue.formattedCurrentTime, 50)} \`${queue.songs[0].formattedDuration}\``, false)
     ctx.reply({ embed })
   }
 }
