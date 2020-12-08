@@ -131,7 +131,7 @@ class Playlist extends Command {
     const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
     const results = search.items.map(i => new SearchResult(i))
     if (results.length === 0) throw Error('No result!')
-    return this.handlePlaylist(ctx, results[0])
+    return await this.handlePlaylist(ctx, results[0])
   }
 
   async handleAlbum (ctx, id) {
@@ -148,7 +148,7 @@ class Playlist extends Command {
       if (results.length === 0) throw Error('No result!')
       songs.push(results[0])
     }
-    return this.handlePlaylist(ctx, songs)
+    return await this.handlePlaylist(ctx, songs)
   }
 
   async handleSPlaylist (ctx, id) {
@@ -165,7 +165,7 @@ class Playlist extends Command {
       if (results.length === 0) throw Error('No result!')
       songs.push(results[0])
     }
-    return this.handlePlaylist(ctx, songs)
+    return await this.handlePlaylist(ctx, songs)
   }
 
   async list (ctx) {
