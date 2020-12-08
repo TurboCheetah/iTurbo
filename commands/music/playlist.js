@@ -309,7 +309,7 @@ class Playlist extends Command {
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/')) || songToAppend.includes('open.spotify.com' || 'play.spotify.com')) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
-
+console.log(songToAppend);
       // Append song to playlistName.songs array
       for (const song of songToAppend) {
         // Check if song is already in the playlsit
