@@ -23,7 +23,7 @@ class Play extends Command {
 
   async getID (url) {
     const URL = url.substring(url.search(/(album).|(track).|(playlist)./g), url.length)
-    return URL.substring(URL.search('/') + 1, URL.length)
+    return await URL.substring(URL.search('/') + 1, URL.length)
   }
 
   async handleTrack (ctx, id) {
@@ -59,7 +59,6 @@ class Play extends Command {
   }
 
   async handlePlaylist (ctx, id) {
-    console.log(id);
     const m = await ctx.reply('Please wait, adding songs to queue...')
     const ids = []
     const songs = []
