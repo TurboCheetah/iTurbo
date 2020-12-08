@@ -47,7 +47,6 @@ class Playlist extends Command {
 
   async handlePlaylist (ctx, args) {
     let playlist
-    console.log(typeof args);
 
     if (!args) return null
     if (args instanceof Song) return args
@@ -89,6 +88,7 @@ class Playlist extends Command {
       return new Song(info, ctx.author)
     }
     if (Array.isArray(args)) {
+      console.log('test');
       const spotifySongs = args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))
       const list = []
       for (const song of spotifySongs) {
