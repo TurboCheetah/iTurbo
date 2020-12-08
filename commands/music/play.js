@@ -21,7 +21,7 @@ class Play extends Command {
     return this.client.spotifyApi.setAccessToken(TOKEN.body.access_token)
   }
 
-  static getID (url) {
+  getID (url) {
     const URL = url.substring(url.search(/(album).|(track).|(playlist)./g), url.length)
     return URL.substring(URL.search('/') + 1, URL.length)
   }
