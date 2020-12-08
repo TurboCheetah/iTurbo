@@ -28,7 +28,7 @@ class Play extends Command {
 
   async handleTrack (ctx, id) {
     const artists = []
-    const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.err(err))
+    const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
     data.body.artists.map((artist) => artists.push(artist.name))
     const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
     const results = search.items.map(i => new SearchResult(i))
@@ -44,7 +44,7 @@ class Play extends Command {
     data.body.tracks.items.map((e) => ids.push(e.id))
     for (const id of ids) {
       const artists = []
-      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.err(err))
+      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
       data.body.artists.map((artist) => artists.push(artist.name))
       const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
       const results = search.items.map(i => new SearchResult(i))
@@ -66,7 +66,7 @@ class Play extends Command {
     data.body.tracks.items.map((e) => ids.push(e.id))
     for (const id of ids) {
       const artists = []
-      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.err(err))
+      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
       data.body.artists.map((artist) => artists.push(artist.name))
       const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
       const results = search.items.map(i => new SearchResult(i))
