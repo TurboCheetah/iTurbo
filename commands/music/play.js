@@ -62,7 +62,7 @@ class Play extends Command {
     const m = await ctx.reply('Please wait, adding songs to queue...')
     const ids = []
     const songs = []
-    const data = await this.client.spotifyApi.getPlaylist('32VV35grv0ucuMGwYglLhG?si=T5zRwMuoQNqwxAnaIulSRg', { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
+    const data = await this.client.spotifyApi.getPlaylist(id, { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
     data.body.tracks.items.map((e) => ids.push(e.id))
     for (const id of ids) {
       const artists = []
