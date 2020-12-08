@@ -59,6 +59,7 @@ class Play extends Command {
   }
 
   async handlePlaylist (ctx, id) {
+    console.log(id);
     const m = await ctx.reply('Please wait, adding songs to queue...')
     const ids = []
     const songs = []
