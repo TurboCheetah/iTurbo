@@ -62,13 +62,13 @@ class Playlist extends Command {
         const url = args
         const id = this.getID(url)
         if (url.search('album') > 1) {
-          return this.handleAlbum(ctx, id)
+          return this.handleAlbum(ctx, id);
         }
         if (url.search('track') > 1) {
-          return this.handleTrack(ctx, id)
+          return this.handleTrack(ctx, id);
         }
         if (url.search('playlist') > 1) {
-          return this.handleSPlaylist(ctx, id)
+          return this.handleSPlaylist(ctx, id);
         }
       }
       if (Array.isArray(args)) {
@@ -148,6 +148,7 @@ class Playlist extends Command {
       if (results.length === 0) throw Error('No result!')
       songs.push(results[0])
     }
+    console.log(songs);
     return this.handlePlaylist(ctx, songs)
   }
 
@@ -309,7 +310,7 @@ class Playlist extends Command {
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/')) || songToAppend.includes('open.spotify.com' || 'play.spotify.com')) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
-console.log(songToAppend);
+
       // Append song to playlistName.songs array
       for (const song of songToAppend) {
         // Check if song is already in the playlsit
