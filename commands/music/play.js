@@ -63,7 +63,7 @@ class Play extends Command {
     const ids = []
     const songs = []
     const data = await this.client.spotifyApi.getPlaylist(id, { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
-    data.body.tracks.items.map((e) => ids.push(e.id))
+    data.body.tracks.items.map((e) => ids.push(e.track.id))
     for (const id of ids) {
       const artists = []
       const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
