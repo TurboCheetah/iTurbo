@@ -50,16 +50,16 @@ class Playlist extends Command {
 
     if (!args) return null
     if (Array.isArray(args)) {
-      const spotifySongs = args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))
       const list = []
-      console.log(spotifySongs);
-      for (const song of spotifySongs) {
-        list.push({
-          name: song.name,
-          url: song.url,
-          thumbnail: song.thumbnail
-        })
-      }
+      const spotifySongs = Promise.all(args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))).then(() => {
+        for (const song of spotifySongs) {
+          list.push({
+            name: song.name,
+            url: song.url,
+            thumbnail: song.thumbnail
+          })
+        }
+      })
       return list
     }
     if (args instanceof Song) return args
