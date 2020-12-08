@@ -51,10 +51,10 @@ class Play extends Command {
       songs.push(results[0].url)
     }
 
-    m.edit(`Added ${data.body.tracks.total} from ${artists.join(' ')} - ${data.body.name} album`).then(ctx => {
+    m.edit(`Added ${data.body.tracks.total} from ${data.body.name}`).then(ctx => {
       ctx.delete({ timeout: 2500 })
     })
-    return this.client.distube.playCustomPlaylist(ctx.message, songs, { name: data.body.label })
+    return this.client.distube.playCustomPlaylist(ctx.message, songs, { name: data.body.name })
   }
 
   async handlePlaylist (ctx, id) {
