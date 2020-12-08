@@ -50,8 +50,7 @@ class Playlist extends Command {
 
     if (!args) return null
     if (Array.isArray(args)) {
-      console.log(args[0].url);
-      const spotifySongs = args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))
+      const spotifySongs = args.map(async i => new Song(await youtube_dl.getInfo(i.url), ctx.author, true))
       const list = []
       for (const song of spotifySongs) {
         list.push({
