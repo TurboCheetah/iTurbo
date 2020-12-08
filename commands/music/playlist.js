@@ -4,6 +4,7 @@ const { FieldsEmbed } = require('discord-paginationembed')
 const ytdl = require('@distube/ytdl')
 const youtube_dl = require('@distube/youtube-dl')
 const ytpl = require('@distube/ytpl')
+const ytsr = require('@distube/ytsr')
 const Song = require('distube/src/Song')
 const dPlaylist = require('distube/src/Playlist')
 const SearchResult = require('distube/src/SearchResult')
@@ -56,6 +57,31 @@ class Playlist extends Command {
       if (args.indexOf('youtube.com' || 'youtu.be') > -1) {
         playlist = await ytpl(args, { limit: Infinity })
         playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, ctx.author, true))
+      } else if (args.indexOf('open.spotify.com' || 'play.spotify.com') > -1) {
+        await this.auth()
+        const url = args
+        const id = this.getID(url)
+        if (url.search('album') > 1) {
+          this.handleAlbum(ctx, id); return
+        }
+        if (url.search('track') > 1) {
+          this.handleTrack(ctx, id); return
+        }
+        if (url.search('playlist') > 1) {
+          this.handleSPlaylist(ctx, id); return
+        }
+      }
+      if (Array.isArray(args)) {
+        const spotifySongs = args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))
+        const list = []
+        for (const song of spotifySongs) {
+          list.push({
+            name: song.name,
+            url: song.url,
+            thumbnail: song.thumbnail
+          })
+        }
+        return list
       }
       if (!this.client.distube.options.youtubeDL) throw new Error('Not Supported URL!')
       const info = await youtube_dl.getInfo(args).catch(e => { throw new Error(`[youtube-dl] ${e.stderr || e}`) })
@@ -86,6 +112,60 @@ class Playlist extends Command {
       })
     }
     return list
+  }
+
+  async auth () {
+    const TOKEN = await this.client.spotifyApi.clientCredentialsGrant()
+    return this.client.spotifyApi.setAccessToken(TOKEN.body.access_token)
+  }
+
+  getID (url) {
+    const URL = url.substring(url.search(/(album).|(track).|(playlist)./g), url.length)
+    return URL.substring(URL.search('/') + 1, URL.length)
+  }
+
+  async handleTrack (ctx, id) {
+    const artists = []
+    const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
+    data.body.artists.map((artist) => artists.push(artist.name))
+    const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
+    const results = search.items.map(i => new SearchResult(i))
+    if (results.length === 0) throw Error('No result!')
+    return this.handlePlaylist(ctx, results[0])
+  }
+
+  async handleAlbum (ctx, id) {
+    const ids = []
+    const songs = []
+    const data = await this.client.spotifyApi.getAlbum(id).catch((err) => console.log(err))
+    data.body.tracks.items.map((e) => ids.push(e.id))
+    const artists = []
+    for (const id of ids) {
+      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
+      data.body.artists.map((artist) => artists.push(artist.name))
+      const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
+      const results = search.items.map(i => new SearchResult(i))
+      if (results.length === 0) throw Error('No result!')
+      songs.push(results[0])
+    }
+    return this.handlePlaylist(ctx, songs)
+  }
+
+  async handleSPlaylist (ctx, id) {
+    const ids = []
+    const songs = []
+    const data = await this.client.spotifyApi.getPlaylist(id, { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
+    data.body.tracks.items.map((e) => ids.push(e.track.id))
+    for (const id of ids) {
+      const artists = []
+      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
+      data.body.artists.map((artist) => artists.push(artist.name))
+      const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
+      const results = search.items.map(i => new SearchResult(i))
+      if (results.length === 0) throw Error('No result!')
+      songs.push(results[0])
+    }
+    return this.handlePlaylist(ctx, songs)
   }
 
   async list (ctx) {
@@ -226,7 +306,7 @@ class Playlist extends Command {
     }
     if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify a song URL to append to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg
-    if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/'))) {
+    if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/')) || songToAppend.includes('open.spotify.com' || 'play.spotify.com')) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
 
