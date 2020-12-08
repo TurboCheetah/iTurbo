@@ -62,13 +62,13 @@ class Playlist extends Command {
         const url = args
         const id = this.getID(url)
         if (url.search('album') > 1) {
-          this.handleAlbum(ctx, id); return
+          await this.handleAlbum(ctx, id); return
         }
         if (url.search('track') > 1) {
-          this.handleTrack(ctx, id); return
+          await this.handleTrack(ctx, id); return
         }
         if (url.search('playlist') > 1) {
-          this.handleSPlaylist(ctx, id); return
+          await this.handleSPlaylist(ctx, id); return
         }
       }
       if (Array.isArray(args)) {
