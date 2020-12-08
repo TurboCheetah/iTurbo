@@ -49,6 +49,19 @@ class Playlist extends Command {
     let playlist
 
     if (!args) return null
+    if (Array.isArray(args)) {
+      console.log('test');
+      const spotifySongs = args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))
+      const list = []
+      for (const song of spotifySongs) {
+        list.push({
+          name: song.name,
+          url: song.url,
+          thumbnail: song.thumbnail
+        })
+      }
+      return list
+    }
     if (args instanceof Song) return args
     if (args instanceof SearchResult) return new Song(await ytdl.getInfo(args.url), ctx.author, true)
     if (typeof args === 'object') return new Song(args, ctx.author)
@@ -86,19 +99,6 @@ class Playlist extends Command {
         return list
       }
       return new Song(info, ctx.author)
-    }
-    if (Array.isArray(args)) {
-      console.log('test');
-      const spotifySongs = args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))
-      const list = []
-      for (const song of spotifySongs) {
-        list.push({
-          name: song.name,
-          url: song.url,
-          thumbnail: song.thumbnail
-        })
-      }
-      return list
     }
     if (!playlist) throw Error('Invalid Playlist')
     if (!(playlist instanceof dPlaylist)) playlist = new dPlaylist(playlist, ctx.author)
