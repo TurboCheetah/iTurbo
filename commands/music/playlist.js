@@ -62,26 +62,14 @@ class Playlist extends Command {
         const url = args
         const id = this.getID(url)
         if (url.search('album') > 1) {
-          return this.handleAlbum(ctx, id);
+          return this.handleAlbum(ctx, id)
         }
         if (url.search('track') > 1) {
-          return this.handleTrack(ctx, id);
+          return this.handleTrack(ctx, id)
         }
         if (url.search('playlist') > 1) {
-          return this.handleSPlaylist(ctx, id);
+          return this.handleSPlaylist(ctx, id)
         }
-      }
-      if (Array.isArray(args)) {
-        const spotifySongs = args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))
-        const list = []
-        for (const song of spotifySongs) {
-          list.push({
-            name: song.name,
-            url: song.url,
-            thumbnail: song.thumbnail
-          })
-        }
-        return list
       }
       if (!this.client.distube.options.youtubeDL) throw new Error('Not Supported URL!')
       const info = await youtube_dl.getInfo(args).catch(e => { throw new Error(`[youtube-dl] ${e.stderr || e}`) })
@@ -98,6 +86,18 @@ class Playlist extends Command {
         return list
       }
       return new Song(info, ctx.author)
+    }
+    if (Array.isArray(args)) {
+      const spotifySongs = args.map(async i => new Song(await ytdl.getInfo(i.url), ctx.author, true))
+      const list = []
+      for (const song of spotifySongs) {
+        list.push({
+          name: song.name,
+          url: song.url,
+          thumbnail: song.thumbnail
+        })
+      }
+      return list
     }
     if (!playlist) throw Error('Invalid Playlist')
     if (!(playlist instanceof dPlaylist)) playlist = new dPlaylist(playlist, ctx.author)
@@ -148,7 +148,6 @@ class Playlist extends Command {
       if (results.length === 0) throw Error('No result!')
       songs.push(results[0])
     }
-    console.log(songs);
     return this.handlePlaylist(ctx, songs)
   }
 
