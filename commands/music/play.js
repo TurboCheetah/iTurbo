@@ -23,7 +23,8 @@ class Play extends Command {
 
   async getID (url) {
     const URL = url.substring(url.search(/(album).|(track).|(playlist)./g), url.length)
-    return await URL.substring(URL.search('/') + 1, URL.length)
+    const id = await URL.substring(URL.search('/') + 1, URL.length)
+    return id
   }
 
   async handleTrack (ctx, id) {
