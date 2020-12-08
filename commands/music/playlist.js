@@ -129,7 +129,7 @@ class Playlist extends Command {
   }
 
   async delete (ctx, args) {
-    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}delete <playlistName>`)
 
@@ -152,7 +152,7 @@ class Playlist extends Command {
   }
 
   async info (ctx, args) {
-    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}info <playlistName>`)
 
@@ -189,7 +189,7 @@ class Playlist extends Command {
   }
 
   async append (ctx, args) {
-    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}append <playlistName>; <songURL|queue>`)
 
@@ -253,7 +253,7 @@ class Playlist extends Command {
   }
 
   async remove (ctx, args) {
-    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}remove <playlistName> <songIndex>`)
 
@@ -285,7 +285,7 @@ class Playlist extends Command {
   }
 
   async play (ctx, args) {
-    if (!ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}play <playlistName>`)
 
