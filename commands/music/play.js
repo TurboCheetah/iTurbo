@@ -27,13 +27,15 @@ class Play extends Command {
   }
 
   async handleTrack (ctx, id) {
-    const artists = []
+/*     const artists = []
     const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
     data.body.artists.map((artist) => artists.push(artist.name))
     const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
     const results = search.items.map(i => new SearchResult(i))
     if (results.length === 0) throw Error('No result!')
-    return this.client.distube.play(ctx.message, results[0].url)
+    return this.client.distube.play(ctx.message, results[0].url) */
+    const data = await this.client.spotifyApi.getPlaylist('32VV35grv0ucuMGwYglLhG?si=ycUGDl7QQZ2FusTGYGT0Fg', { pageSize: 200, limit: 200 }).catch((err) => console.error(err))
+return data.body
   }
 
   async handleAlbum (ctx, id) {
@@ -126,7 +128,6 @@ class Play extends Command {
         this.handleTrack(id); return
       }
       if (url.search('playlist') > 1) {
-        console.log(url, id);
         this.handlePlaylist(ctx, id); return
       }
       ctx.reply('Invalid link').then(ctx => {
