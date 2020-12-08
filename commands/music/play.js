@@ -122,7 +122,7 @@ class Play extends Command {
         this.handleAlbum(ctx, id); return
       }
       if (url.search('track') > 1) {
-        this.handleTrack(id); return
+        this.handleTrack(ctx, id); return
       }
       if (url.search('playlist') > 1) {
         this.handlePlaylist(ctx, id); return
