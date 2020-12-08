@@ -13,7 +13,7 @@ class Playlist extends Command {
     super(...args, {
       description: 'Create custom playlists.',
       aliases: [],
-      usage: 'playlist <add|remove|list:default> <playlist>',
+      usage: 'playlist <create|delete|append|remove|info|list:default> [playlist]',
       botPermissions: ['EMBED_LINKS']
     })
   }
