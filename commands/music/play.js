@@ -59,9 +59,10 @@ class Play extends Command {
   }
 
   async handlePlaylist (ctx, id) {
-/*     const m = await ctx.reply('Please wait, adding songs to queue...')
+    const m = await ctx.reply('Please wait, adding songs to queue...')
     const ids = []
     const songs = []
+    console.log(id);
     const data = await this.client.spotifyApi.getPlaylist(id, { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
     data.body.tracks.items.map((e) => ids.push(e.id))
     for (const id of ids) {
@@ -78,9 +79,7 @@ class Play extends Command {
       ctx.delete({ timeout: 2500 })
     })
 
-    return this.client.distube.playCustomPlaylist(ctx.message, songs, { name: data.body.name }) */
-    const data = await this.client.spotifyApi.getPlaylist('32VV35grv0ucuMGwYglLhG?si=ycUGDl7QQZ2FusTGYGT0Fg', { pageSize: 200, limit: 200 }).catch((err) => console.error(err))
-return console.log(data.body)
+    return this.client.distube.playCustomPlaylist(ctx.message, songs, { name: data.body.name })
   }
 
   async run (ctx, args) {
