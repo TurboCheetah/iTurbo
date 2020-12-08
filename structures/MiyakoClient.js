@@ -11,6 +11,7 @@ const Settings = require('./Settings.js')
 const presences = require('../assets/json/presences.json')
 const imgapi = require('img-api')
 const DisTube = require('distube')
+const SpotifyWebApi = require('spotify-web-api-node')
 const PostgresGiveawaysManager = require('./PostgresGiveawaysManager.js')
 
 class MiyakoClient extends Client {
@@ -34,6 +35,7 @@ class MiyakoClient extends Client {
     this.responses = require('../utils/responses.js')
     this.img = new imgapi.Client({ host: this.config.imgapi })
     this.distube = new DisTube(this, { searchSongs: true, emitNewSongOnly: true, highWaterMark: 1 << 25, customFilters: { purebass: 'bass=g=20,dynaudnorm=f=200,asubboost' } }) // Distube instance for playing music
+    this.spotifyApi = new SpotifyWebApi({ clientId: this.config.spotify.id, clientSecret: this.config.spotify.secret }) // Spotify API
     this.version = '1.0.8'
 
     // Settings.

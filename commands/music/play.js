@@ -1,13 +1,8 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 // const { getPreview, getTracks } = require('spotify-url-info')
-const SpotifyWebApi = require('spotify-web-api-node')
 const ytsr = require('@distube/ytsr')
 const SearchResult = require('distube/src/SearchResult')
-const spotifyApi = new SpotifyWebApi({
-  clientId: this.client.config.spotify.id,
-  clientSecret: this.client.config.spotify.secret
-})
 
 class Play extends Command {
   constructor (...args) {
@@ -22,8 +17,8 @@ class Play extends Command {
   }
 
   async auth () {
-    const TOKEN = await spotifyApi.clientCredentialsGrant()
-    return spotifyApi.setAccessToken(TOKEN.body.access_token)
+    const TOKEN = await this.client.spotifyApi.clientCredentialsGrant()
+    return this.client.spotifyApi.setAccessToken(TOKEN.body.access_token)
   }
 
   async getID (url) {
@@ -33,7 +28,7 @@ class Play extends Command {
 
   async handleTrack (ctx, id) {
     const artists = []
-    const data = await spotifyApi.getTrack(id).catch((err) => console.err(err))
+    const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.err(err))
     data.body.artists.map((artist) => artists.push(artist.name))
     const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
     const results = search.items.map(i => new SearchResult(i))
@@ -45,11 +40,11 @@ class Play extends Command {
     const m = await ctx.reply('Please wait, adding songs to queue...')
     const ids = []
     const songs = []
-    const data = await spotifyApi.getAlbum(id).catch((err) => console.log(err))
+    const data = await this.client.spotifyApi.getAlbum(id).catch((err) => console.log(err))
     data.body.tracks.items.map((e) => ids.push(e.id))
     for (const id of ids) {
       const artists = []
-      const data = await spotifyApi.getTrack(id).catch((err) => console.err(err))
+      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.err(err))
       data.body.artists.map((artist) => artists.push(artist.name))
       const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
       const results = search.items.map(i => new SearchResult(i))
@@ -67,11 +62,11 @@ class Play extends Command {
     const m = await ctx.reply('Please wait, adding songs to queue...')
     const ids = []
     const songs = []
-    const data = await spotifyApi.getPlaylist(id, { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
+    const data = await this.client.spotifyApi.getPlaylist(id, { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
     data.body.tracks.items.map((e) => ids.push(e.id))
     for (const id of ids) {
       const artists = []
-      const data = await spotifyApi.getTrack(id).catch((err) => console.err(err))
+      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.err(err))
       data.body.artists.map((artist) => artists.push(artist.name))
       const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
       const results = search.items.map(i => new SearchResult(i))
