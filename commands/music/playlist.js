@@ -47,6 +47,7 @@ class Playlist extends Command {
 
   async handlePlaylist (ctx, args) {
     let playlist
+    console.log(typeof args);
 
     if (!args) return null
     if (args instanceof Song) return args
