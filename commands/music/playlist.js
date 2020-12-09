@@ -308,6 +308,7 @@ class Playlist extends Command {
         return playlists[playlistName].songs.push(song)
       }
     } else if (songToAppend && songToAppend === 'current') {
+      console.log('test');
       const queue = this.client.distube.getQueue(ctx.message)
       if (!queue || queue === undefined) {
         return ctx.reply('There is nothing in the queue!')
@@ -319,7 +320,7 @@ class Playlist extends Command {
       return playlists[playlistName].songs.push(song)
     }
 
-    if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
+    if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue' && songToAppend !== 'current')) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/')) || songToAppend.includes('open.spotify.com' || 'play.spotify.com')) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
