@@ -332,7 +332,7 @@ class Playlist extends Command {
 
         playlists[playlistName].songs.push(song)
       }
-    } else {
+    } else if (this.isURL(songToAppend)) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = songToAppend.name
 
