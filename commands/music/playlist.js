@@ -280,7 +280,7 @@ class Playlist extends Command {
     const playlistName = args.join(' ').split('; ')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
     let songToAppend = args.join(' ').split('; ')[1]
-    if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue' && songToAppend !== 'current')) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
+    if (!songToAppend || (!this.isURL(songToAppend) && (songToAppend !== 'queue' || songToAppend !== 'current'))) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg
 
     // Get existing playlists
@@ -332,7 +332,7 @@ class Playlist extends Command {
 
         playlists[playlistName].songs.push(song)
       }
-    } else if (this.isURL(songToAppend)) {
+    } else if (this.isURL(songToAppend) && (songToAppend !== 'queue' || songToAppend !== 'current')) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = songToAppend.name
 
