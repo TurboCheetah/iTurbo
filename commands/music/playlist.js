@@ -280,6 +280,8 @@ class Playlist extends Command {
     const playlistName = args.join(' ').split('; ')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
     let songToAppend = args.join(' ').split('; ')[1]
+    if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue' && songToAppend !== 'current')) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
+    let songToAppendMsg
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
@@ -305,10 +307,9 @@ class Playlist extends Command {
         // Check if song is already in the playlsit
         if (playlists[playlistName].songs.indexOf(song) > -1) continue
 
-        return playlists[playlistName].songs.push(song)
+        playlists[playlistName].songs.push(song)
       }
     } else if (songToAppend && songToAppend === 'current') {
-      console.log('test');
       const queue = this.client.distube.getQueue(ctx.message)
       if (!queue || queue === undefined) {
         return ctx.reply('There is nothing in the queue!')
@@ -317,11 +318,9 @@ class Playlist extends Command {
       // Check if song is already in the playlsit
       const song = queue.songs[0]
       if (playlists[playlistName].songs.indexOf(song) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
-      return playlists[playlistName].songs.push(song)
+      playlists[playlistName].songs.push(song)
     }
 
-    if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue' && songToAppend !== 'current')) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
-    let songToAppendMsg
     if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/')) || songToAppend.includes('open.spotify.com' || 'play.spotify.com')) {
       songToAppend = await this.handlePlaylist(ctx, songToAppend)
       songToAppendMsg = `${songToAppend.length} songs`
