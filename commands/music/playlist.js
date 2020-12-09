@@ -297,6 +297,7 @@ class Playlist extends Command {
       if (!queue || queue === undefined) {
         return ctx.reply('There is nothing in the queue!')
       }
+      songToAppendMsg = `${queue.songs.length} songs`
 
       const list = []
       for (const song of queue) {
@@ -317,6 +318,7 @@ class Playlist extends Command {
 
       // Check if song is already in the playlsit
       const song = queue.songs[0]
+      songToAppendMsg = song.name
       if (playlists[playlistName].songs.indexOf(song) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
       playlists[playlistName].songs.push(song)
     } else if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/')) || songToAppend.includes('open.spotify.com' || 'play.spotify.com')) {
