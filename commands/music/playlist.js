@@ -314,8 +314,9 @@ class Playlist extends Command {
       }
 
       // Check if song is already in the playlsit
-      if (playlists[playlistName].songs.indexOf(queue.songs[0]) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
-      return playlists[playlistName].songs.push(queue.songs[0])
+      const song = queue.songs[0]
+      if (playlists[playlistName].songs.indexOf(song) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
+      return playlists[playlistName].songs.push(song)
     }
 
     if (!songToAppend || (!this.isURL(songToAppend) && songToAppend !== 'queue')) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
