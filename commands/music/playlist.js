@@ -301,7 +301,11 @@ class Playlist extends Command {
 
       const list = []
       for (const song of queue.songs) {
-        list.push(song.url)
+        list.push({
+          name: song.name,
+          url: song.url,
+          thumbnail: song.thumbnail
+        })
       }
 
       for (const song of list) {
@@ -317,7 +321,12 @@ class Playlist extends Command {
       }
 
       // Check if song is already in the playlsit
-      const song = queue.songs[0]
+      let song = queue.songs[0]
+      song = {
+        name: song.name,
+        url: song.url,
+        thumbnail: song.thumbnail
+      }
       songToAppendMsg = song.name
       if (playlists[playlistName].songs.indexOf(song) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
       playlists[playlistName].songs.push(song)
