@@ -300,7 +300,7 @@ class Playlist extends Command {
       songToAppendMsg = `${queue.songs.length} songs`
 
       const list = []
-      for (const song of queue) {
+      for (const song of queue.songs) {
         list.push(song.url)
       }
 
