@@ -359,11 +359,11 @@ class Playlist extends Command {
   async remove (ctx, args) {
     if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
 
-    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}remove <playlistName> <songIndex>`)
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}remove <playlistName>; <songIndex>`)
 
-    const playlistName = args.join(' ').split(' ')[0]
+    const playlistName = args.join(' ').split('; ')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
-    const songToRemove = Number(args.join(' ').split(' ')[1])
+    const songToRemove = Number(args.join(' ').split('; ')[1])
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
