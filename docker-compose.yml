@@ -14,6 +14,8 @@ services:
         depends_on: 
           - iturbo-db
           - iturbo-img-api
+        networks:
+          - db
     iturbo-db:
         image: "postgres"
         container_name: iTurbo-db
@@ -23,10 +25,15 @@ services:
           - POSTGRES_DB=miyako
         volumes:
           - ./db:/var/lib/postgresql/data
-        ports: 
-          - '5432:5432'
+        # ports: 
+        #   - '5432:5432'
+        networks:
+          - db
     iturbo-img-api:
         container_name: iTurbo-img-api
         ports:
           - '3030:3030'
         image: 'iceemc/img-api:latest'
+networks:
+  db:
+    name: db_network
