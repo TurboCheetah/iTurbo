@@ -36,4 +36,3 @@ services:
         image: 'iceemc/img-api:latest'
 networks:
   db:
-    name: db_network
