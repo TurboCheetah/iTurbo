@@ -8,6 +8,7 @@ const ytsr = require('@distube/ytsr')
 const Song = require('distube/src/Song')
 const dPlaylist = require('distube/src/Playlist')
 const SearchResult = require('distube/src/SearchResult')
+const axios = require('axios')
 
 class Playlist extends Command {
   constructor (...args) {
@@ -265,7 +266,7 @@ class Playlist extends Command {
 
     Pagination.embed
       .setColor(0x9590EE)
-      .setAuthor(`by ${ctx.author.tag}`)
+      .setAuthor(`by ${playlist.author}`)
       .setTitle(playlist.name)
       .setThumbnail(playlist.songs[0].thumbnail)
       .setFooter(null, ctx.author.displayAvatarURL({ size: 64 }))
@@ -434,6 +435,45 @@ class Playlist extends Command {
     // Push changes to databse
     await ctx.author.update({ playlist })
     return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlists[playlistName].name}\` to ${playlists[playlistName].public ? `to public! Share this URL with others: https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlists[playlistName].name}` : 'to private!'}`)
+  }
+
+  async import (ctx, args) {
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}public <playlistName>`)
+    const playlistURL = args.join(' ')
+    if (!playlistURL) return ctx.reply('You must provide a name for the playlist.')
+
+    if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.reply('You can\'t import your own playlist!')
+
+    // Get existing playlists
+    const playlist = ctx.author.settings.playlist || {}
+    if (!playlist.playlists) playlist.playlists = {}
+    const playlists = playlist.playlists
+
+    const options = {
+      method: 'GET',
+      url: playlistURL,
+      headers: {
+        'content-type': 'application/json',
+        accept: 'application/json'
+      }
+    }
+
+    const playlistToImport = await axios.request(options).then(res => {
+      return res.data
+    }).catch(err => {
+      console.error(err)
+      return false
+    })
+
+    if (!playlistToImport) {
+      return ctx.reply(`${this.client.constants.error} That playlist doesn't exist or has been set to private!`)
+    }
+
+    playlists[playlistToImport.name] = playlistToImport
+
+    // Push changes to databse
+    await ctx.author.update({ playlist })
+    return ctx.reply(`${this.client.constants.success} Successfully imported playlist \`${playlistToImport.name}\`!`)
   }
 }
 

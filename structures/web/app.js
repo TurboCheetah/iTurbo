@@ -28,7 +28,7 @@ module.exports = (client) => {
     const data = client.settings.users.get(id).playlist.playlists[playlistName]
     if (data === undefined) return res.status(404).json({ message: 'Not found' })
     if (data.public === false) return res.status(403).json({ message: 'Forbidden' })
-    res.json({ data })
+    res.json(data)
   })
 
   app.use(middlewares.notFound)
