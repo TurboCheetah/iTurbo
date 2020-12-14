@@ -1,4 +1,5 @@
 const Command = require('../../structures/Command.js')
+const { FieldsEmbed } = require('discord-paginationembed')
 
 class Store extends Command {
   constructor (...args) {
@@ -8,7 +9,7 @@ class Store extends Command {
       usage: 'store <add|sell|buy|delete|view:default> <role>',
       guildOnly: true,
       aliases: ['shop'],
-      botPermissions: ['MANAGE_ROLES']
+      botPermissions: ['MANAGE_ROLES', 'EMBED_LINKS']
     })
   }
 
@@ -133,8 +134,23 @@ class Store extends Command {
       return `❯ ${role.name}${' '.repeat(20 - role.name.length)}:: ${price}${has ? ' :: ✓' : ''}`
     })
 
+    const Pagination = new FieldsEmbed()
+      .setArray(view)
+      .setAuthorizedUsers([ctx.author.id])
+      .setChannel(ctx.channel)
+      .setElementsPerPage(5)
+      .setPage(1)
+      .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
+      .formatField('Roles for Sale', role => role)
+
+    Pagination.embed
+      .setColor(0x9590EE)
+      .setTitle(`${ctx.guild.name} Store`)
+      .setThumbnail(ctx.guild.iconURL({ size: 512 }))
+      .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
+
     // Show it.
-    return ctx.reply(`= ${ctx.guild.name} Store =\n= Roles for Sale =\n${view.join('\n')}`, { code: 'asciidoc' })
+    return Pagination.build()
   }
 }
 
