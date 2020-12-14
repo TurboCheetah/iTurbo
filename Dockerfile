@@ -14,6 +14,7 @@ COPY package*.json ./
 
 RUN npm install
 COPY . .
+EXPOSE 5000
 ARG PM2_ENV
 ENV PM2_ENV "$PM2_ENV"
 ARG PM2_PUBLIC_KEY
