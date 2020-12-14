@@ -436,7 +436,7 @@ class Playlist extends Command {
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlists[playlistName].name}\` to ${playlists[playlistName].public ? `to public! Share this URL with others: https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlists[playlistName].name.join('%20')}` : 'to private!'}`)
+    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlists[playlistName].name}\` to ${playlists[playlistName].public ? `to public! Share this URL with others: https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlists[playlistName].name.replace(/ /g, '%20')}` : 'to private!'}`)
   }
 
   async import (ctx, args) {
