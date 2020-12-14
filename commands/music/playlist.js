@@ -419,7 +419,7 @@ class Playlist extends Command {
   }
 
   async share (ctx, args) {
-    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}share <playlistName>`)
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}playlist share <playlistName>`)
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply('You must provide a name for the playlist.')
 
