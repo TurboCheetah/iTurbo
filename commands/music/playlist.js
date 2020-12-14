@@ -271,7 +271,7 @@ class Playlist extends Command {
       .setThumbnail(playlist.songs[0].thumbnail)
       .setFooter(null, ctx.author.displayAvatarURL({ size: 64 }))
 
-    if (playlist.public) Pagination.embed.setURL(`https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlist.name}`)
+    if (playlist.public) Pagination.embed.setURL(`https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlist.name.replace(/ /g, '%20')}`)
 
     return Pagination.build()
   }
