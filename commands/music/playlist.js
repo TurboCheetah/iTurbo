@@ -430,6 +430,8 @@ class Playlist extends Command {
 
     if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
 
+    if (playlists[playlistName].public === undefined) playlists[playlistName].public = false
+
     playlists[playlistName].public = !playlists[playlistName].public
 
     // Push changes to databse
