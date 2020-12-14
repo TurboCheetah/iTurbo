@@ -20,7 +20,7 @@ class Playlist extends Command {
   }
 
   async run (ctx, [action = 'list', ...args]) {
-    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'public'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
     /*
     const playlist = {
       playlist1: [{
@@ -204,6 +204,7 @@ class Playlist extends Command {
     playlists[playlistName] = {
       name: playlistName,
       author: ctx.author.tag,
+      public: false,
       songs: []
     }
 
@@ -268,6 +269,8 @@ class Playlist extends Command {
       .setTitle(playlist.name)
       .setThumbnail(playlist.songs[0].thumbnail)
       .setFooter(null, ctx.author.displayAvatarURL({ size: 64 }))
+
+    if (playlist.public) Pagination.embed.setURL(`https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlist.name}`)
 
     return Pagination.build()
   }
@@ -412,6 +415,25 @@ class Playlist extends Command {
     }
     await this.client.distube.playCustomPlaylist(ctx, songs, { name: playlists[playlistName].name })
     await msg.delete()
+  }
+
+  async public (ctx, args) {
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}public <playlistName>`)
+    const playlistName = args.join(' ')
+    if (!playlistName) return ctx.reply('You must provide a name for the playlist.')
+
+    // Get existing playlists
+    const playlist = ctx.author.settings.playlist || {}
+    if (!playlist.playlists) playlist.playlists = {}
+    const playlists = playlist.playlists
+
+    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+
+    playlists[playlistName].public = !playlists[playlistName].public
+
+    // Push changes to databse
+    await ctx.author.update({ playlist })
+    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlistName}\` to ${playlists[playlistName].public ? 'to public' : 'to private'}!`)
   }
 }
 
