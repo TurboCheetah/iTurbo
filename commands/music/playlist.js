@@ -20,7 +20,7 @@ class Playlist extends Command {
   }
 
   async run (ctx, [action = 'list', ...args]) {
-    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'public'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'public', 'import'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
     /*
     const playlist = {
       playlist1: [{
@@ -433,7 +433,7 @@ class Playlist extends Command {
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlistName}\` to ${playlists[playlistName].public ? 'to public' : 'to private'}!`)
+    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlists[playlistName].name}\` to ${playlists[playlistName].public ? `to public! Share this URL with others: https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlists[playlistName].name}` : 'to private!'}`)
   }
 }
 
