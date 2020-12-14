@@ -21,7 +21,7 @@ class Playlist extends Command {
   }
 
   async run (ctx, [action = 'list', ...args]) {
-    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'public', 'import'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'share', 'import'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
     /*
     const playlist = {
       playlist1: [{
@@ -418,8 +418,8 @@ class Playlist extends Command {
     await msg.delete()
   }
 
-  async public (ctx, args) {
-    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}public <playlistName>`)
+  async share (ctx, args) {
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}share <playlistName>`)
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply('You must provide a name for the playlist.')
 
