@@ -33,7 +33,7 @@ class NowPlaying extends Command {
       .setThumbnail(queue.songs[0].thumbnail)
       .addField('Requested by', queue.songs[0].user, true)
       .addField('Queue', `${queue.songs.length === 1 ? '1 song' : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)
-      .addField('Duration', `\`${queue.formattedCurrentTime}\` [${createBar(queue.songs[0].duration, Math.floor(queue.currentTime / 1000), 15, '▬', '⬤')[0]}] \`${queue.songs[0].formattedDuration}\``, false)
+      .addField('Duration', `${queue.songs[0].formattedDuration === 'Live' ? '🔴 Live' : `\`${queue.formattedCurrentTime}\` [${createBar(queue.songs[0].duration, Math.floor(queue.currentTime / 1000), 15, '▬', '⬤')[0]}] \`${queue.songs[0].formattedDuration}\``}`, false)
     ctx.reply({ embed })
   }
 }
