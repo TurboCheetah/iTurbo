@@ -102,7 +102,12 @@ class Playlist extends Command {
         }
         return list
       }
-      return new Song(info, ctx.author)
+      const song = new Song(info, ctx.author)
+      return {
+        name: song.name,
+        url: song.url,
+        thumbnail: song.thumbnail
+      }
     }
     if (!playlist) throw Error('Invalid Playlist')
     if (!(playlist instanceof dPlaylist)) playlist = new dPlaylist(playlist, ctx.author)
