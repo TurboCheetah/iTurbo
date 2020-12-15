@@ -22,10 +22,10 @@ module.exports = (client) => {
     res.redirect(301, 'https://turbo.ooo')
   })
 
-  app.get('/playlist/:userID/:playlistName', (req, res) => {
+  app.get('/playlist/:userID/:playlistName', async (req, res) => {
     const id = req.params.userID
     const playlistName = req.params.playlistName
-    const data = client.settings.users.get(id).playlist.playlists[playlistName]
+    const data = await client.settings.users.get(id).playlist.playlists[playlistName]
     if (data === undefined) return res.status(404).json({ message: 'Not found' })
     if (data.public === false) return res.status(403).json({ message: 'Forbidden' })
     res.json(data)
