@@ -21,6 +21,7 @@ services:
     iturbo-db:
         image: "postgres"
         container_name: iTurbo-db
+        restart: always
         environment: 
           - POSTGRES_USER=turbo
           - POSTGRES_PASSWORD=turbodb
@@ -32,9 +33,10 @@ services:
         networks:
           - db
     iturbo-img-api:
+        image: 'iceemc/img-api:latest'
         container_name: iTurbo-img-api
+        restart: always
         ports:
           - '3030:3030'
-        image: 'iceemc/img-api:latest'
 networks:
   db:
