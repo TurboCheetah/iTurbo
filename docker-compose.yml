@@ -17,7 +17,7 @@ services:
         ports: 
           - '5000:5000'
         networks:
-          - db
+          - bot
     iturbo-db:
         image: "postgres"
         container_name: iTurbo-db
@@ -31,7 +31,7 @@ services:
         # ports: 
         #   - '5432:5432'
         networks:
-          - db
+          - bot
     iturbo-img-api:
         image: 'iceemc/img-api:latest'
         container_name: iTurbo-img-api
@@ -39,6 +39,14 @@ services:
         ports:
           - '3030:3030'
         networks:
-          - db 
+          - bot 
+    iturbo-lavalink:
+        image: 'fredboat/lavalink:3943109b'
+        container_name: iTurbo-lavalink
+        restart: always
+        ports:
+          - '2333:2333'
+        networks:
+          - bot 
 networks:
-  db:
+  bot:
