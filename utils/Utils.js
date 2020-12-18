@@ -81,6 +81,46 @@ class Utils {
   static shorten (text, maxLen = 1024) {
     return text.length > maxLen ? `${text.substr(0, maxLen - 3)}...` : text
   }
+
+  static formatInt (int) {
+    if (int < 10) return `0${int}`
+    return `${int}`
+  }
+
+  static formatDuration (milliseconds) {
+    if (!milliseconds || !parseInt(milliseconds)) return '00:00'
+    const seconds = Math.floor(milliseconds % 60000 / 1000)
+    const minutes = Math.floor(milliseconds % 3600000 / 60000)
+    const hours = Math.floor(milliseconds / 3600000)
+    if (hours > 0) {
+      return `${this.formatInt(hours)}:${this.formatInt(minutes)}:${this.formatInt(seconds)}`
+    }
+    if (minutes > 0) {
+      return `${this.formatInt(minutes)}:${this.formatInt(seconds)}`
+    }
+    return `00:${this.formatInt(seconds)}`
+  }
+
+  static toSecond (string) {
+    if (!string) return 0
+    if (typeof string !== 'string') return parseInt(string)
+    let h = 0
+    let m = 0
+    let s = 0
+    if (string.match(/:/g)) {
+      const time = string.split(':')
+      if (time.length === 2) {
+        m = parseInt(time[0], 10)
+        s = parseInt(time[1], 10)
+      } else if (time.length === 3) {
+        h = parseInt(time[0], 10)
+        m = parseInt(time[1], 10)
+        s = parseInt(time[2], 10)
+      }
+    } else s = parseInt(string, 10)
+    // eslint-disable-next-line no-mixed-operators
+    return h * 60 * 60 + m * 60 + s
+  }
 }
 
 Utils.sleep = promisify(setTimeout)
