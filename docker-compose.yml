@@ -42,7 +42,7 @@ services:
         networks:
           - bot 
     iturbo-lavalink:
-        image: 'fredboat/lavalink:3943109b'
+        image: 'fredboat/lavalink:dev'
         container_name: iTurbo-lavalink
         restart: always
         ports:
