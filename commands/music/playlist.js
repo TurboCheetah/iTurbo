@@ -295,12 +295,13 @@ class Playlist extends Command {
         const tData = await this.client.manager.decodeTrack(song.track)
         const track = TrackUtils.build(tData, ctx.author)
         tracks.push(track)
-      }
+      } else {
       // Search for tracks using a query or url, using a query searches youtube automatically and the track requester object
-      const res = await this.client.manager.search(`${song.author} - ${song.title}`, ctx.author)
-      // Check the load type as this command is not that advanced for basics
-      if (res.loadType === 'LOAD_FAILED') throw res.exception
-      tracks.push(res.tracks[0])
+        const res = await this.client.manager.search(`${song.author} - ${song.title}`, ctx.author)
+        // Check the load type as this command is not that advanced for basics
+        if (res.loadType === 'LOAD_FAILED') throw res.exception
+        tracks.push(res.tracks[0])
+      }
     }
 
     // Add playlist to queue
