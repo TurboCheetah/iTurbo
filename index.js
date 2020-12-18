@@ -16,6 +16,7 @@ require('./extensions/DMChannel.js')
 require('./extensions/Message.js')
 require('./extensions/Guild.js')
 require('./extensions/User.js')
+require('./extensions/Player.js')
 
 // Import the Client.
 const MiyakoClient = require('./structures/MiyakoClient.js')
