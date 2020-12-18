@@ -307,7 +307,7 @@ class Playlist extends Command {
     this.client.emit('addList', ctx, player, playlist[playlistName])
     // Connect to the voice channel and add the track to the queue
     player.connect()
-    player.queue.add(tracks)
+    player.queue.add(tracks).catch(err => console.error(err))
 
     // Checks if the client should play the track if it's the first one added
     if (!player.playing && !player.paused) player.play()
