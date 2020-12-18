@@ -15,6 +15,10 @@ class Play extends Command {
   }
 
   async run (ctx, args) {
+    const channel = ctx.member.voice.channel
+
+    if (!channel) return ctx.reply(`${this.client.constants.error} You need to be in a voice channel to play music!`)
+
     let player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
