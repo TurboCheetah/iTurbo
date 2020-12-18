@@ -18,7 +18,7 @@ class Queue extends Command {
   async run (ctx, [page = 1]) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!player) {
+    if (!player || !player.queue || !player.queue.current) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
