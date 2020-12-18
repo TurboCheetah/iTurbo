@@ -5,7 +5,7 @@ class playSong extends Event {
   async run (player, track) {
     const channel = this.client.channels.cache.get(player.textChannel)
 
-    if (channel.guild.settings.nowplaying === false) return
+    if (player.queue.size > 1 && channel.guild.settings.nowplaying === false) return
 
     // Send a message when the track starts playing with the track name and the requester's Discord tag, e.g. username#discriminator
     const embed = new MessageEmbed()
