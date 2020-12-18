@@ -1,7 +1,6 @@
+/* eslint-disable no-case-declarations */
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const ytsr = require('@distube/ytsr')
-const SearchResult = require('distube/src/SearchResult')
 
 class Play extends Command {
   constructor (...args) {
@@ -15,99 +14,99 @@ class Play extends Command {
     })
   }
 
-  async auth () {
-    const TOKEN = await this.client.spotifyApi.clientCredentialsGrant()
-    return this.client.spotifyApi.setAccessToken(TOKEN.body.access_token)
-  }
-
-  getID (url) {
-    const URL = url.substring(url.search(/(album).|(track).|(playlist)./g), url.length)
-    return URL.substring(URL.search('/') + 1, URL.length)
-  }
-
-  async handleTrack (ctx, id) {
-    const artists = []
-    const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
-    data.body.artists.map((artist) => artists.push(artist.name))
-    const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
-    const results = search.items.map(i => new SearchResult(i))
-    if (results.length === 0) throw Error('No result!')
-    return this.client.distube.play(ctx.message, results[0].url)
-  }
-
-  async handleAlbum (ctx, id) {
-    const m = await ctx.reply('Please wait, adding songs to queue...')
-    const ids = []
-    const songs = []
-    const data = await this.client.spotifyApi.getAlbum(id).catch((err) => console.log(err))
-    data.body.tracks.items.map((e) => ids.push(e.id))
-    const artists = []
-    for (const id of ids) {
-      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
-      data.body.artists.map((artist) => artists.push(artist.name))
-      const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
-      const results = search.items.map(i => new SearchResult(i))
-      if (results.length === 0) throw Error('No result!')
-      songs.push(results[0].url)
-    }
-
-    m.edit(`Added ${data.body.tracks.total} from ${data.body.name}`).then(ctx => {
-      ctx.delete({ timeout: 2500 })
-    })
-    return this.client.distube.playCustomPlaylist(ctx.message, songs, { name: data.body.name })
-  }
-
-  async handlePlaylist (ctx, id) {
-    const m = await ctx.reply('Please wait, adding songs to queue...')
-    const ids = []
-    const songs = []
-    const data = await this.client.spotifyApi.getPlaylist(id, { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
-    data.body.tracks.items.map((e) => ids.push(e.track.id))
-    for (const id of ids) {
-      const artists = []
-      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
-      data.body.artists.map((artist) => artists.push(artist.name))
-      const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
-      const results = search.items.map(i => new SearchResult(i))
-      if (results.length === 0) throw Error('No result!')
-      songs.push(results[0].url)
-    }
-
-    m.edit(`Added ${data.body.tracks.total} from **${data.body.name}** playlist by **${data.body.owner.display_name}**`)
-
-    this.client.distube.playCustomPlaylist(ctx.message, songs, { name: data.body.name })
-    return m.delete()
-  }
-
   async run (ctx, args) {
-    if (!args.length && this.client.distube.isPaused(ctx.message)) {
-      this.client.distube.resume(ctx.message)
+    let player = this.client.manager.players.get(ctx.guild.id)
+
+    if (!player) {
+      // Create the player
+      player = this.client.manager.create({
+        guild: ctx.guild.id,
+        voiceChannel: ctx.member.voice.channel.id,
+        textChannel: ctx.channel.id,
+        selfDeafen: true
+      })
+    }
+
+    const search = args.join(' ')
+
+    if (!ctx.member.voice.channel) return ctx.reply('Please join a voice channel!')
+    if (!search.length && player.paused) {
+      player.pause(false)
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor('| ▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
+    if (!search.length) return ctx.reply('Please give me a URL or search term to play!')
 
-    if (!args.length) return ctx.reply('What do you want me to play? Please provide a search query or song url!')
+    let res
 
-    if (args[0].indexOf('open.spotify.com' || 'play.spotify.com') > -1) {
-      await this.auth()
-      const url = args[0]
-      const id = this.getID(url)
-      if (url.search('album') > 1) {
-        this.handleAlbum(ctx, id); return
+    try {
+      // Search for tracks using a query or url, using a query searches youtube automatically and the track requester object
+      res = await this.client.manager.search(search, ctx.author)
+      // Check the load type as this command is not that advanced for basics
+      if (res.loadType === 'LOAD_FAILED') throw res.exception
+      switch (res.loadType) {
+        case 'TRACK_LOADED':
+          // Connect to the voice channel and add the track to the queue
+          player.connect()
+          player.queue.add(res.tracks[0])
+
+          // Checks if the client should play the track if it's the first one added
+          if (!player.playing && !player.paused && !player.queue.size) player.play()
+          if (ctx.message.deletable) await ctx.message.delete()
+
+          if (player.queue.size === 1) return this.client.emit('addSong', player, res.tracks[0])
+          break
+
+        case 'SEARCH_RESULT':
+          let i = 0
+          const tracks = res.tracks.slice(0, 10)
+          const embed = new MessageEmbed()
+            .setColor(0x9590EE)
+            .setAuthor('🎵 Search on YouTube 🎵', ctx.author.displayAvatarURL)
+            .setTitle('Choose an option below')
+            .setDescription(tracks.map(track => `**${++i}**. [${track.title}](${track.uri}) - \`${this.client.utils.formatDuration(track.duration)}\``).join('\n'))
+            .setFooter('Respond with cancel or wait 60 seconds to cancel')
+            .setTimestamp()
+
+          const filter = (msg) => msg.author.id === ctx.author.id
+          const response = await ctx.message.awaitReply('', filter, 60000, embed)
+          if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
+
+          if (new RegExp('^(10|[1-9])$', 'i').test(response)) {
+            const track = tracks[Number(response) - 1]
+            // Connect to the voice channel and add the track to the queue
+            player.connect()
+            player.queue.add(track)
+
+            // Checks if the client should play the track if it's the first one added
+            if (!player.playing && !player.paused && !player.queue.size) player.play()
+            if (ctx.message.deletable) await ctx.message.delete()
+
+            if (player.queue.size === 1) return this.client.emit('addSong', player, res.tracks[0])
+          } else if (['cancel'].includes(response)) {
+            ctx.reply('Operation cancelled.')
+          } else {
+            ctx.reply('Invalid response, please try again.')
+          }
+
+          break
+
+        case 'PLAYLIST_LOADED':
+          this.client.emit('addList', ctx, player, res)
+          // Connect to the voice channel and add the track to the queue
+          player.connect()
+          player.queue.add(res.tracks)
+
+          // Checks if the client should play the track if it's the first one added
+          if (!player.playing && !player.paused) player.play()
+          if (ctx.message.deletable) await ctx.message.delete()
+          break
       }
-      if (url.search('track') > 1) {
-        this.handleTrack(ctx, id); return
-      }
-      if (url.search('playlist') > 1) {
-        this.handlePlaylist(ctx, id); return
-      }
-      ctx.reply('Invalid link').then(ctx => {
-        ctx.delete({ timeout: 2500 })
-      })
+    } catch (err) {
+      return ctx.reply(`An error occurred while searching: ${err.message}`)
     }
-    this.client.distube.play(ctx.message, args.join(' '))
   }
 }
 

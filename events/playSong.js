@@ -2,21 +2,22 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class playSong extends Event {
-  async run (msg, queue, song) {
-    if (msg.guild.settings.nowplaying === false) {
-      return
-    }
+  async run (player, track) {
+    const channel = this.client.channels.cache.get(player.textChannel)
 
+    if (channel.guild.settings.nowplaying === false) return
+
+    // Send a message when the track starts playing with the track name and the requester's Discord tag, e.g. username#discriminator
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('🎵 Now Playing')
-      .setTitle(song.name)
-      .setURL(song.url)
-      .setThumbnail(song.thumbnail)
-      .addField('Requested by', song.user, true)
-      .addField('Duration', song.formattedDuration, true)
-      .addField('Queue', `${queue.songs.length === 1 ? '1 song' : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)
-    msg.channel.send({ embed })
+      .setTitle(track.title)
+      .setURL(track.uri)
+      .setThumbnail(track.displayThumbnail('maxresdefault'))
+      .addField('Requested by', track.requester, true)
+      .addField('Duration', this.client.utils.formatDuration(track.duration), true)
+      .addField('Queue', `${player.queue.totalSize === 1 ? '1 song' : `${player.queue.totalSize} songs`} - ${this.client.utils.formatDuration(player.queue.duration)}`, true)
+    channel.send({ embed }).then(ctx => ctx.delete({ timeout: 15000 }))
   }
 }
 

@@ -15,9 +15,9 @@ class Seek extends Command {
   }
 
   async run (ctx, args) {
-    const queue = this.client.distube.getQueue(ctx.message)
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!queue) {
+    if (!player) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
@@ -28,7 +28,7 @@ class Seek extends Command {
       return ctx.reply('Please supply a valid number!')
     }
 
-    this.client.distube.seek(ctx.message, Number(args[0]) * 1000)
+    player.seek(Number(args[0]) * 1000)
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(`| Moved ${args[0]} seconds ahead!`, ctx.author.displayAvatarURL({ size: 512 }))

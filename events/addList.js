@@ -2,17 +2,18 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class addList extends Event {
-  async run (msg, queue, playlist) {
+  async run (ctx, player, res) {
+    const channel = this.client.channels.cache.get(player.textChannel)
+
+    if (channel.guild.settings.nowplaying === false) return
+
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor('Added playlist', 'https://i.imgur.com/Nmg88HS.png')
-      .setTitle(playlist.name)
-      .setURL(playlist.url)
-      .setThumbnail(playlist.thumbnail)
-      .addField('Requested by', playlist.user, true)
-      .addField('Length', `${playlist.songs.length === 1 ? '1 song' : `${playlist.songs.length} songs`} - ${playlist.formattedDuration}`, true)
-      .addField('Queue', `${queue.songs.length === 1 ? '1 song' : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)
-    msg.channel.send({ embed })
+      .setAuthor(`Enqueued ${res.tracks ? res.tracks.length : res.songs.length} songs from playlist`, 'https://i.imgur.com/Nmg88HS.png')
+      .setTitle(res.playlist ? res.playlist.name : res.name)
+      .addField('Requested by', res.tracks ? res.tracks[0].requester : ctx.author, true)
+    if (res.playlist) embed.addField('Duration', this.client.utils.formatDuration(res.playlist.duration), true)
+    channel.send({ embed }).then(ctx => ctx.delete({ timeout: 15000 }))
   }
 }
 

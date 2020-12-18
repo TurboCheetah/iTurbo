@@ -16,9 +16,9 @@ class NowPlaying extends Command {
   }
 
   async run (ctx) {
-    const queue = this.client.distube.getQueue(ctx.message)
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!queue) {
+    if (!player) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
@@ -28,12 +28,12 @@ class NowPlaying extends Command {
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('🎵 Now Playing')
-      .setTitle(queue.songs[0].name)
-      .setURL(queue.songs[0].url)
-      .setThumbnail(queue.songs[0].thumbnail)
-      .addField('Requested by', queue.songs[0].user, true)
-      .addField('Queue', `${queue.songs.length === 1 ? '1 song' : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)
-      .addField('Duration', `${queue.songs[0].formattedDuration === 'Live' ? '🔴 Live' : `\`${queue.formattedCurrentTime}\` [${createBar(queue.songs[0].duration, Math.floor(queue.currentTime / 1000), 15, '▬', '⬤')[0]}] \`${queue.songs[0].formattedDuration}\``}`, false)
+      .setTitle(player.queue.current.title)
+      .setURL(player.queue.current.uri)
+      .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
+      .addField('Requested by', player.queue.current.requester, true)
+      .addField('Queue', `${player.queue.totalSize === 1 ? '1 song' : `${player.queue.totalSize} songs`} - ${this.client.utils.formatDuration(player.queue.duration)}`, true)
+      .addField('Duration', `${player.queue.current.isStream ? '🔴 Live' : `\`${this.client.utils.formatDuration(player.position > 0 ? player.position : 1)}\` [${createBar(player.queue.current.duration, Math.floor(player.position > 0 ? player.position : 1), 15, '▬', '⬤')[0]}] \`${this.client.utils.formatDuration(player.queue.current.duration)}\``}`, false)
     ctx.reply({ embed })
   }
 }

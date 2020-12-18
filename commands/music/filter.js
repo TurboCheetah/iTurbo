@@ -14,10 +14,10 @@ class Filter extends Command {
     })
   }
 
-  async run (ctx, args) {
-    const queue = this.client.distube.getQueue(ctx.message)
+  async run (ctx, [filter = 'list']) {
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!queue) {
+    if (!player) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
@@ -26,74 +26,26 @@ class Filter extends Command {
 
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(`| Enabled ${args[0].toLowerCase()} filter`, ctx.author.displayAvatarURL({ size: 512 }))
+      .setAuthor(`| ${!player[filter] ? 'Enabled' : 'Disabled'} the ${filter.toLowerCase()} filter`, ctx.author.displayAvatarURL({ size: 512 }))
 
-    switch (args[0].toLowerCase()) {
+    switch (filter.toLowerCase()) {
       case 'list':
-        ctx.reply('Available filters:\n```\n3D\nbassboost\npurebass\necho\nkaraoke\nnightcore\nvaporwave\nflanger\ngate\nhaas\nreverse\nsurround\nmcompand\nphaser\ntremolo\nearwax```')
-        break
-      case '3d':
-        this.client.distube.setFilter(ctx.message, '3d')
-        ctx.reply({ embed })
+        ctx.reply('Available filters:\n```\nbassboost\nnightcore\nvaporwave\ndistortion```')
         break
       case 'bassboost':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'purebass':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'echo':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'karaoke':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
+        player.setBassboost(!player.bassboost)
         ctx.reply({ embed })
         break
       case 'nightcore':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
+        player.setNightcore(!player.nightcore)
         ctx.reply({ embed })
         break
       case 'vaporwave':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
+        player.setVaporwave(!player.vaporwave)
         ctx.reply({ embed })
         break
-      case 'flanger':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'gate':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'haas':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'reverse':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'surround':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'mcompand':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'phaser':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'tremolo':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
-        ctx.reply({ embed })
-        break
-      case 'earwax':
-        this.client.distube.setFilter(ctx.message, args[0].toLowerCase())
+      case 'distortion':
+        player.setDistortion(!player.distorion)
         ctx.reply({ embed })
         break
       default:

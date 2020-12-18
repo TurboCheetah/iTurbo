@@ -8,7 +8,7 @@ class playList extends Event {
       .setAuthor(`🎵 Now Playing Playlist ${playlist.name}`)
       .setTitle(`Now playing ${playlist.songs[0].name}`)
       .setURL(playlist.songs[0].url)
-      .setThumbnail(playlist.thumbnail)
+      .setThumbnail(playlist.displayThumbnail('maxresdefault'))
       .addField('Requested by', song.user, true)
       .addField('Length', `${playlist.songs.length === 1 ? '1 song' : `${playlist.songs.length} songs`} - ${playlist.formattedDuration}`, true)
       .addField('Queue', `${queue.songs.length === 1 ? '1 song' : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)

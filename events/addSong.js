@@ -2,17 +2,19 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class addSong extends Event {
-  async run (msg, queue, song) {
+  async run (player, track) {
+    const channel = this.client.channels.cache.get(player.textChannel)
+
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
-      .setAuthor(`Enqueued at position ${queue.songs.length}`, 'https://i.imgur.com/Nmg88HS.png')
-      .setTitle(song.name)
-      .setURL(song.url)
-      .setThumbnail(song.thumbnail)
-      .addField('Requested by', song.user, true)
-      .addField('Duration', song.formattedDuration, true)
-      .addField('Queue', `${queue.songs.length === 1 ? '1 song' : `${queue.songs.length} songs`} - ${queue.formattedDuration}`, true)
-    msg.channel.send({ embed })
+      .setAuthor(`Enqueued at position ${player.queue.size}`, 'https://i.imgur.com/Nmg88HS.png')
+      .setTitle(track.title)
+      .setURL(track.uri)
+      .setThumbnail(track.displayThumbnail('maxresdefault'))
+      .addField('Requested by', track.requester, true)
+      .addField('Duration', this.client.utils.formatDuration(track.duration), true)
+      .addField('Queue', `${player.queue.totalSize === 1 ? '1 song' : `${player.queue.totalSize} songs`} - ${this.client.utils.formatDuration(player.queue.duration)}`, true)
+    channel.send({ embed }).then(ctx => ctx.delete({ timeout: 15000 }))
   }
 }
 

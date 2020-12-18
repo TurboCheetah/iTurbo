@@ -15,16 +15,16 @@ class Shuffle extends Command {
   }
 
   async run (ctx) {
-    const queue = this.client.distube.getQueue(ctx.message)
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!queue) {
+    if (!player) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
-        .setAuthor('| There is nothing in the queue!', ctx.author.displayAvatarURL({ size: 512 }))
+        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
-    this.client.distube.shuffle(ctx.message)
+    player.queue.shuffle()
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('| Shuffled queue!', ctx.author.displayAvatarURL({ size: 512 }))

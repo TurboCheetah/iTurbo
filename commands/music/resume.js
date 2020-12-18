@@ -15,24 +15,24 @@ class Resume extends Command {
   }
 
   async run (ctx) {
-    const queue = this.client.distube.getQueue(ctx.message)
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!queue) {
+    if (!player) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
-    if (!this.client.distube.isPaused(ctx.message)) {
+    if (!player.paused) {
       return ctx.reply('The queue has not been paused!')
     }
 
-    this.client.distube.resume(ctx.message)
+    player.pause(false)
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('| ▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
-    ctx.reply({ embed })
+    return ctx.reply({ embed })
   }
 }
 

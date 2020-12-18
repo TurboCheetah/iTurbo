@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-// const { MessageEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const { FieldsEmbed } = require('discord-paginationembed')
 
 class Queue extends Command {
@@ -16,41 +16,43 @@ class Queue extends Command {
   }
 
   async run (ctx, [page = 1]) {
-    const queue = this.client.distube.getQueue(ctx.message)
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!queue || queue === undefined) {
-      return ctx.reply('There is nothing in the queue!')
+    if (!player) {
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
     }
 
-    const upcoming = queue.songs.filter((song, id) => id > 0)
-
-    /* const embed = new MessageEmbed()
-      .setColor(0x9590EE)
-      .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
-      .setTitle(`🔊 Now playing: ${queue.songs[0].name}`)
-      .setURL(queue.songs[0].url)
-      .setThumbnail(queue.songs[0].thumbnail)
-      .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
-      .setFooter(`Total length: ${queue.formattedDuration}`)
-    ctx.reply({ embed }) */
+    if (!player.queue.map(track => track).length) {
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
+        .setTitle(`🔊 Now playing: ${player.queue.current.title}`)
+        .setURL(player.queue.current.uri)
+        .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
+        .addField('Up Next', 'None')
+        .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)}`, ctx.author.displayAvatarURL({ size: 64 }))
+      return ctx.reply({ embed })
+    }
 
     const Pagination = new FieldsEmbed()
-      .setArray(upcoming)
+      .setArray(player.queue.map(track => track))
       .setAuthorizedUsers([ctx.author.id])
       .setChannel(ctx.channel)
       .setElementsPerPage(5)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
-      .formatField('Up Next', song => `**${upcoming.indexOf(song) + 2}**. [${song.name}](${song.url}) [${song.user}]`)
+      .formatField('Up Next', track => `**${player.queue.indexOf(track) + 2}**. [${track.title}](${track.uri}) [${track.requester}]`)
 
     Pagination.embed
       .setColor(0x9590EE)
       .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
-      .setTitle(`🔊 Now playing: ${queue.songs[0].name}`)
-      .setURL(queue.songs[0].url)
-      .setThumbnail(queue.songs[0].thumbnail)
-      // .setDescription(`**Up next**\n${upcoming.length === 0 ? 'No upcoming songs' : upcoming}`)
-      .setFooter(`Total length: ${queue.formattedDuration}`, ctx.author.displayAvatarURL({ size: 64 }))
+      .setTitle(`🔊 Now playing: ${player.queue.current.title}`)
+      .setURL(player.queue.current.uri)
+      .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
+      .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)}`, ctx.author.displayAvatarURL({ size: 64 }))
 
     return Pagination.build()
   }

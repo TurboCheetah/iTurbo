@@ -15,9 +15,9 @@ class Volume extends Command {
   }
 
   async run (ctx, args) {
-    const queue = this.client.distube.getQueue(ctx.message)
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!queue) {
+    if (!player) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
@@ -27,15 +27,15 @@ class Volume extends Command {
     if (!args[0]) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
-        .setAuthor(`| The current playback volume is at ${queue.volume}%`, ctx.author.displayAvatarURL({ size: 512 }))
+        .setAuthor(`| The current playback volume is at ${player.volume}%`, ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
-    if (!Number(args[0])) {
+    if (isNaN(args[0])) {
       return ctx.reply('Invalid number! Please choose a percent from 0-100%')
     }
 
-    this.client.distube.setVolume(ctx.message, Number(args[0]))
+    player.setVolume(Number(args[0]))
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor(`| Set volume to ${args[0]}%`, ctx.author.displayAvatarURL({ size: 512 }))

@@ -10,10 +10,10 @@ const loadSchema = require('../utils/schema.js')
 const Settings = require('./Settings.js')
 const presences = require('../assets/json/presences.json')
 const imgapi = require('img-api')
-const DisTube = require('distube')
-const SpotifyWebApi = require('spotify-web-api-node')
 const PostgresGiveawaysManager = require('./PostgresGiveawaysManager.js')
 const BotAPI = require('./web')
+const { Manager } = require('erela.js')
+const Spotify = require('erela.js-spotify')
 
 class MiyakoClient extends Client {
   constructor (dev) {
@@ -35,10 +35,24 @@ class MiyakoClient extends Client {
     this.sweeper = new MemorySweeper(this)
     this.responses = require('../utils/responses.js')
     this.img = new imgapi.Client({ host: this.config.imgapi })
-    this.distube = new DisTube(this, { searchSongs: true, emitNewSongOnly: true, highWaterMark: 1 << 25, customFilters: { purebass: 'bass=g=20,dynaudnorm=f=200,asubboost' } }) // Distube instance for playing music
-    this.spotifyApi = new SpotifyWebApi({ clientId: this.config.spotify.id, clientSecret: this.config.spotify.secret }) // Spotify API
     this.BotAPI = new BotAPI(this)
-    this.version = '1.1.0'
+    this.manager = new Manager({
+      nodes: this.config.lavalink.nodes,
+      send: (id, payload) => {
+        const guild = this.guilds.cache.get(id)
+        // NOTE: FOR ERIS YOU NEED JSON.stringify() THE PAYLOAD
+        if (guild) guild.shard.send(payload)
+      },
+      plugins: [
+        // Initiate the plugin and pass the two required options.
+        new Spotify({
+          clientID: this.config.spotify.id,
+          clientSecret: this.config.spotify.secret,
+          convertUnresolved: true
+        })
+      ]
+    })
+    this.version = '1.1.1'
 
     // Settings.
     this.settings = {
@@ -49,16 +63,18 @@ class MiyakoClient extends Client {
       giveaways: new Settings(this, 'giveaways')
     }
 
-    // More DisTube stuff
-    this.distube.on('playSong', (msg, queue, song) => this.emit('playSong', msg, queue, song))
-      .on('addSong', (msg, queue, song) => this.emit('addSong', msg, queue, song))
-      .on('playList', (msg, queue, playlist, song) => this.emit('playList', msg, queue, playlist, song))
-      .on('addList', (msg, queue, playlist) => this.emit('addList', msg, queue, playlist))
-    // DisTubeOptions.searchSongs = true
-      .on('searchResult', (msg, result) => this.emit('searchResult', msg, result))
-    // DisTubeOptions.searchSongs = true
-      .on('searchCancel', (msg) => this.emit('searchCancel', msg))
-      .on('error', (msg, err) => this.emit('songError', msg, err))
+    // Lavalink stuff
+    // Emitted whenever a node connects
+    this.manager.on('nodeConnect', node => console.log(`Connected to Lavalink node ${node.options.identifier}.`))
+    // Emitted whenever a node encountered an error
+      .on('nodeError', (node, error) => console.log(`Lavalink node ${node.options.identifier} encountered an error: ${error.message}.`))
+      .on('trackStart', (player, track) => this.emit('playSong', player, track))
+      // Emitted the player queue ends
+      .on('queueEnd', player => {
+        const channel = this.channels.cache.get(player.textChannel)
+        channel.send('The queue has ended.').then(ctx => ctx.delete({ timeout: 10000 }))
+        player.destroy()
+      })
 
     this.dbl = this.config.dbl && !this.dev ? new DBL(this.config.dbl, this) : new DBLMock()
     this.points = new Points(this)
@@ -72,6 +88,8 @@ class MiyakoClient extends Client {
   onReady () {
     this.ready = true
     this.console.log(`Logged in as ${this.user.tag}`)
+    // Initiates the manager and connects to all the nodes
+    this.manager.init(this.user.id)
     this.emit('miyakoReady')
   }
 

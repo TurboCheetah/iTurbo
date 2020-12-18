@@ -15,21 +15,16 @@ class Stop extends Command {
   }
 
   async run (ctx) {
-    const queue = this.client.distube.getQueue(ctx.message)
-    if (!queue) {
-      const member = await this.verifyMember(ctx, ctx.author, true)
-      const channel = member.voice.channel
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-      if (!channel) return ctx.reply(`${this.client.constants.error} You are not in a voice channel!`)
-
-      member.voice.channel.leave()
+    if (!player) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
-        .setAuthor('| 🛑 Stopped', ctx.author.displayAvatarURL({ size: 512 }))
+        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
-    this.client.distube.stop(ctx.message)
+    player.destroy()
     const embed = new MessageEmbed()
       .setColor(0x9590EE)
       .setAuthor('| 🛑 Stopped', ctx.author.displayAvatarURL({ size: 512 }))

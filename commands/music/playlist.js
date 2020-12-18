@@ -1,13 +1,8 @@
+/* eslint-disable no-case-declarations */
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 const { FieldsEmbed } = require('discord-paginationembed')
-const ytdl = require('@distube/ytdl')
-const youtube_dl = require('@distube/youtube-dl')
-const ytpl = require('@distube/ytpl')
-const ytsr = require('@distube/ytsr')
-const Song = require('distube/src/Song')
-const dPlaylist = require('distube/src/Playlist')
-const SearchResult = require('distube/src/SearchResult')
+const { TrackUtils } = require('erela.js')
 const axios = require('axios')
 
 class Playlist extends Command {
@@ -22,17 +17,6 @@ class Playlist extends Command {
 
   async run (ctx, [action = 'list', ...args]) {
     if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'share', 'import'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
-    /*
-    const playlist = {
-      playlist1: [{
-        name: 'yeet',
-        'other data': 'yes'
-      },
-      {
-        name: 'yeet',
-        'other data': 'yes'
-      }]
-    } */
 
     return this[action](ctx, args)
   }
@@ -46,146 +30,40 @@ class Playlist extends Command {
     return true
   }
 
-  async handlePlaylist (ctx, args) {
-    let playlist
-
+  async handlePlaylist (ctx, args, spotify = false) {
     if (!args) return null
-    if (Array.isArray(args)) {
-      const songs = []
-      for (const song of args) {
-        const data = new Song(await ytdl.getInfo(song.url), ctx.author, true)
-        songs.push(data)
-      }
-      const list = []
-      for (const song of songs) {
-        list.push({
-          name: song.name,
-          url: song.url,
-          thumbnail: song.thumbnail
-        })
-      }
-      return list
-    }
-    if (args instanceof Song) return args
-    if (args instanceof SearchResult) return new Song(await ytdl.getInfo(args.url), ctx.author, true)
-    if (typeof args === 'object') return new Song(args, ctx.author)
-    if (ytdl.validateURL(args)) return new Song(await ytdl.getInfo(args), ctx.author, true)
     if (this.isURL(args)) {
-      if (args.indexOf('youtube.com' || 'youtu.be') > -1) {
-        playlist = await ytpl(args, { limit: Infinity })
-        playlist.items = playlist.items.filter(v => !v.thumbnail.includes('no_thumbnail')).map(v => new Song(v, ctx.author, true))
-      } else if (args.indexOf('open.spotify.com' || 'play.spotify.com') > -1) {
-        await this.auth()
-        const url = args
-        const id = this.getID(url)
-        if (url.search('album') > 1) {
-          return this.handleAlbum(ctx, id)
+      let res
+
+      try {
+        // Search for tracks using a query or url, using a query searches youtube automatically and the track requester object
+        res = await this.client.manager.search(args, ctx.author)
+        // Check the load type as this command is not that advanced for basics
+        if (res.loadType === 'LOAD_FAILED') throw res.exception
+        switch (res.loadType) {
+          case 'TRACK_LOADED':
+            await this.client.utils.sleep(1000)
+            return await res.tracks[0]
+          case 'PLAYLIST_LOADED':
+            if (spotify) await this.client.utils.sleep(res.tracks.length * 650)
+            return res.tracks
         }
-        if (url.search('track') > 1) {
-          return this.handleTrack(ctx, id)
-        }
-        if (url.search('playlist') > 1) {
-          return this.handleSPlaylist(ctx, id)
-        }
+      } catch (err) {
+        return ctx.reply(`An error occurred while searching: ${err.message}`)
       }
-      if (!this.client.distube.options.youtubeDL) throw new Error('Not Supported URL!')
-      const info = await youtube_dl.getInfo(args).catch(e => { throw new Error(`[youtube-dl] ${e.stderr || e}`) })
-      if (Array.isArray(info) && info.length > 0) {
-        const soundcloudSongs = info.map(i => new Song(i, ctx.author))
-        const list = []
-        for (const song of soundcloudSongs) {
-          list.push({
-            name: song.name,
-            url: song.url,
-            thumbnail: song.thumbnail
-          })
-        }
-        return list
-      }
-      const song = new Song(info, ctx.author)
-      return {
-        name: song.name,
-        url: song.url,
-        thumbnail: song.thumbnail
-      }
+      return res
     }
-    if (!playlist) throw Error('Invalid Playlist')
-    if (!(playlist instanceof dPlaylist)) playlist = new dPlaylist(playlist, ctx.author)
-    if (!playlist.songs.length) throw Error('No valid video in the playlist')
-    const songs = playlist.songs
-    const list = []
-    for (const song of songs) {
-      list.push({
-        name: song.name,
-        url: song.url,
-        thumbnail: song.thumbnail
-      })
-    }
-    return list
-  }
-
-  async auth () {
-    const TOKEN = await this.client.spotifyApi.clientCredentialsGrant()
-    return this.client.spotifyApi.setAccessToken(TOKEN.body.access_token)
-  }
-
-  getID (url) {
-    const URL = url.substring(url.search(/(album).|(track).|(playlist)./g), url.length)
-    return URL.substring(URL.search('/') + 1, URL.length)
-  }
-
-  async handleTrack (ctx, id) {
-    const artists = []
-    const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
-    data.body.artists.map((artist) => artists.push(artist.name))
-    const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
-    const results = search.items.map(i => new SearchResult(i))
-    if (results.length === 0) throw Error('No result!')
-    return this.handlePlaylist(ctx, results[0])
-  }
-
-  async handleAlbum (ctx, id) {
-    const ids = []
-    const songs = []
-    const data = await this.client.spotifyApi.getAlbum(id).catch((err) => console.log(err))
-    data.body.tracks.items.map((e) => ids.push(e.id))
-    const artists = []
-    for (const id of ids) {
-      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
-      data.body.artists.map((artist) => artists.push(artist.name))
-      const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
-      const results = search.items.map(i => new SearchResult(i))
-      if (results.length === 0) throw Error('No result!')
-      songs.push(results[0])
-    }
-    return this.handlePlaylist(ctx, songs)
-  }
-
-  async handleSPlaylist (ctx, id) {
-    const ids = []
-    const songs = []
-    const data = await this.client.spotifyApi.getPlaylist(id, { pageSize: 200, limit: 200 }).catch((err) => console.log(err))
-    data.body.tracks.items.map((e) => ids.push(e.track.id))
-    for (const id of ids) {
-      const artists = []
-      const data = await this.client.spotifyApi.getTrack(id).catch((err) => console.error(err))
-      data.body.artists.map((artist) => artists.push(artist.name))
-      const search = await ytsr(`${data.body.name} ${artists.join(', ')}`, { limit: 1 })
-      const results = search.items.map(i => new SearchResult(i))
-      if (results.length === 0) throw Error('No result!')
-      songs.push(results[0])
-    }
-    return this.handlePlaylist(ctx, songs)
+    return args
   }
 
   async list (ctx) {
-    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlists yet!")
 
     const embed = new MessageEmbed()
       .setTitle('Playlists')
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
       .setColor(0x9590EE)
-      .setDescription(Object.keys(ctx.author.settings.playlist.playlists).map((playlist) => `• ${playlist}`).join('\n'))
+      .setDescription(Object.keys(ctx.author.settings.playlist).map((playlist) => `• ${playlist}`).join('\n'))
 
     return ctx.reply({ embed })
   }
@@ -200,14 +78,12 @@ class Playlist extends Command {
 
     // Get existing playlsits to append to.
     const playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
 
     // Avoid duplicates.
-    if (playlists[playlistName]) return ctx.reply('That playlist has already been created.')
+    if (playlist[playlistName]) return ctx.reply('That playlist has already been created.')
 
     // Create new object with playlistName as the key
-    playlists[playlistName] = {
+    playlist[playlistName] = {
       name: playlistName,
       author: ctx.author.tag,
       public: false,
@@ -220,7 +96,7 @@ class Playlist extends Command {
   }
 
   async delete (ctx, args) {
-    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}delete <playlistName>`)
 
@@ -229,13 +105,11 @@ class Playlist extends Command {
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
 
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
 
     // Delete playlistName object from playlists "array"
-    delete (playlists[playlistName])
+    delete (playlist[playlistName])
 
     await ctx.author.update({ playlist })
 
@@ -243,7 +117,7 @@ class Playlist extends Command {
   }
 
   async info (ctx, args) {
-    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}info <playlistName>`)
 
@@ -253,11 +127,9 @@ class Playlist extends Command {
 
     // Get existing playlists
     let playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
 
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
-    playlist = playlists[playlistName]
+    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
+    playlist = playlist[playlistName]
 
     // Send information embed
     const Pagination = new FieldsEmbed()
@@ -267,7 +139,7 @@ class Playlist extends Command {
       .setElementsPerPage(5)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages}`)
-      .formatField('Songs', song => `**${playlist.songs.indexOf(song) + 1}**. [${song.name}](${song.url})`)
+      .formatField('Songs', song => `**${playlist.songs.indexOf(song) + 1}**. [${song.title}](${song.uri})`)
 
     Pagination.embed
       .setColor(0x9590EE)
@@ -282,7 +154,7 @@ class Playlist extends Command {
   }
 
   async append (ctx, args) {
-    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}append <playlistName>; <songURL|queue>`)
 
@@ -294,70 +166,65 @@ class Playlist extends Command {
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
 
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+
+    if (songToAppend.indexOf('open.spotify.com/playlist' || 'play.spotify.com/playlist') > -1) {
+      return ctx.reply('Sorry, but Spotify playlists are currently disabled from being added to custom user playlists. Feel free to add individual songs though!')
+    }
 
     const msg = await ctx.reply('Please wait, appending song(s) to playlist')
     // Append queue
     if (songToAppend && songToAppend === 'queue') {
-      const queue = this.client.distube.getQueue(ctx.message)
-      if (!queue || queue === undefined) {
-        return ctx.reply('There is nothing in the queue!')
-      }
-      songToAppendMsg = `${queue.songs.length} songs`
+      const player = this.client.manager.players.get(ctx.guild.id)
 
-      const list = []
-      for (const song of queue.songs) {
-        list.push({
-          name: song.name,
-          url: song.url,
-          thumbnail: song.thumbnail
-        })
+      if (!player) {
+        const embed = new MessageEmbed()
+          .setColor(0x9590EE)
+          .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+        return ctx.reply({ embed })
       }
 
-      for (const song of list) {
+      const tracks = player.queue.map(track => track)
+      songToAppendMsg = `${tracks.length} songs`
+
+      for (const track of tracks) {
         // Check if song is already in the playlsit
-        if (playlists[playlistName].songs.indexOf(song) > -1) continue
+        if (playlist[playlistName].songs.indexOf(track) > -1) continue
 
-        playlists[playlistName].songs.push(song)
+        playlist[playlistName].songs.push(track)
       }
     } else if (songToAppend && songToAppend === 'current') {
-      const queue = this.client.distube.getQueue(ctx.message)
-      if (!queue || queue === undefined) {
-        return ctx.reply('There is nothing in the queue!')
+      const player = this.client.manager.players.get(ctx.guild.id)
+
+      if (!player) {
+        const embed = new MessageEmbed()
+          .setColor(0x9590EE)
+          .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+        return ctx.reply({ embed })
       }
 
       // Check if song is already in the playlsit
-      let song = queue.songs[0]
-      song = {
-        name: song.name,
-        url: song.url,
-        thumbnail: song.thumbnail
+      const track = player.queue.current
+      songToAppendMsg = track.title
+      if (playlist[playlistName].songs.indexOf(track) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
+      playlist[playlistName].songs.push(track)
+    } else if (this.isURL(songToAppend)) {
+      if (songToAppend.indexOf('open.spotify.com' || 'play.spotify.com') > -1) {
+        songToAppend = await this.handlePlaylist(ctx, songToAppend, true)
+      } else {
+        songToAppend = await this.handlePlaylist(ctx, songToAppend)
       }
-      songToAppendMsg = song.name
-      if (playlists[playlistName].songs.indexOf(song) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
-      playlists[playlistName].songs.push(song)
-    } else if (songToAppend.startsWith('https://www.youtube.com/playlist') || (songToAppend.includes('https://soundcloud.com/') && songToAppend.includes('/sets/')) || songToAppend.includes('open.spotify.com' || 'play.spotify.com')) {
-      songToAppend = await this.handlePlaylist(ctx, songToAppend)
-      songToAppendMsg = `${songToAppend.length} songs`
-
-      // Append song to playlistName.songs array
-      for (const song of songToAppend) {
-        // Check if song is already in the playlsit
-        if (playlists[playlistName].songs.indexOf(song) > -1) continue
-
-        playlists[playlistName].songs.push(song)
-      }
-    } else if (this.isURL(songToAppend) && (songToAppend !== 'queue' || songToAppend !== 'current')) {
-      songToAppend = await this.handlePlaylist(ctx, songToAppend)
-      songToAppendMsg = songToAppend.name
+      songToAppendMsg = songToAppend.title || `${songToAppend.length} songs`
 
       // Check if song is already in the playlsit
-      if (playlists[playlistName].songs.indexOf(songToAppend) > -1) return ctx.reply(`That song is already in \`${playlistName}\`!`)
+      if (playlist[playlistName].songs.indexOf(songToAppend) > -1) return ctx.reply(`That song is already in \`${playlistName}\`!`)
       // Append song to playlistName.songs array
-      playlists[playlistName].songs.push(songToAppend)
+      if (Array.isArray(songToAppend)) {
+        playlist[playlistName].songs = playlist[playlistName].songs.concat(songToAppend)
+      } else {
+        playlist[playlistName].songs.push(songToAppend)
+      }
     }
 
     await ctx.author.update({ playlist })
@@ -366,7 +233,7 @@ class Playlist extends Command {
   }
 
   async remove (ctx, args) {
-    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlists yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}remove <playlistName>; <songIndex>`)
 
@@ -376,21 +243,19 @@ class Playlist extends Command {
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
 
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
 
     const msg = await ctx.reply('Please wait, removing song from playlist')
 
     if (!songToRemove) return ctx.reply(`Please specify a song number to remove from ${playlistName}! You can get it from \`${ctx.guild.settings.prefix}playlist info ${playlistName}\``)
     // Check if song is already in the playlsit
-    if (!playlists[playlistName].songs[songToRemove - 1]) return ctx.reply(`That song is already in \`${playlistName}\`!`)
+    if (!playlist[playlistName].songs[songToRemove - 1]) return ctx.reply(`That song is already in \`${playlistName}\`!`)
 
-    const songToAppendMsg = playlists[playlistName].songs[songToRemove - 1].name
+    const songToAppendMsg = playlist[playlistName].songs[songToRemove - 1].title
 
     // Append song to playlistName.songs array
-    playlists[playlistName].songs.splice(songToRemove - 1, 1)
+    playlist[playlistName].songs.splice(songToRemove - 1, 1)
 
     await ctx.author.update({ playlist })
 
@@ -398,7 +263,7 @@ class Playlist extends Command {
   }
 
   async play (ctx, args) {
-    if (!ctx.author.settings.playlist || !ctx.author.settings.playlist.playlists) return ctx.reply("You don't have any playlists yet!")
+    if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlist yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}play <playlistName>`)
 
@@ -407,19 +272,46 @@ class Playlist extends Command {
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
 
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
 
-    const msg = await ctx.reply('Queueing playlist...')
+    const msg = await ctx.reply('Enqueueing playlist...')
+
+    let player = this.client.manager.players.get(ctx.guild.id)
+
+    if (!player) {
+      // Create the player
+      player = this.client.manager.create({
+        guild: ctx.guild.id,
+        voiceChannel: ctx.member.voice.channel.id,
+        textChannel: ctx.channel.id,
+        selfDeafen: true
+      })
+    }
+
+    const tracks = []
+    for (const song of playlist[playlistName].songs) {
+      if (song.track) {
+        const tData = await this.client.manager.decodeTrack(song.track)
+        const track = TrackUtils.build(tData, ctx.author)
+        tracks.push(track)
+      }
+      // Search for tracks using a query or url, using a query searches youtube automatically and the track requester object
+      const res = await this.client.manager.search(`${song.author} - ${song.title}`, ctx.author)
+      // Check the load type as this command is not that advanced for basics
+      if (res.loadType === 'LOAD_FAILED') throw res.exception
+      tracks.push(res.tracks[0])
+    }
 
     // Add playlist to queue
-    const songs = []
-    for (const song of playlists[playlistName].songs) {
-      songs.push(song.url)
-    }
-    await this.client.distube.playCustomPlaylist(ctx, songs, { name: playlists[playlistName].name })
+    this.client.emit('addList', ctx, player, playlist[playlistName])
+    // Connect to the voice channel and add the track to the queue
+    player.connect()
+    player.queue.add(tracks)
+
+    // Checks if the client should play the track if it's the first one added
+    if (!player.playing && !player.paused) player.play()
+    if (ctx.message.deletable) await ctx.message.delete()
     await msg.delete()
   }
 
@@ -430,18 +322,16 @@ class Playlist extends Command {
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
 
-    if (!playlists[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
 
-    if (playlists[playlistName].public === undefined) playlists[playlistName].public = false
+    if (playlist[playlistName].public === undefined) playlist[playlistName].public = false
 
-    playlists[playlistName].public = !playlists[playlistName].public
+    playlist[playlistName].public = !playlist[playlistName].public
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlists[playlistName].name}\` to ${playlists[playlistName].public ? `to public! Share this URL with others: https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlists[playlistName].name.replace(/ /g, '%20')}` : 'to private!'}`)
+    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlist[playlistName].name}\` to ${playlist[playlistName].public ? `to public! Share this URL with others: https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlist[playlistName].name.replace(/ /g, '%20')}` : 'to private!'}`)
   }
 
   async import (ctx, args) {
@@ -453,8 +343,6 @@ class Playlist extends Command {
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
-    if (!playlist.playlists) playlist.playlists = {}
-    const playlists = playlist.playlists
 
     const options = {
       method: 'GET',
@@ -465,9 +353,7 @@ class Playlist extends Command {
       }
     }
 
-    const playlistToImport = await axios.request(options).then(res => {
-      return res.data
-    }).catch(err => {
+    const playlistToImport = await axios.request(options).then(res => res.data).catch(err => {
       console.error(err)
       return false
     })
@@ -476,7 +362,7 @@ class Playlist extends Command {
       return ctx.reply(`${this.client.constants.error} That playlist doesn't exist or has been set to private!`)
     }
 
-    playlists[playlistToImport.name] = playlistToImport
+    playlist[playlistToImport.name] = playlistToImport
 
     // Push changes to databse
     await ctx.author.update({ playlist })

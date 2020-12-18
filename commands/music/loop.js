@@ -15,9 +15,9 @@ class Loop extends Command {
   }
 
   async run (ctx, args) {
-    const queue = this.client.distube.getQueue(ctx.message)
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!queue) {
+    if (!player) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
         .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
@@ -36,13 +36,14 @@ class Loop extends Command {
       if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 
       if (['on', 'enable', 'song'].includes(response.toLowerCase())) {
-        this.client.distube.setRepeatMode(ctx.message, 1)
+        player.setTrackRepeat(true)
         return ctx.reply('Enabled looping for the current song.')
       } else if (['queue'].includes(response.toLowerCase())) {
-        this.client.distube.setRepeatMode(ctx.message, 2)
+        player.setQueueRepeat(true)
         return ctx.reply('Enabled looping for the queue.')
       } else if (['off', 'disable'].includes(response)) {
-        this.client.distube.setRepeatMode(ctx.message, 0)
+        player.setTrackRepeat(false)
+        player.setQueueRepeat(false)
         return ctx.reply('Disabled looping.')
       } else if (['cancel'].includes(response)) {
         return ctx.reply('Operation cancelled.')
@@ -52,15 +53,16 @@ class Loop extends Command {
     }
     switch (args[0]) {
       case 'disable' || 'off':
-        this.client.distube.setRepeatMode(ctx.message, 0)
+        player.setTrackRepeat(false)
+        player.setQueueRepeat(false)
         ctx.reply('Disabled looping.')
         break
       case 'song':
-        this.client.distube.setRepeatMode(ctx.message, 1)
+        player.setTrackRepeat(true)
         ctx.reply('Enabled looping for the current song.')
         break
       case 'queue':
-        this.client.distube.setRepeatMode(ctx.message, 2)
+        player.setQueueRepeat(true)
         ctx.reply('Enabled looping for the queue.')
         break
       default:
