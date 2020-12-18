@@ -32,12 +32,10 @@
     "discord-giveaways": "^4.2.1",
     "discord-paginationembed": "^2.1.0",
     "discord.js": "^12.2.0",
-    "distube": "^2.8.7",
-    "erela.js": "^2.3.0",
+    "erela.js": "^2.3.1",
     "erela.js-spotify": "^1.2.0",
     "express": "^4.17.1",
     "fast-levenshtein": "^2.0.6",
-    "ffmpeg-static": "^4.2.7",
     "helmet": "^4.2.0",
     "img-api": "^1.0.3",
     "module-alias": "^2.2.2",
@@ -46,10 +44,8 @@
     "pg": "^8.0.3",
     "pornsearch": "^2.4.3",
     "rule34js": "^2.2.0",
-    "spotify-web-api-node": "^5.0.0",
     "string-progressbar": "^1.0.1",
-    "yahoo-stock-api": "^1.0.5",
-    "ytdl-core": "^4.0.5"
+    "yahoo-stock-api": "^1.0.5"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
