@@ -1,4 +1,5 @@
 config.json
 node_modules
 core
-.vscode     
+.vscode
+application.yml
