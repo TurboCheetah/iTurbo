@@ -45,6 +45,8 @@ class Stats extends Command {
       `${minutes} Minutes`,
       `${seconds} Seconds`].filter((time) => !time.startsWith('0')).join(', ')
 
+    const player = this.client.manager.players.get(ctx.guild.id)
+
     return ctx.reply(new MessageEmbed()
       .setTitle('iTurbo - Bot Statistics')
       .setDescription("Hi, I'm iTurbo. The all-in-one entertainment bot for your server")
@@ -54,7 +56,7 @@ class Stats extends Command {
         `**Guilds:** ${client.guilds.cache.size}`,
         `**Users:** ${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}`,
         `**Channels:** ${client.channels.cache.size}`,
-        `**Music Streams:** ${this.client.distube.guildQueues.map(queue => queue).length}`,
+        `**Music Streams:** ${player ? player.node.stats.players : 0}`,
         `**Uptime:** ${uptime}`,
         `**Total Memory Usage:** ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`,
         `**Memory Usage:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`
