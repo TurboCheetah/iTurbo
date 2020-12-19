@@ -1,5 +1,4 @@
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
 const ms = require('ms')
 
 class Giveaway extends Command {
