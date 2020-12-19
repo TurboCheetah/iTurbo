@@ -40,7 +40,6 @@ class MiyakoClient extends Client {
       nodes: this.config.lavalink.nodes,
       send: (id, payload) => {
         const guild = this.guilds.cache.get(id)
-        // NOTE: FOR ERIS YOU NEED JSON.stringify() THE PAYLOAD
         if (guild) guild.shard.send(payload)
       },
       plugins: [
@@ -52,7 +51,7 @@ class MiyakoClient extends Client {
         })
       ]
     })
-    this.version = '1.1.1'
+    this.version = '1.1.2'
 
     // Settings.
     this.settings = {
