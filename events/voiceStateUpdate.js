@@ -5,11 +5,11 @@ class voiceStateUpdate extends Event {
     const player = this.client.manager.players.get(newState.guild.id)
     if (!player) return
 
-    if (this.client.guilds.cache.get(player.options.guild).channels.cache.get(player.options.voiceChannel).members.size == 1) {
+    if (this.client.guilds.cache.get(player.options.guild).channels.cache.get(player.options.voiceChannel).members.size === 1) {
       player.pause(true)
     }
 
-    if (this.client.guilds.cache.get(player.options.guild).channels.cache.get(player.options.voiceChannel).members.size >= 2) {
+    if (this.client.guilds.cache.get(player.options.guild).channels.cache.get(player.options.voiceChannel).members.size === 2) {
       if (player.paused) {
         player.pause(false)
       }
