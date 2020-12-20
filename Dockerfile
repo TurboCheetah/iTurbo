@@ -1,13 +1,4 @@
-FROM keymetrics/pm2:latest-stretch
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    python3 \
-    python3-venv \
-    python3-pip \
-    && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-RUN pip3 install --no-cache --upgrade pip setuptools
+FROM keymetrics/pm2:latest-alpine
 
 WORKDIR /iTurbo
 COPY package*.json ./
