@@ -24,7 +24,7 @@ class HentaiList extends Command {
     const hentailist = async (id) => {
       const controller = new AbortController()
       const timeout = setTimeout(() => controller.abort(), 5000)
-      var data = await fetch(`https://hentailist.turbo.ooo/api/hentai/${encodeURIComponent(id)}`, {
+      var data = await fetch(`http://45.61.147.38:4445/api/hentai/${encodeURIComponent(id)}`, {
         signal: controller.signal
       }).then((r) => r.ok ? r.json() : '')
       clearTimeout(timeout)
