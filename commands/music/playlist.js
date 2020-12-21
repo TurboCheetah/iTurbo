@@ -32,7 +32,7 @@ class Playlist extends Command {
 
   async handlePlaylist (ctx, args, spotify = false) {
     if (!args) return null
-    if (this.isURL(args)) {
+    if (await this.isURL(args) === true) {
       let res
 
       try {
@@ -131,6 +131,17 @@ class Playlist extends Command {
     if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
     playlist = playlist[playlistName]
 
+    if (!playlist.songs || !playlist.songs.length) {
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor(`by ${playlist.author}`)
+        .setTitle(playlist.name)
+        .addField('Songs', 'No songs have been added yet!')
+        .setFooter('Page 1 of 1', ctx.author.displayAvatarURL({ size: 64 }))
+
+      return ctx.reply({ embed })
+    }
+
     // Send information embed
     const Pagination = new FieldsEmbed()
       .setArray(playlist.songs)
@@ -161,7 +172,7 @@ class Playlist extends Command {
     const playlistName = args.join(' ').split('; ')[0]
     if (!playlistName) return ctx.reply('You must provide the name for the playlist you\'d like to delete.')
     let songToAppend = args.join(' ').split('; ')[1]
-    if (!songToAppend || !this.isURL(songToAppend) && !['current', 'queue'].includes(songToAppend.toLowerCase())) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
+    if (!songToAppend || (await this.isURL(songToAppend) === false && !['current', 'queue'].includes(songToAppend.toLowerCase()))) return ctx.reply(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
     let songToAppendMsg
 
     // Get existing playlists
@@ -182,7 +193,7 @@ class Playlist extends Command {
         const embed = new MessageEmbed()
           .setColor(0x9590EE)
           .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-        return ctx.reply({ embed })
+        return msg.edit({ embed })
       }
 
       const tracks = player.queue.map(track => track)
@@ -201,7 +212,7 @@ class Playlist extends Command {
         const embed = new MessageEmbed()
           .setColor(0x9590EE)
           .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-        return ctx.reply({ embed })
+        return msg.edit({ embed })
       }
 
       // Check if song is already in the playlsit
@@ -209,7 +220,7 @@ class Playlist extends Command {
       songToAppendMsg = track.title
       if (playlist[playlistName].songs.indexOf(track) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
       playlist[playlistName].songs.push(track)
-    } else if (this.isURL(songToAppend)) {
+    } else if (await this.isURL(songToAppend) === true) {
       if (songToAppend.indexOf('open.spotify.com' || 'play.spotify.com') > -1) {
         songToAppend = await this.handlePlaylist(ctx, songToAppend, true)
       } else {
