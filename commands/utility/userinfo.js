@@ -25,16 +25,17 @@ class UserInfo extends Command {
     const joinedDays = Math.floor((new Date() - member.joinedAt) / (1000 * 60 * 60 * 24))
 
     const embed = new MessageEmbed()
+      .setAuthor(member.user.tag, member.user.displayAvatarURL({ size: 128 }))
       .setColor(member.displayHexColor || 0x9590EE)
       .setThumbnail(member.user.displayAvatarURL({ size: 512 }))
-      .addField('❯ Name', member.user.tag, true)
-      .addField('❯ ID', member.id, true)
       .addField('❯ Discord Join Date', `${member.user.createdAt.toDateString()} (${days} days ago!)`, true)
       .addField('❯ Server Join Date', `${member.joinedAt.toDateString()} (${joinedDays} days ago!)`, true)
       .addField('❯ Status', this.statuses[member.presence.status], true)
       .addField('❯ Bot', member.user.bot ? 'Yes' : 'No', true)
-      .addField('❯ Highest Role', member.roles.cache.size > 1 ? member.roles.highest.name : 'None', true)
-      .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist.name : 'None', true)
+      .addField('❯ Highest Role', member.roles.cache.size > 1 ? member.roles.highest : 'None', true)
+      .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist : 'None', true)
+      .setFooter(`ID: ${member.user.id}`)
+      .setTimestamp()
     return ctx.reply({ embed })
   }
 }

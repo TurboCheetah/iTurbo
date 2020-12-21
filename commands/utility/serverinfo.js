@@ -34,17 +34,18 @@ class ServerInfo extends Command {
     if (!ctx.guild.owner) await ctx.guild.members.fetch(ctx.guild.ownerID).catch(() => null)
 
     const embed = new MessageEmbed()
+      .setAuthor(ctx.guild.name, ctx.guild.iconURL({ size: 128 }))
       .setColor(0x9590EE)
       .setThumbnail(ctx.guild.iconURL())
-      .addField('❯ Name', ctx.guild.name, true)
-      .addField('❯ ID', ctx.guild.id, true)
-      .addField('❯ Creation Date', `${ctx.guild.createdAt.toDateString()} (${days} days ago!)`, true)
+      .addField('❯ Creation Date', `${ctx.guild.createdAt.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} (${days} days ago!)`, true)
       .addField('❯ Region', ctx.guild.region, true)
       .addField('❯ Explicit Filter', this.filterLevels[ctx.guild.explicitContentFilter], true)
       .addField('❯ Verification Level', this.verificationLevels[ctx.guild.verificationLevel], true)
-      .addField('❯ Owner', ctx.guild.owner ? ctx.guild.owner.user.tag : 'Failed to get owner information.', true)
+      .addField('❯ Owner', ctx.guild.owner ? ctx.guild.owner.user : 'Failed to get owner information.', true)
       .addField('❯ Members', `${ctx.guild.memberCount}`, true)
       .addField('❯ Ban Count', bans, true)
+      .setFooter(`ID: ${ctx.guild.id}`)
+      .setTimestamp()
     return ctx.reply({ embed })
   }
 }
