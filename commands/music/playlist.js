@@ -85,7 +85,7 @@ class Playlist extends Command {
     // Create new object with playlistName as the key
     playlist[playlistName] = {
       name: playlistName,
-      author: ctx.author.tag,
+      author: ctx.author,
       public: false,
       songs: []
     }
@@ -134,7 +134,7 @@ class Playlist extends Command {
     if (!playlist.songs || !playlist.songs.length) {
       const embed = new MessageEmbed()
         .setColor(0x9590EE)
-        .setAuthor(`by ${playlist.author}`)
+        .setAuthor(`by ${playlist.author.tag}`, playlist.author.avatarURL)
         .setTitle(playlist.name)
         .addField('Songs', 'No songs have been added yet!')
         .setFooter('Page 1 of 1', ctx.author.displayAvatarURL({ size: 64 }))
@@ -154,7 +154,7 @@ class Playlist extends Command {
 
     Pagination.embed
       .setColor(0x9590EE)
-      .setAuthor(`by ${playlist.author}`)
+      .setAuthor(`by ${playlist.author.tag}`, playlist.author.avatarURL)
       .setTitle(playlist.name)
       .setThumbnail(playlist.songs[0].thumbnail)
       .setFooter(null, ctx.author.displayAvatarURL({ size: 64 }))
