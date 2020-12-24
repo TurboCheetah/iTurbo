@@ -88,7 +88,7 @@ class Play extends Command {
             if (!player.playing && !player.paused && !player.queue.size) player.play()
             if (ctx.message.deletable) await ctx.message.delete()
 
-            if (player.queue.size === 1) return this.client.emit('addSong', player, res.tracks[0])
+            if (player.queue.size > 1) return this.client.emit('addSong', player, track)
           } else if (['cancel'].includes(response)) {
             ctx.reply('Operation cancelled.')
           } else {
