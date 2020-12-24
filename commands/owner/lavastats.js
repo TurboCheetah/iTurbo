@@ -43,7 +43,6 @@ class LavaStats extends Command {
       .setArray(embeds)
       .setAuthorizedUsers([ctx.author.id])
       .setChannel(ctx.channel)
-    // .setElementsPerPage(1)
       .setPage(page)
       .setPageIndicator('footer', (page, pages) => `Node ${page} of ${pages}`)
 
