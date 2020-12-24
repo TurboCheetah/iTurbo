@@ -51,7 +51,7 @@ class MiyakoClient extends Client {
         })
       ]
     })
-    this.version = '1.1.2'
+    this.version = '1.1.3'
 
     // Settings.
     this.settings = {
