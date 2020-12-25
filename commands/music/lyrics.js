@@ -16,7 +16,9 @@ class Lyrics extends Command {
   async run (ctx, args) {
     const search = async (song) => {
       const hits = await fetch(`https://api.genius.com/search?q=${encodeURIComponent(song)}`, {
-        headers: { Authorization: `Bearer ${this.client.config.genius}` }
+        headers: {
+          Authorization: `Bearer ${this.client.config.genius}`
+        }
       })
         .then((res) => res.json())
         .then((body) => body.response.hits)
@@ -43,10 +45,17 @@ class Lyrics extends Command {
       return ctx.reply({ embed })
     }
 
-    const queue = this.client.distube.getQueue(ctx.message)
+    const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (queue && args[0] === 'current') {
-      return search(queue.songs[0].name)
+    if (!player) {
+      const embed = new MessageEmbed()
+        .setColor(0x9590EE)
+        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      return ctx.reply({ embed })
+    }
+
+    if (player && args[0] === 'current') {
+      return search(player.queue.current.title)
     }
 
     if (!args.length) {
