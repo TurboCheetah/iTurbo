@@ -47,13 +47,6 @@ class Lyrics extends Command {
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (!player) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
-    }
-
     if (player && args[0] === 'current') {
       return search(player.queue.current.title)
     }
