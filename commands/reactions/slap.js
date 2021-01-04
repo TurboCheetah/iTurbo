@@ -1,5 +1,4 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class Slap extends Command {
@@ -19,14 +18,14 @@ class Slap extends Command {
 
     if (member.id === ctx.author.id) return ctx.reply("You can't slap yourself!")
 
-    const { url } = await fetch('https://nekos.life/api/v2/img/slap').then(res => res.json())
+    const { url } = await this.client.ksoft.images.random('slap', { nsfw: ctx.channel.nsfw })
 
     const embed = new MessageEmbed()
       .setTitle('Slap')
       .setColor(0x9590ee)
       .setDescription(`**${member.displayName}**, you just got slapped by **${ctx.member.displayName}**`)
       .setImage(url)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter(`Requested by: ${ctx.author.tag} • Powered by KSoft.si`, ctx.author.displayAvatarURL({ size: 32 }))
 
     return ctx.reply({ embed })
   }
