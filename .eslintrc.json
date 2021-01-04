@@ -3,13 +3,14 @@
   "plugins": ["prettier"],
   "rules": {
     "space-before-function-paren": "off",
+    "no-throw-literal": "off",
     "prettier/prettier": [
       "error",
       {
         "singleQuote": true,
         "semi": false,
         "arrowParens": "avoid",
-        "printWidth": 512,
+        "printWidth": 2048,
         "trailingComma": "none"
       }
     ]
