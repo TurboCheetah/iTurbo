@@ -1,4 +1,17 @@
 {
   "extends": ["standard"],
-  "rules": {}
+  "plugins": ["prettier"],
+  "rules": {
+    "space-before-function-paren": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "semi": false,
+        "arrowParens": "avoid",
+        "printWidth": 512,
+        "trailingComma": "none"
+      }
+    ]
+  }
 }
