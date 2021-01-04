@@ -8,7 +8,7 @@ const middlewares = require('./middlewares')
 module.exports = (client) => {
   const app = express()
   const port = client.config.api.port || 5000
-  let url = 'https://iturbo.turbo.ooo'
+  let url = 'https://iturbo.cc'
 
   if (client.dev === true) {
     app.use(morgan('dev'))
