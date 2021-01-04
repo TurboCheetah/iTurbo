@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Leaderboard extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'View the server leaderboard.',
       usage: 'leaderboard [page]',
@@ -10,11 +10,12 @@ class Leaderboard extends Command {
     })
   }
 
-  async run (ctx, [page]) {
+  async run(ctx, [page]) {
     page = this.verifyInt(page, 1)
 
     const rows = await this.client.settings.members.find({
-      where: { id: { like: `${ctx.guild.id}.%` } }, sort: { points: -1 }
+      where: { id: { like: `${ctx.guild.id}.%` } },
+      sort: { points: -1 }
     })
 
     if (rows.length === 0) return ctx.reply('There is no leaderboard in this server, maybe its a dead place???')
@@ -26,7 +27,7 @@ class Leaderboard extends Command {
     if (page > totalPages && !totalPages) return ctx.reply(`There are only **${totalPages || 1}** pages in the leaderboard.`)
     if (totalPages && page + 1 > totalPages) return ctx.reply(`There are only **${totalPages || 1}** pages in the leaderboard.`)
 
-    const positions = rows.map((row) => row.id.split('.')[1])
+    const positions = rows.map(row => row.id.split('.')[1])
     const leaderboard = []
 
     const top = rows.slice(page * 10, (page + 1) * 10)

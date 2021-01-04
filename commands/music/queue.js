@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const { FieldsEmbed } = require('discord-paginationembed')
 
 class Queue extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Displays the music queue',
       aliases: ['q'],
@@ -15,19 +15,17 @@ class Queue extends Command {
     })
   }
 
-  async run (ctx, [page = 1]) {
+  async run(ctx, [page = 1]) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player || !player.queue || !player.queue.current) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
     if (!player.queue.map(track => track).length) {
       const embed = new MessageEmbed()
-        .setColor(0x9590EE)
+        .setColor(0x9590ee)
         .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
         .setTitle(`🔊 Now playing: ${player.queue.current.title}`)
         .setURL(player.queue.current.uri)
@@ -47,7 +45,7 @@ class Queue extends Command {
       .formatField('Up Next', track => `**${player.queue.indexOf(track) + 2}**. [${track.title}](${track.uri}) [${track.requester}]`)
 
     Pagination.embed
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
       .setTitle(`🔊 Now playing: ${player.queue.current.title}`)
       .setURL(player.queue.current.uri)

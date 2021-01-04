@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Starboard extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Configure the server starboard.',
       extendedHelp: 'The starboard is a channel where when users add a star reaction to messages it will be posted there. It is used to highlight funny/embarassing/dumb moments and such. You can set a limit to avoid messages below the limit to be posted in the starboard channel.',
@@ -11,7 +11,7 @@ class Starboard extends Command {
     })
   }
 
-  async run (ctx, [action, amount]) {
+  async run(ctx, [action, amount]) {
     if (!action) return ctx.reply('Specify one of `enable #channel`, `disable` or `limit <amount>`')
 
     if (action === 'disable') {

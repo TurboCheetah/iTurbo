@@ -1,7 +1,7 @@
 const Event = require('../structures/Event.js')
 
 class voiceStateUpdate extends Event {
-  async run (oldState, newState) {
+  async run(oldState, newState) {
     const player = this.client.manager.players.get(newState.guild.id)
     if (!player) return
 

@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageAttachment } = require('discord.js')
 
 class Respect extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Press F to pay respect',
       cooldown: 3,
@@ -11,7 +11,7 @@ class Respect extends Command {
     })
   }
 
-  async run (ctx, [user]) {
+  async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user, true)
 
     const img = await this.client.img.respect(user.displayAvatarURL({ size: 128, format: 'png' }))

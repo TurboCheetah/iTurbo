@@ -7,14 +7,19 @@ const { SnowflakeUtil, MessageEmbed } = require('discord.js')
 const THRESHOLD = 1000 * 60 * 30
 
 class MemorySweeper {
-  constructor (client) {
+  constructor(client) {
     this.client = client
     this.task = null // The setInterval return
   }
 
-  run () {
+  run() {
     const OLD_SNOWFLAKE = SnowflakeUtil.generate(Date.now() - THRESHOLD)
-    let presences = 0; let guildMembers = 0; let voiceStates = 0; let emojis = 0; let lastMessages = 0; let users = 0
+    let presences = 0
+    let guildMembers = 0
+    let voiceStates = 0
+    let emojis = 0
+    let lastMessages = 0
+    let users = 0
 
     // Per-Guild sweeper
     for (const guild of this.client.guilds.cache.values()) {
@@ -39,7 +44,8 @@ class MemorySweeper {
       }
 
       // Clear emojis
-      if (guild.id !== this.client.constants.mainGuildID) { // don't clear support guild's emojis.
+      if (guild.id !== this.client.constants.mainGuildID) {
+        // don't clear support guild's emojis.
         emojis += guild.emojis.cache.size
         guild.emojis.cache.clear()
       }
@@ -61,33 +67,30 @@ class MemorySweeper {
     }
 
     // Emit a log.
-    console.log(`\x1b[36m[CACHE CLEANUP]\x1b[0m ${
-this.setColor(presences)} [Presence]s | ${
-this.setColor(guildMembers)} [GuildMember]s | ${
-this.setColor(voiceStates)} [VoiceState]s | ${
-this.setColor(users)} [User]s | ${
-this.setColor(emojis)} [Emoji]s | ${
-this.setColor(lastMessages)} [Last Message]s.`)
+    console.log(`\x1b[36m[CACHE CLEANUP]\x1b[0m ${this.setColor(presences)} [Presence]s | ${this.setColor(guildMembers)} [GuildMember]s | ${this.setColor(voiceStates)} [VoiceState]s | ${this.setColor(users)} [User]s | ${this.setColor(emojis)} [Emoji]s | ${this.setColor(lastMessages)} [Last Message]s.`)
 
     const embed = new MessageEmbed()
       .setTitle('Cache Cleanup')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setDescription(`Cache cleanup sweeped:\n**Presences:** ${presences}\n**Guild Members:** ${guildMembers}\n**Voice States:** ${voiceStates}\n**Users:** ${users}\n**Emojis:** ${emojis}\n**Last Messages:** ${lastMessages}`)
       .setFooter(`Memory Usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB (Total: ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB)`)
 
-    return this.client.channels.cache.get('735636902102827108').send({ embed }).catch(() => null)
+    return this.client.channels.cache
+      .get('735636902102827108')
+      .send({ embed })
+      .catch(() => null)
   }
 
   /**
- * Set a colour depending on the amount:
-* > 1000 : Light Red colour
- * > 100  : Light Yellow colour
- * < 100  : Green colour
- * @since 3.0.0
- * @param {number} number The number to colourise
- * @returns {string}
- */
-  setColor (number) {
+   * Set a colour depending on the amount:
+   * > 1000 : Light Red colour
+   * > 100  : Light Yellow colour
+   * < 100  : Green colour
+   * @since 3.0.0
+   * @param {number} number The number to colourise
+   * @returns {string}
+   */
+  setColor(number) {
     const text = String(number).padStart(5, ' ')
     // Light Red color
     if (number > 1000) return `\x1b[31m${text}\x1b[0m`

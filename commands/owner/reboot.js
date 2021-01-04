@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Reboot extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Shuts down/Reboots the bot.',
       ownerOnly: true,
@@ -10,7 +10,8 @@ class Reboot extends Command {
     })
   }
 
-  async run (ctx, args) { // eslint-disable-line no-unused-vars
+  async run(ctx, args) {
+    // eslint-disable-line no-unused-vars
     await ctx.reply('Shutting down...')
     await this.client.dbconn.release()
     await this.client.db.end()

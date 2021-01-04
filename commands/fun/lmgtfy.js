@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class LMGTFY extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Let me google it for you!',
       aliases: ['letmegoogleitforyou'],
@@ -9,14 +9,10 @@ class LMGTFY extends Command {
     })
 
     // TODO: More!
-    this.responses = [
-      'Oh come on how hard is it to google that! But here you go: {{link}}',
-      'Jeez! how lazy are you? Here you go anyway {{link}}',
-      'Um, Why do you want me to google that? Here you go {{link}}'
-    ]
+    this.responses = ['Oh come on how hard is it to google that! But here you go: {{link}}', 'Jeez! how lazy are you? Here you go anyway {{link}}', 'Um, Why do you want me to google that? Here you go {{link}}']
   }
 
-  async run (ctx, query) {
+  async run(ctx, query) {
     const url = `https://lmgtfy.com/?q=${query.join(' ').replace(/ /g, '+')}`
     return ctx.reply(this.client.utils.random(this.responses).replace(/{{link}}/g, url))
   }

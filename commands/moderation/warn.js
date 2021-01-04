@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Warn extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Warns a member',
       userPermissions: ['KICK_MEMBERS'],
@@ -12,7 +12,7 @@ class Warn extends Command {
     })
   }
 
-  async run (ctx, [member, ...reason]) {
+  async run(ctx, [member, ...reason]) {
     member = await this.verifyUser(ctx, member)
     if (!reason.length) return ctx.reply("You didn't give me a reason.")
     reason = reason.length ? reason.join(' ') : null
@@ -27,11 +27,11 @@ class Warn extends Command {
       if (ctx.guild.settings.modlog) {
         const channel = this.client.channels.cache.get(ctx.guild.settings.modlog)
         if (!channel) return
-        var caseNum = ctx.guild.settings.modlogCase
+        let caseNum = ctx.guild.settings.modlogCase
         caseNum++
         await ctx.guild.update({ modlogCase: caseNum })
-        var embed = new MessageEmbed()
-          .setColor(0x9590EE)
+        const embed = new MessageEmbed()
+          .setColor(0x9590ee)
           .setAuthor(`${member.tag} (${member.id})`, member.displayAvatarURL({ size: 32 }))
           .addField('Action', 'Warn')
           .addField('Reason', reason || 'No reason specified')

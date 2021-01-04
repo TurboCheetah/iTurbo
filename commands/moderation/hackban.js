@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class HackBan extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: "Bans a user that isn't in the server.",
       extendedHelp: 'This command will ban a user that is not in the server to prevent them from joining in the future.',
@@ -14,7 +14,7 @@ class HackBan extends Command {
     })
   }
 
-  async run (ctx, [id, ...reason]) {
+  async run(ctx, [id, ...reason]) {
     if (!id) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
 
     if (isNaN(parseInt(id))) return ctx.reply('Invalid user id.')
@@ -26,11 +26,11 @@ class HackBan extends Command {
       if (ctx.guild.settings.modlog) {
         const channel = this.client.channels.cache.get(ctx.guild.settings.modlog)
         if (!channel) return
-        var caseNum = ctx.guild.settings.modlogCase
+        let caseNum = ctx.guild.settings.modlogCase
         caseNum++
         await ctx.guild.update({ modlogCase: caseNum })
-        var embed = new MessageEmbed()
-          .setColor(0x9590EE)
+        const embed = new MessageEmbed()
+          .setColor(0x9590ee)
           .setAuthor(`${user.tag} (${id})`, user.displayAvatarURL({ size: 32 }))
           .addField('Action', 'Ban')
           .addField('Reason', reason || 'No reason specified')

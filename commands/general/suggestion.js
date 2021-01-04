@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Suggestion extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Got a suggestion to improve the bot?',
       usage: 'suggestion <idea>',
@@ -12,15 +12,15 @@ class Suggestion extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
         .setDescription('What would you like to suggest?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
         .setTimestamp()
-        .setColor(0x9590EE)
+        .setColor(0x9590ee)
 
-      const filter = (msg) => msg.author.id === ctx.author.id
+      const filter = msg => msg.author.id === ctx.author.id
       const response = await ctx.message.awaitReply('', filter, 60000, embed)
       if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 
@@ -38,7 +38,7 @@ class Suggestion extends Command {
     const embed = new MessageEmbed()
       .setTitle('New Suggestion')
       .setDescription(args.join(' '))
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setThumbnail(ctx.author.displayAvatarURL({ size: 512 }))
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 512 }))
       .setFooter(`User ID: ${ctx.author.id}`)

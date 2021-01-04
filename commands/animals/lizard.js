@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class Lizard extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       aliases: ['randomlizard'],
       description: 'Grabs a random lizard image from nekos.life.',
@@ -13,15 +13,16 @@ class Lizard extends Command {
     })
   }
 
-  async run (ctx) {
-    const { url } = await fetch('https://nekos.life/api/v2/img/lizard')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { url } = await fetch('https://nekos.life/api/v2/img/lizard').then(res => res.json())
 
-    return ctx.reply(new MessageEmbed()
-      .setTitle('Random Lizard')
-      .setColor(0x9590EE)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setImage(url))
+    return ctx.reply(
+      new MessageEmbed()
+        .setTitle('Random Lizard')
+        .setColor(0x9590ee)
+        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+        .setImage(url)
+    )
   }
 }
 

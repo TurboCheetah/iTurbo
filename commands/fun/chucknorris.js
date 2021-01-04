@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const fetch = require('node-fetch')
 
 class ChuckNorris extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       aliases: ['chucknorrisjoke'],
       description: 'Chuck Norris has some good jokes.',
@@ -11,11 +11,10 @@ class ChuckNorris extends Command {
     })
   }
 
-  async run (ctx, [user]) {
+  async run(ctx, [user]) {
     if (user) user = await this.verifyUser(ctx, user)
 
-    const { value } = await fetch('http://api.chucknorris.io/jokes/random')
-      .then((res) => res.json())
+    const { value } = await fetch('http://api.chucknorris.io/jokes/random').then(res => res.json())
 
     return ctx.reply(user ? value.replace(/Chuck Norris/g, user.toString()) : value)
   }

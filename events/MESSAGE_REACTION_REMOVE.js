@@ -2,17 +2,18 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class RawMessageReactionRemove extends Event {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       raw: true
     })
   }
 
-  async run (packet, shard) { // eslint-disable-line no-unused-vars
+  async run(packet, shard) {
+    // eslint-disable-line no-unused-vars
     if (packet.emoji.name === '⭐') return this.starboard(packet)
   }
 
-  async starboard (packet) {
+  async starboard(packet) {
     // Grab the channel.
     const channel = this.client.channels.cache.get(packet.channel_id)
     if (!channel || channel.type !== 'text') return
@@ -22,14 +23,12 @@ class RawMessageReactionRemove extends Event {
     if (!guild.settings.starboard) return
 
     // Fetch the user.
-    const user = await this.client.users.fetch(packet.user_id)
-      .catch(() => null)
+    const user = await this.client.users.fetch(packet.user_id).catch(() => null)
 
     if (!user || user.bot) return
 
     // Fetch the full message.
-    const msg = await channel.messages.fetch(packet.message_id)
-      .catch(() => null)
+    const msg = await channel.messages.fetch(packet.message_id).catch(() => null)
 
     if (!msg) return
 
@@ -40,14 +39,12 @@ class RawMessageReactionRemove extends Event {
     const starboard = guild.channels.cache.get(guild.settings.starboard)
     if (!starboard) return
 
-    const messages = await starboard.messages.fetch({ limit: 50 })
-      .catch(() => null)
+    const messages = await starboard.messages.fetch({ limit: 50 }).catch(() => null)
 
     if (!messages) return
 
     // Try to find an existing starboard message.
-    const stars = messages.find((m) => m.author.id === this.client.user.id && m.embeds.length &&
-      m.embeds[0].footer && m.embeds[0].footer.text && m.embeds[0].footer.text.startsWith('⭐') && m.embeds[0].footer.text.endsWith(msg.id))
+    const stars = messages.find(m => m.author.id === this.client.user.id && m.embeds.length && m.embeds[0].footer && m.embeds[0].footer.text && m.embeds[0].footer.text.startsWith('⭐') && m.embeds[0].footer.text.endsWith(msg.id))
 
     // Do nothing if it wasn't already starred.
     if (!stars) return

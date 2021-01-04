@@ -5,7 +5,7 @@ const cors = require('cors')
 
 const middlewares = require('./middlewares')
 
-module.exports = (client) => {
+module.exports = client => {
   const app = express()
   const port = client.config.api.port || 5000
   let url = 'https://iturbo.cc'
@@ -49,8 +49,8 @@ module.exports = (client) => {
   app.use(middlewares.errorHandler)
 
   app.listen(port, () => {
-  /* eslint-disable no-console */
+    /* eslint-disable no-console */
     console.log(`Loaded webserver at ${url}`)
-  /* eslint-enable no-console */
+    /* eslint-enable no-console */
   })
 }

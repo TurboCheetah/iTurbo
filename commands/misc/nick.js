@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Nick extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: "Change someone's nick!",
       botPermissions: ['MANAGE_NICKNAMES'],
@@ -12,7 +12,7 @@ class Nick extends Command {
     })
   }
 
-  async run (ctx, [member, ...nick]) {
+  async run(ctx, [member, ...nick]) {
     if (member === 'me') member = ctx.member
     else if (member === 'you') member = ctx.guild.me
     else member = await this.verifyMember(ctx, member)
@@ -21,7 +21,9 @@ class Nick extends Command {
     nick = nick.join(' ')
 
     if (nick.length >= 32) return ctx.reply('Nickname must be less than 32 characters.')
-    if (member.roles.highest.position > ctx.guild.me.roles.highest.position) { return ctx.reply("I can't edit nicknames of people with higher role than mine.") }
+    if (member.roles.highest.position > ctx.guild.me.roles.highest.position) {
+      return ctx.reply("I can't edit nicknames of people with higher role than mine.")
+    }
 
     await member.edit({ nick })
     return ctx.reply(`Set ${member === ctx.guild.me ? 'my' : member === ctx.member ? 'your' : member.user.username}'s nickname to **${nick}**`)

@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const ms = require('ms')
 
 class Giveaway extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       cooldown: 3,
       description: 'Create, end, and reroll giveaways',
@@ -12,7 +12,7 @@ class Giveaway extends Command {
     })
   }
 
-  async run (ctx, [action, ...args]) {
+  async run(ctx, [action, ...args]) {
     if (!['start', 'end', 'reroll', 'delete'].includes(action)) {
       return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.prefix}${this.usage}\``)
     }
@@ -20,7 +20,7 @@ class Giveaway extends Command {
     return this[action](ctx, args)
   }
 
-  async start (ctx, args) {
+  async start(ctx, args) {
     const giveawayChannel = ctx.message.mentions.channels.first()
 
     if (!giveawayChannel) {
@@ -35,7 +35,7 @@ class Giveaway extends Command {
 
     const winners = args[2]
 
-    if (!winners || isNaN(winners) || (parseInt(winners) <= 0)) {
+    if (!winners || isNaN(winners) || parseInt(winners) <= 0) {
       return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
@@ -74,68 +74,77 @@ class Giveaway extends Command {
     })
   }
 
-  async end (ctx, args) {
+  async end(ctx, args) {
     if (!args[0]) {
       return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway end <messageID>\``)
     }
 
-    const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
+    const giveaway = this.client.giveawaysManager.giveaways.find(g => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find(g => g.messageID === args[0])
 
     if (!giveaway) {
       return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
     }
 
-    this.client.giveawaysManager.edit(giveaway.messageID, {
-      setEndTimestamp: Date.now()
-    }).then(() => {
-      ctx.reply(`Giveaway will end in less than ${(this.client.giveawaysManager.options.updateCountdownEvery / 1000)} seconds!`)
-    }).catch((e) => {
-      if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} has already ended.`)) {
-        ctx.reply('This giveaway has already ended!')
-      } else {
-        this.client.emit('commandError', ctx, e)
-      }
-    })
+    this.client.giveawaysManager
+      .edit(giveaway.messageID, {
+        setEndTimestamp: Date.now()
+      })
+      .then(() => {
+        ctx.reply(`Giveaway will end in less than ${this.client.giveawaysManager.options.updateCountdownEvery / 1000} seconds!`)
+      })
+      .catch(e => {
+        if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} has already ended.`)) {
+          ctx.reply('This giveaway has already ended!')
+        } else {
+          this.client.emit('commandError', ctx, e)
+        }
+      })
   }
 
-  async reroll (ctx, args) {
+  async reroll(ctx, args) {
     if (!args[0]) {
       return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway reroll <messageID>\``)
     }
 
-    const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
+    const giveaway = this.client.giveawaysManager.giveaways.find(g => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find(g => g.messageID === args[0])
 
     if (!giveaway) {
       return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
     }
 
-    this.client.giveawaysManager.reroll(giveaway.messageID).then(() => {
-      ctx.reply('Giveaway rerolled!')
-    }).catch((e) => {
-      if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} has not ended.`)) {
-        ctx.reply('This giveaway has not ended!')
-      } else {
-        this.client.emit('commandError', ctx, e)
-      }
-    })
+    this.client.giveawaysManager
+      .reroll(giveaway.messageID)
+      .then(() => {
+        ctx.reply('Giveaway rerolled!')
+      })
+      .catch(e => {
+        if (typeof e === 'string' && e.startsWith(`Giveaway with message ID ${giveaway.messageID} has not ended.`)) {
+          ctx.reply('This giveaway has not ended!')
+        } else {
+          this.client.emit('commandError', ctx, e)
+        }
+      })
   }
 
-  async delete (ctx, args) {
+  async delete(ctx, args) {
     if (!args[0]) {
       return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway delete <messageID>\``)
     }
 
-    const giveaway = this.client.giveawaysManager.giveaways.find((g) => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find((g) => g.messageID === args[0])
+    const giveaway = this.client.giveawaysManager.giveaways.find(g => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find(g => g.messageID === args[0])
 
     if (!giveaway) {
       return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
     }
 
-    this.client.giveawaysManager.delete(giveaway.messageID).then(() => {
-      ctx.reply('Giveaway deleted!')
-    }).catch((e) => {
-      this.client.emit('commandError', ctx, e)
-    })
+    this.client.giveawaysManager
+      .delete(giveaway.messageID)
+      .then(() => {
+        ctx.reply('Giveaway deleted!')
+      })
+      .catch(e => {
+        this.client.emit('commandError', ctx, e)
+      })
   }
 }
 

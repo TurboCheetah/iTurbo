@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageAttachment } = require('discord.js')
 
 class Garbage extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: "I'm full of garbage",
       cooldown: 3,
@@ -11,7 +11,7 @@ class Garbage extends Command {
     })
   }
 
-  async run (ctx, [user]) {
+  async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user, true)
 
     const img = await this.client.img.garbage(user.displayAvatarURL({ size: 512, format: 'png' }))

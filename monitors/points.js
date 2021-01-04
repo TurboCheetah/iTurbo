@@ -1,11 +1,10 @@
-
 class Points {
-  constructor (client) {
+  constructor(client) {
     this.client = client
     this.timeouts = new Set()
   }
 
-  async run (msg) {
+  async run(msg) {
     if (!msg.guild || !msg.guild.settings.social) return
     if (msg.channel.id.indexOf(msg.guild.settings.disabledChannels) > -1) return
     if (this.timeouts.has(msg.author.id)) return
@@ -21,9 +20,13 @@ class Points {
 
     if (msg.member.settings.level < curLevel) {
       if (msg.guild.settings.levelup) {
-        await msg.channel.send(this.client.utils.random(this.client.responses.levelUpMessages)
-          .replace(/{{user}}/g, msg.member.displayName)
-          .replace(/{{level}}/g, curLevel))
+        await msg.channel
+          .send(
+            this.client.utils
+              .random(this.client.responses.levelUpMessages)
+              .replace(/{{user}}/g, msg.member.displayName)
+              .replace(/{{level}}/g, curLevel)
+          )
           .catch(() => null)
       }
       await msg.member.setLevel(curLevel)

@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Loop extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Turns looping on',
       aliases: ['repeat'],
@@ -14,13 +14,11 @@ class Loop extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
@@ -29,9 +27,9 @@ class Loop extends Command {
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
         .setDescription('Would you like to loop the current **song**, **queue**, or **disable** looping?\n\nReply with `cancel` to cancel the oeration. The message will timeout after 60 seconds.')
         .setTimestamp()
-        .setColor(0x9590EE)
+        .setColor(0x9590ee)
 
-      const filter = (msg) => msg.author.id === ctx.author.id
+      const filter = msg => msg.author.id === ctx.author.id
       const response = await ctx.message.awaitReply('', filter, 60000, embed)
       if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 

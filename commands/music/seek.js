@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Seek extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Seeks to a desired time in the song',
       aliases: [],
@@ -14,13 +14,11 @@ class Seek extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
@@ -29,9 +27,7 @@ class Seek extends Command {
     }
 
     player.seek(Number(args[0]) * 1000)
-    const embed = new MessageEmbed()
-      .setColor(0x9590EE)
-      .setAuthor(`| Moved ${args[0]} seconds ahead!`, ctx.author.displayAvatarURL({ size: 512 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| Moved ${args[0]} seconds ahead!`, ctx.author.displayAvatarURL({ size: 512 }))
     ctx.reply({ embed })
   }
 }

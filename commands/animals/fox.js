@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class Fox extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       aliases: ['randomfox'],
       description: 'Grabs a random fox image from randomfox.ca',
@@ -13,15 +13,16 @@ class Fox extends Command {
     })
   }
 
-  async run (ctx) {
-    const { image } = await fetch('https://randomfox.ca/floof/')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { image } = await fetch('https://randomfox.ca/floof/').then(res => res.json())
 
-    return ctx.reply(new MessageEmbed()
-      .setTitle('Random Fox')
-      .setColor(0x9590EE)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setImage(image))
+    return ctx.reply(
+      new MessageEmbed()
+        .setTitle('Random Fox')
+        .setColor(0x9590ee)
+        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+        .setImage(image)
+    )
   }
 }
 

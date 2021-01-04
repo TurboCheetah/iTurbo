@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Leave extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Leaves a server.',
       ownerOnly: true,
@@ -9,7 +9,7 @@ class Leave extends Command {
     })
   }
 
-  async run (ctx, [guild]) {
+  async run(ctx, [guild]) {
     if (!guild) return ctx.reply('What guild should I leave?')
     if (guild === 'this' && ctx.guild) guild = ctx.guild.id
 
@@ -17,7 +17,7 @@ class Leave extends Command {
     if (!guild) return ctx.reply("I'm not in that server.")
 
     await ctx.reply(`Are you sure you want me to leave **${guild.name}** (${guild.id})`)
-    const filter = (msg) => msg.author.id === ctx.author.id
+    const filter = msg => msg.author.id === ctx.author.id
     const attempts = await ctx.channel.awaitMessages(filter, { time: 15000, max: 1 })
 
     if (!attempts || !attempts.size) {
@@ -32,7 +32,9 @@ class Leave extends Command {
       return ctx.reply(`${this.client.constants.success} Successfully left **${guild.name}** (${guild.id})`)
     }
 
-    if (['no', 'n'].includes(answer)) { return ctx.reply('Cancelled.') }
+    if (['no', 'n'].includes(answer)) {
+      return ctx.reply('Cancelled.')
+    }
 
     return ctx.reply('Invalid response. Cancelled.')
   }

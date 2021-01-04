@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class APIStats extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'View statistics about the IMG API process.',
       ownerOnly: true,
@@ -12,7 +12,7 @@ class APIStats extends Command {
     })
   }
 
-  async run (ctx) {
+  async run(ctx) {
     // Ping
     const before = Date.now()
     await this.client.img.ping()
@@ -23,19 +23,12 @@ class APIStats extends Command {
 
     const embed = new MessageEmbed()
       .setTitle('IMG API Stats')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
       .addField('Version', `v${version}`, true)
       .addField('Ping', `${after} ms`)
       .addField('Uptime', this.client.utils.getDuration(uptime * 1000))
-      .addField('Memory Stats', [
-        `**Used:** ${this.client.utils.getBytes(stats.Alloc)} / ${this.client.utils.getBytes(stats.Sys)}`,
-        `**Garbage Collected:** ${this.client.utils.getBytes(stats.TotalAlloc - stats.Alloc)}`,
-        `**GC Cycles:** ${stats.NumGC}`,
-        `**Forced GC Cycles:** ${stats.NumForcedGC}`,
-        `**Next GC Target:** ${this.client.utils.getBytes(stats.NextGC)}`,
-        `**Goroutines:** ${goroutines}`
-      ].join('\n'))
+      .addField('Memory Stats', [`**Used:** ${this.client.utils.getBytes(stats.Alloc)} / ${this.client.utils.getBytes(stats.Sys)}`, `**Garbage Collected:** ${this.client.utils.getBytes(stats.TotalAlloc - stats.Alloc)}`, `**GC Cycles:** ${stats.NumGC}`, `**Forced GC Cycles:** ${stats.NumForcedGC}`, `**Next GC Target:** ${this.client.utils.getBytes(stats.NextGC)}`, `**Goroutines:** ${goroutines}`].join('\n'))
 
     return ctx.reply({ embed })
   }

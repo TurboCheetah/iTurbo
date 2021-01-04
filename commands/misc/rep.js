@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Reputation extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Give a reputation point to someone.',
       usage: 'rep <@user>',
@@ -10,11 +10,13 @@ class Reputation extends Command {
     })
   }
 
-  async run (ctx, [user]) {
+  async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user)
     if (user.bot) return ctx.reply('Bots cannot earn reputation points.')
     if (user.id === ctx.author.id) return ctx.reply('You cannot give a reputation point to yourself.')
-    if (ctx.author.settings.repcooldown && (Date.now() < ctx.author.settings.repcooldown)) { return ctx.reply(`You can give another reputation point in **${this.client.utils.getDuration(ctx.author.settings.repcooldown - Date.now())}**`) }
+    if (ctx.author.settings.repcooldown && Date.now() < ctx.author.settings.repcooldown) {
+      return ctx.reply(`You can give another reputation point in **${this.client.utils.getDuration(ctx.author.settings.repcooldown - Date.now())}**`)
+    }
     await user.syncSettings()
     const reputation = user.settings.reputation + 1
     await user.update({ reputation })

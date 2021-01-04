@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Help extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'View help for commands.',
       usage: 'help [command]',
@@ -10,7 +10,7 @@ class Help extends Command {
     })
   }
 
-  async run (ctx, [command]) {
+  async run(ctx, [command]) {
     const splitCategory = (embedObj, text, maxLen = 1024) => {
       if (text.length > maxLen) {
         for (let fieldNum = 1; fieldNum < Math.ceil(text.length / 1024); fieldNum++) {
@@ -38,7 +38,7 @@ class Help extends Command {
         const category = this.client.utils.toProperCase(command)
         const cmds = map[category].map(i => `[\`${i}\`](https://turbo.ooo '${this.store.get(i).description}${this.store.get(i).aliases.length > 0 ? `\nAliases: ${this.store.get(i).aliases.join(', ')}` : ''}')`).join(' ')
         const embed = new MessageEmbed()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
           .setAuthor(`Help - ${category}`, this.client.user.displayAvatarURL({ size: 32 }))
           .setDescription(`For more information about a command run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <command>\``)
           .addField('Commands', cmds.substr(0, cmds.substr(0, 1024 - 3).lastIndexOf(' [')))
@@ -52,7 +52,7 @@ class Help extends Command {
 
       let cost = 'Free'
 
-      if (cmd.cost && (ctx.guild && ctx.guild.settings.social)) {
+      if (cmd.cost && ctx.guild && ctx.guild.settings.social) {
         const premium = await this.client.verifyPremium(ctx.author)
 
         if (premium) {
@@ -63,25 +63,21 @@ class Help extends Command {
         }
       }
 
-      if (cmd.nsfw && (ctx.guild && !ctx.channel.nsfw)) { return ctx.reply("You can't view details of that command in a non NSFW channel.") }
+      if (cmd.nsfw && ctx.guild && !ctx.channel.nsfw) {
+        return ctx.reply("You can't view details of that command in a non NSFW channel.")
+      }
 
-      return ctx.reply(new MessageEmbed()
-        .setTitle(`Help - ${cmd.name}`)
-        .setColor(0x9590EE)
-        .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
-        .setDescription([
-          `**Description:** ${cmd.description}`,
-          `**Category:** ${cmd.category}`,
-          `**Aliases:** ${cmd.aliases.length ? cmd.aliases.join(', ') : 'None'}`,
-          `**Cooldown:** ${cmd.cooldown ? cmd.cooldown + ' Seconds' : 'None'}`,
-          `**Usage:** ${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`,
-          `**Cost:** ${cost}`,
-          `**Extended Help:** ${cmd.extendedHelp}`
-        ].join('\n')))
+      return ctx.reply(
+        new MessageEmbed()
+          .setTitle(`Help - ${cmd.name}`)
+          .setColor(0x9590ee)
+          .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
+          .setDescription([`**Description:** ${cmd.description}`, `**Category:** ${cmd.category}`, `**Aliases:** ${cmd.aliases.length ? cmd.aliases.join(', ') : 'None'}`, `**Cooldown:** ${cmd.cooldown ? cmd.cooldown + ' Seconds' : 'None'}`, `**Usage:** ${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`, `**Cost:** ${cost}`, `**Extended Help:** ${cmd.extendedHelp}`].join('\n'))
+      )
     }
 
     const embed = new MessageEmbed()
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       // .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
       .setAuthor('Help', this.client.user.displayAvatarURL({ size: 64 }))
       .setDescription(`For all commands in a category run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <category>\`\nIf you need further help feel free to join the [support server](https://discord.gg/011UYuval0uSxjmuQ).`)

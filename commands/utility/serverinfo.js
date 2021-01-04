@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class ServerInfo extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       guildOnly: true,
       aliases: ['guild', 'si', 'server'],
@@ -25,17 +25,18 @@ class ServerInfo extends Command {
     }
   }
 
-  async run (ctx) {
+  async run(ctx) {
     const days = Math.floor((new Date() - ctx.guild.createdAt) / (1000 * 60 * 60 * 24))
-    const bans = await ctx.guild.fetchBans()
-      .then((bans) => bans.size)
+    const bans = await ctx.guild
+      .fetchBans()
+      .then(bans => bans.size)
       .catch(() => "Couldn't fetch bans.")
 
     if (!ctx.guild.owner) await ctx.guild.members.fetch(ctx.guild.ownerID).catch(() => null)
 
     const embed = new MessageEmbed()
       .setAuthor(ctx.guild.name, ctx.guild.iconURL({ size: 128 }))
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setThumbnail(ctx.guild.iconURL())
       .addField('❯ Creation Date', `${ctx.guild.createdAt.toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} (${days} days ago!)`, true)
       .addField('❯ Region', ctx.guild.region, true)

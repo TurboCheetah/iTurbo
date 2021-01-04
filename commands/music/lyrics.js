@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Lyrics extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: "Get a song's lyrics.",
       usage: 'lyrics <song name|current|lyrics <lyrics>>',
@@ -11,9 +11,10 @@ class Lyrics extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     const search = async (song, textOnly = false) => {
-      this.client.ksoft.lyrics.search(song, { limit: 1, textOnly: textOnly })
+      this.client.ksoft.lyrics
+        .search(song, { limit: 1, textOnly: textOnly })
         .then(track => {
           const { name, artist, lyrics, url, artwork } = track[0]
 
@@ -23,12 +24,12 @@ class Lyrics extends Command {
             .setURL(url)
             .setThumbnail(artwork)
             .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-            .setColor(0x9590EE)
+            .setColor(0x9590ee)
             .setFooter('Powered by KSoft.si')
 
           return ctx.reply({ embed })
         })
-        .catch(_err => {
+        .catch(() => {
           return ctx.reply('No results found with that query.')
         })
     }
@@ -44,9 +45,9 @@ class Lyrics extends Command {
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
         .setDescription('What song would you like to find the lyrics for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
         .setTimestamp()
-        .setColor(0x9590EE)
+        .setColor(0x9590ee)
 
-      const filter = (msg) => msg.author.id === ctx.author.id
+      const filter = msg => msg.author.id === ctx.author.id
       const response = await ctx.message.awaitReply('', filter, 60000, embed)
       if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 
@@ -63,11 +64,11 @@ class Lyrics extends Command {
       if (!args[0]) {
         const embed = new MessageEmbed()
           .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
-          .setDescription('What are the lyrics you\'d like to search?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
+          .setDescription("What are the lyrics you'd like to search?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.")
           .setTimestamp()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
 
-        const filter = (msg) => msg.author.id === ctx.author.id
+        const filter = msg => msg.author.id === ctx.author.id
         const response = await ctx.message.awaitReply('', filter, 60000, embed)
         if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 

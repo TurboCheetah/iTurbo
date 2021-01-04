@@ -2,9 +2,9 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class playList extends Event {
-  async run (msg, queue, playlist, song) {
+  async run(msg, queue, playlist, song) {
     const embed = new MessageEmbed()
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setAuthor(`🎵 Now Playing Playlist ${playlist.name}`)
       .setTitle(`Now playing ${playlist.songs[0].name}`)
       .setURL(playlist.songs[0].url)

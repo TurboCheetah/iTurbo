@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Enable extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Enables a command or event.',
       ownerOnly: true,
@@ -10,7 +10,7 @@ class Enable extends Command {
     })
   }
 
-  async run (ctx, [piece]) {
+  async run(ctx, [piece]) {
     if (!piece) return ctx.reply('What am I supposed to enable?')
     piece = this.store.get(piece) || this.client.events.get(piece)
     if (!piece) return ctx.reply('That piece does not exist!')

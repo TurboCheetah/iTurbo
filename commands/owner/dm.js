@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class DM extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'DMs someone',
       ownerOnly: true,
@@ -11,7 +11,7 @@ class DM extends Command {
     })
   }
 
-  async run (ctx, [user, ...message]) {
+  async run(ctx, [user, ...message]) {
     user = await this.verifyUser(ctx, user)
 
     try {

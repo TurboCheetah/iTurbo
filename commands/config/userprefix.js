@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class UserPrefix extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Manage Per-User Global prefixes.',
       aliases: ['uprefix'],
@@ -12,14 +12,18 @@ class UserPrefix extends Command {
     })
   }
 
-  async run (ctx, [action = 'list', ...args]) {
-    if (!['add', 'remove', 'list'].includes(action)) { return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``) }
+  async run(ctx, [action = 'list', ...args]) {
+    if (!['add', 'remove', 'list'].includes(action)) {
+      return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    }
 
     return this[action](ctx, args)
   }
 
-  async add (ctx, args) {
-    if (ctx.author.settings.prefix && ctx.author.settings.prefix.length >= 10) { return ctx.reply("You can't have more than 10 prefixes. Remove some before trying again.") }
+  async add(ctx, args) {
+    if (ctx.author.settings.prefix && ctx.author.settings.prefix.length >= 10) {
+      return ctx.reply("You can't have more than 10 prefixes. Remove some before trying again.")
+    }
 
     const prefixInput = args.join(' ').toLowerCase()
     if (!prefixInput) return ctx.reply('You must provide a prefix.')
@@ -39,20 +43,24 @@ class UserPrefix extends Command {
     return ctx.reply(`${this.client.constants.success} Successfully added the prefix \`${prefixInput}\` to your list of prefixes.`)
   }
 
-  async list (ctx) {
-    if (!ctx.author.settings.prefix || !ctx.author.settings.prefix.length) { return ctx.reply("You don't have any user prefixes yet!") }
+  async list(ctx) {
+    if (!ctx.author.settings.prefix || !ctx.author.settings.prefix.length) {
+      return ctx.reply("You don't have any user prefixes yet!")
+    }
 
     const embed = new MessageEmbed()
       .setTitle('User Prefixes')
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setColor(0x9590EE)
-      .setDescription(ctx.author.settings.prefix.map((prefix) => `• ${prefix}`).join('\n'))
+      .setColor(0x9590ee)
+      .setDescription(ctx.author.settings.prefix.map(prefix => `• ${prefix}`).join('\n'))
 
     return ctx.reply({ embed })
   }
 
-  async remove (ctx, args) {
-    if (!ctx.author.settings.prefix || !ctx.author.settings.prefix) { return ctx.reply("You don't have any prefixes to remove!") }
+  async remove(ctx, args) {
+    if (!ctx.author.settings.prefix || !ctx.author.settings.prefix) {
+      return ctx.reply("You don't have any prefixes to remove!")
+    }
 
     const prefixInput = args.join(' ').toLowerCase()
     if (!prefixInput) return ctx.reply('You must provide a prefix to remove!')

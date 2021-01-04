@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Award extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Award points to someone.',
       userPermissions: ['ADMINISTRATOR'],
@@ -12,7 +12,7 @@ class Award extends Command {
     })
   }
 
-  async run (ctx, [member, amount]) {
+  async run(ctx, [member, amount]) {
     member = await this.verifyMember(ctx, member)
     amount = this.verifyInt(amount)
 
@@ -28,7 +28,9 @@ class Award extends Command {
     await member.syncSettings()
 
     // Even more guard.
-    if (member.points >= Number.MAX_SAFE_INTEGER) { return ctx.reply(`N-nani? **${member.displayName}** have too much credits that I can't even keep track of it anymore. You cannot reward them anymore credits until they spend some.`) }
+    if (member.points >= Number.MAX_SAFE_INTEGER) {
+      return ctx.reply(`N-nani? **${member.displayName}** have too much credits that I can't even keep track of it anymore. You cannot reward them anymore credits until they spend some.`)
+    }
 
     await member.givePoints(amount)
 

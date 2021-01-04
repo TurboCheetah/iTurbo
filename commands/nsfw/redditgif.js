@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const fetch = require('node-fetch')
 
 class RedditGif extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Returns a random reddit post.',
       usage: 'redditgif',
@@ -16,15 +16,17 @@ class RedditGif extends Command {
     this.errorMessage = 'There was an error. Reddit may be down, or the subreddit doesnt exist.'
   }
 
-  async run (ctx) {
+  async run(ctx) {
     const subreddits = ['nsfw_gif', 'nsfw_gifs', 'porn_gifs', 'povjiggle', 'slowmojiggles', 'tittydrop', 'verticalgifs']
     const data = await fetch(`https://www.reddit.com/r/${this.client.utils.random(subreddits)}.json?limit=800&?sort=hot&t=all`)
-      .then((res) => res.json())
-      .then((body) => {
+      .then(res => res.json())
+      .then(body => {
         if (body.error) throw this.errorMessage
         return body.data.children
       })
-      .catch(() => { throw this.errorMessage })
+      .catch(() => {
+        throw this.errorMessage
+      })
 
     const nsfwPost = this.client.utils.random(data).data
 

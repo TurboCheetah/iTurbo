@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Permissions extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'View all permissions of a User.',
       usage: 'permissions [user]',
@@ -12,16 +12,19 @@ class Permissions extends Command {
     })
   }
 
-  async run (ctx, [member]) {
+  async run(ctx, [member]) {
     member = await this.verifyMember(ctx, member, true)
-    return ctx.reply(new MessageEmbed()
-      .setTitle(`${member.displayName}'s Permissions in #${ctx.channel.name} in ${ctx.guild.name}`)
-      .setColor(0x9590EE)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setDescription(Object.entries(ctx.channel.permissionsFor(member).serialize())
-        .map((perms) => `${perms[1] ? this.client.constants.success : this.client.constants.error} ${
-          this.client.events.get('message').friendlyPerms[perms[0]]}`)
-        .join('\n')))
+    return ctx.reply(
+      new MessageEmbed()
+        .setTitle(`${member.displayName}'s Permissions in #${ctx.channel.name} in ${ctx.guild.name}`)
+        .setColor(0x9590ee)
+        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+        .setDescription(
+          Object.entries(ctx.channel.permissionsFor(member).serialize())
+            .map(perms => `${perms[1] ? this.client.constants.success : this.client.constants.error} ${this.client.events.get('message').friendlyPerms[perms[0]]}`)
+            .join('\n')
+        )
+    )
   }
 }
 

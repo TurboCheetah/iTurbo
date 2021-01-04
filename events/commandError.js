@@ -2,7 +2,7 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class CommandError extends Event {
-  async run (ctx, err) {
+  async run(ctx, err) {
     // Allow `throw "Error message"` to rewind stack and reply from nested calls from a command.
     if (typeof err === 'string') return ctx.reply(err)
     console.log(`[COMMAND] ${ctx.command.name}: ${err.stack || err}`)
@@ -11,7 +11,7 @@ class CommandError extends Event {
     if (!channel) return
     const embed = new MessageEmbed()
       .setTitle('Command Error')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setDescription(`An Error occured in command: ${ctx.command.name}\n\`\`\`js\n${err.stack || err}\`\`\``)
       .setFooter(`User: ${ctx.author.tag}, Guild: ${ctx.guild ? ctx.guild.name : 'DM'}`)
     return channel.send({ embed })

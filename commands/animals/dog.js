@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
 
 class Dog extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       aliases: ['randomdog', 'woof'],
       description: 'Grabs a random dog image from random.dog.',
@@ -13,15 +13,16 @@ class Dog extends Command {
     })
   }
 
-  async run (ctx) {
-    const { message } = await fetch('https://dog.ceo/api/breeds/image/random')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { message } = await fetch('https://dog.ceo/api/breeds/image/random').then(res => res.json())
 
-    return ctx.reply(new MessageEmbed()
-      .setTitle('Random Dog')
-      .setImage(message)
-      .setColor(0x9590EE)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 })))
+    return ctx.reply(
+      new MessageEmbed()
+        .setTitle('Random Dog')
+        .setImage(message)
+        .setColor(0x9590ee)
+        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+    )
   }
 }
 

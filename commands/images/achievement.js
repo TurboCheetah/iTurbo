@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageAttachment } = require('discord.js')
 
 class Achievement extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Achievement Get!',
       cooldown: 3,
@@ -11,12 +11,11 @@ class Achievement extends Command {
     })
   }
 
-  async run (ctx, [user, ...args]) {
-    user = await this.verifyUser(ctx, user, true)
-      .catch(() => {
-        args.unshift(user)
-        return ctx.author
-      })
+  async run(ctx, [user, ...args]) {
+    user = await this.verifyUser(ctx, user, true).catch(() => {
+      args.unshift(user)
+      return ctx.author
+    })
 
     if (!args.length) return ctx.reply('You need to provide some text.')
 

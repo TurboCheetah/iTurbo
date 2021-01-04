@@ -3,7 +3,7 @@ const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
 
 class Crypto extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Gets information on the specified cryptocurrency',
       aliases: [],
@@ -15,7 +15,7 @@ class Crypto extends Command {
     })
   }
 
-  async run (ctx, [coin, fiat = 'USD']) {
+  async run(ctx, [coin, fiat = 'USD']) {
     const toFixedNum = (num, precision) => {
       return Number((+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision))
     }
@@ -36,14 +36,17 @@ class Crypto extends Command {
         interval: '1d'
       }
 
-      const data = await axios.request(options).then(res => {
-        return res.data
-      }).catch(err => {
-        console.error(err)
-      })
+      const data = await axios
+        .request(options)
+        .then(res => {
+          return res.data
+        })
+        .catch(err => {
+          console.error(err)
+        })
 
       const embed = new MessageEmbed()
-        .setColor(0x9590EE)
+        .setColor(0x9590ee)
         .setTitle('Current Crypto Prices')
         .addField(`Bitcoin (${data[0].symbol})`, `$${toFixedNum(Number(data[0].price), 2).toLocaleString()} USD`, true)
         .addField(`Ethereum (${data[1].symbol})`, `$${toFixedNum(Number(data[1].price), 2).toLocaleString()} USD`, true)
@@ -59,14 +62,17 @@ class Crypto extends Command {
       convert: fiat.toUpperCase()
     }
 
-    const data = await axios.request(options).then(res => {
-      return res.data
-    }).catch(err => {
-      console.error(err)
-    })
+    const data = await axios
+      .request(options)
+      .then(res => {
+        return res.data
+      })
+      .catch(err => {
+        console.error(err)
+      })
 
     const embed = new MessageEmbed()
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setAuthor(data[0].name, `https://icons.bitbot.tools/api/${coin}/128x128`)
       .addField('Price', `$${toFixedNum(Number(data[0].price), 2).toLocaleString()} ${fiat.toUpperCase()}`, true)
       .addField('Market Cap', `$${toFixedNum(Number(data[0].market_cap), 2).toLocaleString()}`, true)

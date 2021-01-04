@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const fetch = require('node-fetch')
 
 class YearFact extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Get a fact about a year or random year',
       cooldown: 5,
@@ -11,9 +11,9 @@ class YearFact extends Command {
     })
   }
 
-  async run (ctx, [year = 'random']) {
+  async run(ctx, [year = 'random']) {
     if (year !== 'random' && isNaN(parseInt(year))) return ctx.reply('Does that look like a year to you?')
-    const text = await fetch(`http://numbersapi.com/${year}/year`).then((res) => res.text())
+    const text = await fetch(`http://numbersapi.com/${year}/year`).then(res => res.text())
     return ctx.reply(`**${text}**`)
   }
 }

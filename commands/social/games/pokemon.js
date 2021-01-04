@@ -3,7 +3,7 @@ const pokemons = require('../../../assets/json/pokemon.json')
 const { MessageEmbed } = require('discord.js')
 
 class Pokemon extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Guess That Pokemon',
       category: 'Fun',
@@ -14,17 +14,17 @@ class Pokemon extends Command {
     })
   }
 
-  async run (ctx) {
+  async run(ctx) {
     const pokemon = this.client.utils.random(pokemons)
 
     const embed = new MessageEmbed()
       .setTitle("You have 15 seconds to guess! Who's that Pokémon!")
       .setAuthor(ctx.member.displayName, ctx.author.displayAvatarURL({ size: 64 }))
       .setImage(pokemon.imageURL)
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
 
     const msg = await ctx.reply({ embed })
-    const filter = (msg) => msg.author.id === ctx.author.id
+    const filter = msg => msg.author.id === ctx.author.id
     const attempts = await ctx.channel.awaitMessages(filter, { time: 15000, max: 1 })
 
     if (!attempts || !attempts.size) {

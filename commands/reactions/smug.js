@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class Smug extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Someone feels a bit smug',
       cooldown: 3,
@@ -12,13 +12,12 @@ class Smug extends Command {
     })
   }
 
-  async run (ctx) {
-    const { url } = await fetch('https://nekos.life/api/v2/img/smug')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { url } = await fetch('https://nekos.life/api/v2/img/smug').then(res => res.json())
 
     const embed = new MessageEmbed()
       .setTitle('Smug')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
 

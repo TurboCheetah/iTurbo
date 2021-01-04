@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class HentaiGIF extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Hentai GIF',
       cooldown: 5,
@@ -14,13 +14,12 @@ class HentaiGIF extends Command {
     })
   }
 
-  async run (ctx) {
-    const { url } = await fetch('https://nekos.life/api/v2/img/Random_hentai_gif')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { url } = await fetch('https://nekos.life/api/v2/img/Random_hentai_gif').then(res => res.json())
 
     const embed = new MessageEmbed()
       .setTitle('Hentai GIF')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
 

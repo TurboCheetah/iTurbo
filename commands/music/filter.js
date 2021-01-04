@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Filter extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Enable or disable a filter. Run the command again to disable a filter.',
       aliases: [],
@@ -14,19 +14,15 @@ class Filter extends Command {
     })
   }
 
-  async run (ctx, [filter = 'list']) {
+  async run(ctx, [filter = 'list']) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
-    const embed = new MessageEmbed()
-      .setColor(0x9590EE)
-      .setAuthor(`| ${!player[filter] ? 'Enabled' : 'Disabled'} the ${filter.toLowerCase()} filter`, ctx.author.displayAvatarURL({ size: 512 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| ${!player[filter] ? 'Enabled' : 'Disabled'} the ${filter.toLowerCase()} filter`, ctx.author.displayAvatarURL({ size: 512 }))
 
     switch (filter.toLowerCase()) {
       case 'list':

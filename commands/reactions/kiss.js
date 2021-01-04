@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class Kiss extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Kiss someone',
       usage: 'kiss <@member>',
@@ -14,17 +14,16 @@ class Kiss extends Command {
     })
   }
 
-  async run (ctx, [member]) {
+  async run(ctx, [member]) {
     member = await this.verifyMember(ctx, member)
 
     if (member.id === ctx.author.id) return ctx.reply("You can't kiss yourself!")
 
-    const { url } = await fetch('https://nekos.life/api/v2/img/kiss')
-      .then((res) => res.json())
+    const { url } = await fetch('https://nekos.life/api/v2/img/kiss').then(res => res.json())
 
     const embed = new MessageEmbed()
       .setTitle('Kiss')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setDescription(`**${member.displayName}**, you just got a kiss from **${ctx.member.displayName}**`)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))

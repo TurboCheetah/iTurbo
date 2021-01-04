@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Badge extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Get a themed badge from robohash.org',
       usage: 'badge [@user] [set]',
@@ -12,17 +12,21 @@ class Badge extends Command {
     })
   }
 
-  async run (ctx, [user, set = 1]) {
+  async run(ctx, [user, set = 1]) {
     user = await this.verifyUser(ctx, user, true)
 
-    if (isNaN(parseInt(set)) || (parseInt(set) < 0 || parseInt(set) > 5)) { return ctx.reply('Set must be a number between 1 to 5') }
+    if (isNaN(parseInt(set)) || parseInt(set) < 0 || parseInt(set) > 5) {
+      return ctx.reply('Set must be a number between 1 to 5')
+    }
 
-    return ctx.reply(new MessageEmbed()
-      .setImage(`https://robohash.org/${user.id}?set=set${set}`)
-      .setTitle(`${user.tag}'s unique RoboHash.org Set ${set} Avatar.`)
-      .setColor(0x9590EE)
-      .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
-      .setTimestamp())
+    return ctx.reply(
+      new MessageEmbed()
+        .setImage(`https://robohash.org/${user.id}?set=set${set}`)
+        .setTitle(`${user.tag}'s unique RoboHash.org Set ${set} Avatar.`)
+        .setColor(0x9590ee)
+        .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
+        .setTimestamp()
+    )
   }
 }
 

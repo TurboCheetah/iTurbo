@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Mimic extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Copy someone and talk as them.',
       aliases: ['copycat'],
@@ -13,7 +13,7 @@ class Mimic extends Command {
     })
   }
 
-  async run (ctx, [user, ...message]) {
+  async run(ctx, [user, ...message]) {
     if (!message || message.length === 0) {
       return ctx.reply('Please specify a message!')
     }

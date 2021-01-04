@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
 
 class GitHub extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'View a GitHub repository details.',
       aliases: ['gh'],
@@ -13,14 +13,14 @@ class GitHub extends Command {
     })
   }
 
-  async run (ctx, [repo]) {
+  async run(ctx, [repo]) {
     if (!repo) return ctx.reply('What repository am i supposed to show you?')
 
     const [username, repository] = repo.split('/')
     if (!username || !repo) return ctx.reply('Repository must be in the form `username/repository`')
 
     const body = await fetch(`https://api.github.com/repos/${username}/${repository}`)
-      .then((res) => res.ok && res.json())
+      .then(res => res.ok && res.json())
       .catch(() => null)
 
     if (!body) return ctx.reply('Could not fetch that repo, are you sure it exists?')
@@ -33,7 +33,7 @@ class GitHub extends Command {
 
     const embed = new MessageEmbed()
       .setTitle(body.full_name)
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setAuthor('GitHub', 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png')
       .setURL(body.html_url)
       .setThumbnail(body.owner.avatar_url)

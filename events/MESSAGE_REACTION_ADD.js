@@ -2,17 +2,18 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class RawMessageReactionAdd extends Event {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       raw: true
     })
   }
 
-  async run (packet, shard) { // eslint-disable-line no-unused-vars
+  async run(packet, shard) {
+    // eslint-disable-line no-unused-vars
     if (packet.emoji.name === '⭐') return this.starboard(packet)
   }
 
-  async starboard (packet) {
+  async starboard(packet) {
     // Grab the channel.
     const channel = this.client.channels.cache.get(packet.channel_id)
     if (!channel || channel.type !== 'text') return
@@ -37,15 +38,12 @@ class RawMessageReactionAdd extends Event {
     if (msg.author.id === user.id) return
 
     // Fetch last 50 messages from the starboard channel.
-    const messages = await starboard.messages.fetch({ limit: 50 })
-      .catch(() => null)
+    const messages = await starboard.messages.fetch({ limit: 50 }).catch(() => null)
 
     if (!messages) return
 
     // Try to find an existing starboard message.
-    const stars = messages.find((m) => m.author.id === this.client.user.id && m.embeds.length &&
-      m.embeds[0].footer && m.embeds[0].footer.text && m.embeds[0].footer.text.startsWith('⭐') &&
-      m.embeds[0].footer.text.endsWith(msg.id))
+    const stars = messages.find(m => m.author.id === this.client.user.id && m.embeds.length && m.embeds[0].footer && m.embeds[0].footer.text && m.embeds[0].footer.text.startsWith('⭐') && m.embeds[0].footer.text.endsWith(msg.id))
 
     // If we found the existing message just update the star count.
     if (stars) {
@@ -75,7 +73,7 @@ class RawMessageReactionAdd extends Event {
     if (msg.reactions.cache.get('⭐').count < guild.settings.starboardLimit) return
 
     // Grab the content.
-    const content = msg.content ? msg.content : (msg.embeds.length && msg.embeds[0].description) ? msg.embeds[0].description : ''
+    const content = msg.content ? msg.content : msg.embeds.length && msg.embeds[0].description ? msg.embeds[0].description : ''
 
     // Construct our new embed.
     const embed = new MessageEmbed()
@@ -89,8 +87,7 @@ class RawMessageReactionAdd extends Event {
       .setImage(this.client.utils.getImage(msg))
 
     // Send the embed.
-    return starboard.send({ embed })
-      .catch(() => null)
+    return starboard.send({ embed }).catch(() => null)
   }
 }
 

@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Quote extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Quote a message by id',
       guildOnly: true,
@@ -12,7 +12,7 @@ class Quote extends Command {
     })
   }
 
-  async run (ctx, [channeltxt, messageid]) {
+  async run(ctx, [channeltxt, messageid]) {
     if (!channeltxt && !messageid) return ctx.reply('Give me a message ID to quote!')
 
     let channel = ctx.channel
@@ -21,15 +21,15 @@ class Quote extends Command {
     // quote <id>
     if (channeltxt && !messageid) {
       message = channeltxt
-    } else { // quote <channel> <id>
+    } else {
+      // quote <channel> <id>
       channel = await this.verifyChannel(ctx, channeltxt)
       message = messageid
     }
 
-    message = await channel.messages.fetch(message)
-      .catch(() => {
-        throw 'Message must be a valid message id.'
-      })
+    message = await channel.messages.fetch(message).catch(() => {
+      throw 'Message must be a valid message id.'
+    })
 
     const embed = new MessageEmbed()
       .setTitle('Message Quote')
@@ -39,7 +39,7 @@ class Quote extends Command {
       .setAuthor(message.author.tag, message.author.displayAvatarURL({ size: 64 }))
       .setThumbnail(message.author.displayAvatarURL({ size: 64 }))
       .setImage(this.client.utils.getImage(message))
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
 
     return ctx.reply({ embed })
   }

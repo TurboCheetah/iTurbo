@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class hLesbian extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Lesbian Hentai',
       cooldown: 5,
@@ -14,13 +14,12 @@ class hLesbian extends Command {
     })
   }
 
-  async run (ctx) {
-    const { url } = await fetch('https://nekos.life/api/v2/img/les')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { url } = await fetch('https://nekos.life/api/v2/img/les').then(res => res.json())
 
     const embed = new MessageEmbed()
       .setTitle('Lesbian Hentai')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
 

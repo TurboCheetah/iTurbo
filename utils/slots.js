@@ -63,7 +63,7 @@ const slots = [
   }
 ]
 
-function play () {
+function play() {
   const Mone = random(slots)
   const Mtwo = random(slots)
   const Mthree = random(slots)
@@ -83,11 +83,7 @@ function play () {
   else if (Mone.name === Mthree.name) results.reward += Mone.points + Mthree.points
   else if (Mthree.name === Mtwo.name) results.reward += Mthree.points + Mtwo.points
 
-  results.view = [
-    `${Tone.emoji} | ${Ttwo.emoji} | ${Tthree.emoji}`,
-    `${Mone.emoji} | ${Mtwo.emoji} | ${Mthree.emoji}`,
-    `${Bone.emoji} | ${Btwo.emoji} | ${Bthree.emoji}`
-  ].join('\n')
+  results.view = [`${Tone.emoji} | ${Ttwo.emoji} | ${Tthree.emoji}`, `${Mone.emoji} | ${Mtwo.emoji} | ${Mthree.emoji}`, `${Bone.emoji} | ${Btwo.emoji} | ${Bthree.emoji}`].join('\n')
   return results
 }
 

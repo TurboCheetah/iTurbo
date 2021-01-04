@@ -1,5 +1,5 @@
-
-module.exports = (pool) => pool.query(`
+module.exports = pool =>
+  pool.query(`
 CREATE TABLE IF NOT EXISTS "guilds" (
   id TEXT PRIMARY KEY NOT NULL UNIQUE,
   prefix VARCHAR(10) NOT NULL DEFAULT '|',

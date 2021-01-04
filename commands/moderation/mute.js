@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Mute extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Mutes a user.',
       userPermissions: ['KICK_MEMBERS'],
@@ -12,7 +12,7 @@ class Mute extends Command {
     })
   }
 
-  async run (ctx, [member, ...reason]) {
+  async run(ctx, [member, ...reason]) {
     member = await this.verifyMember(ctx, member)
 
     if (member.id === ctx.author.id) return ctx.reply('Why would you mute yourself?')
@@ -24,17 +24,18 @@ class Mute extends Command {
     reason = reason.length ? reason.join(' ') : null
     const name = 'Muted'
 
-    const mutedRole = ctx.guild.roles.cache.find((role) => role.name.toLowerCase() === name.toLowerCase())
+    const mutedRole = ctx.guild.roles.cache.find(role => role.name.toLowerCase() === name.toLowerCase())
 
     if (!mutedRole) {
-      ctx.guild.roles.create({
-        data: {
-          name: 'Muted',
-          color: 'RED',
-          permissions: 'VIEW_CHANNEL'
-        },
-        reason: 'Muted role did not previously exist or could not be found.'
-      })
+      ctx.guild.roles
+        .create({
+          data: {
+            name: 'Muted',
+            color: 'RED',
+            permissions: 'VIEW_CHANNEL'
+          },
+          reason: 'Muted role did not previously exist or could not be found.'
+        })
         .then(role => {
           ctx.guild.channels.forEach(async channel => {
             await channel.overwritePermissions(role, {
@@ -56,11 +57,11 @@ class Mute extends Command {
     if (ctx.guild.settings.modlog) {
       const channel = this.client.channels.cache.get(ctx.guild.settings.modlog)
       if (!channel) return
-      var caseNum = ctx.guild.settings.modlogCase
+      let caseNum = ctx.guild.settings.modlogCase
       caseNum++
       await ctx.guild.update({ modlogCase: caseNum })
-      var embed = new MessageEmbed()
-        .setColor(0x9590EE)
+      const embed = new MessageEmbed()
+        .setColor(0x9590ee)
         .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL({ size: 32 }))
         .addField('Action', 'Mute')
         .addField('Reason', reason || 'No reason specified')

@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Prune extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       userPermissions: ['MANAGE_MESSAGES'],
       botPermissions: ['MANAGE_MESSAGES'],
@@ -12,7 +12,7 @@ class Prune extends Command {
     })
   }
 
-  async run (ctx, [limit, filter = null]) {
+  async run(ctx, [limit, filter = null]) {
     limit = this.verifyInt(limit, 50)
     if (limit > 100) {
       return ctx.reply('I can only clean up to 100 messages at a time!')
@@ -35,16 +35,24 @@ class Prune extends Command {
     })
   }
 
-  getFilter (ctx, filter, user) {
+  getFilter(ctx, filter, user) {
     switch (filter) {
-      case 'link': return (msg) => /https?:\/\/[^ /.]+\.[^ /.]+/.test(msg.content)
-      case 'invite': return (msg) => /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.com\/invite)\/.+/.test(msg.content)
-      case 'bots': return (msg) => msg.author.bot
-      case 'you': return (msg) => msg.author.id === this.client.user.id
-      case 'me': return (msg) => msg.author.id
-      case 'upload': return (msg) => msg.attachments.size > 0
-      case 'user': return (msg) => msg.author.id === user.id
-      default: return () => true
+      case 'link':
+        return msg => /https?:\/\/[^ /.]+\.[^ /.]+/.test(msg.content)
+      case 'invite':
+        return msg => /(https?:\/\/)?(www\.)?(discord\.(gg|li|me|io)|discordapp\.com\/invite)\/.+/.test(msg.content)
+      case 'bots':
+        return msg => msg.author.bot
+      case 'you':
+        return msg => msg.author.id === this.client.user.id
+      case 'me':
+        return msg => msg.author.id
+      case 'upload':
+        return msg => msg.attachments.size > 0
+      case 'user':
+        return msg => msg.author.id === user.id
+      default:
+        return () => true
     }
   }
 }

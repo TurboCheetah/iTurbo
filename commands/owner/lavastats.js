@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const { Embeds } = require('discord-paginationembed')
 
 class LavaStats extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'View Lavalink stats.',
       ownerOnly: true,
@@ -12,7 +12,7 @@ class LavaStats extends Command {
     })
   }
 
-  async run (ctx, [page = 1]) {
+  async run(ctx, [page = 1]) {
     const embeds = []
     const nodes = this.client.manager.nodes.map(node => node)
     for (const node of nodes) {
@@ -20,13 +20,10 @@ class LavaStats extends Command {
       const minutes = Math.floor((node.stats.uptime / (1000 * 60)) % 60)
       const hours = Math.floor((node.stats.uptime / (1000 * 60 * 60)) % 24)
       const days = Math.floor((node.stats.uptime / (1000 * 60 * 60 * 24)) % 7)
-      const uptime = [`${days} Days`,
-          `${hours} Hours`,
-          `${minutes} Minutes`,
-          `${seconds} Seconds`].filter((time) => !time.startsWith('0')).join(', ')
+      const uptime = [`${days} Days`, `${hours} Hours`, `${minutes} Minutes`, `${seconds} Seconds`].filter(time => !time.startsWith('0')).join(', ')
 
       const nodeEmbed = new MessageEmbed()
-        .setColor(0x9590EE)
+        .setColor(0x9590ee)
         .setAuthor(node.options.host, this.client.user.displayAvatarURL({ size: 64 }))
         .setTitle('Lavalink Stats')
         .addField('CPU', `${node.stats.cpu.systemLoad.toFixed(2) * 10}%`, true)

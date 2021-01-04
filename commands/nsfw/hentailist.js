@@ -5,7 +5,7 @@ const AbortController = require('abort-controller')
 const { MessageEmbed } = require('discord.js')
 
 class HentaiList extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Search for hentai on HentaiList',
       usage: 'hentailist <hentai>',
@@ -17,32 +17,42 @@ class HentaiList extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('What am I supposed to search for?')
     args = args.join('-').toString().split('-')[0]
 
-    const hentailist = async (id) => {
+    const hentailist = async id => {
       const controller = new AbortController()
       const timeout = setTimeout(() => controller.abort(), 5000)
-      var data = await fetch(`http://45.61.147.38:4445/api/hentai/${encodeURIComponent(id)}`, {
+      const data = await fetch(`http://45.61.147.38:4445/api/hentai/${encodeURIComponent(id)}`, {
         signal: controller.signal
-      }).then((r) => r.ok ? r.json() : '')
+      }).then(r => (r.ok ? r.json() : ''))
       clearTimeout(timeout)
 
       if (!data || data.invalid === true) return ctx.reply('No results found.')
 
-      var tags = []
-      for (var i = 0; i < data.tags.length; i++) {
+      const tags = []
+      for (let i = 0; i < data.tags.length; i++) {
         tags[i] = data.tags[i]
       }
 
       const embed = new MessageEmbed()
-        .setColor(0x9590EE)
+        .setColor(0x9590ee)
         .setTitle(data.name)
         .setURL(data.url)
         .setThumbnail(data.cover_url)
         .setImage(data.poster_url)
-        .addField('Description', data.description ? this.client.utils.shorten(data.description.replace(/(<([^>]+)>)/ig, '').replace(/\/r/g, '').replace(/\/n/g, '')) : 'No description given.')
+        .addField(
+          'Description',
+          data.description
+            ? this.client.utils.shorten(
+                data.description
+                  .replace(/(<([^>]+)>)/gi, '')
+                  .replace(/\/r/g, '')
+                  .replace(/\/n/g, '')
+              )
+            : 'No description given.'
+        )
         .addField('Release Date', data.released_at, true)
         .addField('Producer', data.brand, true)
         .addField('Censored', this.client.utils.toProperCase(data.is_censored.toString()), true)
@@ -60,15 +70,17 @@ class HentaiList extends Command {
         // Get latest HAnime upload ID
         const controller = new AbortController()
         const timeout = setTimeout(() => controller.abort(), 5000)
-        var $ = await fetch('https://hanime.tv/', {
+        const $ = await fetch('https://hanime.tv/', {
           signal: controller.signal
-        }).then((r) => {
-          if (!r.ok) throw new Error('Something went wrong.')
-          return r.text()
-        }).then((html) => cheerio.load(html))
+        })
+          .then(r => {
+            if (!r.ok) throw new Error('Something went wrong.')
+            return r.text()
+          })
+          .then(html => cheerio.load(html))
         clearTimeout(timeout)
 
-        var newestID = $('.elevation-3.mb-3.hvc.item.card').first().find('a').attr('alt')
+        let newestID = $('.elevation-3.mb-3.hvc.item.card').first().find('a').attr('alt')
 
         newestID = await hentailist(newestID)
 

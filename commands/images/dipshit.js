@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageAttachment } = require('discord.js')
 
 class Dipshit extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: "Did you mean 'dipshit'?",
       cooldown: 3,
@@ -11,7 +11,7 @@ class Dipshit extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     const user = await this.verifyUser(ctx, args[0], true).catch(() => args.join(' '))
 
     const text = user.username ? user.username : user

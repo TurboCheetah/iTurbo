@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const fetch = require('node-fetch')
 
 class Hastebin extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       aliases: ['hb'],
       description: 'Upload some code to hastebin.',
@@ -11,7 +11,7 @@ class Hastebin extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('What am I supposed to upload?')
 
     const { code, lang } = this.client.utils.getCodeBlock(ctx.rawArgs)
@@ -19,11 +19,10 @@ class Hastebin extends Command {
     const { key } = await fetch('https://haste.turbo.ooo/documents', {
       method: 'POST',
       body: code
+    }).then(res => {
+      if (!res.ok) throw `Something went wrong with Hastebin. Try again later. (Status: ${res.status} ${res.statusText})`
+      return res.json()
     })
-      .then((res) => {
-        if (!res.ok) throw `Something went wrong with Hastebin. Try again later. (Status: ${res.status} ${res.statusText})`
-        return res.json()
-      })
 
     return ctx.reply(`Hastebin-ified: https://haste.turbo.ooo/${key}${lang ? `.${lang}` : ''}`)
   }

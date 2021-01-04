@@ -3,7 +3,7 @@ const yahooStockAPI = require('yahoo-stock-api')
 const { MessageEmbed } = require('discord.js')
 
 class Stock extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Get information about a certain stock.',
       aliases: [],
@@ -12,7 +12,7 @@ class Stock extends Command {
     })
   }
 
-  async run (ctx, [stock]) {
+  async run(ctx, [stock]) {
     const stockData = await yahooStockAPI.getSymbol(stock)
 
     if (!stockData.response) {
@@ -21,12 +21,12 @@ class Stock extends Command {
 
     const embed = new MessageEmbed()
       .setTitle(`${stock.toUpperCase()}`)
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .addField('Previous Close', stockData.response.previousClose ? `$${stockData.response.previousClose.toLocaleString()}` : 'No data available', true)
       .addField('Open', stockData.response.open ? `$${stockData.response.open.toLocaleString()}` : 'No data available', true)
       .addField('Bid', stockData.response.bid ? `$${stockData.response.bid.toLocaleString()}` : 'No data available', true)
       .addField('Ask', stockData.response.ask ? `$${stockData.response.ask.toLocaleString()}` : 'No data available', true)
-      .addField('Today\'s Range', stockData.response.dayRange ? `$${stockData.response.dayRange}` : 'No data available', true)
+      .addField("Today's Range", stockData.response.dayRange ? `$${stockData.response.dayRange}` : 'No data available', true)
       .addField('52 Week Range', stockData.response.fiftyTwoWeekRange ? `$${stockData.response.fiftyTwoWeekRange}` : 'No data available', true)
       .addField('Volume', stockData.response.volume ? `$${stockData.response.volume.toLocaleString()}` : 'No data available', true)
       .addField('Average Volume', stockData.response.avgVolume ? `$${stockData.response.avgVolume.toLocaleString()}` : 'No data available', true)

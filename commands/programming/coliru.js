@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const fetch = require('node-fetch')
 
 class Coliru extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Compiles code through coliru API',
       cooldown: 5,
@@ -21,12 +21,18 @@ class Coliru extends Command {
     }
 
     // Aliases.
-    for (const [x, y] of [['c++', 'cpp'], ['rb', 'ruby'], ['py', 'python'], ['hs', 'haskell'], ['sh', 'shell']]) {
+    for (const [x, y] of [
+      ['c++', 'cpp'],
+      ['rb', 'ruby'],
+      ['py', 'python'],
+      ['hs', 'haskell'],
+      ['sh', 'shell']
+    ]) {
       this.commands[x] = this.commands[y]
     }
   }
 
-  async run (ctx) {
+  async run(ctx) {
     const { lang, code } = this.client.utils.getCodeBlock(ctx.rawArgs)
 
     if (!lang) throw 'Usage: coliru \\`\\`\\`lang\nCode\n\\`\\`\\`\nCodeBlock language will be used to determine how to compile the code.'
@@ -37,19 +43,17 @@ class Coliru extends Command {
     const res = await fetch('http://coliru.stacked-crooked.com/compile', {
       method: 'POST',
       body: JSON.stringify({ cmd, src })
-    })
-      .then((res) => res.text())
+    }).then(res => res.text())
 
     if (res.length < 1980) return ctx.reply(res, { code: lang })
     return this.post(ctx, { cmd, src })
   }
 
-  async post (ctx, { cmd, src }) {
+  async post(ctx, { cmd, src }) {
     const id = await fetch('https://coliru.stacked-crooked.com/share', {
       method: 'POST',
       body: JSON.stringify({ cmd, src })
-    })
-      .then((res) => res.text())
+    }).then(res => res.text())
 
     return ctx.reply(`Output too long. View the results here: https://coliru.stacked-crooked.com/a/${id}`)
   }

@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Bug extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Found a bug? report with this.',
       cooldown: 60,
@@ -12,13 +12,13 @@ class Bug extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('What is the bug report?')
     const channel = this.client.channels.cache.get('735638645486125167')
     const embed = new MessageEmbed()
       .setTitle('Bug Report')
       .setDescription(args.join(' '))
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
       .setFooter(ctx.author.id)
 

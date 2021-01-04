@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Pay extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Pay someone from your balance.',
       cooldown: 3,
@@ -11,7 +11,7 @@ class Pay extends Command {
     })
   }
 
-  async run (ctx, [member, amount]) {
+  async run(ctx, [member, amount]) {
     member = await this.verifyMember(ctx, member)
     amount = this.verifyInt(amount)
 

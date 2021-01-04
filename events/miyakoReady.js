@@ -1,7 +1,7 @@
 const Event = require('../structures/Event.js')
 
 class MiyakoReady extends Event {
-  async run () {
+  async run() {
     // Setup presence.
     this.client.rollPresence()
     // Roll a random presence every 5 minutes.

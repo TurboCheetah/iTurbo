@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Volume extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Adjusts the volume',
       aliases: [],
@@ -14,20 +14,16 @@ class Volume extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
     if (!args[0]) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor(`| The current playback volume is at ${player.volume}%`, ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| The current playback volume is at ${player.volume}%`, ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
@@ -36,9 +32,7 @@ class Volume extends Command {
     }
 
     player.setVolume(Number(args[0]))
-    const embed = new MessageEmbed()
-      .setColor(0x9590EE)
-      .setAuthor(`| Set volume to ${args[0]}%`, ctx.author.displayAvatarURL({ size: 512 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| Set volume to ${args[0]}%`, ctx.author.displayAvatarURL({ size: 512 }))
     ctx.reply({ embed })
   }
 }

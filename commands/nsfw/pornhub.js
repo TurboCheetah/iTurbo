@@ -3,7 +3,7 @@ const pornsearch = require('pornsearch')
 const { MessageEmbed } = require('discord.js')
 
 class Pornhub extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Search for a video or gif on PornHub',
       usage: 'pornhub [gif] <query>',
@@ -14,13 +14,13 @@ class Pornhub extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     switch (args[0]) {
       case 'gif': {
         try {
           args = args.splice(1)
           const search = await pornsearch.search(args).gifs()
-          var result = this.client.utils.random(search)
+          const result = this.client.utils.random(search)
 
           ctx.reply(`${result.title} - ${result.webm}`)
         } catch (err) {
@@ -30,10 +30,10 @@ class Pornhub extends Command {
       }
       default: {
         try {
-          result = await pornsearch.search(args).videos()
+          let result = await pornsearch.search(args).videos()
           result = this.client.utils.random(result)
-          var embed = new MessageEmbed()
-            .setColor(0x9590EE)
+          const embed = new MessageEmbed()
+            .setColor(0x9590ee)
             .setTitle(result.title)
             .setURL(result.url)
             .addField('Duration', result.duration, true)

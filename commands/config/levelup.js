@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class LevelUp extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Enable/Disable Level up messages.',
       aliases: ['levelupmessages', 'levelmessage', 'lvlmsg', 'lvlupmessages'],
@@ -11,7 +11,7 @@ class LevelUp extends Command {
     })
   }
 
-  async run (ctx, [action]) {
+  async run(ctx, [action]) {
     if (!action || !['enable', 'disable'].includes(action)) return ctx.reply('Do you want me to disable or enable it?')
 
     if (action === 'enable') {

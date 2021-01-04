@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class nowPlayingNotify extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Enables or disables now playing notifications',
       usage: 'nowplayingnotify [enable|disable]',
@@ -11,7 +11,7 @@ class nowPlayingNotify extends Command {
     })
   }
 
-  async run (ctx, [args]) {
+  async run(ctx, [args]) {
     if (!ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply('You need the `Manage Server` permissions to change this setting.')
 
     if (args) {
@@ -28,9 +28,9 @@ class nowPlayingNotify extends Command {
       .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
       .setDescription('Would you like to turn now playing notifications **on** or **off**?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
       .setTimestamp()
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
 
-    const filter = (msg) => msg.author.id === ctx.author.id
+    const filter = msg => msg.author.id === ctx.author.id
     const response = await ctx.message.awaitReply('', filter, 60000, embed)
     if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 

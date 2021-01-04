@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Skip extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Skips the current song',
       aliases: [],
@@ -14,13 +14,11 @@ class Skip extends Command {
     })
   }
 
-  async run (ctx) {
+  async run(ctx) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 

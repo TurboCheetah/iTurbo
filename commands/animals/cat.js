@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
 
 class Cat extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Get a picture of a random cat!',
       cooldown: 3,
@@ -12,14 +12,14 @@ class Cat extends Command {
     })
   }
 
-  async run (ctx) {
+  async run(ctx) {
     const file = await fetch('https://aws.random.cat/meow')
-      .then((res) => res.json())
-      .then((body) => body.file)
+      .then(res => res.json())
+      .then(body => body.file)
 
     const embed = new MessageEmbed()
       .setTitle('Random Cat')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
       .setImage(file)
     return ctx.reply({ embed })

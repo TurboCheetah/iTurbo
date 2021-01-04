@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const createBar = require('string-progressbar')
 
 class NowPlaying extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Gets information about the currently playing song',
       aliases: ['np', 'song'],
@@ -15,18 +15,16 @@ class NowPlaying extends Command {
     })
   }
 
-  async run (ctx) {
+  async run(ctx) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
     const embed = new MessageEmbed()
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setAuthor('🎵 Now Playing')
       .setTitle(player.queue.current.title)
       .setURL(player.queue.current.uri)

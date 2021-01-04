@@ -2,7 +2,7 @@ const { Permissions } = require('discord.js')
 const path = require('path')
 
 class Command {
-  constructor (client, file, options) {
+  constructor(client, file, options) {
     this.name = options.name || file.name // Command name.
     this.client = client // Client.
     this.file = file // file path information.
@@ -26,7 +26,7 @@ class Command {
     this.responses = this.client.responses
   }
 
-  async _run (ctx, args) {
+  async _run(ctx, args) {
     try {
       // Run the check function first.
       const check = await this.before(ctx, args)
@@ -51,7 +51,7 @@ class Command {
   /**
    * Verifies that a user is given.
    */
-  async verifyUser (ctx, user, defaultToAuthor = false) {
+  async verifyUser(ctx, user, defaultToAuthor = false) {
     if (!user && defaultToAuthor) return ctx.author
     if (!user) throw 'What do you expect me to do without a user mention or an ID?'
     const match = /^(?:<@!?)?(\d{17,19})>?$/.exec(user)
@@ -65,12 +65,12 @@ class Command {
   /**
    * Verifies that a member is given.
    */
-  async verifyMember (ctx, member, defaultToAuthor = false) {
+  async verifyMember(ctx, member, defaultToAuthor = false) {
     const user = await this.verifyUser(ctx, member, defaultToAuthor)
     return ctx.guild.members.fetch(user)
   }
 
-  async verifyChannel (ctx, channel, defaultToCurrent = false) {
+  async verifyChannel(ctx, channel, defaultToCurrent = false) {
     if (!channel && defaultToCurrent) return ctx.channel
     if (!channel) throw 'You need to mention a channel or provide an ID.'
 
@@ -83,19 +83,19 @@ class Command {
     return chan
   }
 
-  verifyRole (ctx, rolename, optional = false) {
+  verifyRole(ctx, rolename, optional = false) {
     if (!rolename && optional) return null
     if (!rolename) throw 'You must provide a role name or ID.'
     rolename = rolename.toLowerCase()
 
     // We check by ID or name. Nobody mentions roles for an argument.
-    const role = ctx.guild.roles.cache.find((role) => (role.id === rolename) || (role.name.toLowerCase() === rolename))
+    const role = ctx.guild.roles.cache.find(role => role.id === rolename || role.name.toLowerCase() === rolename)
     if (!role) throw 'That role does not exist.'
 
     return role
   }
 
-  verifyInt (num, def) {
+  verifyInt(num, def) {
     if (typeof def === 'number' && !num) return def
     const parsed = parseInt(num)
     if (isNaN(parsed)) throw 'You must provide a valid number.'
@@ -109,27 +109,29 @@ class Command {
    * Incase of string the command won't run but the string is sent to the channel.
    * Incase of true the command is ran as normal.
    */
-  async before (ctx, args) { // eslint-disable-line no-unused-vars
+  async before(ctx, args) {
+    // eslint-disable-line no-unused-vars
     return true
   }
 
   /**
    * The actual command implementation, must be implemented in a subclass.
    */
-  async run (ctx, args) { // eslint-disable-line no-unused-vars
+  async run(ctx, args) {
+    // eslint-disable-line no-unused-vars
     return ctx.reply(`${this.constructor.name} does not provide a \`run()\` implementation.${ctx.author.id !== this.client.constants.ownerID ? ' This is a bug, please report this in our server at https://discord.gg/011UYuval0uSxjmuQ' : ''}`)
   }
 
-  reload () {
+  reload() {
     return this.store.load(this.file.path)
   }
 
-  enable () {
+  enable() {
     this.enabled = true
     return this
   }
 
-  disable () {
+  disable() {
     this.enabled = false
     return this
   }

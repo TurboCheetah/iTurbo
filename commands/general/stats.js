@@ -3,7 +3,7 @@ const { MessageEmbed, version } = require('discord.js')
 const io = require('@pm2/io')
 
 class Stats extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'View bot statistics and information.',
       aliases: ['info', 'uptime'],
@@ -11,7 +11,8 @@ class Stats extends Command {
     })
   }
 
-  async run (ctx) { // eslint-disable-line no-unused-vars
+  async run(ctx) {
+    // eslint-disable-line no-unused-vars
     const { client } = this // Avoid typing a lot of 'this'
 
     // Import PM2 package to take custom metrics
@@ -40,39 +41,19 @@ class Stats extends Command {
     const minutes = Math.floor((client.uptime / (1000 * 60)) % 60)
     const hours = Math.floor((client.uptime / (1000 * 60 * 60)) % 24)
     const days = Math.floor((client.uptime / (1000 * 60 * 60 * 24)) % 7)
-    const uptime = [`${days} Days`,
-      `${hours} Hours`,
-      `${minutes} Minutes`,
-      `${seconds} Seconds`].filter((time) => !time.startsWith('0')).join(', ')
+    const uptime = [`${days} Days`, `${hours} Hours`, `${minutes} Minutes`, `${seconds} Seconds`].filter(time => !time.startsWith('0')).join(', ')
 
-    return ctx.reply(new MessageEmbed()
-      .setTitle('iTurbo - Bot Statistics')
-      .setDescription("Hi, I'm iTurbo. The all-in-one entertainment bot for your server")
-      .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
-      .setColor(0x9590EE)
-      .addField('Bot Stats', [
-        `**Guilds:** ${client.guilds.cache.size}`,
-        `**Users:** ${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}`,
-        `**Channels:** ${client.channels.cache.size}`,
-        `**Music Streams:** ${this.client.manager.players.size}`,
-        `**Uptime:** ${uptime}`,
-        `**API Latency:** ${this.client.ws.ping}ms`,
-        `**Total Memory Usage:** ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`,
-        `**Memory Usage:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`
-      ].join('\n'))
-      .addField('Versions', [
-        `**Bot Version:** ${this.client.version}`,
-        `**Node.js Version:** ${process.version}`,
-        `**Discord.js Version:** v${version}`
-      ].join('\n'))
-      .addField('Command Stats', [
-        `**Total Commands:** ${this.store.size}`,
-        `**Commands Ran:** ${this.store.ran}`
-      ].join('\n'))
-      .addField('Links', [
-        ':envelope_with_arrow: [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)',
-        ':video_game: [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)'
-      ].join('\n')))
+    return ctx.reply(
+      new MessageEmbed()
+        .setTitle('iTurbo - Bot Statistics')
+        .setDescription("Hi, I'm iTurbo. The all-in-one entertainment bot for your server")
+        .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
+        .setColor(0x9590ee)
+        .addField('Bot Stats', [`**Guilds:** ${client.guilds.cache.size}`, `**Users:** ${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}`, `**Channels:** ${client.channels.cache.size}`, `**Music Streams:** ${this.client.manager.players.size}`, `**Uptime:** ${uptime}`, `**API Latency:** ${this.client.ws.ping}ms`, `**Total Memory Usage:** ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`, `**Memory Usage:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`].join('\n'))
+        .addField('Versions', [`**Bot Version:** ${this.client.version}`, `**Node.js Version:** ${process.version}`, `**Discord.js Version:** v${version}`].join('\n'))
+        .addField('Command Stats', [`**Total Commands:** ${this.store.size}`, `**Commands Ran:** ${this.store.ran}`].join('\n'))
+        .addField('Links', [':envelope_with_arrow: [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)', ':video_game: [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)'].join('\n'))
+    )
   }
 }
 

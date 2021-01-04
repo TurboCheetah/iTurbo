@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Reverse extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Reverses your text.',
       usage: 'reverse <text>',
@@ -9,7 +9,7 @@ class Reverse extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('What am I supposed to reverse?')
     return ctx.reply(args.join(' ').split('').reverse().join(''))
   }

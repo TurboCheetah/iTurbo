@@ -2,7 +2,7 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class GuildCreate extends Event {
-  async run (guild) {
+  async run(guild) {
     if (!guild.available) return
 
     const channel = this.client.channels.cache.get('735636902102827108')
@@ -15,7 +15,7 @@ class GuildCreate extends Event {
     const embed = new MessageEmbed()
       .setTitle(exists ? 'An unavailable guild came back' : 'iTurbo joined a new server!')
       .setDescription(guild.name)
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setThumbnail(guild.iconURL())
       .addField('Owner', guild.owner.user.tag)
       .addField('Member Count', guild.memberCount)

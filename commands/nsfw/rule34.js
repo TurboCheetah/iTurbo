@@ -4,7 +4,7 @@ const { posts } = require('rule34js')
 const { shorten } = require('../../utils/Utils.js')
 
 class Rule34 extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Returns a random reddit post.',
       usage: 'rule34 [search]',
@@ -18,9 +18,9 @@ class Rule34 extends Command {
     this.errorMessage = 'There was an error.'
   }
 
-  async run (ctx, query) {
+  async run(ctx, query) {
     const search = query.join('_').split('_|_')
-    var data = await posts({ tags: search })
+    const data = await posts({ tags: search })
 
     if (!ctx.channel.nsfw) {
       return ctx.reply('The result I found was NSFW and I cannot post it in this channel.')
@@ -38,7 +38,7 @@ class Rule34 extends Command {
       .setTitle(`Score: ${random.score}`)
       .addField('Tags', shorten(random.tags))
       .setURL(random.file_url)
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setImage(random.file_url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by Rule34.XXX`, ctx.author.displayAvatarURL({ size: 32 }))
     return ctx.reply({ embed })

@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class AddRole extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Adds a role to someone',
       aliases: ['arole', 'roleadd', 'giverole'],
@@ -12,13 +12,13 @@ class AddRole extends Command {
     })
   }
 
-  async run (ctx, [member, ...rolename]) {
+  async run(ctx, [member, ...rolename]) {
     member = await this.verifyMember(ctx, member)
     rolename = rolename.join(' ')
     if (!rolename) return ctx.reply('You must provide the name or ID of the role you want to add.')
 
     // TODO: Add some role helper.
-    const role = ctx.guild.roles.cache.find((role) => (role.id === rolename) || (role.name.toLowerCase() === rolename.toLowerCase()))
+    const role = ctx.guild.roles.cache.find(role => role.id === rolename || role.name.toLowerCase() === rolename.toLowerCase())
     if (!role) return ctx.reply('That role does not exist!')
 
     if (ctx.member.roles.highest.position <= role.position) return ctx.reply('You cannot add that role.')

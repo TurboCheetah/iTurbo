@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class UserInfo extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Get information on a mentioned user.',
       usage: 'userinfo [@user]',
@@ -19,14 +19,14 @@ class UserInfo extends Command {
     }
   }
 
-  async run (ctx, [member]) {
+  async run(ctx, [member]) {
     member = await this.verifyMember(ctx, member, true)
     const days = Math.floor((new Date() - member.user.createdAt) / (1000 * 60 * 60 * 24))
     const joinedDays = Math.floor((new Date() - member.joinedAt) / (1000 * 60 * 60 * 24))
 
     const embed = new MessageEmbed()
       .setAuthor(member.user.tag, member.user.displayAvatarURL({ size: 128 }))
-      .setColor(member.displayHexColor || 0x9590EE)
+      .setColor(member.displayHexColor || 0x9590ee)
       .setThumbnail(member.user.displayAvatarURL({ size: 512 }))
       .addField('❯ Discord Join Date', `${member.user.createdAt.toDateString()} (${days} days ago!)`, true)
       .addField('❯ Server Join Date', `${member.joinedAt.toDateString()} (${joinedDays} days ago!)`, true)

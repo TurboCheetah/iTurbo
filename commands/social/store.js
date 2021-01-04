@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { FieldsEmbed } = require('discord-paginationembed')
 
 class Store extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Buy/Sell Roles in exchange for social currency.',
       extendedHelp: 'Examples: !store add 1000 VIP (sell VIP role for ¥1000)\n!store add 0 Cool Guy (Sell the Cool Guy role for free)\n!store buy VIP (buy the role.)\n!store sell VIP (sell and remove the role for a 50% refund)',
@@ -13,17 +13,19 @@ class Store extends Command {
     })
   }
 
-  async run (ctx, [action = 'view', ...args]) {
-    if (!['view', 'delete', 'buy', 'sell', 'add'].includes(action)) { return ctx.reply(`Usage: \`${ctx.guild.settings.prefix}${this.usage}\`\n\`\`\`${this.extendedHelp}\n\`\`\``) }
+  async run(ctx, [action = 'view', ...args]) {
+    if (!['view', 'delete', 'buy', 'sell', 'add'].includes(action)) {
+      return ctx.reply(`Usage: \`${ctx.guild.settings.prefix}${this.usage}\`\n\`\`\`${this.extendedHelp}\n\`\`\``)
+    }
 
     return this[action](ctx, args)
   }
 
-  async sell (ctx, args) {
+  async sell(ctx, args) {
     const rolename = args.join(' ').toLowerCase()
     if (!rolename) return ctx.reply(`Usage: \`${ctx.guild.prefix}store sell <rolename>\``)
 
-    const role = ctx.guild.roles.cache.find((r) => (r.id === rolename) || (r.name.toLowerCase() === rolename))
+    const role = ctx.guild.roles.cache.find(r => r.id === rolename || r.name.toLowerCase() === rolename)
     if (!role) return ctx.reply('That role does not exist!')
 
     if (!ctx.member.roles.cache.has(role.id)) return ctx.reply("You don't have that role!")
@@ -31,7 +33,9 @@ class Store extends Command {
     const store = this.client.settings.store.get(role.id)
     if (!store) return ctx.reply('That role is not for sale!')
 
-    if (role.position > ctx.guild.me.roles.highest.position) { return ctx.reply('I cannot remove that role from you! My role position needs to be higher than the role you are trying to sell.') }
+    if (role.position > ctx.guild.me.roles.highest.position) {
+      return ctx.reply('I cannot remove that role from you! My role position needs to be higher than the role you are trying to sell.')
+    }
 
     // Calculate the refund. Which is half the price.
     const refund = Math.floor(parseInt(store.price) / 2)
@@ -42,11 +46,11 @@ class Store extends Command {
     return ctx.reply(`${this.client.constants.success} Successfully sold the role **${role.name}** for **¥${refund.toLocaleString()}** refund.`)
   }
 
-  async buy (ctx, args) {
+  async buy(ctx, args) {
     const rolename = args.join(' ').toLowerCase()
     if (!rolename) return ctx.reply(`Usage: \`${ctx.guild.settings.prefix}store buy <rolename>\``)
 
-    const role = ctx.guild.roles.cache.find((r) => (r.id === rolename) || (r.name.toLowerCase() === rolename))
+    const role = ctx.guild.roles.cache.find(r => r.id === rolename || r.name.toLowerCase() === rolename)
     if (!role) return ctx.reply('That role does not exist!')
 
     if (ctx.member.roles.cache.has(role.id)) return ctx.reply('You already have that role.')
@@ -56,9 +60,13 @@ class Store extends Command {
     if (!store) return ctx.reply('That role is not for sale!')
     const price = parseInt(store.price)
 
-    if (ctx.member.points < price) { return ctx.reply(`You only have **¥${ctx.member.points.toLocaleString()}**, but the role costs: **¥${price.toLocaleString()}**`) }
+    if (ctx.member.points < price) {
+      return ctx.reply(`You only have **¥${ctx.member.points.toLocaleString()}**, but the role costs: **¥${price.toLocaleString()}**`)
+    }
 
-    if (role.position > ctx.guild.me.roles.highest.position) { return ctx.reply('I cannot add that role to you! My role position must be higher than the role you are trying to buy.') }
+    if (role.position > ctx.guild.me.roles.highest.position) {
+      return ctx.reply('I cannot add that role to you! My role position must be higher than the role you are trying to buy.')
+    }
 
     await ctx.member.roles.add(role)
     if (price !== 0) await ctx.member.takePoints(price)
@@ -66,13 +74,15 @@ class Store extends Command {
     return ctx.reply(`${this.client.constants.success} Successfully bought the role **${role.name}** for **¥${price.toLocaleString()}**`)
   }
 
-  async delete (ctx, args) {
-    if (!ctx.member.permissions.has('MANAGE_GUILD')) { return ctx.reply('You need the `Manage Server` permissions to delete roles from the store.') }
+  async delete(ctx, args) {
+    if (!ctx.member.permissions.has('MANAGE_GUILD')) {
+      return ctx.reply('You need the `Manage Server` permissions to delete roles from the store.')
+    }
 
     const rolename = args.join(' ').toLowerCase()
     if (!rolename) return ctx.reply(`Usage: \`${ctx.guild.settings.prefix}store delete <role>\``)
 
-    const role = ctx.guild.roles.cache.find((r) => (r.id === rolename) || (r.name.toLowerCase() === rolename))
+    const role = ctx.guild.roles.cache.find(r => r.id === rolename || r.name.toLowerCase() === rolename)
 
     if (!role) return ctx.reply('That role does not exist.')
 
@@ -82,9 +92,11 @@ class Store extends Command {
     return ctx.reply(`${this.client.constants.success} Successfully removed the role **${role.name}** from the store.`)
   }
 
-  async add (ctx, [price, ...args]) {
+  async add(ctx, [price, ...args]) {
     // Check for permissions.
-    if (!ctx.member.permissions.has('MANAGE_GUILD')) { return ctx.reply('You need the `Manage Server` permissions to add roles to the store.') }
+    if (!ctx.member.permissions.has('MANAGE_GUILD')) {
+      return ctx.reply('You need the `Manage Server` permissions to add roles to the store.')
+    }
 
     if (!price) return ctx.reply(`Usage: \`${ctx.guild.settings.prefix}store add <price> <rolename>`)
     price = this.verifyInt(price)
@@ -95,11 +107,13 @@ class Store extends Command {
     // Verify the role.
     const rolename = args.join(' ').toLowerCase()
     if (!rolename) return ctx.reply(`Usage: \`${ctx.guild.settings.prefix}store add <price> <rolename>\``)
-    const role = ctx.guild.roles.cache.find((r) => (r.id === rolename) || (r.name.toLowerCase() === rolename))
+    const role = ctx.guild.roles.cache.find(r => r.id === rolename || r.name.toLowerCase() === rolename)
     if (!role) return ctx.reply('That role does not exist!')
 
     // Make sure we can add it.
-    if (role.position >= ctx.guild.me.roles.highest.position) { return ctx.reply("I can't add that role to users. My role position must be higher than the role you are trying to sell.") }
+    if (role.position >= ctx.guild.me.roles.highest.position) {
+      return ctx.reply("I can't add that role to users. My role position must be higher than the role you are trying to sell.")
+    }
 
     // Make sure it's not already added.
     if (this.client.settings.store.cache.has(role.id)) return ctx.reply('That role is already on sale!')
@@ -115,7 +129,7 @@ class Store extends Command {
     return ctx.reply(`${this.client.constants.success} Success! **${role.name}** is now on sale for **¥${price.toLocaleString()}**`)
   }
 
-  async view (ctx) {
+  async view(ctx) {
     // Fetch all roles for this server.
     const roles = await this.client.settings.store.find({
       where: { guild: ctx.guild.id },
@@ -126,13 +140,15 @@ class Store extends Command {
     if (!roles.length) return ctx.reply('There are no roles for sale in this server.')
 
     // Filter non-existent roles and create a view.
-    const view = roles.filter((r) => ctx.guild.roles.cache.has(r.id)).map((r) => {
-      const role = ctx.guild.roles.cache.get(r.id)
-      const price = parseInt(r.price) === 0 ? 'FREE' : `¥${parseInt(r.price).toLocaleString()}`
-      const has = ctx.member.roles.cache.has(r.id)
+    const view = roles
+      .filter(r => ctx.guild.roles.cache.has(r.id))
+      .map(r => {
+        const role = ctx.guild.roles.cache.get(r.id)
+        const price = parseInt(r.price) === 0 ? 'FREE' : `¥${parseInt(r.price).toLocaleString()}`
+        const has = ctx.member.roles.cache.has(r.id)
 
-      return `❯ ${role.name}${' '.repeat(20 - role.name.length)}:: ${price}${has ? ' :: ✓' : ''}`
-    })
+        return `❯ ${role.name}${' '.repeat(20 - role.name.length)}:: ${price}${has ? ' :: ✓' : ''}`
+      })
 
     const Pagination = new FieldsEmbed()
       .setArray(view)
@@ -144,7 +160,7 @@ class Store extends Command {
       .formatField('Roles for Sale', role => role)
 
     Pagination.embed
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setTitle(`${ctx.guild.name} Store`)
       .setThumbnail(ctx.guild.iconURL({ size: 512 }))
       .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))

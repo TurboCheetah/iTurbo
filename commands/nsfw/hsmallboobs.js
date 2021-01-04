@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class hSmallBoobs extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Hentai Small boobs',
       cooldown: 5,
@@ -14,13 +14,12 @@ class hSmallBoobs extends Command {
     })
   }
 
-  async run (ctx) {
-    const { url } = await fetch('https://nekos.life/api/v2/img/smallboobs')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { url } = await fetch('https://nekos.life/api/v2/img/smallboobs').then(res => res.json())
 
     const embed = new MessageEmbed()
       .setTitle('Hentai Small Boobs')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
 

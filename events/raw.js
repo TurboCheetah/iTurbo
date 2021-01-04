@@ -1,7 +1,7 @@
 const Event = require('../structures/Event.js')
 
 class Raw extends Event {
-  run (packet, shard) {
+  run(packet, shard) {
     this.client.manager.updateVoiceState(packet)
 
     const event = this.store.raw.get(packet.t)

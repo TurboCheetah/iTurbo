@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Deduct extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: "Deduct someone's points.",
       userPermissions: ['ADMINISTRATOR'],
@@ -13,7 +13,7 @@ class Deduct extends Command {
     })
   }
 
-  async run (ctx, [member, amount]) {
+  async run(ctx, [member, amount]) {
     member = await this.verifyMember(ctx, member)
     amount = this.verifyInt(amount)
 

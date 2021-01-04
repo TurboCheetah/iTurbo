@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Choose extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Pick a random choice!',
       extendedHelp: 'Seperate choices with a comma.',
@@ -10,7 +10,7 @@ class Choose extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     const choices = args.join(' ').split(',')
     if (choices.length < 2) return ctx.reply('Not enough choices to pick from. Seperate your choices with a comma.')
 

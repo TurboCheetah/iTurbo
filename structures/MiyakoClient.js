@@ -17,7 +17,7 @@ const Spotify = require('erela.js-spotify')
 const { KSoftClient } = require('@ksoft/api') // KSoft
 
 class MiyakoClient extends Client {
-  constructor (dev) {
+  constructor(dev) {
     super({
       fetchAllMembers: false,
       disableMentions: 'everyone',
@@ -66,8 +66,9 @@ class MiyakoClient extends Client {
 
     // Lavalink stuff
     // Emitted whenever a node connects
-    this.manager.on('nodeConnect', node => console.log(`Connected to Lavalink node ${node.options.identifier}.`))
-    // Emitted whenever a node encountered an error
+    this.manager
+      .on('nodeConnect', node => console.log(`Connected to Lavalink node ${node.options.identifier}.`))
+      // Emitted whenever a node encountered an error
       .on('nodeError', (node, error) => console.log(`Lavalink node ${node.options.identifier} encountered an error: ${error.message}.`))
       .on('trackStart', (player, track) => this.emit('playSong', player, track))
       // Emitted the player queue ends
@@ -86,7 +87,7 @@ class MiyakoClient extends Client {
     this.dbconn = null
   }
 
-  onReady () {
+  onReady() {
     this.ready = true
     this.console.log(`Logged in as ${this.user.tag}`)
     // Initiates the manager and connects to all the nodes
@@ -94,7 +95,7 @@ class MiyakoClient extends Client {
     this.emit('miyakoReady')
   }
 
-  async login () {
+  async login() {
     await this.init()
     const manager = new PostgresGiveawaysManager(this, {
       storage: false,
@@ -112,17 +113,16 @@ class MiyakoClient extends Client {
     return super.login(this.dev ? devtoken : token)
   }
 
-  rollPresence () {
+  rollPresence() {
     const { message, type } = this.utils.random(presences)
-    return this.user.setActivity(message.replace(/{{guilds}}/g, this.guilds.cache.size), { type })
-      .catch(() => null)
+    return this.user.setActivity(message.replace(/{{guilds}}/g, this.guilds.cache.size), { type }).catch(() => null)
   }
 
   /**
    * Check if a given user is a premium user.
    * @returns {Promise<Boolean>}
    */
-  async verifyPremium (user) {
+  async verifyPremium(user) {
     // First grab the support guild.
     const guild = this.guilds.cache.get(this.constants.mainGuildID)
 
@@ -137,7 +137,7 @@ class MiyakoClient extends Client {
     }
   }
 
-  async init () {
+  async init() {
     // Load pieces.
     const [commands, events] = await Promise.all([this.commands.loadFiles(), this.events.loadFiles()])
     this.console.log(`Loaded ${commands} commands.`)

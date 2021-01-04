@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class SQL extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Run some SQL',
       ownerOnly: true,
@@ -10,7 +10,7 @@ class SQL extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('Input a SQL Query!')
 
     const db = this.client.db

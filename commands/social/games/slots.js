@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const slots = require('../../../utils/slots.js')
 
 class Slots extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Try your luck in the slot machine!',
       aliases: ['slot', 'slotmachine', 'slot-machine'],
@@ -14,7 +14,7 @@ class Slots extends Command {
     })
   }
 
-  async run (ctx) {
+  async run(ctx) {
     // Play the slots.
     const { win, view, reward } = slots()
 

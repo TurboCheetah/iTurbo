@@ -2,13 +2,13 @@ const { GiveawaysManager } = require('discord-giveaways')
 
 const PostgresGiveawaysManager = class extends GiveawaysManager {
   // This function is called when the manager needs to get all the giveaway stored in the database.
-  async getAllGiveaways () {
+  async getAllGiveaways() {
     // Get all the giveaway in the database
-    return await this.client.settings.giveaways.find() || []
+    return (await this.client.settings.giveaways.find()) || []
   }
 
   // This function is called when a giveaway needs to be saved in the database (when a giveaway is created or when a giveaway is edited).
-  async saveGiveaway (messageID, giveawayData) {
+  async saveGiveaway(messageID, giveawayData) {
     /* // Get existing giveaways to append to.
     const data = this.client.settings.giveaways.get(messageID) || []
 
@@ -32,7 +32,7 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
     return true
   }
 
-  async editGiveaway (messageID, giveawayData) {
+  async editGiveaway(messageID, giveawayData) {
     /* // Gets all the current giveaways
     const giveaways = this.client.settings.giveaways.get(messageID) || []
     // Remove the old giveaway from the current giveaways ID
@@ -57,7 +57,7 @@ const PostgresGiveawaysManager = class extends GiveawaysManager {
   }
 
   // This function is called when a giveaway needs to be deleted from the database.
-  async deleteGiveaway (messageID) {
+  async deleteGiveaway(messageID) {
     /* const db = await this.client.settings.giveaways.get(messageID) || []
     // Remove the giveaway from the array
     const newGiveawaysArray = db.filter((giveaway) => giveaway.messageID !== messageID)

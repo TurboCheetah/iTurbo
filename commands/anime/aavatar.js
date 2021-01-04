@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class AAvatar extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Get an Anime Avatar.',
       extendedHelp: 'The output will be NSFW only if the channel is a NSFW channel',
@@ -13,13 +13,12 @@ class AAvatar extends Command {
     })
   }
 
-  async run (ctx) {
-    const { url } = await fetch(`https://nekos.life/api/v2/img/${ctx.channel.nsfw ? 'nsfw_' : ''}avatar`)
-      .then((res) => res.json())
+  async run(ctx) {
+    const { url } = await fetch(`https://nekos.life/api/v2/img/${ctx.channel.nsfw ? 'nsfw_' : ''}avatar`).then(res => res.json())
 
     const embed = new MessageEmbed()
       .setTitle(`${ctx.channel.nsfw ? 'NSFW ' : ''}Anime Avatar`)
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
 

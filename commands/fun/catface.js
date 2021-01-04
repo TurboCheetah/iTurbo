@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const fetch = require('node-fetch')
 
 class CatFace extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Get a random cat face',
       aliases: ['catemoji'],
@@ -11,9 +11,8 @@ class CatFace extends Command {
     })
   }
 
-  async run (ctx) {
-    const { cat } = await fetch('https://nekos.life/api/v2/cat')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { cat } = await fetch('https://nekos.life/api/v2/cat').then(res => res.json())
 
     return ctx.reply(cat)
   }

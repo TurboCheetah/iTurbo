@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Poll extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Creates a poll!',
       extendedHelp: 'Seperate your choices with |, the first one is the question, channel is optional and defaults to current channel.',
@@ -15,7 +15,7 @@ class Poll extends Command {
     this.emojis = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟']
   }
 
-  async run (ctx, [channeltxt, ...choices]) {
+  async run(ctx, [channeltxt, ...choices]) {
     // Optional argument trick, maybe find a better way sometimes.
     let channel = await this.verifyChannel(ctx, channeltxt, true).catch(() => null)
     const args = [...choices]
@@ -38,8 +38,8 @@ class Poll extends Command {
 
     const embed = new MessageEmbed()
       .setTitle(question)
-      .setColor(0x9590EE)
-      .setDescription(choices.map((c) => `${counter++}. ${c}`).join('\n'))
+      .setColor(0x9590ee)
+      .setDescription(choices.map(c => `${counter++}. ${c}`).join('\n'))
       .setFooter(`Asked by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
 
     const poll = await channel.send({ embed })

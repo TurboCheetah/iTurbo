@@ -3,7 +3,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Play extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Plays the desired song',
       aliases: ['pl'],
@@ -14,7 +14,7 @@ class Play extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     const channel = ctx.member.voice.channel
 
     if (!channel) return ctx.reply(`${this.client.constants.error} You need to be in a voice channel to play music!`)
@@ -36,9 +36,7 @@ class Play extends Command {
     if (!ctx.member.voice.channel) return ctx.reply('Please join a voice channel!')
     if (!search.length && player.paused) {
       player.pause(false)
-      const embed = new MessageEmbed()
-        .setColor(0x9590EE)
-        .setAuthor('| ▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
+      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| ▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
     if (!search.length) return ctx.reply('Please give me a URL or search term to play!')
@@ -67,18 +65,18 @@ class Play extends Command {
           let i = 0
           const tracks = res.tracks.slice(0, 10)
           const embed = new MessageEmbed()
-            .setColor(0x9590EE)
+            .setColor(0x9590ee)
             .setAuthor('🎵 Search on YouTube 🎵', ctx.author.displayAvatarURL)
             .setTitle('Choose an option below')
             .setDescription(tracks.map(track => `**${++i}**. [${track.title}](${track.uri}) - \`${this.client.utils.formatDuration(track.duration)}\``).join('\n'))
             .setFooter('Respond with cancel or wait 60 seconds to cancel')
             .setTimestamp()
 
-          const filter = (msg) => msg.author.id === ctx.author.id
+          const filter = msg => msg.author.id === ctx.author.id
           const response = await ctx.message.awaitReply('', filter, 60000, embed)
           if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 
-          if (new RegExp('^(10|[1-9])$', 'i').test(response)) {
+          if (/^(10|[1-9])$/i.test(response)) {
             const track = tracks[Number(response) - 1]
             // Connect to the voice channel and add the track to the queue
             player.connect()

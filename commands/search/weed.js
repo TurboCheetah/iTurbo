@@ -4,7 +4,7 @@ const cheerio = require('cheerio')
 const { MessageEmbed } = require('discord.js')
 
 class Weed extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Search for a strain on Leafly',
       usage: 'weed <strain|type|feeling|wellness|popular|trending|underrated>',
@@ -15,7 +15,7 @@ class Weed extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     const [filter] = args.join(' ').split(' ')
     if (!filter) return ctx.reply(`Please provide a search query. Refer to \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help weed\` for a list of all possible queries.`)
     switch (filter) {
@@ -23,11 +23,11 @@ class Weed extends Command {
         args = args.splice(1)
         if (!args.length) return ctx.reply('What am I supposed to search for? Please provide a strain!')
         let $ = await fetch(`https://www.leafly.com/strains/${args.join('-').toLowerCase()}`)
-          .then((res) => {
+          .then(res => {
             if (!res.ok) throw new Error('Something went wrong.')
             return res.text()
           })
-          .then((html) => cheerio.load(html))
+          .then(html => cheerio.load(html))
 
         const terpines = []
 
@@ -36,7 +36,11 @@ class Weed extends Command {
           image: $('.slide').next().find('img').attr('src'),
           type: $('h2.font-mono.font-bold.text-green.text-xs').find('a').text(),
           thc: $('button.flex.font-mono.font-bold.flex-row.items-center.ml-md').find('div').text(),
-          terpines: $('div.flex.flex-row.flex-grow.mt-xs').find('div.font-normal').each(i => { terpines[i] = $(this).text() }),
+          terpines: $('div.flex.flex-row.flex-grow.mt-xs')
+            .find('div.font-normal')
+            .each(i => {
+              terpines[i] = $(this).text()
+            }),
           description: $('.strain__description').find('p').text(),
           effects: $('div.react-tabs__tab-panel.react-tabs__tab-panel--selected').find('div.mb-xl.relative.w-full').find('div.font-bold.font-headers.text-sm').text().split('%').join('%\n').slice(0, -1),
           helpsWith: $('div.react-tabs__tab-panel').next().find('div.mb-xl.relative.w-full').find('div.font-bold.font-headers.text-sm').text().split('%').join('%\n').slice(0, -1).split(/\r?\n/, 5),
@@ -47,18 +51,18 @@ class Weed extends Command {
         if (!results.name) {
           try {
             $ = await fetch(`https://www.leafly.com/search?q=${args.join('+')}`)
-              .then((res) => {
+              .then(res => {
                 if (!res.ok) throw new Error('Something went wrong.')
                 return res.text()
               })
-              .then((html) => cheerio.load(html))
+              .then(html => cheerio.load(html))
             return ctx.reply(`Did you mean **${$('div.jsx-3613316329.flex-grow').find('div').first().text()}**${$('div.jsx-3613316329.flex-grow').find('div').next().text().startsWith('aka') ? ' ' + $('div.text-xs.font-bold.text-green').first().text() + '?' : '?'} Try searching for **${$('div.jsx-3613316329.result-item__container').find('a').attr('href').slice(31).split('-').join(' ')}** instead.`)
           } catch {
             return ctx.reply('No Results Found.')
           }
         }
         const embed = new MessageEmbed()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
           .setTitle(results.name)
           .setURL(`https://www.leafly.com/strains/${args.join('-')}`)
           .setThumbnail(results.image ? results.image.replace(/ /g, '%20') : 'https://public.leafly.com/favicon/apple-touch-icon.png')
@@ -81,20 +85,26 @@ class Weed extends Command {
         if (!args.length) return ctx.reply('Invalid search query! Valid queries are: indica, sativa, and hybrid.')
         if (!valid.includes(args[0])) return ctx.reply('Invalid search query! Valid queries are: indica, sativa, and hybrid.')
         const $ = await fetch(`https://www.leafly.com/strains/lists/category/${args[0]}`)
-          .then((res) => {
+          .then(res => {
             if (!res.ok) throw new Error('Something went wrong.')
             return res.text()
           })
-          .then((html) => cheerio.load(html))
+          .then(html => cheerio.load(html))
         const strains = []
-        $('.strain-tile__name').each(i => { effects[i] = $(this).text() })
+        $('.strain-tile__name').each(i => {
+          effects[i] = $(this).text()
+        })
         const effects = []
-        $('span.tag.mb-md').each(i => { strainURL[i] = $(this).attr('href') })
+        $('span.tag.mb-md').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
         const strainURL = []
-        $('a.strain-tile.justify-start.relative').each(i => { strainURL[i] = $(this).attr('href') })
+        $('a.strain-tile.justify-start.relative').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
 
         const embed = new MessageEmbed()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
           .setTitle(`Top 10 ${args[0]} strains`)
           .setURL(`https://www.leafly.com/strains/lists/category/${args[0]}`)
           .setFooter(`Requested by: ${ctx.author.tag} | To get more info on a strain, run ${ctx.guild ? ctx.guild.settings.prefix : '|'}weed strain <query> • Powered by Leafly`, ctx.author.displayAvatarURL({ size: 32 }))
@@ -114,20 +124,26 @@ class Weed extends Command {
         if (!args.length) return ctx.reply(`Invalid search query! Valid queries are: ${valid.splice(0, 12).join(', ')}, and ${valid[0]}.`)
         if (!valid.includes(args[0])) return ctx.reply(`Invalid search query! Valid queries are: ${valid.splice(0, 12).join(', ')}, and ${valid[0]}.`)
         const $ = await fetch(`https://www.leafly.com/strains/lists/effect/${args[0]}?sort=popular`)
-          .then((res) => {
+          .then(res => {
             if (!res.ok) throw new Error('Something went wrong.')
             return res.text()
           })
-          .then((html) => cheerio.load(html))
+          .then(html => cheerio.load(html))
         const strains = []
-        $('.strain-tile__name').each(i => { effects[i] = $(this).text() })
+        $('.strain-tile__name').each(i => {
+          effects[i] = $(this).text()
+        })
         const effects = []
-        $('span.tag.mb-md').each(i => { strainURL[i] = $(this).attr('href') })
+        $('span.tag.mb-md').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
         const strainURL = []
-        $('a.strain-tile.justify-start.relative').each(i => { strainURL[i] = $(this).attr('href') })
+        $('a.strain-tile.justify-start.relative').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
 
         const embed = new MessageEmbed()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
           .setTitle(`Top 10 ${args[0]} strains`)
           .setURL(`https://www.leafly.com/strains/lists/effect/${args[0]}?sort=popular`)
           .setFooter(`Requested by: ${ctx.author.tag} | To get more info on a strain, run ${ctx.guild ? ctx.guild.settings.prefix : '|'}weed strain <query> • Powered by Leafly`, ctx.author.displayAvatarURL({ size: 32 }))
@@ -147,20 +163,26 @@ class Weed extends Command {
         if (!args.length) return ctx.reply('Invalid search query! Valid queries are: depression, insomnia,  nausea, inflammation, anxiety, and pain.')
         if (!valid.includes(args[0])) return ctx.reply('Invalid search query! Valid queries are: depression, insomnia,  nausea, inflammation, anxiety, and pain.')
         const $ = await fetch(`https://www.leafly.com/strains/lists/condition/${args[0]}?sort=popular`)
-          .then((res) => {
+          .then(res => {
             if (!res.ok) throw new Error('Something went wrong.')
             return res.text()
           })
-          .then((html) => cheerio.load(html))
+          .then(html => cheerio.load(html))
         const strains = []
-        $('.strain-tile__name').each(i => { effects[i] = $(this).text() })
+        $('.strain-tile__name').each(i => {
+          effects[i] = $(this).text()
+        })
         const effects = []
-        $('span.tag.mb-md').each(i => { strainURL[i] = $(this).attr('href') })
+        $('span.tag.mb-md').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
         const strainURL = []
-        $('a.strain-tile.justify-start.relative').each(i => { strainURL[i] = $(this).attr('href') })
+        $('a.strain-tile.justify-start.relative').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
 
         const embed = new MessageEmbed()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
           .setTitle(`Top 10 strains for ${args[0]} `)
           .setURL(`https://www.leafly.com/strains/lists/condition/${args[0]}?sort=popular`)
           .setFooter(`Requested by: ${ctx.author.tag} | To get more info on a strain, run ${ctx.guild ? ctx.guild.settings.prefix : '|'}weed strain <query> • Powered by Leafly`, ctx.author.displayAvatarURL({ size: 32 }))
@@ -176,20 +198,26 @@ class Weed extends Command {
       }
       case 'popular': {
         const $ = await fetch('https://www.leafly.com/strains/lists/curated/popular-marijuana-strains')
-          .then((res) => {
+          .then(res => {
             if (!res.ok) throw new Error('Something went wrong.')
             return res.text()
           })
-          .then((html) => cheerio.load(html))
+          .then(html => cheerio.load(html))
         const strains = []
-        $('.strain-tile__name').each(i => { effects[i] = $(this).text() })
+        $('.strain-tile__name').each(i => {
+          effects[i] = $(this).text()
+        })
         const effects = []
-        $('span.tag.mb-md').each(i => { strainURL[i] = $(this).attr('href') })
+        $('span.tag.mb-md').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
         const strainURL = []
-        $('a.strain-tile.justify-start.relative').each(i => { strainURL[i] = $(this).attr('href') })
+        $('a.strain-tile.justify-start.relative').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
 
         const embed = new MessageEmbed()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
           .setTitle('Most popular strains')
           .setURL('https://www.leafly.com/strains/lists/curated/popular-marijuana-strains')
           .setFooter(`Requested by: ${ctx.author.tag} | To get more info on a strain, run ${ctx.guild ? ctx.guild.settings.prefix : '|'}weed strain <query> • Powered by Leafly`, ctx.author.displayAvatarURL({ size: 32 }))
@@ -205,20 +233,26 @@ class Weed extends Command {
       }
       case 'trending': {
         const $ = await fetch('https://www.leafly.com/strains/lists/curated/trending-marijuana-strains')
-          .then((res) => {
+          .then(res => {
             if (!res.ok) throw new Error('Something went wrong.')
             return res.text()
           })
-          .then((html) => cheerio.load(html))
+          .then(html => cheerio.load(html))
         const strains = []
-        $('.strain-tile__name').each(i => { effects[i] = $(this).text() })
+        $('.strain-tile__name').each(i => {
+          effects[i] = $(this).text()
+        })
         const effects = []
-        $('span.tag.mb-md').each(i => i => { strainURL[i] = $(this).attr('href') })
+        $('span.tag.mb-md').each(i => i => {
+          strainURL[i] = $(this).attr('href')
+        })
         const strainURL = []
-        $('a.strain-tile.justify-start.relative').each(i => { strainURL[i] = $(this).attr('href') })
+        $('a.strain-tile.justify-start.relative').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
 
         const embed = new MessageEmbed()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
           .setTitle('Trending strains')
           .setURL('https://www.leafly.com/strains/lists/curated/trending-marijuana-strains')
           .setFooter(`Requested by: ${ctx.author.tag} | To get more info on a strain, run ${ctx.guild ? ctx.guild.settings.prefix : '|'}weed strain <query> • Powered by Leafly`, ctx.author.displayAvatarURL({ size: 32 }))
@@ -234,20 +268,26 @@ class Weed extends Command {
       }
       case 'underrated': {
         const $ = await fetch('https://www.leafly.com/strains/lists/curated/underrated-thc-strains')
-          .then((res) => {
+          .then(res => {
             if (!res.ok) throw new Error('Something went wrong.')
             return res.text()
           })
-          .then((html) => cheerio.load(html))
+          .then(html => cheerio.load(html))
         const strains = []
-        $('.strain-tile__name').each(i => { effects[i] = $(this).text() })
+        $('.strain-tile__name').each(i => {
+          effects[i] = $(this).text()
+        })
         const effects = []
-        $('span.tag.mb-md').each(i => { effects[i] = $(this).text() })
+        $('span.tag.mb-md').each(i => {
+          effects[i] = $(this).text()
+        })
         const strainURL = []
-        $('a.strain-tile.justify-start.relative').each(i => { strainURL[i] = $(this).attr('href') })
+        $('a.strain-tile.justify-start.relative').each(i => {
+          strainURL[i] = $(this).attr('href')
+        })
 
         const embed = new MessageEmbed()
-          .setColor(0x9590EE)
+          .setColor(0x9590ee)
           .setTitle('Underrated strains')
           .setURL('https://www.leafly.com/strains/lists/curated/underrated-thc-strains')
           .setFooter(`Requested by: ${ctx.author.tag} | To get more info on a strain, run ${ctx.guild ? ctx.guild.settings.prefix : '|'}weed strain <query> • Powered by Leafly`, ctx.author.displayAvatarURL({ size: 32 }))

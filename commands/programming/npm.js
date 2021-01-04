@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js')
 const fetch = require('node-fetch')
 
 class NPM extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Search the NPM Registry for a package information',
       usage: 'npm <package>',
@@ -13,19 +13,18 @@ class NPM extends Command {
     })
   }
 
-  async run (ctx, [pkg]) {
+  async run(ctx, [pkg]) {
     if (!pkg) return ctx.reply('What package am I supposed to show you?')
 
-    const body = await fetch(`https://registry.npmjs.com/${pkg}`)
-      .then((res) => {
-        if (res.status === 404) throw 'No results found.'
-        return res.json()
-      })
+    const body = await fetch(`https://registry.npmjs.com/${pkg}`).then(res => {
+      if (res.status === 404) throw 'No results found.'
+      return res.json()
+    })
 
     const version = body.versions[body['dist-tags'].latest]
 
     let deps = version.dependencies ? Object.keys(version.dependencies) : null
-    let maintainers = body.maintainers.map((user) => user.name)
+    let maintainers = body.maintainers.map(user => user.name)
 
     if (maintainers.length > 10) {
       const len = maintainers.length - 10
@@ -44,14 +43,7 @@ class NPM extends Command {
       .setTitle(`NPM - ${pkg}`)
       .setURL(`https://npmjs.com/package/${pkg}`)
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setDescription([
-        body.description || 'No Description.',
-        `**Version:** ${body['dist-tags'].latest}`,
-        `**License:** ${body.license}`,
-        `**Author:** ${body.author ? body.author.name : 'Unknown'}`,
-        `**Modified:** ${new Date(body.time.modified).toDateString()}`,
-        `**Dependencies:** ${deps && deps.length ? deps.join(', ') : 'None'}`
-      ].join('\n'))
+      .setDescription([body.description || 'No Description.', `**Version:** ${body['dist-tags'].latest}`, `**License:** ${body.license}`, `**Author:** ${body.author ? body.author.name : 'Unknown'}`, `**Modified:** ${new Date(body.time.modified).toDateString()}`, `**Dependencies:** ${deps && deps.length ? deps.join(', ') : 'None'}`].join('\n'))
 
     return ctx.reply({ embed })
   }

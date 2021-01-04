@@ -3,7 +3,7 @@ const { inspect } = require('util')
 const fetch = require('node-fetch')
 
 class Eval extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Evaluates arbitrary JavaScript',
       ownerOnly: true,
@@ -13,7 +13,7 @@ class Eval extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('You need to give me code to evaluate.')
 
     const { clean, client } = this
@@ -22,6 +22,7 @@ class Eval extends Command {
     const rev = client.token.split('').reverse().join('[^]{0,2}')
     const filter = new RegExp(`${token}|${rev}`, 'g')
     try {
+      // eslint-disable-next-line no-eval
       let output = eval(code)
       if (output instanceof Promise || (Boolean(output) && typeof output.then === 'function' && typeof output.catch === 'function')) output = await output
       output = inspect(output, { depth: 0, maxArrayLength: null })
@@ -34,7 +35,7 @@ class Eval extends Command {
           const { key } = await fetch('https://haste.turbo.ooo/documents', {
             method: 'POST',
             body: output
-          }).then((res) => res.json())
+          }).then(res => res.json())
           return ctx.reply(`Output was to long so it was uploaded to hastebin https://haste.turbo.ooo/${key}.js `)
         } catch (error) {
           return ctx.reply(`I tried to upload the output to hastebin but encountered this error ${error.name}:${error.message}`)
@@ -45,10 +46,8 @@ class Eval extends Command {
     }
   }
 
-  clean (text) {
-    return text
-      .replace(/`/g, '`' + String.fromCharCode(8203))
-      .replace(/@/g, '@' + String.fromCharCode(8203))
+  clean(text) {
+    return text.replace(/`/g, '`' + String.fromCharCode(8203)).replace(/@/g, '@' + String.fromCharCode(8203))
   }
 }
 

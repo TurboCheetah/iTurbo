@@ -2,22 +2,22 @@ const Store = require('./Store.js')
 const { Collection } = require('discord.js')
 
 class CommandStore extends Store {
-  constructor (client) {
+  constructor(client) {
     super(client, 'commands')
 
     this.aliases = new Collection()
     this.ran = 0
   }
 
-  get (name) {
+  get(name) {
     return super.get(name) || this.aliases.get(name)
   }
 
-  has (name) {
+  has(name) {
     return super.has(name) || this.aliases.has(name)
   }
 
-  set (command) {
+  set(command) {
     super.set(command)
 
     if (command.aliases.length) {
@@ -29,7 +29,7 @@ class CommandStore extends Store {
     return command
   }
 
-  delete (name) {
+  delete(name) {
     const command = this.get(name)
     if (!command) return false
 
@@ -42,7 +42,7 @@ class CommandStore extends Store {
     return super.delete(name)
   }
 
-  clear () {
+  clear() {
     super.clear()
     this.aliases.clear()
   }
@@ -50,8 +50,8 @@ class CommandStore extends Store {
   /**
    * Return list of usable commands in context of the given message.
    */
-  usableCommands (msg) {
-    return this.array().filter((command) => {
+  usableCommands(msg) {
+    return this.array().filter(command => {
       // Skip disabled commands.
       if (!command.enabled) return false
       // Skip owner commands.

@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
 class Ban extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Bans a user.',
       userPermissions: ['BAN_MEMBERS'],
@@ -12,7 +12,7 @@ class Ban extends Command {
     })
   }
 
-  async run (ctx, [member, ...reason]) {
+  async run(ctx, [member, ...reason]) {
     member = await this.verifyMember(ctx, member)
 
     if (member.id === ctx.author.id) return ctx.reply('Why would you ban yourself?')
@@ -31,11 +31,11 @@ class Ban extends Command {
     if (ctx.guild.settings.modlog) {
       const channel = this.client.channels.cache.get(ctx.guild.settings.modlog)
       if (!channel) return
-      var caseNum = ctx.guild.settings.modlogCase
+      let caseNum = ctx.guild.settings.modlogCase
       caseNum++
       await ctx.guild.update({ modlogCase: caseNum })
-      var embed = new MessageEmbed()
-        .setColor(0x9590EE)
+      const embed = new MessageEmbed()
+        .setColor(0x9590ee)
         .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL({ size: 32 }))
         .addField('Action', 'Ban')
         .addField('Reason', reason || 'No reason specified')

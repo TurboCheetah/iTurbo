@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Social extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Enable/Disable The social economy system.',
       aliases: ['economy'],
@@ -11,7 +11,7 @@ class Social extends Command {
     })
   }
 
-  async run (ctx, [action]) {
+  async run(ctx, [action]) {
     if (!action || !['enable', 'disable'].includes(action)) return ctx.reply('Do you want me to disable or enable it?')
 
     if (action === 'enable') {

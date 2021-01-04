@@ -2,14 +2,14 @@ const Store = require('./Store.js')
 const { Collection } = require('discord.js')
 
 class EventStore extends Store {
-  constructor (client) {
+  constructor(client) {
     super(client, 'events')
 
     // Raw Events are stored in this collection.
     this.raw = new Collection()
   }
 
-  set (event) {
+  set(event) {
     // Store raw events seperately.
     // See events/raw.js for triggering this.
     if (event.raw) {
@@ -22,7 +22,7 @@ class EventStore extends Store {
     return event
   }
 
-  delete (name) {
+  delete(name) {
     const event = this.get(name)
     if (!event) return false
     if (!event.raw) this.client.removeAllListeners(event.name)

@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageAttachment } = require('discord.js')
 
 class Tweet extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Tweet something as Trump.',
       cooldown: 3,
@@ -11,7 +11,7 @@ class Tweet extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('What am I supposed to tweet?')
 
     const text = args.join(' ')

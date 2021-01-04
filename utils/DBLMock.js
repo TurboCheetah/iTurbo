@@ -8,15 +8,15 @@
  */
 
 class DBLMock {
-  async hasVoted () {
+  async hasVoted() {
     return false
   }
 
-  async isWeekend () {
+  async isWeekend() {
     return false
   }
 
-  async getVotes () {
+  async getVotes() {
     return []
   }
 }

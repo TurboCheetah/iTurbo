@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class RemoveRole extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Removes a role from someone',
       usage: '<user:member> <role:rolename>',
@@ -12,12 +12,12 @@ class RemoveRole extends Command {
     })
   }
 
-  async run (ctx, [member, ...rolename]) {
+  async run(ctx, [member, ...rolename]) {
     member = await this.verifyMember(ctx, member)
     rolename = rolename.join(' ')
     if (!rolename) return ctx.reply('You must provide a role to remove.')
 
-    const role = ctx.guild.roles.cache.find((role) => (role.id === rolename) || (role.name.toLowerCase() === rolename.toLowerCase()))
+    const role = ctx.guild.roles.cache.find(role => role.id === rolename || role.name.toLowerCase() === rolename.toLowerCase())
 
     if (!role) return ctx.reply('That role does not exist.')
 

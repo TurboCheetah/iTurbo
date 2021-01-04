@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const cheerio = require('cheerio')
 
 class YouTube extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Searches something on YouTube',
       usage: 'youtube <query>',
@@ -12,13 +12,13 @@ class YouTube extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('What do you want me to search?')
 
     const url = await fetch(`https://www.youtube.com/results?search_query=${encodeURIComponent(args.join(' '))}`)
-      .then((res) => res.text())
-      .then((html) => cheerio.load(html))
-      .then(function find ($) {
+      .then(res => res.text())
+      .then(html => cheerio.load(html))
+      .then(function find($) {
         const u = $('.yt-uix-tile-link').first().attr('href')
 
         // Sometimes if video is an AD it sends garbage

@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Copy extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Copies an emoji by id or url',
       aliases: ['copyemoji', 'addemoji', 'emoji'],
@@ -13,7 +13,7 @@ class Copy extends Command {
     })
   }
 
-  async run (ctx, [emoji, name]) {
+  async run(ctx, [emoji, name]) {
     if (!emoji || !name) return ctx.reply(`Usage: \`${ctx.guild.prefix}copy <url to image or emoji id> <name to save as>\``)
     if (emoji.includes('http')) return this.create(ctx, emoji, name)
     const e = this.client.emojis.cache.get(emoji)
@@ -22,7 +22,7 @@ class Copy extends Command {
     return this.create(ctx, url, name, "Couldn't create emoji, make sure the ID is valid.")
   }
 
-  async create (ctx, url, name, err = 'Something went wrong, make sure the URL is valid and returns an image.') {
+  async create(ctx, url, name, err = 'Something went wrong, make sure the URL is valid and returns an image.') {
     const emoji = await ctx.guild.emojis.create(url, name).catch(() => {
       throw err
     })

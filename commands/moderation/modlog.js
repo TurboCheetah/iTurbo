@@ -1,7 +1,7 @@
 const Command = require('../../structures/Command.js')
 
 class Modlog extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Enable/Disable a modlog.',
       usage: 'modlog <enable|disable> <channel>',
@@ -10,7 +10,7 @@ class Modlog extends Command {
     })
   }
 
-  async run (ctx, [action]) {
+  async run(ctx, [action]) {
     if (!action) return ctx.reply('Specify either `enable #channel` or `disable`')
 
     switch (action) {

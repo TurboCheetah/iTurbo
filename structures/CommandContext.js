@@ -1,9 +1,8 @@
-
 /**
  * Command execution context.
  */
 class CommandContext {
-  constructor (client, msg) {
+  constructor(client, msg) {
     this.client = client
     this.message = msg
 
@@ -21,45 +20,45 @@ class CommandContext {
    * By default it trims extra spaces and stuff.
    * This is useful for e.g code to preserve indents and all.
    */
-  get rawArgs () {
+  get rawArgs() {
     // Slice prefix + command name and trim the start/ending spaces.
     return this.message.content.slice(this.prefix.length + this.invokedName.length).trim()
   }
 
-  get member () {
+  get member() {
     return this.message.member
   }
 
-  get channel () {
+  get channel() {
     return this.message.channel
   }
 
-  get author () {
+  get author() {
     return this.message.author
   }
 
-  get guild () {
+  get guild() {
     return this.message.guild
   }
 
-  reply (...args) {
+  reply(...args) {
     return this.channel.send(...args)
   }
 
-  success () {
-    return this.message.react('519166152488910850')
-      .catch(() => null)
+  success() {
+    return this.message.react('519166152488910850').catch(() => null)
   }
 
-  failure () {
-    return this.message.react('519166256214048769')
-      .catch(() => null)
+  failure() {
+    return this.message.react('519166256214048769').catch(() => null)
   }
 
-  random (arr, replace = {}) {
+  random(arr, replace = {}) {
     let res = this.client.utils.random(arr)
 
-    for (const [k, v] of Object.entries(replace)) { res = res.replace(new RegExp(`{{${k}}}`, 'g'), v) }
+    for (const [k, v] of Object.entries(replace)) {
+      res = res.replace(new RegExp(`{{${k}}}`, 'g'), v)
+    }
 
     return this.reply(res)
   }

@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class LewdNekoGIF extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Lewd Neko Hentai GIF',
       cooldown: 5,
@@ -14,13 +14,12 @@ class LewdNekoGIF extends Command {
     })
   }
 
-  async run (ctx) {
-    const { url } = await fetch('https://nekos.life/api/v2/img/nsfw_neko_gif')
-      .then((res) => res.json())
+  async run(ctx) {
+    const { url } = await fetch('https://nekos.life/api/v2/img/nsfw_neko_gif').then(res => res.json())
 
     const embed = new MessageEmbed()
       .setTitle('Lewd Neko GIF')
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
 

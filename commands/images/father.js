@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const { MessageAttachment } = require('discord.js')
 
 class Father extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: "As a father it's my job to respect my son's opinions",
       cooldown: 3,
@@ -11,12 +11,11 @@ class Father extends Command {
     })
   }
 
-  async run (ctx, [user, ...args]) {
-    user = await this.verifyUser(ctx, user, true)
-      .catch(() => {
-        args.unshift(user)
-        return ctx.author
-      })
+  async run(ctx, [user, ...args]) {
+    user = await this.verifyUser(ctx, user, true).catch(() => {
+      args.unshift(user)
+      return ctx.author
+    })
 
     if (!args.length) return ctx.reply('You need to provide some text.')
 

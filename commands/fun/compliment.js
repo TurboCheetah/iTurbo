@@ -1,14 +1,14 @@
 const Command = require('../../structures/Command.js')
 
 class Compliment extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Compliments a user.',
       usage: 'compliment [@user]'
     })
   }
 
-  async run (ctx, [member]) {
+  async run(ctx, [member]) {
     const user = await this.verifyUser(ctx, member, true)
     if (user.id === this.client.user.id) return ctx.reply("Thanks but you don't have to ask me to compliment myself. Baka!")
     return ctx.reply(`${user}: ${compliments[Math.floor(Math.random() * compliments.length)]}`)

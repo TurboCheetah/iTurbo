@@ -1,11 +1,11 @@
 const app = require('./app')
 
 class BotAPI {
-  constructor (client) {
+  constructor(client) {
     this.client = client
   }
 
-  run () {
+  run() {
     app(this.client)
   }
 }

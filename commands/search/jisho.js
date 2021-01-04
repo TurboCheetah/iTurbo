@@ -3,7 +3,7 @@ const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
 
 class Jisho extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Search for a word on Jisho.org',
       usage: 'jisho <word>, [page]',
@@ -12,13 +12,12 @@ class Jisho extends Command {
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('What am I supposed to search for?')
     let [query, page = 1] = args.join(' ').split(', ')
     page = this.verifyInt(page, 1)
 
-    const { data } = await fetch(`http://jisho.org/api/v1/search/words?keyword=${encodeURIComponent(query)}`)
-      .then((r) => r.json())
+    const { data } = await fetch(`http://jisho.org/api/v1/search/words?keyword=${encodeURIComponent(query)}`).then(r => r.json())
 
     if (!data || !data.length) return ctx.reply('No results found.')
 
@@ -26,7 +25,7 @@ class Jisho extends Command {
     if (!res) return ctx.reply(`Invalid page! There are only ${data.length} pages.`)
 
     const embed = new MessageEmbed()
-      .setColor(0x9590EE)
+      .setColor(0x9590ee)
       .setTitle(`${this.client.utils.toProperCase(query)}`)
       .setURL(`https://jisho.org/search/${query}`)
       .addField('Japanese', res.japanese[0].word || res.japanese[0].reading, true)

@@ -2,7 +2,7 @@ const Command = require('../../structures/Command.js')
 const Store = require('../../structures/Store.js')
 
 class Load extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: 'Loads all commands/events',
       ownerOnly: true,
@@ -10,7 +10,7 @@ class Load extends Command {
     })
   }
 
-  async run (ctx, [store]) {
+  async run(ctx, [store]) {
     if (!store) return ctx.reply('What store am i supposed to load?')
     store = this.client[store]
     if (!(store instanceof Store)) return ctx.reply("That's not an actual store.")

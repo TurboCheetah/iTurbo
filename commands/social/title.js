@@ -1,14 +1,14 @@
 const Command = require('../../structures/Command.js')
 
 class Title extends Command {
-  constructor (...args) {
+  constructor(...args) {
     super(...args, {
       description: "Change your profile's title",
       usage: 'title <title>'
     })
   }
 
-  async run (ctx, args) {
+  async run(ctx, args) {
     if (!args.length) return ctx.reply('You must provide a title.')
     const title = args.join(' ')
     await ctx.author.update({ title })
