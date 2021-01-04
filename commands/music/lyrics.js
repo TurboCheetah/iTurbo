@@ -28,8 +28,7 @@ class Lyrics extends Command {
 
           return ctx.reply({ embed })
         })
-        // eslint-disable-next-line no-unused-vars
-        .catch(err => {
+        .catch(_err => {
           return ctx.reply('No results found with that query.')
         })
     }

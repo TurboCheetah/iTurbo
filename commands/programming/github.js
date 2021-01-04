@@ -26,7 +26,7 @@ class GitHub extends Command {
     if (!body) return ctx.reply('Could not fetch that repo, are you sure it exists?')
 
     const size = body.size <= 1024 ? `${body.size} KB` : Math.floor(body.size / 1024) > 1024 ? `${(body.size / 1024 / 1024).toFixed(2)} GB` : `${(body.size / 1024).toFixed(2)} MB`
-    const license = body.license && body.license.name && body.license.url ? `[${body.license.name}](${body.license.url})` : body.license && body.license.name || 'None'
+    const license = body.license && body.license.name && body.license.url ? `[${body.license.name}](${body.license.url})` : (body.license && body.license.name) || 'None'
     const footer = []
     if (body.fork) footer.push(`❯ **Forked** from [${body.parent.full_name}](${body.parent.html_url})`)
     if (body.archived) footer.push('❯ This repository is **Archived**')

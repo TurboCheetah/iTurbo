@@ -23,7 +23,7 @@ class Playlist extends Command {
 
   async isURL (string) {
     try {
-      new URL(string)
+      URL(string)
     } catch {
       return false
     }
