@@ -1,22 +1,22 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
-class Hentai extends Command {
+class HAss extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Hentai',
+      description: 'Hentai Ass',
       cooldown: 5,
-      cost: 15,
+      cost: 0,
       nsfw: true,
       botPermissions: ['EMBED_LINKS']
     })
   }
 
   async run(ctx) {
-    const { url } = await this.client.ksoft.images.random(this.client.utils.random(['hentai', 'hentai_gif']), { nsfw: ctx.channel.nsfw })
+    const { url } = await this.client.ksoft.images.random('ass', { nsfw: ctx.channel.nsfw })
 
     const embed = new MessageEmbed()
-      .setTitle('Hentai')
+      .setTitle('Hentai Ass')
       .setColor(0x9590ee)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by KSoft.si`, ctx.author.displayAvatarURL({ size: 32 }))
@@ -25,4 +25,4 @@ class Hentai extends Command {
   }
 }
 
-module.exports = Hentai
+module.exports = HAss

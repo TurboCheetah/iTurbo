@@ -1,11 +1,12 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 
-class Tickle extends Command {
+class Headrub extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Tickle someone',
-      usage: 'tickle <@member>',
+      description: "Rub someone's head",
+      usage: 'headrub <@member>',
+      aliases: ['rub'],
       guildOnly: true,
       cooldown: 3,
       cost: 5,
@@ -16,14 +17,14 @@ class Tickle extends Command {
   async run(ctx, [member]) {
     member = await this.verifyMember(ctx, member)
 
-    if (member.id === ctx.author.id) return ctx.reply("You can't tickle yourself!")
+    if (member.id === ctx.author.id) return ctx.reply("You can't rub your own head!")
 
-    const { url } = await this.client.ksoft.images.random('tickle', { nsfw: ctx.channel.nsfw })
+    const { url } = await this.client.ksoft.images.random('headrub', { nsfw: ctx.channel.nsfw })
 
     const embed = new MessageEmbed()
-      .setTitle('Tickle')
+      .setTitle('Headrub')
       .setColor(0x9590ee)
-      .setDescription(`**${member.displayName}**, you just got tickled by **${ctx.member.displayName}**`)
+      .setDescription(`**${member.displayName}**, you just got your head rubbed by **${ctx.member.displayName}**`)
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by KSoft.si`, ctx.author.displayAvatarURL({ size: 32 }))
 
@@ -31,4 +32,4 @@ class Tickle extends Command {
   }
 }
 
-module.exports = Tickle
+module.exports = Headrub
