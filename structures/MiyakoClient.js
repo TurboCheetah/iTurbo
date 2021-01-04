@@ -14,6 +14,7 @@ const PostgresGiveawaysManager = require('./PostgresGiveawaysManager.js')
 const BotAPI = require('./web')
 const { Manager } = require('erela.js')
 const Spotify = require('erela.js-spotify')
+const { KSoftClient } = require('@ksoft/api') // KSoft
 
 class MiyakoClient extends Client {
   constructor (dev) {
@@ -51,6 +52,7 @@ class MiyakoClient extends Client {
         })
       ]
     })
+    this.ksoft = new KSoftClient('b66d7713bffaeb970650c19f3aa8913f7b8ec2e5')
     this.version = '1.1.3'
 
     // Settings.
