@@ -6,7 +6,7 @@ class RedditGif extends Command {
     super(...args, {
       description: 'Returns a random reddit post.',
       usage: 'redditgif',
-      aliases: ['nsfwrgif', 'rnsfwgif', 'rgif'],
+      aliases: ['porngif', 'pgif', 'nsfwrgif', 'rnsfwgif', 'rgif'],
       cooldown: 3,
       cost: 3,
       nsfw: true,

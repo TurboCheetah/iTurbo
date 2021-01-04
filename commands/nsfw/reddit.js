@@ -8,7 +8,7 @@ class Reddit extends Command {
       description: 'Returns a reddit post for the specified category. If no category is given, a post will be returned from any of the possible categories.',
       usage: 'reddit',
       extendedHelp: 'reddit [ass|boobs|thighs]',
-      aliases: ['nsfwr', 'rnsfw'],
+      aliases: ['porn', 'nsfwr', 'rnsfw'],
       cooldown: 3,
       cost: 3,
       nsfw: true,
