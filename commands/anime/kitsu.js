@@ -6,7 +6,7 @@ class Kitsu extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Search an Anime on Kitsu.io',
-      usage: 'kitsu <title>, [page]',
+      usage: 'kitsu <anime>, [page]',
       cooldown: 5,
       botPermissions: ['EMBED_LINKS']
     })
