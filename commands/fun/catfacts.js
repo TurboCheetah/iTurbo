@@ -6,9 +6,9 @@ class CatFacts extends Command {
     super(...args, {
       aliases: ['catfact', 'kittenfact'],
       cooldown: 3,
+      cost: 10,
       description: 'Let me tell you a misterious cat fact.'
     })
-    this.cost = 10
   }
 
   async run(ctx) {
