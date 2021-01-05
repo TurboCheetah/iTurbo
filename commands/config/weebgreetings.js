@@ -4,14 +4,15 @@ class WeebGreetings extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Enable/Disable Weeb style welcome/leave messages.',
-      usage: 'weebgreetings <enable|disable> <channel>',
+      aliases: ['greetings'],
+      usage: 'weebgreetings <enable <channel> | disable>',
       userPermissions: ['MANAGE_GUILD'],
       guildOnly: true
     })
   }
 
   async run(ctx, [action]) {
-    if (!action) return ctx.reply('Specify either `enable #channel` or `disable`')
+    if (!action) return ctx.reply(`${this.client.constants.error} Please specify either \`${ctx.guild.settings.prefix}enable #channel\` or \`${ctx.guild.settings.prefix}disable\``)
 
     if (action === 'disable') {
       await ctx.guild.update({ weebGreetings: null })

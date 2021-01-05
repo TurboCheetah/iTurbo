@@ -3,18 +3,20 @@ const Command = require('../../structures/Command.js')
 class ToggleChannel extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Enables or disables a channel for the earning points',
-      usage: 'togglechannel <channel>',
+      description: 'Enables or disables the earning of points in a channel',
+      aliases: ['togglepoints'],
+      usage: 'togglechannel [channel]',
       userPermissions: ['MANAGE_GUILD'],
       guildOnly: true
     })
   }
 
   async run(ctx) {
-    if (!ctx.message.mentions.channels.size) return ctx.reply(`${this.client.constants.error} Invalid action!\nCorrect usage: ${this.usage}`)
+    let channel = ctx.channel
+
+    if (ctx.message.mentions.channels.size) channel = ctx.message.mentions.channels.first()
 
     const disabledChannels = ctx.guild.settings.disabledChannels || []
-    const channel = ctx.message.mentions.channels.first()
 
     if (disabledChannels.includes(channel.id)) {
       disabledChannels.splice(channel.id.indexOf(disabledChannels, 1))
