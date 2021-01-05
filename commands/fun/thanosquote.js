@@ -3,7 +3,8 @@ const Command = require('../../structures/Command.js')
 class ThanosQuote extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Gives a random quote from Thanos.'
+      description: 'Gives a random quote from Thanos.',
+      aliases: ['thanos']
     })
   }
 
