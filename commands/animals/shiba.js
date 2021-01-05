@@ -7,9 +7,8 @@ class Shibe extends Command {
     super(...args, {
       description: 'Post a randomly selected image of a Shiba Inu.',
       extended: 'This command will return a beautiful Shiba Inu.',
-      cost: 5,
       cooldown: 3,
-      aliases: ['doge', 'shib', 'shibe', 'shibainu'],
+      aliases: ['doge', 'shib', 'shiba', 'shibainu'],
       botPermissions: ['EMBED_LINKS']
     })
   }
