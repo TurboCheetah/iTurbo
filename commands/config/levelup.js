@@ -12,7 +12,7 @@ class LevelUp extends Command {
   }
 
   async run(ctx, [action]) {
-    if (!action || !['enable', 'disable'].includes(action)) return ctx.reply('Do you want me to disable or enable it?')
+    if (!action || !['enable', 'disable'].includes(action)) return ctx.reply('Do you want me to disable or enable levelup messages?')
 
     if (action === 'enable') {
       await ctx.guild.update({ levelup: true })
