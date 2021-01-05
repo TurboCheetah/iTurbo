@@ -5,7 +5,7 @@ class LMGTFY extends Command {
     super(...args, {
       description: 'Let me google it for you!',
       aliases: ['letmegoogleitforyou'],
-      usage: '!lmgtfy <query>'
+      usage: 'lmgtfy <query>'
     })
 
     // TODO: More!
