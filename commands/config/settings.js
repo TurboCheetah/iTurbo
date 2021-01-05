@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 class Settings extends Command {
   constructor(...args) {
     super(...args, {
-      description: "View either the guild's settings or your own",
+      description: "View either the guild's or your own settings",
       aliases: ['config'],
       botPermissions: ['EMBED_LINKS'],
       usage: 'settings [user]',
