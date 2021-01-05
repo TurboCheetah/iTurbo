@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 class Meme extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Get a random meme from r/dankmemes',
+      description: 'Get a random meme from Reddit',
       cooldown: 5,
       cost: 5,
       aliases: ['memes', 'dankmemes'],
