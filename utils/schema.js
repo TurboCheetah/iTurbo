@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS "guilds" (
   starboard TEXT,
   "starboardLimit" INTEGER DEFAULT 2,
   nowplaying BOOLEAN DEFAULT true,
-  "disabledChannels" TEXT[]
+  "disabledChannels" TEXT[],
+  "djRole" TEXT
 );
 
 CREATE TABLE IF NOT EXISTS members (

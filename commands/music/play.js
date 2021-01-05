@@ -15,6 +15,12 @@ class Play extends Command {
   }
 
   async run(ctx, args) {
+    const djRole = ctx.guild.settings.djRole
+
+    if (djRole) {
+      if (!ctx.member.roles.cache.has(djRole) || !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+    }
+
     const channel = ctx.member.voice.channel
 
     if (!channel) return ctx.reply(`${this.client.constants.error} You need to be in a voice channel to play music!`)

@@ -15,6 +15,12 @@ class Filter extends Command {
   }
 
   async run(ctx, [filter = 'list']) {
+    const djRole = ctx.guild.settings.djRole
+
+    if (djRole) {
+      if (!ctx.member.roles.cache.has(djRole) || !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+    }
+
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {

@@ -274,6 +274,12 @@ class Playlist extends Command {
   }
 
   async play(ctx, args) {
+    const djRole = ctx.guild.settings.djRole
+
+    if (djRole) {
+      if (!ctx.member.roles.cache.has(djRole) || !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+    }
+
     if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlist yet!")
 
     if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}play <playlistName>`)
