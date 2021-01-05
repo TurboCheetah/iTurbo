@@ -26,6 +26,10 @@ module.exports = client => {
     res.redirect(301, 'https://discord.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot')
   })
 
+  app.get('/discord', (req, res) => {
+    res.redirect(301, 'https://discord.gg/011UYuval0uSxjmuQ')
+  })
+
   app.get('/playlist/:userID/:playlistName', async (req, res) => {
     const id = req.params.userID
     const playlistName = req.params.playlistName
