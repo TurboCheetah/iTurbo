@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 class Suggestion extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Got a suggestion to improve the bot?',
+      description: 'Got a suggestion to improve the bot? Submit it using this command.',
       usage: 'suggestion <idea>',
       aliases: ['suggest'],
       cooldown: 60,
