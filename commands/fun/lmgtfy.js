@@ -3,8 +3,8 @@ const Command = require('../../structures/Command.js')
 class LMGTFY extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Let me google it for you!',
-      aliases: ['letmegoogleitforyou'],
+      description: 'Let me google that for you!',
+      aliases: ['letmegooglethatforyou'],
       usage: 'lmgtfy <query>'
     })
 
