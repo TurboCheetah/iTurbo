@@ -7,14 +7,14 @@ class Meme extends Command {
     super(...args, {
       description: 'Get a random meme from r/dankmemes',
       cooldown: 5,
+      cost: 5,
       aliases: ['memes', 'dankmemes'],
       botPermissions: ['EMBED_LINKS']
     })
-    this.cost = 5
   }
 
   async run(ctx) {
-    const subs = ['dankmemes', 'me_irl']
+    const subs = ['dankmemes', 'me_irl', 'memes']
     const search = ['hot', 'top']
     const {
       data: { children }
