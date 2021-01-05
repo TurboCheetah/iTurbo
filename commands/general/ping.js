@@ -8,7 +8,6 @@ class Ping extends Command {
   }
 
   async run(ctx) {
-    // eslint-disable-line no-unused-vars
     const msg = await ctx.reply('Ping?')
 
     return msg.edit(
