@@ -3,7 +3,9 @@ const Command = require('../../structures/Command.js')
 class Waifu extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Sends a randomly generated Waifu from thiswaifudoesnotexist.net'
+      description: 'Sends a randomly generated Waifu from thiswaifudoesnotexist.net',
+      cooldown: 3,
+      botPermissions: ['EMBED_LINKS']
     })
   }
 
