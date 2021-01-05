@@ -5,7 +5,7 @@ class RandomGIF extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Get a random gif from giphy',
-      usage: 'randomgif [tag:]',
+      usage: 'randomgif [tag]',
       aliases: ['rgif', 'randgif'],
       cooldown: 5
     })
