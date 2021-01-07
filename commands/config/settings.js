@@ -13,7 +13,7 @@ class Settings extends Command {
   }
 
   async run(ctx, args) {
-    if (args[0] === 'user') {
+    if (!ctx.guild || args[0] === 'user') {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
         .setTitle('User settings')
