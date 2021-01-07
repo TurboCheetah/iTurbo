@@ -52,7 +52,7 @@ class Stats extends Command {
         .addField('Bot Stats', [`**Guilds:** ${client.guilds.cache.size}`, `**Users:** ${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}`, `**Channels:** ${client.channels.cache.size}`, `**Music Streams:** ${this.client.manager.players.size}`, `**Uptime:** ${uptime}`, `**API Latency:** ${this.client.ws.ping}ms`, `**Total Memory Usage:** ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`, `**Memory Usage:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`].join('\n'))
         .addField('Versions', [`**Bot Version:** ${this.client.version}`, `**Node.js Version:** ${process.version}`, `**Discord.js Version:** v${version}`].join('\n'))
         .addField('Command Stats', [`**Total Commands:** ${this.store.size}`, `**Commands Ran:** ${this.store.ran}`].join('\n'))
-        .addField('Links', [':envelope_with_arrow: [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)', ':video_game: [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)'].join('\n'))
+        .addField('Links', [':envelope_with_arrow: [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)', ':video_game: [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)', ':book: [Documentation](https://docs.iturbo.cc)'].join('\n'))
     )
   }
 }
