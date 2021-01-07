@@ -4,6 +4,7 @@ const { MessageAttachment } = require('discord.js')
 class Patrick extends Command {
   constructor(...args) {
     super(...args, {
+      description: 'WEEWOO WEEWOO',
       cooldown: 3,
       cost: 5,
       usage: 'patrick [@user]'
