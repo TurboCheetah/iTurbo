@@ -4,7 +4,7 @@ const { MessageAttachment } = require('discord.js')
 class Respect extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Press F to pay respect',
+      description: 'Press F to pay respects',
       cooldown: 3,
       cost: 5,
       usage: 'respect [@user]'
