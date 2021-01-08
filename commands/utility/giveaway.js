@@ -7,6 +7,7 @@ class Giveaway extends Command {
       cooldown: 3,
       description: 'Create, end, and reroll giveaways',
       usage: 'giveaway <start|end|reroll|delete>',
+      aliases: ['raffle'],
       userPermissions: ['MANAGE_GUILD'],
       botPermissions: ['EMBED_LINKS']
     })
