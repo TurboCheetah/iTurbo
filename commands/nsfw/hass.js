@@ -5,8 +5,8 @@ class HAss extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Hentai Ass',
-      cooldown: 5,
-      cost: 0,
+      cooldown: 3,
+      cost: 3,
       nsfw: true,
       botPermissions: ['EMBED_LINKS']
     })
