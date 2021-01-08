@@ -12,7 +12,9 @@ class Baka extends Command {
     })
   }
 
-  async run(ctx) {
+  async run(ctx, [member]) {
+    member = await this.verifyMember(ctx, member, true)
+
     const { url } = await fetch('https://nekos.life/api/v2/img/baka').then(res => res.json())
 
     const embed = new MessageEmbed()
@@ -21,6 +23,7 @@ class Baka extends Command {
       .setImage(url)
       .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
 
+    if (member.id !== ctx.author.id) embed.setDescription(`**${member.displayName}**, you baka!`)
     return ctx.reply({ embed })
   }
 }
