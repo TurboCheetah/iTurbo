@@ -7,7 +7,7 @@ class Volume extends Command {
       description: 'Adjusts the volume',
       aliases: [],
       botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
-      usage: 'volume <percent>',
+      usage: 'volume [percent]',
       guildOnly: true,
       cost: 0,
       cooldown: 3
