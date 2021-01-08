@@ -10,7 +10,7 @@ class Image extends Command {
       usage: 'image <query>',
       aliases: ['imagesearch', 'img', 'imgsearch'],
       cooldown: 5,
-      extendedHelp: 'Use --index=<n> to retrieve nth image, by default it picks a random one everytime.',
+      extendedHelp: 'Use --index=<n> to retrieve nth image, by default it picks a random one every time.',
       botPermissions: ['EMBED_LINKS']
     })
 
