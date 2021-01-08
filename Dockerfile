@@ -3,7 +3,7 @@ FROM keymetrics/pm2:latest-alpine
 WORKDIR /iTurbo
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --only=prod
 COPY . .
 EXPOSE 5000
 ARG PM2_ENV
