@@ -8,8 +8,7 @@ class Deduct extends Command {
       cooldown: 30,
       usage: 'deduct <@user> <amount>',
       aliases: ['punish', 'take'],
-      guildOnly: true,
-      cost: 5
+      guildOnly: true
     })
   }
 
