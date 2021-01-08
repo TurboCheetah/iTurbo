@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 class Quote extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Quote a message by id',
+      description: 'Quote a message by ID',
       guildOnly: true,
       aliases: ['quotemsg', 'msg', 'message'],
       usage: 'quote [#channel] <messageID>',
