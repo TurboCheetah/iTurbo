@@ -6,7 +6,7 @@ const { shorten } = require('../../utils/Utils.js')
 class Rule34 extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Returns a random reddit post.',
+      description: "Rule 34: If it exists there's porn of it.",
       usage: 'rule34 [search]',
       aliases: ['r34'],
       cooldown: 3,
