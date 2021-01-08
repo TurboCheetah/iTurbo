@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 class NPM extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Search the NPM Registry for a package information',
+      description: 'Search the NPM Registry for package information',
       usage: 'npm <package>',
       aliases: ['npmpackage', 'npmpkg', 'nodepackagemanager'],
       cooldown: 5,
