@@ -21,7 +21,7 @@ class Lick extends Command {
     const { url } = await this.client.ksoft.images.random('lick', { nsfw: ctx.channel.nsfw })
 
     const embed = new MessageEmbed()
-      .setTitle('Kiss')
+      .setTitle('Lick')
       .setColor(0x9590ee)
       .setDescription(`**${member.displayName}**, you just got licked by **${ctx.member.displayName}**`)
       .setImage(url)
