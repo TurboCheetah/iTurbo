@@ -5,7 +5,7 @@ const fetch = require('node-fetch')
 class Wolfram extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Query Wolfram Alpha with any mathematical question.',
+      description: 'Query Wolfram|Alpha with any mathematical question.',
       usage: 'wolfram <query>',
       aliases: ['what', 'when', 'where', 'who', 'why', 'how'],
       cooldown: 5,
