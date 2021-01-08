@@ -6,7 +6,7 @@ class Copy extends Command {
       description: 'Copies an emoji by id or url',
       aliases: ['copyemoji', 'addemoji', 'emoji'],
       cooldown: 5,
-      usage: '<link|id> <name:string>',
+      usage: 'emoji <link|id> <name:string>',
       guildOnly: true,
       botPermissions: ['MANAGE_EMOJIS'],
       userPermissions: ['MANAGE_EMOJIS']
