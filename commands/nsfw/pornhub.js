@@ -8,6 +8,7 @@ class Pornhub extends Command {
       description: 'Search for a video or gif on PornHub',
       usage: 'pornhub [gif] <query>',
       cooldown: 15,
+      cost: 3,
       nsfw: true,
       aliases: ['ph'],
       botPermissions: ['EMBED_LINKS']
