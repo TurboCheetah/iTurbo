@@ -8,7 +8,7 @@ const axios = require('axios')
 class Playlist extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Create custom playlists.',
+      description: 'Manage custom playlists.',
       aliases: [],
       usage: 'playlist <create|delete|append|remove|info|share|import|list:default> [playlist]',
       botPermissions: ['EMBED_LINKS']
