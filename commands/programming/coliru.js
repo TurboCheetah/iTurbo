@@ -6,7 +6,7 @@ class Coliru extends Command {
     super(...args, {
       description: 'Compiles code through coliru API',
       cooldown: 5,
-      usage: '<code>'
+      usage: 'coliru <code>'
     })
 
     this.commands = {
