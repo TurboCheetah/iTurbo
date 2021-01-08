@@ -5,7 +5,7 @@ class Store extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Buy/Sell Roles in exchange for social currency.',
-      extendedHelp: 'Examples: !store add 1000 VIP (sell VIP role for ¥1000)\n!store add 0 Cool Guy (Sell the Cool Guy role for free)\n!store buy VIP (buy the role.)\n!store sell VIP (sell and remove the role for a 50% refund)',
+      extendedHelp: 'Examples: |store add 1000 VIP (sell VIP role for ¥1000)\n|store add 0 Cool Guy (Sell the Cool Guy role for free)\n|store buy VIP (buy the role.)\n|store sell VIP (sell and remove the role for a 50% refund)',
       usage: 'store <add|sell|buy|delete|view:default> <role>',
       guildOnly: true,
       aliases: ['shop'],
