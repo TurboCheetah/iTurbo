@@ -8,6 +8,7 @@ class Wikipedia extends Command {
       aliases: ['wiki'],
       description: 'Finds a Wikipedia Article by title.',
       usage: 'wikipedia <query>',
+      cooldown: 3,
       botPermissions: ['EMBED_LINKS']
     })
   }
