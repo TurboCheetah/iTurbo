@@ -6,7 +6,7 @@ class Stock extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Get information about a certain stock.',
-      aliases: [],
+      cooldown: 3,
       usage: 'stock <stock>',
       botPermissions: ['EMBED_LINKS']
     })
