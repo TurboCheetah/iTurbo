@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Movie extends Command {
   constructor(...args) {
@@ -26,8 +26,8 @@ class Movie extends Command {
       ['query', query]
     ])
 
-    const body = await fetch(url)
-      .then(res => res.json())
+    const body = await c(url)
+      .json()
       .catch(() => {
         throw `I couldn't find a movie with title **${query}** in page ${page}.`
       })

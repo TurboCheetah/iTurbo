@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Hastebin extends Command {
   constructor(...args) {
@@ -16,13 +16,12 @@ class Hastebin extends Command {
 
     const { code, lang } = this.client.utils.getCodeBlock(ctx.rawArgs)
 
-    const { key } = await fetch('https://haste.turbo.ooo/documents', {
-      method: 'POST',
-      body: code
-    }).then(res => {
-      if (!res.ok) throw `Something went wrong with Hastebin. Try again later. (Status: ${res.status} ${res.statusText})`
-      return res.json()
-    })
+    const { key } = await c('https://haste.turbo.ooo/documents', 'POST')
+      .body(code)
+      .json()
+      .catch(() => {
+        throw 'Something went wrong with Hastebin. Try again later.'
+      })
 
     return ctx.reply(`Hastebin-ified: https://haste.turbo.ooo/${key}${lang ? `.${lang}` : ''}`)
   }

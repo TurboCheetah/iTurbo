@@ -24,11 +24,11 @@
     "@structures": "./structures"
   },
   "dependencies": {
+    "@aero/centra": "^1.0.6",
     "@discordjs/opus": "^0.3.3",
     "@ksoft/api": "^3.1.9",
     "@pm2/io": "^4.3.5",
     "abort-controller": "^3.0.0",
-    "axios": "^0.21.0",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
     "dblapi.js": "^2.4.0",

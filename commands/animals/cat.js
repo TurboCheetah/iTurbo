@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Cat extends Command {
   constructor(...args) {
@@ -13,9 +13,7 @@ class Cat extends Command {
   }
 
   async run(ctx) {
-    const file = await fetch('https://aws.random.cat/meow')
-      .then(res => res.json())
-      .then(body => body.file)
+    const { file } = await c('https://aws.random.cat/meow').json()
 
     const embed = new MessageEmbed()
       .setTitle('Random Cat')

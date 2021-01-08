@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const axios = require('axios')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Crypto extends Command {
   constructor(...args) {
@@ -20,9 +20,7 @@ class Crypto extends Command {
       return Number((+(Math.round(+(num + 'e' + precision)) + 'e' + -precision)).toFixed(precision))
     }
 
-    const options = {
-      method: 'GET',
-      url: 'https://api.nomics.com/v1/currencies/ticker',
+    const headers = {
       headers: {
         'content-type': 'application/json',
         accept: 'application/json'
@@ -30,17 +28,16 @@ class Crypto extends Command {
     }
 
     if (!coin) {
-      options.params = {
+      const params = {
         key: this.client.config.nomics,
         ids: 'BTC,ETH,XRP',
         interval: '1d'
       }
 
-      const data = await axios
-        .request(options)
-        .then(res => {
-          return res.data
-        })
+      const data = await c('https://api.nomics.com/v1/currencies/ticker')
+        .header(headers)
+        .query(params)
+        .json()
         .catch(err => {
           console.error(err)
         })
@@ -55,17 +52,19 @@ class Crypto extends Command {
       return ctx.reply({ embed })
     }
 
-    options.params = {
+    const params = {
       key: this.client.config.nomics,
       ids: coin.toUpperCase(),
       interval: '1h,1d,7d',
       convert: fiat.toUpperCase()
     }
 
-    const data = await axios
-      .request(options)
-      .then(res => {
-        return res.data
+    const data = await c('https://api.nomics.com/v1/currencies/ticker')
+      .header(headers)
+      .query(params)
+      .json()
+      .catch(err => {
+        console.error(err)
       })
       .catch(err => {
         console.error(err)

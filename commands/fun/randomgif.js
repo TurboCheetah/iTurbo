@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class RandomGIF extends Command {
   constructor(...args) {
@@ -15,7 +15,7 @@ class RandomGIF extends Command {
     let url = `https://api.giphy.com/v1/gifs/random?api_key=${this.client.config.giphy}`
     if (args.length) url += `&tag=${encodeURIComponent(args.join(' '))}`
 
-    const body = await fetch(url).then(res => res.json())
+    const body = await c(url).json()
 
     return ctx.reply(body.data.embed_url)
   }

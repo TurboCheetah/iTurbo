@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Coliru extends Command {
   constructor(...args) {
@@ -40,20 +40,14 @@ class Coliru extends Command {
 
     const cmd = this.commands[lang]
     const src = code
-    const res = await fetch('http://coliru.stacked-crooked.com/compile', {
-      method: 'POST',
-      body: JSON.stringify({ cmd, src })
-    }).then(res => res.text())
+    const res = await c('http://coliru.stacked-crooked.com/compile', 'POST').body(JSON.stringify({ cmd, src }), 'form').text()
 
     if (res.length < 1980) return ctx.reply(res, { code: lang })
     return this.post(ctx, { cmd, src })
   }
 
   async post(ctx, { cmd, src }) {
-    const id = await fetch('https://coliru.stacked-crooked.com/share', {
-      method: 'POST',
-      body: JSON.stringify({ cmd, src })
-    }).then(res => res.text())
+    const id = await c('https://coliru.stacked-crooked.com/share', 'POST').body(JSON.stringify({ cmd, src }), 'form').text()
 
     return ctx.reply(`Output too long. View the results here: https://coliru.stacked-crooked.com/a/${id}`)
   }

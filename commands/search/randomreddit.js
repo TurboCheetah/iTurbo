@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class RandomReddit extends Command {
   constructor(...args) {
@@ -17,8 +17,8 @@ class RandomReddit extends Command {
   async run(ctx, [subreddit]) {
     if (!subreddit) return ctx.reply('You must provide a subreddit to fetch from.')
 
-    const data = await fetch(`https://www.reddit.com/r/${subreddit}/random.json`)
-      .then(res => res.json())
+    const data = await c(`https://www.reddit.com/r/${subreddit}/random.json`)
+      .json()
       .then(body => {
         if (body.error) throw this.errorMessage
         return body[0].data.children[0].data

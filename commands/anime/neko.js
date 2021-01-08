@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Neko extends Command {
   constructor(...args) {
@@ -13,7 +13,7 @@ class Neko extends Command {
   }
 
   async run(ctx) {
-    const { url } = await fetch('https://nekos.life/api/v2/img/neko').then(res => res.json())
+    const { url } = await c('https://nekos.life/api/v2/img/neko').json()
 
     const embed = new MessageEmbed()
       .setTitle('Neko')

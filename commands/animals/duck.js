@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Duck extends Command {
   constructor(...args) {
@@ -14,7 +14,7 @@ class Duck extends Command {
   }
 
   async run(ctx) {
-    const { url } = await fetch('https://random-d.uk/api/v1/random').then(res => res.json())
+    const { url } = await c('https://random-d.uk/api/v1/random').json()
 
     return ctx.reply(
       new MessageEmbed()

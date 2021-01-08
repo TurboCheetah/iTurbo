@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class GIF extends Command {
   constructor(...args) {
@@ -13,12 +13,10 @@ class GIF extends Command {
   async run(ctx, args) {
     if (!args.length) return ctx.reply('What am I supposed to search?')
 
-    const data = await fetch(`https://api.giphy.com/v1/gifs/search?api_key=${this.client.config.giphy}&limit=1&q=${encodeURIComponent(args.join(' '))}`)
-      .then(res => res.json())
-      .then(body => body.data[0])
+    const { data } = await c(`https://api.giphy.com/v1/gifs/search?api_key=${this.client.config.giphy}&limit=1&q=${encodeURIComponent(args.join(' '))}`).json()
 
     if (!data) return ctx.reply('No Results Found.')
-    return ctx.reply(data.embed_url)
+    return ctx.reply(data[0].embed_url)
   }
 }
 

@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class RedditGif extends Command {
   constructor(...args) {
@@ -18,8 +18,8 @@ class RedditGif extends Command {
 
   async run(ctx) {
     const subreddits = ['nsfw_gif', 'nsfw_gifs', 'porn_gifs', 'povjiggle', 'slowmojiggles', 'tittydrop', 'verticalgifs']
-    const data = await fetch(`https://www.reddit.com/r/${this.client.utils.random(subreddits)}.json?limit=800&?sort=hot&t=all`)
-      .then(res => res.json())
+    const data = await c(`https://www.reddit.com/r/${this.client.utils.random(subreddits)}.json?limit=800&?sort=hot&t=all`)
+      .json()
       .then(body => {
         if (body.error) throw this.errorMessage
         return body.data.children

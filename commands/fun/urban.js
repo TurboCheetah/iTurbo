@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 const ZWS = '\u200B'
 
@@ -21,7 +21,7 @@ class Urban extends Command {
     const index = ind - 1
     if (index < 0) return ctx.reply('The number cannot be zero or negative.')
 
-    const { list } = await fetch(`http://api.urbandictionary.com/v0/define?term=${encodeURIComponent(query)}`).then(res => res.json())
+    const { list } = await c(`http://api.urbandictionary.com/v0/define?term=${encodeURIComponent(query)}`).json()
 
     const result = list[index]
 

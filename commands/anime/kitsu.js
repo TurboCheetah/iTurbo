@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Kitsu extends Command {
   constructor(...args) {
@@ -27,7 +27,7 @@ class Kitsu extends Command {
       if (response.toLowerCase()) {
         const page = this.verifyInt(1, 1)
 
-        const { data } = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(response)}`).then(r => r.json())
+        const { data } = await c(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(response)}`).json()
 
         if (!data || !data.length) return ctx.reply('No results found.')
 
@@ -54,7 +54,7 @@ class Kitsu extends Command {
     let [title, page = 1] = args.join(' ').split(', ')
     page = this.verifyInt(page, 1)
 
-    const { data } = await fetch(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(title)}`).then(r => r.json())
+    const { data } = await c(`https://kitsu.io/api/edge/anime?filter[text]=${encodeURIComponent(title)}`).json()
 
     if (!data || !data.length) return ctx.reply('No results found.')
 

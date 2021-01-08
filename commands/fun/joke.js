@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Joke extends Command {
   constructor(...args) {
@@ -13,7 +13,7 @@ class Joke extends Command {
   }
 
   async run(ctx) {
-    const body = await fetch('https://sv443.net/jokeapi/v2/joke/Any').then(r => r.json())
+    const body = await c('https://sv443.net/jokeapi/v2/joke/Any').json()
 
     if (body.error) return ctx.reply('Something went wrong with the API. Try again later.')
     const flags = Object.entries(body.flags)

@@ -122,6 +122,10 @@ class Utils {
     // eslint-disable-next-line no-mixed-operators
     return h * 60 * 60 + m * 60 + s
   }
+
+  static getUserAgent(version) {
+    return `iTurbo/${version} (DiscordBot)`
+  }
 }
 
 Utils.sleep = promisify(setTimeout)

@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class NPMPkgSize extends Command {
   constructor(...args) {
@@ -16,7 +16,7 @@ class NPMPkgSize extends Command {
   async run(ctx, [name]) {
     if (!name) return ctx.reply('What package am I supposed to show you?')
 
-    const { publishSize, installSize } = await fetch(`https://packagephobia.now.sh/api.json?p=${encodeURIComponent(name)}`).then(res => res.json())
+    const { publishSize, installSize } = await c(`https://packagephobia.now.sh/api.json?p=${encodeURIComponent(name)}`).json()
 
     if (!publishSize && !installSize) return ctx.reply("That package doesn't exist.")
 

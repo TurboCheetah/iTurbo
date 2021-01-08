@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 const cheerio = require('cheerio')
 
 class Image extends Command {
@@ -26,12 +26,12 @@ class Image extends Command {
       return ctx.reply('--index Provided but not a number.')
     }
 
-    const $ = await fetch(this.url(query, ctx.channel.nsfw))
-      .then(res => {
-        if (!res.ok) throw 'Something went wrong with Bing.'
-        return res.text()
-      })
+    const $ = await c(this.url(query, ctx.channel.nsfw))
+      .text()
       .then(html => cheerio.load(html))
+      .catch(() => {
+        throw 'Something went wrong with Bing.'
+      })
 
     const results = []
 

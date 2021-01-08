@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Reddit extends Command {
   constructor(...args) {
@@ -109,15 +109,12 @@ class Reddit extends Command {
         }
         // just some randomness
         const sortBy = ['best', 'top', 'hot']
-        const url = `https://reddit.com/r/${site}/${client.utils.random(sortBy)}.json?limit=15`
-        fetch(url)
+        const url = `https://www.reddit.com/r/${site}/${client.utils.random(sortBy)}.json?limit=15`
+        c(url)
+          .json()
           .then(async response => {
             try {
-              // gets the json response
-              const body = await response.json()
-              // checks if the request responded with a 200 status code
-              if (response.status !== 200) reject(body)
-              ExtractRedditUrl(body.data.children, 0)
+              ExtractRedditUrl(response.data.children, 0)
             } catch (error) {
               reject(error)
             }

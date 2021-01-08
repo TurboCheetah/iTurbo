@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Feed extends Command {
   constructor(...args) {
@@ -19,7 +19,7 @@ class Feed extends Command {
 
     if (member.id === ctx.author.id) return ctx.reply("You can't feed yourself!")
 
-    const { url } = await fetch('https://nekos.life/api/v2/img/feed').then(res => res.json())
+    const { url } = await c('https://nekos.life/api/v2/img/feed').json()
 
     const embed = new MessageEmbed()
       .setTitle('Feed')

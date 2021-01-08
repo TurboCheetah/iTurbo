@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class CatFace extends Command {
   constructor(...args) {
@@ -12,7 +12,7 @@ class CatFace extends Command {
   }
 
   async run(ctx) {
-    const { cat } = await fetch('https://nekos.life/api/v2/cat').then(res => res.json())
+    const { cat } = await c('https://nekos.life/api/v2/cat').json()
 
     return ctx.reply(cat)
   }

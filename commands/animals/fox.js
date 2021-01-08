@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Fox extends Command {
   constructor(...args) {
@@ -14,7 +14,7 @@ class Fox extends Command {
   }
 
   async run(ctx) {
-    const { image } = await fetch('https://randomfox.ca/floof/').then(res => res.json())
+    const { image } = await c('https://randomfox.ca/floof/').json()
 
     return ctx.reply(
       new MessageEmbed()

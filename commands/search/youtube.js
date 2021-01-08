@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 const cheerio = require('cheerio')
 
 class YouTube extends Command {
@@ -15,8 +15,8 @@ class YouTube extends Command {
   async run(ctx, args) {
     if (!args.length) return ctx.reply('What do you want me to search?')
 
-    const url = await fetch(`https://www.youtube.com/results?search_query=${encodeURIComponent(args.join(' '))}`)
-      .then(res => res.text())
+    const url = await c(`https://www.youtube.com/results?search_query=${encodeURIComponent(args.join(' '))}`)
+      .text()
       .then(html => cheerio.load(html))
       .then(function find($) {
         const u = $('.yt-uix-tile-link').first().attr('href')

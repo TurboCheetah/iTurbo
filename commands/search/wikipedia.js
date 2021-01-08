@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Wikipedia extends Command {
   constructor(...args) {
@@ -14,8 +14,8 @@ class Wikipedia extends Command {
   }
 
   async run(ctx, args) {
-    const article = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(args.join(' '))}`)
-      .then(res => res.json())
+    const article = await c(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(args.join(' '))}`)
+      .json()
       .catch(() => {
         throw "I couldn't find a wikipedia article with that title!"
       })

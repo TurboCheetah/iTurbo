@@ -3,7 +3,7 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 const { FieldsEmbed } = require('discord-paginationembed')
 const { TrackUtils } = require('erela.js')
-const axios = require('axios')
+const c = require('@aero/centra')
 
 class Playlist extends Command {
   constructor(...args) {
@@ -357,23 +357,17 @@ class Playlist extends Command {
     const playlistURL = args.join(' ')
     if (!playlistURL) return ctx.reply('You must provide a name for the playlist.')
 
-    if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.reply("You can't import your own playlist!")
+    // if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.reply("You can't import your own playlist!")
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
 
-    const options = {
-      method: 'GET',
-      url: playlistURL,
-      headers: {
+    const playlistToImport = await c(playlistURL)
+      .header({
         'content-type': 'application/json',
         accept: 'application/json'
-      }
-    }
-
-    const playlistToImport = await axios
-      .request(options)
-      .then(res => res.data)
+      })
+      .json()
       .catch(err => {
         console.error(err)
         return false

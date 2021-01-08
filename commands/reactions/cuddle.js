@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Cuddle extends Command {
   constructor(...args) {
@@ -19,7 +19,7 @@ class Cuddle extends Command {
 
     if (member.id === ctx.author.id) return ctx.reply("You can't cuddle yourself!")
 
-    const { url } = await fetch('https://nekos.life/api/v2/img/cuddle').then(res => res.json())
+    const { url } = await c('https://nekos.life/api/v2/img/cuddle').json()
 
     const embed = new MessageEmbed()
       .setTitle('Cuddle')

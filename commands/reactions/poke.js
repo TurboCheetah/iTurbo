@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 const { MessageEmbed } = require('discord.js')
 
 class Poke extends Command {
@@ -19,7 +19,7 @@ class Poke extends Command {
 
     if (member.id === ctx.author.id) return ctx.reply("You can't poke yourself!")
 
-    const { url } = await fetch('https://nekos.life/api/v2/img/poke').then(res => res.json())
+    const { url } = await c('https://nekos.life/api/v2/img/poke').json()
 
     const embed = new MessageEmbed()
       .setTitle('Poke')

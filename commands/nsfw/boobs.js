@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Boobs extends Command {
   constructor(...args) {
@@ -18,25 +18,17 @@ class Boobs extends Command {
   }
 
   async run(ctx) {
-    const data = await fetch('http://api.oboobs.ru/boobs/0/1/random')
-      .then(res => res.json())
-      .then(body => {
-        if (body.error) throw this.errorMessage
-        return body[0].preview
-      })
-      .catch(() => {
-        throw this.errorMessage
-      })
+    try {
+      const [data] = await c('http://api.oboobs.ru/boobs/0/1/random').json()
 
-    if (!ctx.channel.nsfw) {
-      return ctx.reply('The result I found was NSFW and I cannot post it in this channel.')
+      const embed = new MessageEmbed()
+        .setColor(0x9590ee)
+        .setImage(`http://media.oboobs.ru/${data.preview}`)
+        .setFooter(`Requested by: ${ctx.author.tag} • Powered by oBoobs.ru`, ctx.author.displayAvatarURL({ size: 32 }))
+      return ctx.reply({ embed })
+    } catch (err) {
+      throw this.errorMessage
     }
-
-    const embed = new MessageEmbed()
-      .setColor(0x9590ee)
-      .setImage(`http://media.oboobs.ru/${data}`)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by oBoobs.ru`, ctx.author.displayAvatarURL({ size: 32 }))
-    return ctx.reply({ embed })
   }
 }
 

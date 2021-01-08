@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class SubReddit extends Command {
   constructor(...args) {
@@ -16,8 +16,8 @@ class SubReddit extends Command {
   }
 
   async run(ctx, [subredditName]) {
-    const subreddit = await fetch(`https://www.reddit.com/r/${subredditName}/about.json`)
-      .then(res => res.json())
+    const subreddit = await c(`https://www.reddit.com/r/${subredditName}/about.json`)
+      .json()
       .then(body => {
         if (body.kind === 't5') return body.data
         throw "That subreddit doesn't exist."

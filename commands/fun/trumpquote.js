@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class TrumpQuote extends Command {
   constructor(...args) {
@@ -10,7 +10,7 @@ class TrumpQuote extends Command {
   }
 
   async run(ctx) {
-    const { value } = await fetch('https://api.tronalddump.io/random/quote').then(res => res.json())
+    const { value } = await c('https://api.tronalddump.io/random/quote').json()
     return ctx.reply(value)
   }
 }

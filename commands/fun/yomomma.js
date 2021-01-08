@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class YoMomma extends Command {
   constructor(...args) {
@@ -14,7 +14,7 @@ class YoMomma extends Command {
   async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user, true)
 
-    const { joke } = await fetch('http://api.yomomma.info').then(res => res.json())
+    const { joke } = await c('http://api.yomomma.info').json()
 
     return ctx.reply(`${user}, ${joke}`)
   }

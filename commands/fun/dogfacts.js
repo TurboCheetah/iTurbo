@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class DogFacts extends Command {
   constructor(...args) {
@@ -10,10 +10,8 @@ class DogFacts extends Command {
   }
 
   async run(ctx) {
-    const fact = await fetch('http://dog-api.kinduff.com/api/facts?number=1')
-      .then(res => res.json())
-      .then(body => body.facts[0])
-    return ctx.reply(`📢 **Dogfact:** *${fact}*`)
+    const { facts } = await c('https://dog-api.kinduff.com/api/facts?number=1').json()
+    return ctx.reply(`📢 **Dogfact:** *${facts}*`)
   }
 }
 

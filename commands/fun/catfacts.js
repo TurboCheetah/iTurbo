@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class CatFacts extends Command {
   constructor(...args) {
@@ -12,9 +12,7 @@ class CatFacts extends Command {
   }
 
   async run(ctx) {
-    const fact = await fetch('https://catfact.ninja/fact')
-      .then(res => res.json())
-      .then(({ fact }) => fact)
+    const { fact } = await c('https://catfact.ninja/fact').json()
 
     return ctx.reply(`📢 **Catfact:** *${fact}*`)
   }

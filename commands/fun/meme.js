@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Meme extends Command {
   constructor(...args) {
@@ -18,7 +18,7 @@ class Meme extends Command {
     const search = ['hot', 'top']
     const {
       data: { children }
-    } = await fetch(`https://www.reddit.com/r/${this.client.utils.random(subs)}/${this.client.utils.random(search)}.json?sort=top&t=day&limit=500`).then(res => res.json())
+    } = await c(`https://www.reddit.com/r/${this.client.utils.random(subs)}/${this.client.utils.random(search)}.json?sort=top&t=day&limit=500`).json()
     const meme = this.client.utils.random(children).data
 
     const embed = new MessageEmbed()

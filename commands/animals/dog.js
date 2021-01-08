@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Dog extends Command {
   constructor(...args) {
@@ -14,7 +14,7 @@ class Dog extends Command {
   }
 
   async run(ctx) {
-    const { message } = await fetch('https://dog.ceo/api/breeds/image/random').then(res => res.json())
+    const { message } = await c('https://dog.ceo/api/breeds/image/random').json()
 
     return ctx.reply(
       new MessageEmbed()

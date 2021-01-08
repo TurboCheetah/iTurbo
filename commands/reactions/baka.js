@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Baka extends Command {
   constructor(...args) {
@@ -15,7 +15,7 @@ class Baka extends Command {
   async run(ctx, [member]) {
     member = await this.verifyMember(ctx, member, true)
 
-    const { url } = await fetch('https://nekos.life/api/v2/img/baka').then(res => res.json())
+    const { url } = await c('https://nekos.life/api/v2/img/baka').json()
 
     const embed = new MessageEmbed()
       .setTitle('Baka')

@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class NumberFact extends Command {
   constructor(...args) {
@@ -13,7 +13,7 @@ class NumberFact extends Command {
 
   async run(ctx, [number = 'random']) {
     if (number !== 'random' && isNaN(parseInt(number))) return ctx.reply('Does that look like a number to you?')
-    const text = await fetch(`http://numbersapi.com/${number}`).then(res => res.text())
+    const text = await c(`http://numbersapi.com/${number}`).text()
     return ctx.reply(`**${text}**`)
   }
 }

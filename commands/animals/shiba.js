@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
 const { MessageEmbed } = require('discord.js')
+const c = require('@aero/centra')
 
 class Shibe extends Command {
   constructor(...args) {
@@ -14,7 +14,7 @@ class Shibe extends Command {
   }
 
   async run(ctx) {
-    const [url] = await fetch('https://shibe.online/api/shibes').then(res => res.json())
+    const [url] = await c('https://shibe.online/api/shibes').json()
 
     const embed = new MessageEmbed()
       .setTitle('Shiba Inu')

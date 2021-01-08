@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class NPM extends Command {
   constructor(...args) {
@@ -16,10 +16,9 @@ class NPM extends Command {
   async run(ctx, [pkg]) {
     if (!pkg) return ctx.reply('What package am I supposed to show you?')
 
-    const body = await fetch(`https://registry.npmjs.com/${pkg}`).then(res => {
-      if (res.status === 404) throw 'No results found.'
-      return res.json()
-    })
+    const body = await c(`https://registry.npmjs.com/${pkg}`).json()
+
+    if (body.error) throw 'No results found.'
 
     const version = body.versions[body['dist-tags'].latest]
 

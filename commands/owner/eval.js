@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { inspect } = require('util')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Eval extends Command {
   constructor(...args) {
@@ -32,10 +32,7 @@ class Eval extends Command {
         ctx.reply(`\`\`\`js\n${output}\n\`\`\``)
       } else {
         try {
-          const { key } = await fetch('https://haste.turbo.ooo/documents', {
-            method: 'POST',
-            body: output
-          }).then(res => res.json())
+          const { key } = await c('https://haste.turbo.ooo/documents', 'POST').body(output).json()
           return ctx.reply(`Output was to long so it was uploaded to hastebin https://haste.turbo.ooo/${key}.js `)
         } catch (error) {
           return ctx.reply(`I tried to upload the output to hastebin but encountered this error ${error.name}:${error.message}`)

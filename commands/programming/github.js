@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class GitHub extends Command {
   constructor(...args) {
@@ -19,8 +19,9 @@ class GitHub extends Command {
     const [username, repository] = repo.split('/')
     if (!username || !repo) return ctx.reply('Repository must be in the form `username/repository`')
 
-    const body = await fetch(`https://api.github.com/repos/${username}/${repository}`)
-      .then(res => res.ok && res.json())
+    const body = await c(`https://api.github.com/repos/${username}/${repository}`)
+      .header('User-Agent', this.client.utils.getUserAgent(this.client.version))
+      .json()
       .catch(() => null)
 
     if (!body) return ctx.reply('Could not fetch that repo, are you sure it exists?')

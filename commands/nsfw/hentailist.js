@@ -1,8 +1,7 @@
 const Command = require('../../structures/Command.js')
-const fetch = require('node-fetch')
-const cheerio = require('cheerio')
-const AbortController = require('abort-controller')
 const { MessageEmbed } = require('discord.js')
+const cheerio = require('cheerio')
+const c = require('@aero/centra')
 
 class HentaiList extends Command {
   constructor(...args) {
@@ -22,12 +21,7 @@ class HentaiList extends Command {
     args = args.join('-').toString().split('-')[0]
 
     const hentailist = async id => {
-      const controller = new AbortController()
-      const timeout = setTimeout(() => controller.abort(), 5000)
-      const data = await fetch(`http://45.61.147.38:4445/api/hentai/${encodeURIComponent(id)}`, {
-        signal: controller.signal
-      }).then(r => (r.ok ? r.json() : ''))
-      clearTimeout(timeout)
+      const data = await c(`http://45.61.147.38:4445/api/hentai/${encodeURIComponent(id)}`).json()
 
       if (!data || data.invalid === true) return ctx.reply('No results found.')
 
@@ -65,20 +59,12 @@ class HentaiList extends Command {
       return ctx.reply({ embed })
     }
 
-    switch (args) {
+    switch (args[0]) {
       case 'random': {
         // Get latest HAnime upload ID
-        const controller = new AbortController()
-        const timeout = setTimeout(() => controller.abort(), 5000)
-        const $ = await fetch('https://hanime.tv/', {
-          signal: controller.signal
-        })
-          .then(r => {
-            if (!r.ok) throw new Error('Something went wrong.')
-            return r.text()
-          })
+        const $ = await c('https://hanime.tv/')
+          .text()
           .then(html => cheerio.load(html))
-        clearTimeout(timeout)
 
         let newestID = $('.elevation-3.mb-3.hvc.item.card').first().find('a').attr('alt')
 
@@ -86,7 +72,7 @@ class HentaiList extends Command {
 
         newestID = newestID.id
 
-        await hentailist(Math.random() * (newestID - 5) + 5)
+        await hentailist(Math.floor(Math.random() * (newestID - 5) + 5))
         break
       }
       default:

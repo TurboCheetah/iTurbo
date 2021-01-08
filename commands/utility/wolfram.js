@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const fetch = require('node-fetch')
+const c = require('@aero/centra')
 
 class Wolfram extends Command {
   constructor(...args) {
@@ -29,13 +29,11 @@ class Wolfram extends Command {
       ['output', 'json']
     ])
 
-    const pods = await fetch(url)
-      .then(res => res.json())
-      .then(body => body.queryresult.pods)
+    const { queryresult } = await c(url).json()
 
-    if (!pods || pods.error) return ctx.reply("Couldn't find an answer to that question!")
+    if (!queryresult.pods || queryresult.pods.error) return ctx.reply("Couldn't find an answer to that question!")
 
-    return ctx.reply(new MessageEmbed().setTitle(pods[0].subpods[0].plaintext).setDescription(pods[1].subpods[0].plaintext.substring(0, 1950)).setColor(0x9590ee))
+    return ctx.reply(new MessageEmbed().setTitle(queryresult.pods[0].subpods[0].plaintext).setDescription(queryresult.pods[1].subpods[0].plaintext.substring(0, 1950)).setColor(0x9590ee))
   }
 }
 
