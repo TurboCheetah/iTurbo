@@ -80,7 +80,7 @@ class Play extends Command {
             .setTimestamp()
 
           const filter = msg => msg.author.id === ctx.author.id
-          const response = await ctx.message.awaitReply('', filter, 60000, embed)
+          const response = await ctx.message.awaitReply('', filter, 60000, embed, true)
           if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 
           if (/^(10|[1-9])$/i.test(response)) {
