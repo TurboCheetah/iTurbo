@@ -40,7 +40,8 @@ class Giveaway extends Command {
       return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
-    const prize = args[3]
+    args.splice(0, 3)
+    const prize = args.join(' ')
 
     if (!prize) {
       return ctx.reply(`${this.client.constants.error} No prize specified! Please specify a valid prize.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
