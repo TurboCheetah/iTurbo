@@ -28,7 +28,8 @@ class Skip extends Command {
       return ctx.reply({ embed })
     }
 
-    ctx.success()
+    const m = await ctx.success()
+    m.message.delete({ timeout: 5000 })
     player.stop()
   }
 }
