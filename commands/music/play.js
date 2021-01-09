@@ -86,7 +86,7 @@ class Play extends Command {
           if (/^(10|[1-9])$/i.test(response)) {
             const track = tracks[Number(response) - 1]
             // Connect to the voice channel and add the track to the queue
-            if (!player.state === 'connected') player.connect()
+            if (player.state !== 'connected') player.connect()
             player.queue.add(track)
 
             // Checks if the client should play the track if it's the first one added
@@ -105,7 +105,7 @@ class Play extends Command {
         case 'PLAYLIST_LOADED':
           this.client.emit('addList', ctx, player, res)
           // Connect to the voice channel and add the track to the queue
-          if (!player.state === 'connected') player.connect()
+          if (player.state !== 'connected') player.connect()
           player.queue.add(res.tracks)
 
           // Checks if the client should play the track if it's the first one added
