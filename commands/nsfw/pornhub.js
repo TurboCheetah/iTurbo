@@ -33,9 +33,10 @@ class Pornhub extends Command {
         try {
           let result = await pornsearch.search(args).videos()
           result = this.client.utils.random(result)
+          console.log(result.title.trim())
           const embed = new MessageEmbed()
             .setColor(0x9590ee)
-            .setTitle(result.title)
+            .setTitle(result.title.trim())
             .setURL(result.url)
             .addField('Duration', result.duration, true)
             .addField('Views', result.views, true)
