@@ -46,11 +46,15 @@ class CommandContext {
   }
 
   success() {
-    return this.message.react(this.client.constants.success).catch(() => null)
+    return this.message.react(':success:779886882917449728').catch(err => {
+      throw err
+    })
   }
 
   failure() {
-    return this.message.react(this.client.constants.error).catch(() => null)
+    return this.message.react(':error:779886874533560320').catch(err => {
+      throw err
+    })
   }
 
   random(arr, replace = {}) {
