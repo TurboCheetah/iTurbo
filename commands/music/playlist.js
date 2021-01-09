@@ -324,7 +324,7 @@ class Playlist extends Command {
     // Add playlist to queue
     this.client.emit('addList', ctx, player, playlist[playlistName])
     // Connect to the voice channel and add the track to the queue
-    if (player.state !== 'connected') player.connect()
+    if (player.state.toLowerCase() !== 'connected') player.connect()
     player.queue.add(tracks)
 
     // Checks if the client should play the track if it's the first one added
