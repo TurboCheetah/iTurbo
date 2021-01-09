@@ -37,7 +37,7 @@ class Settings extends Command {
       .setFooter(`Requested by: ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
 
     // eslint-disable-next-line prettier/prettier
-    if (ctx.guild.settings.social && ctx.guild.settings.disabledChannels.length > 0) embed.addField('Disabled Level Up Channels', ctx.guild.settings.disabledChannels.map(channel => ctx.guild.channels.cache.find(c => c.id === channel)), false)
+    if (ctx.guild.settings.social && (ctx.guild.settings.disabledChannels && ctx.guild.settings.disabledChannels.length > 0)) embed.addField('Disabled Level Up Channels', ctx.guild.settings.disabledChannels.map(channel => ctx.guild.channels.cache.find(c => c.id === channel)), false)
     ctx.reply({ embed })
   }
 }
