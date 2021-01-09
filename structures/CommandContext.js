@@ -46,11 +46,11 @@ class CommandContext {
   }
 
   success() {
-    return this.message.react('519166152488910850').catch(() => null)
+    return this.message.react(this.client.constants.success).catch(() => null)
   }
 
   failure() {
-    return this.message.react('519166256214048769').catch(() => null)
+    return this.message.react(this.client.constants.error).catch(() => null)
   }
 
   random(arr, replace = {}) {

@@ -28,7 +28,7 @@ class Skip extends Command {
       return ctx.reply({ embed })
     }
 
-    ctx.react(this.client.constants.success)
+    ctx.success()
     player.stop()
   }
 }
