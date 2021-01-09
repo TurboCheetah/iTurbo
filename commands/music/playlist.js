@@ -163,7 +163,7 @@ class Playlist extends Command {
       .setThumbnail(playlist.songs[0].thumbnail)
       .setFooter(null, ctx.author.displayAvatarURL({ size: 64 }))
 
-    if (playlist.public) Pagination.embed.setURL(`https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlist.name.replace(/ /g, '%20')}`)
+    if (playlist.public) Pagination.embed.setURL(`https://iturbo.cc/playlist/${ctx.author.id}/${playlist.name.replace(/ /g, '%20')}`)
 
     return Pagination.build()
   }
@@ -349,7 +349,7 @@ class Playlist extends Command {
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlist[playlistName].name}\` to ${playlist[playlistName].public ? `to public! Share this URL with others: https://iturbo.turbo.ooo/playlist/${ctx.author.id}/${playlist[playlistName].name.replace(/ /g, '%20')}` : 'to private!'}`)
+    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlist[playlistName].name}\` to ${playlist[playlistName].public ? `to public! Share this URL with others: https://iturbo.cc/playlist/${ctx.author.id}/${playlist[playlistName].name.replace(/ /g, '%20')}` : 'to private!'}`)
   }
 
   async import(ctx, args) {
