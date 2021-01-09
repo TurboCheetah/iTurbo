@@ -19,7 +19,7 @@ class Settings extends Command {
         .setTitle('User settings')
         .setColor(0x9590ee)
         // eslint-disable-next-line prettier/prettier
-        .addField(ctx.author.settings.prefix.length > 1 ? 'Prefixes' : 'Prefix', ctx.author.settings.prefix.map(p => `\`${p}\``).join(', '), true)
+        .addField(ctx.author.settings.prefix.length > 0 ? `${ctx.author.settings.prefix.length > 1 ? 'Prefixes' : 'Prefix', ctx.author.settings.prefix.map(p => `\`${p}\``).join(', ')}` : 'None', true)
 
       return ctx.reply({ embed })
     }
