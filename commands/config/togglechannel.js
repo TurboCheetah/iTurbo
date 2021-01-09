@@ -4,7 +4,7 @@ class ToggleChannel extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Enables or disables the earning of points in a channel',
-      aliases: ['togglepoints'],
+      aliases: ['togglepoints', 'disablechannel', 'enablechannel'],
       usage: 'togglechannel [channel]',
       userPermissions: ['MANAGE_GUILD'],
       guildOnly: true
