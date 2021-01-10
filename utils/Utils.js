@@ -6,6 +6,7 @@ const {
   promises: { lstat, readdir }
 } = require('fs')
 const path = require('path')
+const c = require('@aero/centra')
 
 /**
  * Static class with utilities used throughout the bot.
@@ -125,6 +126,17 @@ class Utils {
 
   static getUserAgent(version) {
     return `iTurbo/${version} (DiscordBot)`
+  }
+
+  static async haste(content, lang) {
+    const { key } = await c('https://haste.turbo.ooo/documents', 'POST')
+      .body(content)
+      .json()
+      .catch(() => {
+        throw 'Something went wrong with Hastebin. Try again later.'
+      })
+
+    return `https://haste.turbo.ooo/${key}${lang ? `.${lang}` : ''}`
   }
 }
 

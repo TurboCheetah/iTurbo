@@ -1,10 +1,9 @@
 const Command = require('../../structures/Command.js')
-const c = require('@aero/centra')
 
 class Hastebin extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ['hb'],
+      aliases: ['haste', 'hb'],
       description: 'Upload some code to hastebin.',
       usage: 'hastebin <code>',
       cooldown: 5
@@ -16,14 +15,9 @@ class Hastebin extends Command {
 
     const { code, lang } = this.client.utils.getCodeBlock(ctx.rawArgs)
 
-    const { key } = await c('https://haste.turbo.ooo/documents', 'POST')
-      .body(code)
-      .json()
-      .catch(() => {
-        throw 'Something went wrong with Hastebin. Try again later.'
-      })
+    const haste = await this.client.utils.haste(code, lang)
 
-    return ctx.reply(`Hastebin-ified: https://haste.turbo.ooo/${key}${lang ? `.${lang}` : ''}`)
+    return ctx.reply(`Hastebin-ified: ${haste}`)
   }
 }
 
