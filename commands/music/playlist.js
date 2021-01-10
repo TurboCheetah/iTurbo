@@ -282,7 +282,7 @@ class Playlist extends Command {
 
     if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlist yet!")
 
-    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}play <playlistName>`)
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}playlist play <playlistName>`)
 
     const playlistName = args.join(' ')
     if (!playlistName) return ctx.reply("You must provide the name for the playlist you'd like to play.")
