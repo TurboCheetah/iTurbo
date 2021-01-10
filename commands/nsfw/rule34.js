@@ -26,7 +26,7 @@ class Rule34 extends Command {
       return ctx.reply('The result I found was NSFW and I cannot post it in this channel.')
     }
 
-    if (data.posts === undefined) return ctx.reply('No results were found.')
+    if (!data.posts) return ctx.reply('No results were found.')
 
     const random = this.client.utils.random(data.posts)
 
