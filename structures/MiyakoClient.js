@@ -52,7 +52,7 @@ class MiyakoClient extends Client {
         })
       ]
     })
-    this.ksoft = new KSoftClient('b66d7713bffaeb970650c19f3aa8913f7b8ec2e5')
+    this.ksoft = new KSoftClient(this.config.ksoft)
     this.version = '1.1.3'
 
     // Settings.
