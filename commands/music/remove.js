@@ -14,7 +14,7 @@ class Remove extends Command {
     })
   }
 
-  async run(ctx, [songPosition]) {
+  async run(ctx, [songPosition, endPosition]) {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
@@ -35,6 +35,12 @@ class Remove extends Command {
     if (!songPosition) return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.settings.prefix}move <songPosition> <newPosition>\`\nExample: \`${ctx.guild.settings.prefix}move 3 1\``)
 
     songPosition = this.verifyInt(songPosition, 1) - 2
+
+    if (endPosition) {
+      endPosition = this.verifyInt(endPosition, 1) - 1
+      ctx.reply(`${this.client.constants.success} Removed songs **${songPosition + 2}-${endPosition + 1}** from the queue!`)
+      return player.queue.remove(songPosition, endPosition)
+    }
 
     ctx.reply(`${this.client.constants.success} Removed **${player.queue[songPosition].title}** from the queue!`)
 
