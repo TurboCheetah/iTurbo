@@ -29,7 +29,10 @@ class Rule34 extends Command {
     if (!data || !data.posts) return ctx.reply('No results were found.')
     const random = this.client.utils.random(data.posts)
 
-    if (!random || !random.file_url) return ctx.reply('No results were found.')
+    if (!random || !random.file_url) {
+      console.log(random)
+      return ctx.reply('No results were found.')
+    }
 
     if (random.file_url.endsWith('webm')) {
       return ctx.reply(`Score: ${random.score}\n${random.file_url}`)
