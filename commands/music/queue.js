@@ -41,7 +41,7 @@ class Queue extends Command {
       .setChannel(ctx.channel)
       .setElementsPerPage(5)
       .setPage(page)
-      .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages} ● Total length: ${this.client.utils.formatDuration(player.queue.duration)} ● ${player.queue.size} songs`)
+      .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages} ● Total length: ${this.client.utils.formatDuration(player.queue.duration)} ● ${player.queue.size + 1} songs`)
       .formatField('Up Next', track => `**${player.queue.indexOf(track) + 1}**. [${track.title}](${track.uri}) [${track.requester}]`)
 
     Pagination.embed
