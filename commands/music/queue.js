@@ -50,7 +50,7 @@ class Queue extends Command {
       .setTitle(`🔊 Now playing: ${player.queue.current.title}`)
       .setURL(player.queue.current.uri)
       .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
-      .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)} ● ${player.queue.size} songs`, ctx.author.displayAvatarURL({ size: 64 }))
+      .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)} ● ${player.queue.size + 1} songs`, ctx.author.displayAvatarURL({ size: 64 }))
 
     return Pagination.build()
   }
