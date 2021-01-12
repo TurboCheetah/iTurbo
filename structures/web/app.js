@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const morgan = require('morgan')
 const helmet = require('helmet')
 const cors = require('cors')
@@ -17,6 +18,8 @@ module.exports = client => {
   app.use(helmet())
   app.use(cors())
   app.use(express.json())
+  app.set('views', path.join(__dirname, 'views/'))
+  app.set('view engine', 'ejs')
 
   app.get('/', (req, res) => {
     res.redirect(301, 'https://turbo.ooo')
@@ -36,7 +39,9 @@ module.exports = client => {
     const data = await client.settings.users.get(id).playlist[playlistName]
     if (!data) return res.status(404).json({ message: 'Not found' })
     if (data.public === false) return res.status(403).json({ message: 'Forbidden' })
-    res.json(data)
+    const uaRegex = new RegExp(client.utils.getUserAgent(client.version), 'g')
+    if (uaRegex.test(req.headers['user-agent'])) return res.json(data)
+    res.render('index', { data: data })
   })
 
   app.get('/player/:guildID/', async (req, res) => {

@@ -37,6 +37,7 @@
     "discord-giveaways": "^4.2.1",
     "discord-paginationembed": "^2.1.0",
     "discord.js": "^12.2.0",
+    "ejs": "^3.1.5",
     "erela.js": "^2.3.1",
     "erela.js-spotify": "^1.2.0",
     "express": "^4.17.1",
