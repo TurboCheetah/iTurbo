@@ -8,14 +8,14 @@ class NowPlaying extends Command {
       description: 'Gets information about the currently playing song',
       aliases: ['np', 'song'],
       botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
-      usage: 'nowplaying',
+      usage: 'nowplaying [song]',
       guildOnly: true,
       cost: 0,
       cooldown: 3
     })
   }
 
-  async run(ctx) {
+  async run(ctx, [song]) {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
@@ -23,15 +23,30 @@ class NowPlaying extends Command {
       return ctx.reply({ embed })
     }
 
+    if (!song) {
+      const embed = new MessageEmbed()
+        .setColor(0x9590ee)
+        .setAuthor('🎵 Now Playing')
+        .setTitle(player.queue.current.title)
+        .setURL(player.queue.current.uri)
+        .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
+        .addField('Requested by', player.queue.current.requester, true)
+        .addField('Queue', `${player.queue.totalSize === 1 ? '1 song' : `${player.queue.totalSize} songs`} - ${this.client.utils.formatDuration(player.queue.duration)}`, true)
+        .addField('Duration', `${player.queue.current.isStream ? '🔴 Live' : `\`${this.client.utils.formatDuration(player.position > 0 ? player.position : 1)}\` [${createBar(player.queue.current.duration, Math.floor(player.position > 0 ? player.position : 1), 15, '▬', '⬤')[0]}] \`${this.client.utils.formatDuration(player.queue.current.duration)}\``}`, false)
+      return ctx.reply({ embed })
+    }
+
+    song = this.verifyInt(song, 1) - 1
+
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
-      .setAuthor('🎵 Now Playing')
-      .setTitle(player.queue.current.title)
-      .setURL(player.queue.current.uri)
-      .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
-      .addField('Requested by', player.queue.current.requester, true)
-      .addField('Queue', `${player.queue.totalSize === 1 ? '1 song' : `${player.queue.totalSize} songs`} - ${this.client.utils.formatDuration(player.queue.duration)}`, true)
-      .addField('Duration', `${player.queue.current.isStream ? '🔴 Live' : `\`${this.client.utils.formatDuration(player.position > 0 ? player.position : 1)}\` [${createBar(player.queue.current.duration, Math.floor(player.position > 0 ? player.position : 1), 15, '▬', '⬤')[0]}] \`${this.client.utils.formatDuration(player.queue.current.duration)}\``}`, false)
+      .setAuthor('🎵 Song Info')
+      .setTitle(player.queue[song].title)
+      .setURL(player.queue[song].uri)
+      .setThumbnail(player.queue[song].displayThumbnail('maxresdefault'))
+      .addField('Requested by', player.queue[song].requester, true)
+      .addField('Position in Queue', `${song + 1}/${player.queue.totalSize}`, true)
+      .addField('Duration', player.queue[song].isStream ? '🔴 Live' : this.client.utils.formatDuration(player.queue[song].duration), false)
     ctx.reply({ embed })
   }
 }
