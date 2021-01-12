@@ -429,7 +429,8 @@ class Playlist extends Command {
     const playlistToImport = await c(playlistURL)
       .header({
         'content-type': 'application/json',
-        accept: 'application/json'
+        accept: 'application/json',
+        'User-Agent': this.client.utils.getUserAgent(this.client.version)
       })
       .json()
       .catch(err => {
