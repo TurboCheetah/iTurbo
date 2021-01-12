@@ -1,4 +1,4 @@
-const { Client } = require('discord.js')
+const { Client, version } = require('discord.js')
 const CommandStore = require('./CommandStore.js')
 const EventStore = require('./EventStore.js')
 const MemorySweeper = require('../utils/cleanup.js')
@@ -62,6 +62,24 @@ class MiyakoClient extends Client {
       users: new Settings(this, 'users'),
       store: new Settings(this, 'store'),
       giveaways: new Settings(this, 'giveaways')
+    }
+
+    // Sentry
+    if (!this.dev) {
+      const Sentry = require('@sentry/node')
+      const { hostname } = require('os')
+
+      Sentry.init({
+        dsn: 'https://4ee7632addbb4628bbe0aa7a85fcf015@o503858.ingest.sentry.io/5589552',
+        release: `iturbo@${this.version}`,
+        autoSessionTracking: true,
+        tracesSampleRate: 1.0
+      })
+      this.sentry = Sentry
+      this.sentry.setTag('host', hostname())
+      this.sentry.setTag('discord.js', version)
+      this.sentry.setTag('version', this.version)
+      console.log('Connected to Sentry')
     }
 
     // Lavalink stuff
