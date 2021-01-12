@@ -41,7 +41,7 @@ class Queue extends Command {
       .setChannel(ctx.channel)
       .setElementsPerPage(5)
       .setPage(page)
-      .setPageIndicator('footer', (page, pages) => `Requested by ${ctx.author.tag} | Page ${page} of ${pages}`)
+      .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages} ● Total length: ${this.client.utils.formatDuration(player.queue.duration)} ● ${player.queue.size} songs`)
       .formatField('Up Next', track => `**${player.queue.indexOf(track) + 1}**. [${track.title}](${track.uri}) [${track.requester}]`)
 
     Pagination.embed
@@ -50,7 +50,7 @@ class Queue extends Command {
       .setTitle(`🔊 Now playing: ${player.queue.current.title}`)
       .setURL(player.queue.current.uri)
       .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
-      .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)}`, ctx.author.displayAvatarURL({ size: 64 }))
+      .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)} ● ${player.queue.size} songs`, ctx.author.displayAvatarURL({ size: 64 }))
 
     return Pagination.build()
   }
