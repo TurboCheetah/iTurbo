@@ -2,12 +2,12 @@ const Event = require('../structures/Event.js')
 const { MessageEmbed } = require('discord.js')
 
 class addSong extends Event {
-  async run(player, track) {
+  async run(player, track, position = player.queue.size) {
     const channel = this.client.channels.cache.get(player.textChannel)
 
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
-      .setAuthor(`Enqueued at position ${player.queue.size}`, 'https://i.imgur.com/Nmg88HS.png')
+      .setAuthor(`Enqueued at position ${position}`, 'https://i.imgur.com/Nmg88HS.png')
       .setTitle(track.title)
       .setURL(track.uri)
       .setThumbnail(track.displayThumbnail('maxresdefault'))
