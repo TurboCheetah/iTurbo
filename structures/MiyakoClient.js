@@ -53,7 +53,7 @@ class MiyakoClient extends Client {
       ]
     })
     this.ksoft = new KSoftClient(this.config.ksoft)
-    this.version = '1.1.3'
+    this.version = '1.1.4'
 
     // Settings.
     this.settings = {
