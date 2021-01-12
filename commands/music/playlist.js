@@ -10,13 +10,13 @@ class Playlist extends Command {
     super(...args, {
       description: 'Manage custom playlists.',
       aliases: [],
-      usage: 'playlist <create|delete|append|remove|info|share|import|list:default> [playlist]',
+      usage: 'playlist <create|delete|append|remove|info|play|shuffle|share|import|list:default> [playlist]',
       botPermissions: ['EMBED_LINKS']
     })
   }
 
   async run(ctx, [action = 'list', ...args]) {
-    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'share', 'import'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'shuffle', 'share', 'import'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
 
     return this[action](ctx, args)
   }
@@ -325,6 +325,70 @@ class Playlist extends Command {
     this.client.emit('addList', ctx, player, playlist[playlistName])
     // Connect to the voice channel and add the track to the queue
     if (player.state.toLowerCase() !== 'connected') player.connect()
+    player.queue.add(tracks)
+
+    // Checks if the client should play the track if it's the first one added
+    if (!player.playing && !player.paused) player.play()
+    if (ctx.message.deletable) await ctx.message.delete()
+    await msg.delete()
+  }
+
+  async shuffle(ctx, args) {
+    const djRole = ctx.guild.settings.djRole
+
+    if (djRole) {
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+    }
+
+    if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlist yet!")
+
+    if (!args || !args.length) return ctx.reply(`Correct usage: ${ctx.guild.settings.prefix}playlist shuffle <playlistName>`)
+
+    const playlistName = args.join(' ')
+    if (!playlistName) return ctx.reply("You must provide the name for the playlist you'd like to play.")
+
+    // Get existing playlists
+    const playlist = ctx.author.settings.playlist || {}
+
+    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+
+    const msg = await ctx.reply('Enqueueing playlist...')
+
+    let player = this.client.manager.players.get(ctx.guild.id)
+
+    if (!player) {
+      // Create the player
+      player = this.client.manager.create({
+        guild: ctx.guild.id,
+        voiceChannel: ctx.member.voice.channel.id,
+        textChannel: ctx.channel.id,
+        selfDeafen: true
+      })
+    }
+
+    const tracks = []
+    for (const song of playlist[playlistName].songs) {
+      if (song.track) {
+        const tData = await this.client.manager.decodeTrack(song.track)
+        const track = TrackUtils.build(tData, ctx.author)
+        tracks.push(track)
+      } else {
+        // Search for tracks using a query or url, using a query searches youtube automatically and the track requester object
+        const res = await this.client.manager.search(`${song.author} - ${song.title}`, ctx.author)
+        // Check the load type as this command is not that advanced for basics
+        if (res.loadType === 'LOAD_FAILED') throw res.exception
+        tracks.push(res.tracks[0])
+      }
+    }
+
+    // Add playlist to queue
+    this.client.emit('addList', ctx, player, playlist[playlistName])
+    // Connect to the voice channel and add the track to the queue
+    if (player.state.toLowerCase() !== 'connected') player.connect()
+    for (let i = tracks.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1))
+      ;[tracks[i], tracks[j]] = [tracks[j], tracks[i]]
+    }
     player.queue.add(tracks)
 
     // Checks if the client should play the track if it's the first one added
