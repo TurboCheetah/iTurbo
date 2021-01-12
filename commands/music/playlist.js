@@ -430,7 +430,7 @@ class Playlist extends Command {
       .header({
         'content-type': 'application/json',
         accept: 'application/json',
-        'User-Agent': this.client.utils.getUserAgent(this.client.version)
+        'user-agent': this.client.utils.getUserAgent(this.client.version)
       })
       .json()
       .catch(err => {
