@@ -22,15 +22,14 @@ class Move extends Command {
     }
 
     const channel = ctx.member.voice.channel
-
-    if (!channel) return ctx.reply(`${this.client.constants.error} You need to be in a voice channel to move music!`)
-
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player || !player.queue.length > 0) {
       const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| There is nothing to move!', ctx.author.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
+
+    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.reply(`${this.client.constants.error} You need to be in the voice channel with me to move music!`)
 
     if (!songPosition || !newPosition) return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.settings.prefix}move <songPosition> <newPosition>\`\nExample: \`${ctx.guild.settings.prefix}move 3 1\``)
     if (songPosition < newPosition) return ctx.reply(`${this.client.constants.error} Please move something up the queue, not down!`)
