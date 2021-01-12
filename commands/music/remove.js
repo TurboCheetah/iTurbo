@@ -33,11 +33,11 @@ class Remove extends Command {
 
     if (!songPosition) return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.settings.prefix}move <songPosition> <newPosition>\`\nExample: \`${ctx.guild.settings.prefix}move 3 1\``)
 
-    songPosition = this.verifyInt(songPosition, 1) - 2
+    songPosition = this.verifyInt(songPosition, 1) - 1
 
     if (endPosition) {
-      endPosition = this.verifyInt(endPosition, 1) - 1
-      ctx.reply(`${this.client.constants.success} Removed songs **${songPosition + 2}-${endPosition + 1}** from the queue!`)
+      endPosition = this.verifyInt(endPosition, 1)
+      ctx.reply(`${this.client.constants.success} Removed songs **${songPosition + 1}-${endPosition}** from the queue!`)
       return player.queue.remove(songPosition, endPosition)
     }
 

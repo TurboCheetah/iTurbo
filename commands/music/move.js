@@ -29,14 +29,14 @@ class Move extends Command {
       return ctx.reply({ embed })
     }
 
-    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.reply(`${this.client.constants.error} You need to be in the voice channel with me to move music!`)
+    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.reply(`${this.client.constants.error} You need to be in the same voice channel as me to move music!`)
 
     if (!songPosition || !newPosition) return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.settings.prefix}move <songPosition> <newPosition>\`\nExample: \`${ctx.guild.settings.prefix}move 3 1\``)
     if (songPosition < newPosition) return ctx.reply(`${this.client.constants.error} Please move something up the queue, not down!`)
-    songPosition = this.verifyInt(songPosition, 1) - 2
-    newPosition = this.verifyInt(newPosition, 1) - 2
+    songPosition = this.verifyInt(songPosition, 1) - 1
+    newPosition = this.verifyInt(newPosition, 1) - 1
 
-    ctx.reply(`${this.client.constants.success} Moved **${player.queue[songPosition].title}** to **${newPosition + 2}**`)
+    ctx.reply(`${this.client.constants.success} Moved **${player.queue[songPosition].title}** to **${newPosition + 1}**`)
 
     player.queue.splice(newPosition, 1, player.queue[songPosition], player.queue[newPosition])
     player.queue.splice(songPosition + 1, 1)
