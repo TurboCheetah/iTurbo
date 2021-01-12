@@ -5,7 +5,7 @@ class Lyrics extends Command {
   constructor(...args) {
     super(...args, {
       description: "Get a song's lyrics.",
-      usage: 'lyrics <song name|current|lyrics <lyrics>>',
+      usage: 'lyrics <song name|lyrics <lyrics>>',
       cooldown: 5,
       botPermissions: ['EMBED_LINKS']
     })
@@ -36,11 +36,11 @@ class Lyrics extends Command {
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
-    if (player && args[0] === 'current') {
+    if (player && !args.length) {
       return search(player.queue.current.title)
     }
 
-    if (!args.length) {
+    if (!player && !args.length) {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
         .setDescription('What song would you like to find the lyrics for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')

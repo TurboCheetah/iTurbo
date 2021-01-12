@@ -357,7 +357,7 @@ class Playlist extends Command {
     const playlistURL = args.join(' ')
     if (!playlistURL) return ctx.reply('You must provide a name for the playlist.')
 
-    // if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.reply("You can't import your own playlist!")
+    if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.reply("You can't import your own playlist!")
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
