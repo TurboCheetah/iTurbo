@@ -6,5 +6,6 @@ module.exports = {
   typing: '<a:typing:485594750871928833>',
   error: '<:error:779886874533560320>',
   success: '<:success:779886882917449728>',
-  add: '<:add:779886892102451290>'
+  add: '<:add:779886892102451290>',
+  zws: '\u200B'
 }
