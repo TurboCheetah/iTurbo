@@ -15,7 +15,19 @@ module.exports = client => {
     app.use(morgan('dev'))
     url = `http://localhost:${port}`
   }
-  app.use(helmet())
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'", 'cdn.turbo.ooo'],
+          fontSrc: ["'self'", 'fonts.google.com', 'fonts.gstatic.com', 'cdn.turbo.ooo'],
+          styleSrc: ["'self'", 'cdn.turbo.ooo', "'unsafe-inline'"],
+          scriptSrc: ["'self'", 'cdn.turbo.ooo'],
+          imgSrc: ["'self'", 'cdn.turbo.ooo']
+        }
+      }
+    })
+  )
   app.use(cors())
   app.use(express.json())
   app.use(express.static(path.join(__dirname, 'public')))
@@ -23,7 +35,8 @@ module.exports = client => {
   app.set('view engine', 'ejs')
 
   app.get('/', (req, res) => {
-    res.redirect(301, 'https://turbo.ooo')
+    // res.redirect(301, 'https://turbo.ooo')
+    res.render('index')
   })
 
   app.get('/invite', (req, res) => {
@@ -41,7 +54,7 @@ module.exports = client => {
     if (!data) return res.status(404).json({ message: 'Not found' })
     if (data.public === false) return res.status(403).json({ message: 'Forbidden' })
     if (req.headers['user-agent'] === 'iTurbo/1.1.4 (DiscordBot)') return res.json(data)
-    res.render('index', { data: data })
+    res.render('playlist', { data: data })
   })
 
   app.get('/player/:guildID/', async (req, res) => {
