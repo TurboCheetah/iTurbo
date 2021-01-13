@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0-0](https://github.com/TurboCheetah/iTurbo/compare/v1.4.0...v1.5.0-0) (2021-01-13)
+
+
+### Features
+
+* use own domain for buttons ([76e96ad](https://github.com/TurboCheetah/iTurbo/commit/76e96ad9653dbb9873aa0de89f4b2e49b665ff40))
+
+
+### Bug Fixes
+
+* typo in style urls ([c756f2d](https://github.com/TurboCheetah/iTurbo/commit/c756f2d6c9f85fc7af7e97274f7c4609ad75d6e1))
+
 ## [1.4.0](https://github.com/TurboCheetah/iTurbo/compare/v1.3.0...v1.4.0) (2021-01-13)
 
 
