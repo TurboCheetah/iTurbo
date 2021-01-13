@@ -6,7 +6,7 @@ class Play extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Plays the desired song',
-      aliases: ['pl'],
+      aliases: ['pl', 'p'],
       botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
       usage: 'play <search query or URL>',
       guildOnly: true,
