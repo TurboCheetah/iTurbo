@@ -60,17 +60,21 @@ class Playlist extends Command {
   async list(ctx) {
     if (!ctx.author.settings.playlist) return ctx.reply("You don't have any playlists yet!")
 
-    const embed = new MessageEmbed()
-      .setTitle('Playlists')
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setColor(0x9590ee)
-      .setDescription(
-        Object.keys(ctx.author.settings.playlist)
-          .map(playlist => `• ${playlist}`)
-          .join('\n')
-      )
+    const Pagination = new FieldsEmbed()
+      .setArray(Object.keys(ctx.author.settings.playlist))
+      .setAuthorizedUsers([ctx.author.id])
+      .setChannel(ctx.channel)
+      .setElementsPerPage(5)
+      .setPage(1)
+      .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages}`)
+      .formatField('Playlists', playlist => playlist)
 
-    return ctx.reply({ embed })
+    Pagination.embed
+      .setColor(0x9590ee)
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+      .setFooter('React to view info on that playlist', ctx.author.displayAvatarURL({ size: 64 }))
+
+    return Pagination.build()
   }
 
   async create(ctx, args) {
@@ -422,7 +426,7 @@ class Playlist extends Command {
     const playlistURL = args.join(' ')
     if (!playlistURL) return ctx.reply('You must provide a name for the playlist.')
 
-    if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.reply("You can't import your own playlist!")
+    // if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.reply("You can't import your own playlist!")
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
