@@ -1,13 +1,14 @@
 {
   "name": "iturbo",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "private": true,
   "description": "Discord Bot",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js --dev",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "release": "standard-version"
   },
   "repository": {
     "type": "git",
@@ -67,6 +68,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "nodemon": "^2.0.6",
-    "prettier": "^2.1.1"
+    "prettier": "^2.1.1",
+    "standard-version": "^9.1.0"
   }
 }
