@@ -7,7 +7,7 @@ class GitHub extends Command {
     super(...args, {
       description: 'View a GitHub repository details.',
       aliases: ['gh'],
-      usage: 'github ffmpeg/ffmpeg',
+      usage: 'github username/repository',
       cooldown: 3,
       botPermissions: ['EMBED_LINKS']
     })
@@ -17,7 +17,7 @@ class GitHub extends Command {
     if (!repo) return ctx.reply('What repository am i supposed to show you?')
 
     const [username, repository] = repo.split('/')
-    if (!username || !repo) return ctx.reply('Repository must be in the form `username/repository`')
+    if (!username || !repository) return ctx.reply(`${this.client.constants.error} Repository must be in the form \`username/repository\``)
 
     const body = await c(`https://api.github.com/repos/${username}/${repository}`)
       .header('User-Agent', this.client.utils.getUserAgent(this.client.version))
