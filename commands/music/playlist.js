@@ -23,7 +23,8 @@ class Playlist extends Command {
 
   async isURL(string) {
     try {
-      URL(string)
+      // eslint-disable-next-line no-new
+      new URL(string)
     } catch {
       return false
     }
