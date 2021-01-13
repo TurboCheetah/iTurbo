@@ -1,4 +1,5 @@
 const { Client, version } = require('discord.js')
+const { version: pkgVersion } = require('../package.json')
 const CommandStore = require('./CommandStore.js')
 const EventStore = require('./EventStore.js')
 const MemorySweeper = require('../utils/cleanup.js')
@@ -53,7 +54,7 @@ class MiyakoClient extends Client {
       ]
     })
     this.ksoft = new KSoftClient(this.config.ksoft)
-    this.version = '1.1.5'
+    this.version = pkgVersion
 
     // Settings.
     this.settings = {
