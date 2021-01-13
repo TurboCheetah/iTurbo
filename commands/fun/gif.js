@@ -15,7 +15,7 @@ class GIF extends Command {
 
     const { data } = await c(`https://api.giphy.com/v1/gifs/search?api_key=${this.client.config.giphy}&limit=1&q=${encodeURIComponent(args.join(' '))}`).json()
 
-    if (!data) return ctx.reply('No Results Found.')
+    if (!data || !data[0]) return ctx.reply(`${this.client.constants.error} No results found.`)
     return ctx.reply(data[0].embed_url)
   }
 }
