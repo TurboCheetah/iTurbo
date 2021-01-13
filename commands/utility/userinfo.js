@@ -25,21 +25,19 @@ class UserInfo extends Command {
     const joinedDays = Math.floor((new Date() - member.joinedAt) / (1000 * 60 * 60 * 24))
 
     const embed = new MessageEmbed()
-      .setAuthor(member.user.tag, member.user.displayAvatarURL({ size: 128 }))
+      .setAuthor(`${member.user.tag} ${member.nickname ? `(${member.nickname})` : ''}`, member.user.displayAvatarURL({ size: 128 }))
       .setColor(member.displayHexColor || 0x9590ee)
       .setThumbnail(member.user.displayAvatarURL({ size: 512 }))
-      .addField('❯ Discord Join Date', `${member.user.createdAt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} (${days} days ago!)`, true)
-      .addField('❯ Server Join Date', `${member.joinedAt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} (${joinedDays} days ago!)`, true)
-      .addField('❯ Status', this.statuses[member.presence.status], true)
+      .addField('❯ Discord Join Date', `${member.user.createdAt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} (${days} days ago!)`)
+      .addField('❯ Server Join Date', `${member.joinedAt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} (${joinedDays} days ago!)`)
+      .addField('❯ Status', this.statuses[member.presence.status])
       .addField('❯ Highest Role', member.roles.cache.size > 1 ? member.roles.highest : 'None', true)
       .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist : 'None', true)
       .setFooter(`ID: ${member.user.id}`)
-      .setTimestamp()
 
     // eslint-disable-next-line prettier/prettier
     if (member.roles.cache.size > 1) embed.addField(`❯ Roles (${member.roles.cache.size - 1})`, member.roles.cache.filter(r => r.name !== '@everyone').map(r => r).join(', '), false)
-    if (member.nickname) embed.addField('❯ Nickname', member.nickname, true)
-    if (member.user.bot) embed.addField('❯ Bot', 'Yes', true)
+    if (member.user.bot) embed.setFooter(`ID: ${member.user.id}`, 'https://cdn.turbo.ooo/iturbo/bot.png')
     return ctx.reply({ embed })
   }
 }
