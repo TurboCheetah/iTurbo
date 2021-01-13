@@ -28,14 +28,17 @@ class UserInfo extends Command {
       .setAuthor(member.user.tag, member.user.displayAvatarURL({ size: 128 }))
       .setColor(member.displayHexColor || 0x9590ee)
       .setThumbnail(member.user.displayAvatarURL({ size: 512 }))
-      .addField('❯ Discord Join Date', `${member.user.createdAt.toDateString()} (${days} days ago!)`, true)
-      .addField('❯ Server Join Date', `${member.joinedAt.toDateString()} (${joinedDays} days ago!)`, true)
-      // .addField('❯ Status', this.statuses[member.presence.status], true)
+      .addField('❯ Discord Join Date', `${member.user.createdAt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} (${days} days ago!)`, true)
+      .addField('❯ Server Join Date', `${member.joinedAt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} (${joinedDays} days ago!)`, true)
+      .addField('❯ Status', this.statuses[member.presence.status], true)
       .addField('❯ Highest Role', member.roles.cache.size > 1 ? member.roles.highest : 'None', true)
       .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist : 'None', true)
       .setFooter(`ID: ${member.user.id}`)
       .setTimestamp()
 
+    // eslint-disable-next-line prettier/prettier
+    if (member.roles.cache.size > 1) embed.addField(`❯ Roles (${member.roles.cache.size - 1})`, member.roles.cache.filter(r => r.name !== '@everyone').map(r => r).join(', '), false)
+    if (member.nickname) embed.addField('❯ Nickname', member.nickname, true)
     if (member.user.bot) embed.addField('❯ Bot', 'Yes', true)
     return ctx.reply({ embed })
   }
