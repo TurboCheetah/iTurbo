@@ -21,6 +21,7 @@ class Bird extends Command {
         .setImage(url)
         .setColor(0x9590ee)
         .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+        .setFooter('Powered by KSoft.si')
     )
   }
 }
