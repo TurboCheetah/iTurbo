@@ -25,7 +25,7 @@ class Lyrics extends Command {
             .setThumbnail(artwork)
             .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
             .setColor(0x9590ee)
-            .setFooter('Powered by KSoft.si')
+            .setFooter('Powered by ')
 
           return ctx.reply({ embed })
         })

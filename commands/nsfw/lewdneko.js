@@ -20,7 +20,7 @@ class LewdNeko extends Command {
       .setTitle('Lewd Neko')
       .setColor(0x9590ee)
       .setImage(url)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by KSoft.si`, ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter(`Requested by: ${ctx.author.tag} • Powered by `, ctx.author.displayAvatarURL({ size: 32 }))
 
     return ctx.reply({ embed })
   }
