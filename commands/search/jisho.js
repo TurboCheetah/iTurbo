@@ -18,7 +18,7 @@ class Jisho extends Command {
     let [query, page = 1] = args.join(' ').split(', ')
     page = this.verifyInt(page, 1)
 
-    const { data } = await c(`http://jisho.org/api/v1/search/words?keyword=${encodeURIComponent(query)}`).json()
+    const { data } = await c(`https://jisho.org/api/v1/search/words?keyword=${encodeURIComponent(query)}`).json()
 
     if (!data || !data.length) return ctx.reply('No results found.')
 
