@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/TurboCheetah/iTurbo/compare/v1.3.0...v1.4.0) (2021-01-13)
+
+
+### Features
+
+* add zero width space ([9504b40](https://github.com/TurboCheetah/iTurbo/commit/9504b40b708a19e4807d829da1fe255b4adafd64))
+* create index ([fc2734d](https://github.com/TurboCheetah/iTurbo/commit/fc2734d72b873bad7cecd570701fdbc34dd0583b))
+* setup cors ([1bbfe78](https://github.com/TurboCheetah/iTurbo/commit/1bbfe78e2e813ec7b03e7965e27756db679e7fda))
+
+
+### Bug Fixes
+
+* use CDN ([998dea2](https://github.com/TurboCheetah/iTurbo/commit/998dea27936f7bbd82dc9ef80115855b480a3b00))
+
 ## [1.3.0](https://github.com/TurboCheetah/iTurbo/compare/v1.2.0...v1.3.0) (2021-01-13)
 
 
