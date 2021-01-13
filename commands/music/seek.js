@@ -33,7 +33,7 @@ class Seek extends Command {
     }
 
     player.seek(Number(args[0]) * 1000)
-    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| Moved ${args[0]} seconds ahead!`, ctx.author.displayAvatarURL({ size: 512 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| Moved ${args[0]} seconds ${args[0] > 0 ? 'ahead' : 'behind'}!`, ctx.author.displayAvatarURL({ size: 512 }))
     ctx.reply({ embed })
   }
 }
