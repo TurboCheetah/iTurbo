@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>iTurbo</title>
+	<meta name="robots" content="index, follow">
+	<meta charset="utf-8">
+	<meta name="mobile-web-app-capable" content="no">
+	<meta name="theme-color" content="#9590ee">
+	<link rel="icon" type="image/png" href="https://cdn.turbo.ooo/iturbo/icon.png">
+	<meta property="og:site_name" content="iTurbo | The waifu bot that does it all">
+	<meta name="twitter:url" content="https://iturbo.cc/">
+	<meta property="og:url" content="https://iturbo.cc/">
+	<meta property="og:see_also" content="https://iturbo.cc/">
+	<meta itemprop="name" content="iTurbo">
+	<meta name="twitter:title" content="iTurbo">
+	<meta property="og:title" content="iTurbo">
+	<meta itemprop="image" content="https://cdn.turbo.ooo/iturbo/icon.png">
+	<meta name="twitter:image" content="https://cdn.turbo.ooo/iturbo/icon.png">
+	<meta property="og:image" content="https://cdn.turbo.ooo/iturbo/icon.png">
+	<meta name="description" content="Invite iTurbo now to spice up your server with music, reactions, and more!">
+	<meta name="twitter:description" content="Invite iTurbo now to spice up your server with music, reactions, and more!">
+	<meta property="og:description" content="Invite iTurbo now to spice up your server with music, reactions, and more!">
+    <link rel="stylesheet" type="text/css" href="https://cdn.turbo.ooo/iturbo/playlist/vendor/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.turbo.ooo/iturbo/playlist/fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.turbo.ooo/iturbo/playlist/vendor/animate/animate.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.turbo.ooo/iturbo/playlist/vendor/select2/select2.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.turbo.ooo/iturbo/playlist/vendor/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.turbo.ooo/iturbo/playlist/css/util.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.turbo.ooo/iturbo/playlist/css/main.css" />
+</head>
+
+<body>
+    <div class="limiter">
+        <div class="container-table100">
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110">
+                    <div class="table100-head">
+                        <table>
+                            <thead>
+                                <tr class="row100 head">
+                                    <th class="cell100 column1">Song</th>
+                                    <th class="cell100 column2">Artist</th>
+                                    <th class="cell100 column4">Link</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="table100-body js-pscroll">
+                        <table>
+                            <tbody>
+                                <% for (const song of data.songs) { %>
+                                    <tr class="row100 body">
+                                        <td class="cell100 column1"><a href="<%= song.uri %>" target="_blank"><%= song.title %></a></td>
+                                        <td class="cell100 column2"><%= song.author %></a></td>
+                                        <td class="cell100 column4"><a href="<%= song.uri %>" target="_blank"><%= song.uri %></a></td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.turbo.ooo/iturbo/playlist/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="https://cdn.turbo.ooo/iturbo/playlist/vendor/bootstrap/js/popper.js"></script>
+    <script src="https://cdn.turbo.ooo/iturbo/playlist/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.turbo.ooo/iturbo/playlist/vendor/select2/select2.min.js"></script>
+    <script src="https://cdn.turbo.ooo/iturbo/playlist/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="https://cdn.turbo.ooo/iturbo/playlist/js/main.js"></script>
+</body>
+
+</html>
