@@ -31,7 +31,7 @@ class Remove extends Command {
 
     if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.reply(`${this.client.constants.error} You need to be in the voice channel with me to move music!`)
 
-    if (!songPosition) return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.settings.prefix}move <songPosition> <newPosition>\`\nExample: \`${ctx.guild.settings.prefix}move 3 1\``)
+    if (!songPosition) return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.settings.prefix}remove <songPosition> [endPosition]\`\nExample: \`${ctx.guild.settings.prefix}remove 3 5\``)
 
     songPosition = this.verifyInt(songPosition, 1) - 1
 
