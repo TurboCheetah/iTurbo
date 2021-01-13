@@ -8,7 +8,7 @@ class CommandError extends Event {
     console.log(`[COMMAND] ${ctx.command.name}: ${err.stack || err}`)
     if (this.client.sentry) {
       this.client.sentry.setContext('info', {
-        user: `${ctx.author.tag} (${ctx.user.id})`,
+        user: `${ctx.author.tag} (${ctx.author.id})`,
         guild: ctx.guild ? `${ctx.guild.name} (${ctx.guild.id})` : 'DM',
         command: ctx.command.name,
         usage: ctx.parsedContent
