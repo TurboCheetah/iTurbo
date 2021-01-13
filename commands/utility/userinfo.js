@@ -31,11 +31,12 @@ class UserInfo extends Command {
       .addField('❯ Discord Join Date', `${member.user.createdAt.toDateString()} (${days} days ago!)`, true)
       .addField('❯ Server Join Date', `${member.joinedAt.toDateString()} (${joinedDays} days ago!)`, true)
       .addField('❯ Status', this.statuses[member.presence.status], true)
-      .addField('❯ Bot', member.user.bot ? 'Yes' : 'No', true)
       .addField('❯ Highest Role', member.roles.cache.size > 1 ? member.roles.highest : 'None', true)
       .addField('❯ Hoist Role', member.roles.hoist ? member.roles.hoist : 'None', true)
       .setFooter(`ID: ${member.user.id}`)
       .setTimestamp()
+
+    if (member.user.bot) embed.addField('❯ Bot', 'Yes', true)
     return ctx.reply({ embed })
   }
 }
