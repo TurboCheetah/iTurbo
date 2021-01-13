@@ -53,7 +53,7 @@ module.exports = client => {
     const data = await client.settings.users.get(id).playlist[playlistName]
     if (!data) return res.status(404).json({ message: 'Not found' })
     if (data.public === false) return res.status(403).json({ message: 'Forbidden' })
-    if (req.headers['user-agent'] === 'iTurbo/1.1.4 (DiscordBot)') return res.json(data)
+    if (req.headers['user-agent'] === `iTurbo/${client.version} (DiscordBot)`) return res.json(data)
     res.render('playlist', { data: data })
   })
 
