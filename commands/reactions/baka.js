@@ -17,11 +17,7 @@ class Baka extends Command {
 
     const { url } = await c('https://nekos.life/api/v2/img/baka').json()
 
-    const embed = new MessageEmbed()
-      .setTitle('Baka')
-      .setColor(0x9590ee)
-      .setImage(url)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setImage(url).setFooter('Powered by nekos.life')
 
     if (member.id !== ctx.author.id) embed.setDescription(`**${member.displayName}**, you baka!`)
     return ctx.reply({ embed })

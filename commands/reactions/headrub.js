@@ -21,12 +21,7 @@ class Headrub extends Command {
 
     const { url } = await this.client.ksoft.images.random('headrub', { nsfw: ctx.channel.nsfw })
 
-    const embed = new MessageEmbed()
-      .setTitle('Headrub')
-      .setColor(0x9590ee)
-      .setDescription(`**${member.displayName}**, you just got your head rubbed by **${ctx.member.displayName}**`)
-      .setImage(url)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by KSoft.si`, ctx.author.displayAvatarURL({ size: 32 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setDescription(`**${member.displayName}**, you just got your head rubbed by **${ctx.member.displayName}**`).setImage(url).setFooter('Powered by ')
 
     return ctx.reply({ embed })
   }

@@ -21,12 +21,7 @@ class Cuddle extends Command {
 
     const { url } = await c('https://nekos.life/api/v2/img/cuddle').json()
 
-    const embed = new MessageEmbed()
-      .setTitle('Cuddle')
-      .setColor(0x9590ee)
-      .setDescription(`**${member.displayName}**, you just got cuddled by **${ctx.member.displayName}**`)
-      .setImage(url)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setDescription(`**${member.displayName}**, you just got cuddled by **${ctx.member.displayName}**`).setImage(url).setFooter('Powered by nekos.life')
 
     return ctx.reply({ embed })
   }

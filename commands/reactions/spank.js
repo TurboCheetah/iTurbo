@@ -20,12 +20,7 @@ class Spank extends Command {
 
     const { url } = await this.client.ksoft.images.random('spank', { nsfw: ctx.channel.nsfw })
 
-    const embed = new MessageEmbed()
-      .setTitle('Spank')
-      .setColor(0x9590ee)
-      .setDescription(`**${member.displayName}**, you just got spanked by **${ctx.member.displayName}**`)
-      .setImage(url)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by KSoft.si`, ctx.author.displayAvatarURL({ size: 32 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setDescription(`**${member.displayName}**, you just got spanked by **${ctx.member.displayName}**`).setImage(url).setFooter('Powered by ')
 
     return ctx.reply({ embed })
   }

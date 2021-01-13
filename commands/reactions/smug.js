@@ -15,11 +15,7 @@ class Smug extends Command {
   async run(ctx) {
     const { url } = await c('https://nekos.life/api/v2/img/smug').json()
 
-    const embed = new MessageEmbed()
-      .setTitle('Smug')
-      .setColor(0x9590ee)
-      .setImage(url)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by nekos.life`, ctx.author.displayAvatarURL({ size: 32 }))
+    const embed = new MessageEmbed().setColor(0x9590ee).setImage(url).setFooter('Powered by nekos.life')
 
     return ctx.reply({ embed })
   }
