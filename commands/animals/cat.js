@@ -15,11 +15,7 @@ class Cat extends Command {
   async run(ctx) {
     const { file } = await c('https://aws.random.cat/meow').json()
 
-    const embed = new MessageEmbed()
-      .setTitle('Random Cat')
-      .setColor(0x9590ee)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setImage(file)
+    const embed = new MessageEmbed().setTitle('Random Cat').setColor(0x9590ee).setImage(file)
     return ctx.reply({ embed })
   }
 }

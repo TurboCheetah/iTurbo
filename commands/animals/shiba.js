@@ -16,11 +16,7 @@ class Shibe extends Command {
   async run(ctx) {
     const [url] = await c('https://shibe.online/api/shibes').json()
 
-    const embed = new MessageEmbed()
-      .setTitle('Shiba Inu')
-      .setColor(0x9590ee)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setImage(url)
+    const embed = new MessageEmbed().setTitle('Shiba Inu').setColor(0x9590ee).setImage(url)
 
     return ctx.reply({ embed })
   }

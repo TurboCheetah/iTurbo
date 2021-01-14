@@ -16,13 +16,7 @@ class Fox extends Command {
   async run(ctx) {
     const { image } = await c('https://randomfox.ca/floof/').json()
 
-    return ctx.reply(
-      new MessageEmbed()
-        .setTitle('Random Fox')
-        .setColor(0x9590ee)
-        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-        .setImage(image)
-    )
+    return ctx.reply(new MessageEmbed().setTitle('Random Fox').setColor(0x9590ee).setImage(image))
   }
 }
 

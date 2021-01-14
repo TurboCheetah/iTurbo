@@ -16,13 +16,7 @@ class Duck extends Command {
   async run(ctx) {
     const { url } = await c('https://random-d.uk/api/v1/random').json()
 
-    return ctx.reply(
-      new MessageEmbed()
-        .setTitle('Random Duck')
-        .setColor(0x9590ee)
-        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-        .setImage(url)
-    )
+    return ctx.reply(new MessageEmbed().setTitle('Random Duck').setColor(0x9590ee).setImage(url))
   }
 }
 

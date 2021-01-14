@@ -14,14 +14,7 @@ class Bird extends Command {
   async run(ctx) {
     const { url } = await this.client.ksoft.images.random('birb', { nsfw: false })
 
-    return ctx.reply(
-      new MessageEmbed()
-        .setTitle('Random Bird')
-        .setImage(url)
-        .setColor(0x9590ee)
-        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-        .setFooter('Powered by ')
-    )
+    return ctx.reply(new MessageEmbed().setTitle('Random Bird').setImage(url).setColor(0x9590ee).setFooter('Powered by KSoft.Si'))
   }
 }
 

@@ -16,13 +16,7 @@ class Dog extends Command {
   async run(ctx) {
     const { message } = await c('https://dog.ceo/api/breeds/image/random').json()
 
-    return ctx.reply(
-      new MessageEmbed()
-        .setTitle('Random Dog')
-        .setImage(message)
-        .setColor(0x9590ee)
-        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-    )
+    return ctx.reply(new MessageEmbed().setTitle('Random Dog').setImage(message).setColor(0x9590ee))
   }
 }
 

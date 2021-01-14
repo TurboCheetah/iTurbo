@@ -16,13 +16,7 @@ class Lizard extends Command {
   async run(ctx) {
     const { url } = await c('https://nekos.life/api/v2/img/lizard').json()
 
-    return ctx.reply(
-      new MessageEmbed()
-        .setTitle('Random Lizard')
-        .setColor(0x9590ee)
-        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-        .setImage(url)
-    )
+    return ctx.reply(new MessageEmbed().setTitle('Random Lizard').setColor(0x9590ee).setImage(url))
   }
 }
 
