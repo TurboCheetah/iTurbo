@@ -11,7 +11,7 @@ class Update extends Command {
   }
 
   async run(ctx) {
-    await this.store.get('exec').run(ctx, ['git pull'])
+    // await this.store.get('exec').run(ctx, ['git pull'])
 
     if (ctx.flags.reload) {
       if (ctx.flags.reload === 'commands' || ctx.flags.reload === 'events') {
