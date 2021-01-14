@@ -7,7 +7,7 @@ class addSong extends Event {
 
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
-      .setAuthor(`Enqueued at position ${position}`, 'https://i.imgur.com/Nmg88HS.png')
+      .setAuthor(`Enqueued at position ${position}`, this.client.constants.addImg)
       .setTitle(track.title)
       .setURL(track.uri)
       .setThumbnail(track.displayThumbnail('maxresdefault'))

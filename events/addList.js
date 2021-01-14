@@ -9,7 +9,7 @@ class addList extends Event {
 
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
-      .setAuthor(`Enqueued ${res.tracks ? res.tracks.length : res.songs.length} songs from playlist`, 'https://i.imgur.com/Nmg88HS.png')
+      .setAuthor(`Enqueued ${res.tracks ? res.tracks.length : res.songs.length} songs from playlist`, this.client.constants.addImg)
       .setTitle(res.playlist ? res.playlist.name : res.name)
       .setThumbnail(res.tracks ? `https://img.youtube.com/vi/${res.tracks[0].identifier}/maxresdefault.jpg` : `https://img.youtube.com/vi/${res.songs[0].identifier}/maxresdefault.jpg`)
       .addField('Requested by', res.tracks ? res.tracks[0].requester : ctx.author, true)
