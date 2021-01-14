@@ -21,7 +21,7 @@ class Sudo extends Command {
     const message = cloneObject(ctx.message)
     message.author = member.user
     Object.defineProperty(message, 'member', { value: member })
-    message.content = `!${command.name}${args.length ? ` ${args.join(' ')}` : ''}`
+    message.content = `|${command.name}${args.length ? ` ${args.join(' ')}` : ''}`
     this.client.emit('message', message)
   }
 }
