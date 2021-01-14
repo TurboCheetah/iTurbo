@@ -98,3 +98,210 @@ All notable changes to this project will be documented in this file. See [standa
 
 * update bot to 1.1.5 ([751db42](https://github.com/TurboCheetah/iTurbo/commit/751db42fe013b373bc89e3ab098402e6ecdb33a9))
 * use standard-version for changelogs ([9a7ec90](https://github.com/TurboCheetah/iTurbo/commit/9a7ec906b57e7bfe6ec32433d5326962670a086a))
+
+## v1.1.5
+
+
+### Features
+
+SkipTo command
+
+
+### Bug Fixes
+
+Tons of bugs
+
+## v1.1.4
+
+
+### Features
+
+MyAnimeList command
+Bump command
+Move command
+Remove command
+Back command
+Made it easier to get the lyrics to the currently playing song
+Implement Sentry for better error logging
+Playlists can now be shuffled!
+
+
+### Bug Fixes
+
+Minor bug fixes
+
+## v1.1.3
+
+
+### Features
+
+Switch domains from iturbo.turbo.ooo to turbo.cc
+Switched to a different lyrics API
+Reverse search for a song by searching the lyrics (|lyrics <lyrics>)!
+Bird command
+Changed APIs for reaction and NSFW hentai commands
+Lick command
+Headrub command
+Spank command
+Wikihow command
+Created these docs
+Switched to a much faster HTTP library
+
+
+### Bug Fixes
+
+Fixed tons of bugs
+
+## v1.1.2
+
+
+### Features
+
+Nothing
+
+
+### Bug Fixes
+
+Minor bug fixes
+Bug in playlist append function that allowed users to append undefined songs
+voiceStateUpdate fixes for autopausing
+Music filters work again
+
+## v1.1.1
+
+
+### Features
+
+Roles in the store are now placed in an embed
+Completely rewritten music system! Everything is now much faster
+Autopause music when no one is in the channel
+
+
+### Bug Fixes
+
+Now playing embed not properly displaying current duration if the current song is a livestream
+
+## v1.1.0
+
+
+### Features
+
+Users can now share their playlists! Use |playlist share <playlistName> to get the URL of your playlist to share with others
+|playlist import <playlistURL> allows users to import a shared playlist
+
+
+### Bug Fixes
+
+Fixed some bugs
+
+## v1.0.9
+
+
+### Features
+
+Spotify playlists can now be appended to bot playlists
+
+
+### Bug Fixes
+
+Using official Spotify API now
+
+## v1.0.8
+
+
+### Features
+
+Added pages to the queue
+Added custom user playlists (|help playlist)
+
+
+### Bug Fixes
+
+Fixed skip embed displaying incorrect information
+
+## v1.0.7
+
+
+### Features
+
+Added Spotify support for playing music (Playlists work too!)
+
+
+### Bug Fixes
+
+Nothing
+
+## v1.0.6
+
+
+### Features
+
+Added crypto command
+Added giveaway command
+
+
+### Bug Fixes
+
+Nothing
+
+## v1.0.4
+
+
+### Features
+
+Simp command
+
+
+### Bug Fixes
+
+Made every single command require the permissions it needs
+Fixed many music bugs
+
+## v1.0.3
+
+
+### Features
+
+Prompts for commands when args are not provided
+Current time in song when using the nowplaying command
+Added embed for all music commands
+Custom emojis/icons for some commands
+
+
+### Bug Fixes
+
+Fix queue command wigging out
+Define some undefined data in stock command
+
+## v1.0.2
+
+
+### Features
+
+npnotify - Enable or disable now playing notifications
+Added bot version to stats command
+
+
+### Bug Fixes
+
+Added response messages to some commands that I forgot to add them too, oops
+Fix DBL voting link
+Lowered all music cooldowns
+Make sure a message is specified when using the mimic command
+More behind the scenes stuff
+
+## v1.0.1
+
+
+### Features
+Stock command - get info about the desired stock
+
+
+### Bug Fixes
+
+Ensure that all commands that send an embed require the EMBED_LINKS permission.
+
+## v1.0.0
+
+
+Bot released to the public
