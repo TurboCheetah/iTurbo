@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.7.0](https://github.com/TurboCheetah/iTurbo/compare/v1.6.2...v1.7.0) (2021-01-14)
+
+
+### Features
+
+* add msgEmbed function to CommandContext ([e0a0c01](https://github.com/TurboCheetah/iTurbo/commit/e0a0c01fdc053973928fc7c9827b9589a8bcacd3))
+* stop deleting messages ([ee301dc](https://github.com/TurboCheetah/iTurbo/commit/ee301dc90dc33a71d5710be3d1029d30c6856775))
+* use embeds for all music commands ([bd9ea2e](https://github.com/TurboCheetah/iTurbo/commit/bd9ea2e093b0c691ce79b36fdd7d5c56b3f05e97))
+
+
+### Bug Fixes
+
+* seek x seconds ahead from current position ([13885e9](https://github.com/TurboCheetah/iTurbo/commit/13885e9ddf1d8a4ca3457a01c6f752b85f0aefc2))
+
 ### [1.6.2](https://github.com/TurboCheetah/iTurbo/compare/v1.6.1...v1.6.2) (2021-01-14)
 
 
