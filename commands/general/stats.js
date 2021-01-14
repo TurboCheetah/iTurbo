@@ -55,7 +55,7 @@ class Stats extends Command {
         .setDescription("Hi, I'm iTurbo. The all-in-one entertainment bot for your server")
         .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
         .setColor(0x9590ee)
-        .addField('Bot Stats', [`Guilds: **${client.guilds.cache.size}**`, `Users: **${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}**`, `Channels: **${client.channels.cache.size}**`, `Music Streams: **${this.client.manager.players.size}**`, `Uptime: **${uptime}**`, `Ping: **${msg.createdTimestamp - ctx.message.createdTimestamp}ms**`, `API Latency: **${this.client.ws.ping}ms**`].join('\n'), true)
+        .addField('Bot Stats', [`Guilds: **${client.guilds.cache.size}**`, `Users: **${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}**`, `Channels: **${client.channels.cache.size}**`, `Music Streams: **${this.client.manager.players.size}**`, `Uptime: **${uptime}**`, `Ping: **${msg.createdTimestamp - ctx.message.createdTimestamp}ms (API: ${this.client.ws.ping}ms)**`].join('\n'), true)
         // eslint-disable-next-line prettier/prettier
         .addField('Host Stats', [`Container Hostname: **${hostname}**`, `CPU Usage: **${(loadavg()[0] * 100).toFixed(1)}% (${cpus().length}c @ ${(cpus()[0].speed / 1000).toFixed(1)}GHz)**`, `Load Average: **${loadavg().map(avg => avg.toFixed(2)).join(', ')}**`, `Memory Usage: **${((usage / total) * 100).toFixed(1)}% (${usage.toLocaleString()} / ${total.toLocaleString()} MB)**`].join('\n'), true)
         .addField(this.client.constants.zws, this.client.constants.zws, true)
