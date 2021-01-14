@@ -138,7 +138,7 @@ class Reddit extends Command {
           .setColor(0x9590ee)
           .setImage(r.url)
           .setDescription(`:thumbsup: ${r.upvotes} | :speech_balloon: ${r.comments}`)
-          .setFooter(`Requested by: ${ctx.author.tag} • Powered by Reddit`, ctx.author.displayAvatarURL({ size: 32 }))
+          .setFooter(`Powered by Reddit`, ctx.author.displayAvatarURL({ size: 32 }))
 
         return ctx.reply({ embed })
       })

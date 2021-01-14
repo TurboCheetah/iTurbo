@@ -32,7 +32,7 @@ class Jisho extends Command {
       .addField('Japanese', res.japanese[0].word || res.japanese[0].reading, true)
       .addField('Reading', res.japanese[0].reading || res.japanese[0].word, true)
       .addField('English Meaning', `${this.client.utils.toProperCase(res.senses[0].english_definitions.join(', '))}`)
-      .setFooter(`Requested by: ${ctx.author.tag} • Powered by Jisho.org`, ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter(`Powered by Jisho.org`, ctx.author.displayAvatarURL({ size: 32 }))
 
     return ctx.reply({ embed })
   }

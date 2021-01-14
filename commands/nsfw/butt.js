@@ -24,7 +24,7 @@ class Butt extends Command {
       const embed = new MessageEmbed()
         .setColor(0x9590ee)
         .setImage(`http://media.obutts.ru/${data.preview}`)
-        .setFooter(`Requested by: ${ctx.author.tag} • Powered by oButts.ru`, ctx.author.displayAvatarURL({ size: 32 }))
+        .setFooter(`Powered by oButts.ru`, ctx.author.displayAvatarURL({ size: 32 }))
       return ctx.reply({ embed })
     } catch (err) {
       throw this.errorMessage

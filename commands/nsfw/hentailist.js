@@ -54,7 +54,7 @@ class HentaiList extends Command {
         .addField('Likes', data.likes, true)
         .addField('Interests', data.interests, true)
         .addField('Tags', `\`\`\`${tags.join(', ')}\`\`\``)
-        .setFooter(`ID: ${data.id} | Requested by: ${ctx.author.tag} • Powered by HentaiList.io`, ctx.author.displayAvatarURL({ size: 32 }))
+        .setFooter(`ID: ${data.id} | Powered by HentaiList.io`, ctx.author.displayAvatarURL({ size: 32 }))
 
       return ctx.reply({ embed })
     }

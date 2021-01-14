@@ -40,7 +40,7 @@ class RedditGif extends Command {
     .setURL(`https://www.reddit.com/${nsfwPost.permalink}`)
     .setColor(0x9590EE)
     .setImage(nsfwPost.url)
-    .setFooter(`Requested by: ${ctx.author.tag} • Powered by Reddit`, ctx.author.displayAvatarURL({ size: 32 }));
+    .setFooter(`Powered by Reddit`, ctx.author.displayAvatarURL({ size: 32 }));
 
     return ctx.reply({ embed }); */
     return ctx.reply(`r/${nsfwPost.subreddit} - ${nsfwPost.title}\n${nsfwPost.url}`)

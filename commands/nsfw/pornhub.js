@@ -41,7 +41,7 @@ class Pornhub extends Command {
             .addField('Views', result.views, true)
             .addField('Rating', result.rating, true)
             .setImage(result.thumb)
-            .setFooter(`Requested by: ${ctx.author.tag} • Powered by PornHub`, ctx.author.displayAvatarURL({ size: 32 }))
+            .setFooter(`Powered by PornHub`, ctx.author.displayAvatarURL({ size: 32 }))
 
           ctx.reply({ embed })
         } catch (err) {
