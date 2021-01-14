@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.3](https://github.com/TurboCheetah/iTurbo/compare/v1.8.2...v1.8.3) (2021-01-14)
+
+
+### Bug Fixes
+
+* prune command deleting command message ([e1e5825](https://github.com/TurboCheetah/iTurbo/commit/e1e582520d0fe68dd012aec7a0079685a8d222f8))
+
 ### [1.8.2](https://github.com/TurboCheetah/iTurbo/compare/v1.8.1...v1.8.2) (2021-01-14)
 
 
