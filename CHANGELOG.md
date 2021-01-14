@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1](https://github.com/TurboCheetah/iTurbo/compare/v1.7.0...v1.7.1) (2021-01-14)
+
+
+### Bug Fixes
+
+* endpoint does not exist ([e66c343](https://github.com/TurboCheetah/iTurbo/commit/e66c343bb4799bada89e574c45c7853fbcc94f98))
+
 ## [1.7.0](https://github.com/TurboCheetah/iTurbo/compare/v1.6.2...v1.7.0) (2021-01-14)
 
 
