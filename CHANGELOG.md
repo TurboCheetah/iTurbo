@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.4](https://github.com/TurboCheetah/iTurbo/compare/v1.8.3...v1.8.4) (2021-01-14)
+
+
+### Features
+
+* add async flag to eval ([9f20410](https://github.com/TurboCheetah/iTurbo/commit/9f20410f6f83e6dd4b6e44bbc475dba245881bf3))
+
+
+### Bug Fixes
+
+* properly handle error ([7b9fd63](https://github.com/TurboCheetah/iTurbo/commit/7b9fd63ff6c3dbdc322276ce1c6d6db5902bbdcd))
+
 ### [1.8.3](https://github.com/TurboCheetah/iTurbo/compare/v1.8.2...v1.8.3) (2021-01-14)
 
 
