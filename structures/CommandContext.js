@@ -1,6 +1,8 @@
 /**
  * Command execution context.
  */
+const { MessageEmbed } = require('discord.js')
+
 class CommandContext {
   constructor(client, msg) {
     this.client = client
@@ -65,6 +67,11 @@ class CommandContext {
     }
 
     return this.reply(res)
+  }
+
+  msgEmbed(text, icon = this.author.displayAvatarURL({ size: 512 })) {
+    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| ${text}`, icon)
+    return this.channel.send({ embed })
   }
 }
 
