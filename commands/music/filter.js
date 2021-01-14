@@ -1,5 +1,4 @@
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
 
 class Filter extends Command {
   constructor(...args) {
@@ -18,37 +17,34 @@ class Filter extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
-
-    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| ${!player[filter] ? 'Enabled' : 'Disabled'} the ${filter.toLowerCase()} filter`, ctx.author.displayAvatarURL({ size: 512 }))
 
     switch (filter.toLowerCase()) {
       case 'list':
-        ctx.reply('Available filters:\n```\nbassboost\nnightcore\nvaporwave\ndistortion```')
+        ctx.msgEmbed('Available filters:\n```\nbassboost\nnightcore\nvaporwave\ndistortion```')
         break
       case 'bassboost':
         player.setBassboost(!player.bassboost)
-        ctx.reply({ embed })
+        ctx.msgEmbed(`${!player[filter] ? 'Enabled' : 'Disabled'} the ${filter.toLowerCase()} filter`, this.client.constants.successImg)
         break
       case 'nightcore':
         player.setNightcore(!player.nightcore)
-        ctx.reply({ embed })
+        ctx.msgEmbed(`${!player[filter] ? 'Enabled' : 'Disabled'} the ${filter.toLowerCase()} filter`, this.client.constants.successImg)
         break
       case 'vaporwave':
         player.setVaporwave(!player.vaporwave)
-        ctx.reply({ embed })
+        ctx.msgEmbed(`${!player[filter] ? 'Enabled' : 'Disabled'} the ${filter.toLowerCase()} filter`, this.client.constants.successImg)
         break
       case 'distortion':
         player.setDistortion(!player.distorion)
-        ctx.reply({ embed })
+        ctx.msgEmbed(`${!player[filter] ? 'Enabled' : 'Disabled'} the ${filter.toLowerCase()} filter`, this.client.constants.successImg)
         break
       default:
         ctx.reply(`Invalid filter! Use \`${ctx.guild ? ctx.guild.settings.prefix : '|'}filter list\` to get a list of available filters.`)

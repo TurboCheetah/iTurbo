@@ -14,7 +14,7 @@ class DJRole extends Command {
 
   async run(ctx, [action = 'current', ...args]) {
     if (!['enable', 'disable', 'current'].includes(action)) {
-      return ctx.reply(`Usage: \`${ctx.guild.settings.prefix}${this.usage}\`\n\`\`\`${this.extendedHelp}\n\`\`\``)
+      return ctx.msgEmbed(`Usage: \`${ctx.guild.settings.prefix}${this.usage}\`\n\`\`\`${this.extendedHelp}\n\`\`\``, this.client.constants.errorImg)
     }
 
     return this[action](ctx, args)
@@ -23,24 +23,24 @@ class DJRole extends Command {
   async enable(ctx, args) {
     const rolename = args.join(' ').toLowerCase()
     console.log(rolename)
-    if (!rolename) return ctx.reply(`${this.client.constants.error} Usage: \`${ctx.guild.prefix}djrole enable <role>\``)
+    if (!rolename) return ctx.msgEmbed(`Usage: \`${ctx.guild.prefix}djrole enable <role>\``, this.client.constants.errorImg)
 
     const role = ctx.guild.roles.cache.find(r => r.id === rolename || r.name.toLowerCase() === rolename)
-    if (!role) return ctx.reply(`${this.client.constants.error} That role does not exist!`)
+    if (!role) return ctx.msgEmbed('That role does not exist!', this.client.constants.errorImg)
 
     ctx.guild.update({ djRole: role.id })
-    ctx.reply(`${this.client.constants.success} Successfully set ${role} as the DJ role!`)
+    ctx.msgEmbed(`Successfully set ${role} as the DJ role!`, this.client.constants.successImg)
   }
 
   async disable(ctx, args) {
     ctx.guild.update({ djRole: null })
 
-    return ctx.reply(`${this.client.constants.success} Successfully disabled DJ role.`)
+    return ctx.msgEmbed('Successfully disabled DJ role.', this.client.constants.successImg)
   }
 
   async current(ctx, args) {
     const role = ctx.guild.settings.djRole ? ctx.guild.roles.cache.find(r => r.id === ctx.guild.settings.djRole) : '`Disabled`'
-    return ctx.reply(`The current DJ role in ${ctx.guild.name} is ${role}`)
+    return ctx.msgEmbed(`The current DJ role in ${ctx.guild.name} is ${role}`)
   }
 }
 

@@ -1,6 +1,5 @@
 /* eslint-disable no-case-declarations */
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
 
 class Remove extends Command {
   constructor(...args) {
@@ -18,30 +17,29 @@ class Remove extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const channel = ctx.member.voice.channel
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player || !player.queue.length > 0) {
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| There is nothing to move!', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed('There is nothing to move!', this.client.constants.errorImg)
     }
 
-    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.reply(`${this.client.constants.error} You need to be in the voice channel with me to move music!`)
+    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.msgEmbed('You need to be in the voice channel with me to move music!', this.client.constants.errorImg)
 
-    if (!songPosition) return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.settings.prefix}remove <songPosition> [endPosition]\`\nExample: \`${ctx.guild.settings.prefix}remove 3 5\``)
+    if (!songPosition) return ctx.msgEmbed(`Correct usage: \`${ctx.guild.settings.prefix}remove <songPosition> [endPosition]\`\nExample: \`${ctx.guild.settings.prefix}remove 3 5\``, this.client.constants.errorImg)
 
     songPosition = this.verifyInt(songPosition, 1) - 1
 
     if (endPosition) {
       endPosition = this.verifyInt(endPosition, 1)
-      ctx.reply(`${this.client.constants.success} Removed songs **${songPosition + 1}-${endPosition}** from the queue!`)
+      ctx.msgEmbed(`Removed songs **${songPosition + 1}-${endPosition}** from the queue!`, this.client.constants.successImg)
       return player.queue.remove(songPosition, endPosition)
     }
 
-    ctx.reply(`${this.client.constants.success} Removed **${player.queue[songPosition].title}** from the queue!`)
+    ctx.msgEmbed(`Removed **${player.queue[songPosition].title}** from the queue!`, this.client.constants.successImg)
 
     player.queue.remove(songPosition)
   }

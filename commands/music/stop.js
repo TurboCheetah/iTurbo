@@ -1,5 +1,4 @@
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
 
 class Stop extends Command {
   constructor(...args) {
@@ -18,19 +17,17 @@ class Stop extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
 
     player.destroy()
-    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| 🛑 Stopped', ctx.author.displayAvatarURL({ size: 512 }))
-    ctx.reply({ embed })
+    return ctx.msgEmbed('🛑 Stopped')
   }
 }
 

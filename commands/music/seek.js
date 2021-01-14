@@ -1,5 +1,4 @@
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
 
 class Seek extends Command {
   constructor(...args) {
@@ -18,24 +17,21 @@ class Seek extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
 
     if (isNaN(args[0])) {
-      return ctx.reply('Please supply a valid number!')
+      return ctx.msgEmbed('Please supply a valid number!', this.client.constants.errorImg)
     }
 
     player.seek(player.position + Number(args[0]) * 1000)
-    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| Moved ${args[0]} seconds ${args[0] > 0 ? 'ahead' : 'behind'}!`, ctx.author.displayAvatarURL({ size: 512 }))
-    ctx.message.delete({ timeout: 5000 })
-    ctx.reply({ embed }).then(ctx => ctx.delete({ timeout: 5000 }))
+    return ctx.msgEmbed(`Moved ${args[0]} seconds ${args[0] > 0 ? 'ahead' : 'behind'}!`, this.client.constants.successImg)
   }
 }
 

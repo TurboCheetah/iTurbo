@@ -1,6 +1,4 @@
-/* eslint-disable no-case-declarations */
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
 
 class SkipTo extends Command {
   constructor(...args) {
@@ -18,24 +16,23 @@ class SkipTo extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const channel = ctx.member.voice.channel
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player || !player.queue.length > 0) {
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| There is nothing in the queue!', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed('There is nothing in the queue!', this.client.constants.errorImg)
     }
 
-    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.reply(`${this.client.constants.error} You need to be in the voice channel with me to skip to that song!`)
+    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.msgEmbed('You need to be in the voice channel with me to skip to that song!', this.client.constants.errorImg)
 
-    if (!position) return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.settings.prefix}skipto <position>\``)
+    if (!position) return ctx.msgEmbed(`Correct usage: \`${ctx.guild.settings.prefix}skipto <position>\``, this.client.constants.errorImg)
 
     position = this.verifyInt(position, 1) - 1
 
-    ctx.reply(`${this.client.constants.success} Skipped to position **${[position + 1]}**!`)
+    ctx.msgEmbed(`Skipped to position **${[position + 1]}**!`, this.client.constants.successImg)
 
     player.queue.remove(0, position)
     player.stop()

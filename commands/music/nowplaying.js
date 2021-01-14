@@ -19,8 +19,7 @@ class NowPlaying extends Command {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
 
     if (!song) {

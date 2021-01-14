@@ -16,7 +16,7 @@ class Playlist extends Command {
   }
 
   async run(ctx, [action = 'list', ...args]) {
-    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'shuffle', 'share', 'import'].includes(action)) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    if (!['list', 'create', 'delete', 'info', 'append', 'remove', 'play', 'shuffle', 'share', 'import'].includes(action)) return ctx.msgEmbed(`Usage: \`${ctx.guild.prefix}${this.usage}\``, this.client.constants.errorImg)
 
     return this[action](ctx, args)
   }
@@ -50,7 +50,7 @@ class Playlist extends Command {
             return res.tracks
         }
       } catch (err) {
-        return ctx.reply(`${this.client.constants.error} An error occurred while searching: ${err.message}`)
+        return ctx.msgEmbed(`An error occurred while searching: ${err.message}`, this.client.constants.errorImg)
       }
       return res
     }
@@ -58,7 +58,7 @@ class Playlist extends Command {
   }
 
   async list(ctx) {
-    if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.error} You don't have any playlists yet!`)
+    if (!ctx.author.settings.playlist) return ctx.msgEmbed("You don't have any playlists yet!", this.client.constants.errorImg)
 
     const Pagination = new FieldsEmbed()
       .setArray(Object.keys(ctx.author.settings.playlist))
@@ -78,18 +78,18 @@ class Playlist extends Command {
   }
 
   async create(ctx, args) {
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}create <playlistName>`)
+    if (!args || !args.length) return ctx.msgEmbed(`Correct usage: ${ctx.guild.settings.prefix}create <playlistName>`, this.client.constants.errorImg)
     const playlistName = args.join(' ')
-    if (!playlistName) return ctx.reply('You must provide a name for the playlist.')
+    if (!playlistName) return ctx.msgEmbed('You must provide a name for the playlist.', this.client.constants.errorImg)
 
     // User prefixes get an extra 5 chars compared to guild prefixes.
-    if (playlistName.length > 35) return ctx.reply(`${this.client.constants.error} Playlist name cannot be longer than 35 characters!`)
+    if (playlistName.length > 35) return ctx.msgEmbed('Playlist name cannot be longer than 35 characters!', this.client.constants.errorImg)
 
     // Get existing playlsits to append to.
     const playlist = ctx.author.settings.playlist || {}
 
     // Avoid duplicates.
-    if (playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has already been created.`)
+    if (playlist[playlistName]) return ctx.msgEmbed('That playlist has already been created.', this.client.constants.errorImg)
 
     // Create new object with playlistName as the key
     playlist[playlistName] = {
@@ -101,43 +101,43 @@ class Playlist extends Command {
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully created playlist \`${playlistName}\`! Use \`${ctx.guild.settings.prefix}playlist append ${playlistName}; <songURL|queue>\` to add some songs`)
+    return ctx.msgEmbed(`Successfully created playlist \`${playlistName}\`! Use \`${ctx.guild.settings.prefix}playlist append ${playlistName}; <songURL|queue>\` to add some songs`, this.client.constants.successImg)
   }
 
   async delete(ctx, args) {
-    if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.error} You don't have any playlists yet!`)
+    if (!ctx.author.settings.playlist) return ctx.msgEmbed("You don't have any playlists yet!", this.client.constants.errorImg)
 
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}delete <playlistName>`)
+    if (!args || !args.length) return ctx.msgEmbed(`Correct usage: ${ctx.guild.settings.prefix}delete <playlistName>`, this.client.constants.errorImg)
 
     const playlistName = args.join(' ')
-    if (!playlistName) return ctx.reply(`${this.client.constants.error} You must provide the name for the playlist you'd like to delete.`)
+    if (!playlistName) return ctx.msgEmbed("You must provide the name for the playlist you'd like to delete.", this.client.constants.errorImg)
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
 
-    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.msgEmbed("That playlist doesn't exist!", this.client.constants.errorImg)
 
     // Delete playlistName object from playlists "array"
     delete playlist[playlistName]
 
     await ctx.author.update({ playlist })
 
-    return ctx.reply(`${this.client.constants.success} Successfully deleted the playlist \`${playlistName}\`.`)
+    return ctx.msgEmbed(`Successfully deleted the playlist \`${playlistName}\`.`, this.client.constants.successImg)
   }
 
   async info(ctx, args) {
-    if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.error} You don't have any playlists yet!`)
+    if (!ctx.author.settings.playlist) return ctx.msgEmbed("You don't have any playlists yet!", this.client.constants.errorImg)
 
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}info <playlistName>`)
+    if (!args || !args.length) return ctx.msgEmbed(`Correct usage: ${ctx.guild.settings.prefix}info <playlistName>`, this.client.constants.errorImg)
 
     const playlistName = args.join(' ').split(';')[0]
     const page = args.join(' ').split(';')[1] || 1
-    if (!playlistName) return ctx.reply(`${this.client.constants.error} You must provide the name for the playlist you'd like to play.`)
+    if (!playlistName) return ctx.msgEmbed("You must provide the name for the playlist you'd like to play.", this.client.constants.errorImg)
 
     // Get existing playlists
     let playlist = ctx.author.settings.playlist || {}
 
-    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist has doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.msgEmbed("That playlist has doesn't exist!", this.client.constants.errorImg)
     playlist = playlist[playlistName]
 
     if (!playlist.songs || !playlist.songs.length) {
@@ -174,23 +174,23 @@ class Playlist extends Command {
   }
 
   async append(ctx, args) {
-    if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.error} You don't have any playlists yet!`)
+    if (!ctx.author.settings.playlist) return ctx.msgEmbed("You don't have any playlists yet!", this.client.constants.errorImg)
 
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}append <playlistName>; <songURL|queue>`)
+    if (!args || !args.length) return ctx.msgEmbed(`Correct usage: ${ctx.guild.settings.prefix}append <playlistName>; <songURL|queue>`, this.client.constants.errorImg)
 
     const playlistName = args.join(' ').split('; ')[0]
-    if (!playlistName) return ctx.reply(`${this.client.constants.error} You must provide the name for the playlist you'd like to delete.`)
+    if (!playlistName) return ctx.msgEmbed("You must provide the name for the playlist you'd like to delete.", this.client.constants.errorImg)
     let songToAppend = args.join(' ').split('; ')[1]
-    if (!songToAppend || ((await this.isURL(songToAppend)) === false && !['current', 'queue'].includes(songToAppend.toLowerCase()))) return ctx.reply(`${this.client.constants.error} Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`)
+    if (!songToAppend || ((await this.isURL(songToAppend)) === false && !['current', 'queue'].includes(songToAppend.toLowerCase()))) return ctx.msgEmbed(`Please specify what you would like to append (the currently playing song, the entire queue, or a song URL) to ${playlistName} (Cannot be a Spotify URL)`, this.client.constants.errorImg)
     let songToAppendMsg
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
 
-    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.msgEmbed("That playlist doesn't exist!", this.client.constants.errorImg)
 
     if (songToAppend.indexOf('open.spotify.com/playlist' || 'play.spotify.com/playlist') > -1) {
-      return ctx.reply(`${this.client.constants.error} Sorry, but Spotify playlists are currently disabled from being added to custom user playlists. Feel free to add individual songs though!`)
+      return ctx.msgEmbed('Sorry, but Spotify playlists are currently disabled from being added to custom user playlists. Feel free to add individual songs though!', this.client.constants.errorImg)
     }
 
     const msg = await ctx.reply('Please wait, appending song(s) to playlist')
@@ -199,8 +199,7 @@ class Playlist extends Command {
       const player = this.client.manager.players.get(ctx.guild.id)
 
       if (!player) {
-        const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-        return msg.edit({ embed })
+        return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
       }
 
       const tracks = player.queue.map(track => track)
@@ -216,14 +215,13 @@ class Playlist extends Command {
       const player = this.client.manager.players.get(ctx.guild.id)
 
       if (!player) {
-        const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-        return msg.edit({ embed })
+        return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
       }
 
       // Check if song is already in the playlsit
       const track = player.queue.current
       songToAppendMsg = track.title
-      if (playlist[playlistName].songs.indexOf(track) > -1) return ctx.reply(`${this.client.constants.error} That song is already in your playlist!`)
+      if (playlist[playlistName].songs.indexOf(track) > -1) return ctx.msgEmbed('That song is already in your playlist!', this.client.constants.errorImg)
       playlist[playlistName].songs.push(track)
     } else if ((await this.isURL(songToAppend)) === true) {
       if (songToAppend.indexOf('open.spotify.com' || 'play.spotify.com') > -1) {
@@ -234,7 +232,7 @@ class Playlist extends Command {
       songToAppendMsg = songToAppend.title || `${songToAppend.length} songs`
 
       // Check if song is already in the playlsit
-      if (playlist[playlistName].songs.indexOf(songToAppend) > -1) return ctx.reply(`${this.client.constants.error} That song is already in \`${playlistName}\`!`)
+      if (playlist[playlistName].songs.indexOf(songToAppend) > -1) return ctx.msgEmbed(`That song is already in \`${playlistName}\`!`, this.client.constants.errorImg)
       // Append song to playlistName.songs array
       if (Array.isArray(songToAppend)) {
         playlist[playlistName].songs = playlist[playlistName].songs.concat(songToAppend)
@@ -249,24 +247,24 @@ class Playlist extends Command {
   }
 
   async remove(ctx, args) {
-    if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.error} You don't have any playlists yet!`)
+    if (!ctx.author.settings.playlist) return ctx.msgEmbed("You don't have any playlists yet!", this.client.constants.errorImg)
 
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}remove <playlistName>; <songIndex>`)
+    if (!args || !args.length) return ctx.msgEmbed(`Correct usage: ${ctx.guild.settings.prefix}remove <playlistName>; <songIndex>`, this.client.constants.errorImg)
 
     const playlistName = args.join(' ').split('; ')[0]
-    if (!playlistName) return ctx.reply(`${this.client.constants.error} You must provide the name for the playlist you'd like to delete.`)
+    if (!playlistName) return ctx.msgEmbed("You must provide the name for the playlist you'd like to delete.", this.client.constants.errorImg)
     const songToRemove = Number(args.join(' ').split('; ')[1])
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
 
-    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.msgEmbed("That playlist doesn't exist!", this.client.constants.errorImg)
 
     const msg = await ctx.reply('Please wait, removing song from playlist')
 
-    if (!songToRemove) return ctx.reply(`${this.client.constants.error} Please specify a song number to remove from ${playlistName}! You can get it from \`${ctx.guild.settings.prefix}playlist info ${playlistName}\``)
+    if (!songToRemove) return ctx.msgEmbed(`Please specify a song number to remove from ${playlistName}! You can get it from \`${ctx.guild.settings.prefix}playlist info ${playlistName}\``, this.client.constants.errorImg)
     // Check if song is already in the playlsit
-    if (!playlist[playlistName].songs[songToRemove - 1]) return ctx.reply(`${this.client.constants.error} That song is already in \`${playlistName}\`!`)
+    if (!playlist[playlistName].songs[songToRemove - 1]) return ctx.msgEmbed(`That song is already in \`${playlistName}\`!`, this.client.constants.errorImg)
 
     const songToAppendMsg = playlist[playlistName].songs[songToRemove - 1].title
 
@@ -282,20 +280,20 @@ class Playlist extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
-    if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.error} You don't have any playlist yet!`)
+    if (!ctx.author.settings.playlist) return ctx.msgEmbed("You don't have any playlist yet!", this.client.constants.errorImg)
 
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}playlist play <playlistName>`)
+    if (!args || !args.length) return ctx.msgEmbed(`Correct usage: ${ctx.guild.settings.prefix}playlist play <playlistName>`, this.client.constants.errorImg)
 
     const playlistName = args.join(' ')
-    if (!playlistName) return ctx.reply(`${this.client.constants.error} You must provide the name for the playlist you'd like to play.`)
+    if (!playlistName) return ctx.msgEmbed("You must provide the name for the playlist you'd like to play.", this.client.constants.errorImg)
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
 
-    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.msgEmbed("That playlist doesn't exist!", this.client.constants.errorImg)
 
     const msg = await ctx.reply('Enqueueing playlist...')
 
@@ -341,20 +339,20 @@ class Playlist extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
-    if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.error} You don't have any playlist yet!`)
+    if (!ctx.author.settings.playlist) return ctx.msgEmbed("You don't have any playlist yet!", this.client.constants.errorImg)
 
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}playlist shuffle <playlistName>`)
+    if (!args || !args.length) return ctx.msgEmbed(`Correct usage: ${ctx.guild.settings.prefix}playlist shuffle <playlistName>`, this.client.constants.errorImg)
 
     const playlistName = args.join(' ')
-    if (!playlistName) return ctx.reply(`${this.client.constants.error} You must provide the name for the playlist you'd like to play.`)
+    if (!playlistName) return ctx.msgEmbed("You must provide the name for the playlist you'd like to play.", this.client.constants.errorImg)
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
 
-    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.msgEmbed("That playlist doesn't exist!", this.client.constants.errorImg)
 
     const msg = await ctx.reply('Enqueueing playlist...')
 
@@ -401,14 +399,14 @@ class Playlist extends Command {
   }
 
   async share(ctx, args) {
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}playlist share <playlistName>`)
+    if (!args || !args.length) return ctx.msgEmbed(`Correct usage: ${ctx.guild.settings.prefix}playlist share <playlistName>`, this.client.constants.errorImg)
     const playlistName = args.join(' ')
-    if (!playlistName) return ctx.reply(`${this.client.constants.error} You must provide a name for the playlist.`)
+    if (!playlistName) return ctx.msgEmbed('You must provide a name for the playlist.', this.client.constants.errorImg)
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
 
-    if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.error} That playlist doesn't exist!`)
+    if (!playlist[playlistName]) return ctx.msgEmbed("That playlist doesn't exist!", this.client.constants.errorImg)
 
     if (playlist[playlistName].public === undefined) playlist[playlistName].public = false
 
@@ -416,15 +414,15 @@ class Playlist extends Command {
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully set playlist \`${playlist[playlistName].name}\` to ${playlist[playlistName].public ? `to public! Share this URL with others: https://iturbo.cc/playlist/${ctx.author.id}/${playlist[playlistName].name.replace(/ /g, '%20')}` : 'to private!'}`)
+    return ctx.msgEmbed(`Successfully set playlist \`${playlist[playlistName].name}\` to ${playlist[playlistName].public ? `to public! Share this URL with others: https://iturbo.cc/playlist/${ctx.author.id}/${playlist[playlistName].name.replace(/ /g, '%20')}` : 'to private!'}`, this.client.constants.successImg)
   }
 
   async import(ctx, args) {
-    if (!args || !args.length) return ctx.reply(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}public <playlistName>`)
+    if (!args || !args.length) return ctx.msgEmbed(`${this.client.constants.error} Correct usage: ${ctx.guild.settings.prefix}public <playlistName>`, this.client.constants.errorImg)
     const playlistURL = args.join(' ')
-    if (!playlistURL) return ctx.reply(`${this.client.constants.error} You must provide a name for the playlist.`)
+    if (!playlistURL) return ctx.msgEmbed(`${this.client.constants.error} You must provide a name for the playlist.`, this.client.constants.errorImg)
 
-    if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.reply("You can't import your own playlist!")
+    if (playlistURL.split('/playlist/')[1].split('/')[0] === ctx.author.id) return ctx.msgEmbed("You can't import your own playlist!", this.client.constants.errorImg)
 
     // Get existing playlists
     const playlist = ctx.author.settings.playlist || {}
@@ -442,14 +440,14 @@ class Playlist extends Command {
       })
 
     if (!playlistToImport) {
-      return ctx.reply(`${this.client.constants.error} That playlist doesn't exist or has been set to private!`)
+      return ctx.msgEmbed("That playlist doesn't exist or has been set to private!", this.client.constants.successImg)
     }
 
     playlist[playlistToImport.name] = playlistToImport
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully imported playlist \`${playlistToImport.name}\`!`)
+    return ctx.msgEmbed(`Successfully imported playlist \`${playlistToImport.name}\`!`, this.client.constants.successImg)
   }
 }
 

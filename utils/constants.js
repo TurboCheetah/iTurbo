@@ -7,5 +7,8 @@ module.exports = {
   error: '<:error:779886874533560320>',
   success: '<:success:779886882917449728>',
   add: '<:add:779886892102451290>',
-  zws: '\u200B'
+  zws: '\u200B',
+  errorImg: 'https://i.imgur.com/NxqHz0I.png',
+  successImg: 'https://i.imgur.com/H6YDov0.png',
+  addImg: 'https://i.imgur.com/Nmg88HS.png'
 }

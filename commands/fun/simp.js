@@ -17,11 +17,11 @@ class Simp extends Command {
     if (!member.user.settings.simp) {
       const percent = Math.floor(Math.random() * (100 - 1) + 1)
       await member.user.update({ simp: percent })
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| ${member.user.username} is ${percent}% simp!`, member.user.displayAvatarURL({ size: 512 }))
+      return ctx.msgEmbed(`${member.user.username} is ${percent}% simp!`, member.user.displayAvatarURL({ size: 512 }))
       return ctx.reply({ embed })
     }
 
-    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| ${member.user.username} is ${member.user.settings.simp}% simp!`, member.user.displayAvatarURL({ size: 512 }))
+    return ctx.msgEmbed(`${member.user.username} is ${member.user.settings.simp}% simp!`, member.user.displayAvatarURL({ size: 512 }))
     return ctx.reply({ embed })
   }
 }

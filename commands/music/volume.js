@@ -1,5 +1,4 @@
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
 
 class Volume extends Command {
   constructor(...args) {
@@ -18,28 +17,25 @@ class Volume extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
 
     if (!args[0]) {
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| The current playback volume is at ${player.volume}%`, ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed(`The current playback volume is at ${player.volume}%`)
     }
 
     if (isNaN(args[0])) {
-      return ctx.reply('Invalid number! Please choose a percent from 0-100%')
+      return ctx.msgEmbed('Invalid number! Please choose a percent from 0-100%', this.client.constants.errorImg)
     }
 
     player.setVolume(Number(args[0]))
-    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| Set volume to ${args[0]}%`, ctx.author.displayAvatarURL({ size: 512 }))
-    ctx.reply({ embed })
+    return ctx.msgEmbed(`Set volume to ${args[0]}%`, this.client.constants.successImg)
   }
 }
 

@@ -18,12 +18,12 @@ class Bump extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const channel = ctx.member.voice.channel
 
-    if (!channel) return ctx.reply(`${this.client.constants.error} You need to be in a voice channel to play music!`)
+    if (!channel) return ctx.msgEmbed('You need to be in a voice channel to play music!', this.client.constants.errorImg)
 
     let player = this.client.manager.players.get(ctx.guild.id)
 
@@ -41,13 +41,12 @@ class Bump extends Command {
     let position = 0
     if (args.join(' ').split(' | ')[1]) position = this.verifyInt(args.join(' ').split(' | ')[1]) - 1
 
-    if (!ctx.member.voice.channel) return ctx.reply('Please join a voice channel!')
+    if (!ctx.member.voice.channel) return ctx.msgEmbed('Please join a voice channel!', this.client.constants.errorImg)
     if (!search.length && player.paused) {
       player.pause(false)
-      const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| ▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed('▶ Resumed the player', this.client.constants.successImg)
     }
-    if (!search.length) return ctx.reply('Please give me a URL or search term to play!')
+    if (!search.length) return ctx.msgEmbed('Please give me a URL or search term to play!', this.client.constants.errorImg)
 
     let res
 
@@ -112,7 +111,7 @@ class Bump extends Command {
           break
       }
     } catch (err) {
-      return ctx.reply(`An error occurred while searching: ${err.message}`)
+      return ctx.msgEmbed(`An error occurred while searching: ${err.message}`, this.client.constants.errorImg)
     }
   }
 }
