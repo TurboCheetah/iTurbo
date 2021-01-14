@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.2](https://github.com/TurboCheetah/iTurbo/compare/v1.8.1...v1.8.2) (2021-01-14)
+
+
+### Features
+
+* add `shibe` alias to shiba command ([0b8cb96](https://github.com/TurboCheetah/iTurbo/commit/0b8cb96900e0b6d31f1973d2e9ca5ec85615d222))
+
 ### [1.8.1](https://github.com/TurboCheetah/iTurbo/compare/v1.8.0...v1.8.1) (2021-01-14)
 
 
