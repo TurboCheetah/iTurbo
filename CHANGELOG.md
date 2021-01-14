@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.8.1](https://github.com/TurboCheetah/iTurbo/compare/v1.8.0...v1.8.1) (2021-01-14)
+
+
+### Features
+
+* clean up embeds for animal commands ([717f38d](https://github.com/TurboCheetah/iTurbo/commit/717f38d1e384d06ccddb57308cbed2cbe1883da9))
+
 ## [1.8.0](https://github.com/TurboCheetah/iTurbo/compare/v1.7.2...v1.8.0) (2021-01-14)
 
 
