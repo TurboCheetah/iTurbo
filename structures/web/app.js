@@ -34,19 +34,27 @@ module.exports = client => {
   app.set('views', path.join(__dirname, 'views/'))
   app.set('view engine', 'ejs')
 
+  /* Main routes */
+
+  // Serve index
   app.get('/', (req, res) => {
     // res.redirect(301, 'https://turbo.ooo')
     res.render('index')
   })
 
+  // Redirect to bot invite
   app.get('/invite', (req, res) => {
     res.redirect(301, 'https://discord.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot')
   })
 
+  // Redirect to support guild
   app.get('/discord', (req, res) => {
     res.redirect(301, 'https://discord.gg/011UYuval0uSxjmuQ')
   })
 
+  /* API Routes */
+
+  // Serve individual playlist data
   app.get('/playlist/:userID/:playlistName', async (req, res) => {
     const id = req.params.userID
     const playlistName = req.params.playlistName
@@ -57,6 +65,8 @@ module.exports = client => {
     res.render('playlist', { data: data })
   })
 
+  // WIP
+  // Serve guild queue
   app.get('/player/:guildID/', async (req, res) => {
     const id = req.params.guildID
     if (!client.manager.players.get(id)) return res.status(404).json({ message: 'Guild is not playing music' })
