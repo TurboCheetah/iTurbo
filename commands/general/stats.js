@@ -46,7 +46,6 @@ class Stats extends Command {
     const total = (totalmem() / 1024 / 1024 / 1024).toFixed(0) * 1024
     const usage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)
 
-    ctx.message.delete()
     const msg = await ctx.reply('Fetching stats...')
     msg.delete()
 
