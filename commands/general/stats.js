@@ -1,5 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed, version } = require('discord.js')
+const { hostname, totalmem, cpus, loadavg } = require('os')
 const io = require('@pm2/io')
 
 class Stats extends Command {
@@ -41,18 +42,29 @@ class Stats extends Command {
     const minutes = Math.floor((client.uptime / (1000 * 60)) % 60)
     const hours = Math.floor((client.uptime / (1000 * 60 * 60)) % 24)
     const days = Math.floor((client.uptime / (1000 * 60 * 60 * 24)) % 7)
-    const uptime = [`${days} Days`, `${hours} Hours`, `${minutes} Minutes`, `${seconds} Seconds`].filter(time => !time.startsWith('0')).join(', ')
+    const uptime = [`${days} Days`, `${hours} Hours`, `${minutes} Minutes`, `${seconds} ${seconds > 1 ? 'Seconds' : 'Second'}`].filter(time => !time.startsWith('0')).join(', ')
+    const total = (totalmem() / 1024 / 1024 / 1024).toFixed(0) * 1024
+    const usage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)
+
+    ctx.message.delete()
+    const msg = await ctx.reply('Fetching stats...')
+    msg.delete()
 
     return ctx.reply(
       new MessageEmbed()
-        .setTitle('iTurbo - Bot Statistics')
+        .setTitle(`${this.client.user.username.replace(/Bot/gi, '')} - Bot Statistics`)
         .setDescription("Hi, I'm iTurbo. The all-in-one entertainment bot for your server")
         .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
         .setColor(0x9590ee)
-        .addField('Bot Stats', [`**Guilds:** ${client.guilds.cache.size}`, `**Users:** ${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}`, `**Channels:** ${client.channels.cache.size}`, `**Music Streams:** ${this.client.manager.players.size}`, `**Uptime:** ${uptime}`, `**API Latency:** ${this.client.ws.ping}ms`, `**Total Memory Usage:** ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB`, `**Memory Usage:** ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`].join('\n'))
-        .addField('Versions', [`**Bot Version:** ${this.client.version}`, `**Node.js Version:** ${process.version}`, `**Discord.js Version:** v${version}`].join('\n'))
-        .addField('Command Stats', [`**Total Commands:** ${this.store.size}`, `**Commands Ran:** ${this.store.ran}`].join('\n'))
-        .addField('Links', [':envelope_with_arrow: [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)', ':video_game: [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)', ':book: [Documentation](https://docs.iturbo.cc)'].join('\n'))
+        .addField('Bot Stats', [`Guilds: **${client.guilds.cache.size}**`, `Users: **${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}**`, `Channels: **${client.channels.cache.size}**`, `Music Streams: **${this.client.manager.players.size}**`, `Uptime: **${uptime}**`, `Ping: **${msg.createdTimestamp - ctx.message.createdTimestamp}ms**`, `API Latency: **${this.client.ws.ping}ms**`].join('\n'), true)
+        .addField('Host Stats', [`Container Hostname: **${hostname}**`, `CPU Usage: **${(loadavg()[0] * 100).toFixed(1)}% (${cpus().length}c @ ${(cpus()[0].speed / 1000).toFixed(1)}GHz)**`, `Load Average: **${loadavg().join(', ')}**`, `Memory Usage: **${((usage / total) * 100).toFixed(1)}% (${usage.toLocaleString()} / ${total.toLocaleString()} MB)**`].join('\n'), true)
+        .addField(this.client.constants.zws, this.client.constants.zws, true)
+        .addField('Versions', [`Bot Version: **${this.client.version}**`, `Node.js Version: **${process.version}**`, `Discord.js Version: **v${version}**`].join('\n'), true)
+        .addField('Command Stats', [`Total Commands: **${this.store.size}**`, `Commands Ran: **${this.store.ran}**`].join('\n'), true)
+        .addField(this.client.constants.zws, this.client.constants.zws, true)
+        .addField('Useful Links', ['**📩 [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)** • **🎮 [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)** • **📖 [Documentation](https://docs.iturbo.cc)**'].join('\n'), true)
+        .setFooter(`Requested by: ${ctx.author.tag}`)
+        .setTimestamp()
     )
   }
 }
