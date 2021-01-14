@@ -91,7 +91,6 @@ class Play extends Command {
 
             // Checks if the client should play the track if it's the first one added
             if (!player.playing && !player.paused && !player.queue.size) player.play()
-            if (ctx.message.deletable) await ctx.message.delete()
 
             if (player.queue.size >= 1) return this.client.emit('addSong', player, track)
           } else if (['cancel'].includes(response)) {
@@ -110,7 +109,6 @@ class Play extends Command {
 
           // Checks if the client should play the track if it's the first one added
           if (!player.playing && !player.paused) player.play()
-          if (ctx.message.deletable) await ctx.message.delete()
           break
       }
     } catch (err) {

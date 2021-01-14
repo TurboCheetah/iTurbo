@@ -31,7 +31,7 @@ class Shuffle extends Command {
     player.queue.shuffle()
     const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Shuffled queue!', ctx.author.displayAvatarURL({ size: 512 }))
     ctx.message.delete({ timeout: 5000 })
-    ctx.reply({ embed })
+    ctx.reply({ embed }).then(ctx => ctx.delete({ timeout: 5000 }))
   }
 }
 

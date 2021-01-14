@@ -35,7 +35,7 @@ class Seek extends Command {
     player.seek(player.position + Number(args[0]) * 1000)
     const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| Moved ${args[0]} seconds ${args[0] > 0 ? 'ahead' : 'behind'}!`, ctx.author.displayAvatarURL({ size: 512 }))
     ctx.message.delete({ timeout: 5000 })
-    ctx.reply({ embed })
+    ctx.reply({ embed }).then(ctx => ctx.delete({ timeout: 5000 }))
   }
 }
 

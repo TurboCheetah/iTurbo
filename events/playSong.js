@@ -17,7 +17,7 @@ class playSong extends Event {
       .addField('Requested by', track.requester, true)
       .addField('Duration', this.client.utils.formatDuration(track.duration), true)
       .addField('Queue', `${player.queue.totalSize === 1 ? '1 song' : `${player.queue.totalSize} songs`} - ${this.client.utils.formatDuration(player.queue.duration)}`, true)
-    channel.send({ embed }).then(ctx => ctx.delete({ timeout: 15000 }))
+    channel.send({ embed })
   }
 }
 

@@ -14,7 +14,7 @@ class addList extends Event {
       .setThumbnail(res.tracks ? `https://img.youtube.com/vi/${res.tracks[0].identifier}/maxresdefault.jpg` : `https://img.youtube.com/vi/${res.songs[0].identifier}/maxresdefault.jpg`)
       .addField('Requested by', res.tracks ? res.tracks[0].requester : ctx.author, true)
     if (res.playlist) embed.addField('Duration', this.client.utils.formatDuration(res.playlist.duration), true)
-    channel.send({ embed }).then(ctx => ctx.delete({ timeout: 15000 }))
+    channel.send({ embed })
   }
 }
 

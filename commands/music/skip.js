@@ -29,7 +29,6 @@ class Skip extends Command {
     }
 
     if (!ctx.channel.guild.settings.nowplaying) await ctx.success()
-    ctx.message.delete({ timeout: 5000 })
     player.stop()
   }
 }

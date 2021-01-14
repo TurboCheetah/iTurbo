@@ -41,8 +41,7 @@ class Back extends Command {
     const track = TrackUtils.build(tData, ctx.author)
     player.queue.add(track, 0)
     player.stop()
-    const m = await ctx.success()
-    m.message.delete({ timeout: 5000 })
+    await ctx.success()
   }
 }
 
