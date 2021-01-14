@@ -4,7 +4,7 @@ class Reload extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Reloads a command.',
-      usage: '!reload <piece>',
+      usage: 'reload <piece>',
       ownerOnly: true,
       hidden: true,
       aliases: ['r']
