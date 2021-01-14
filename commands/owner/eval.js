@@ -17,13 +17,14 @@ class Eval extends Command {
     if (!args.length) return ctx.reply('You need to give me code to evaluate.')
 
     const { clean, client } = this
-    const { code } = this.client.utils.getCodeBlock(ctx.rawArgs)
+    let { code } = this.client.utils.getCodeBlock(ctx.rawArgs.replace(/--(async) /gi, ''))
+    if (ctx.flags.async) code = `(async () => {\n${code}\n})()`
     const token = client.token.split('').join('[^]{0,2}')
     const rev = client.token.split('').reverse().join('[^]{0,2}')
     const filter = new RegExp(`${token}|${rev}`, 'g')
     try {
       // eslint-disable-next-line no-eval
-      let output = eval(code)
+      let output = await eval(code)
       if (output instanceof Promise || (Boolean(output) && typeof output.then === 'function' && typeof output.catch === 'function')) output = await output
       output = inspect(output, { depth: 0, maxArrayLength: null })
       output = output.replace(filter, '[TOKEN]')
