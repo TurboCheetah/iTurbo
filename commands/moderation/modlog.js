@@ -11,7 +11,8 @@ class Modlog extends Command {
   }
 
   async run(ctx, [action]) {
-    if (!action) return ctx.reply('Specify either `enable #channel` or `disable`')
+    if (!action && !ctx.guild.settings.modlog) return ctx.reply(`${this.client.constants.success} Invalid action. Specify either \`enable #channel\` or \`disable\``)
+    if (!action) return ctx.reply(`The modlog is current set to ${this.client.channels.cache.get(ctx.guild.settings.modlog)}`)
 
     switch (action) {
       case 'disable':

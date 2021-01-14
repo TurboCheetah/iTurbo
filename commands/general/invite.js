@@ -14,10 +14,9 @@ class Invite extends Command {
     // eslint-disable-line no-unused-vars
     return ctx.reply(
       new MessageEmbed()
-        .setTitle('Invite iTurbo to your server')
         .setColor(0x9590ee)
         .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
-        .setDescription("You can invite me to your server using the following link:\n\n[Invite Link](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)\n[Join Turbo's Hub](https://discord.gg/011UYuval0uSxjmuQ)")
+        .setDescription('**[Invite Link](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)** • **[Support Server](https://discord.gg/011UYuval0uSxjmuQ)**')
     )
   }
 }
