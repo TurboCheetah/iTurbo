@@ -31,13 +31,13 @@ class Mute extends Command {
         .create({
           data: {
             name: 'Muted',
-            color: 'RED',
+            color: 0xff4349,
             permissions: 'VIEW_CHANNEL'
           },
           reason: 'Muted role did not previously exist or could not be found.'
         })
         .then(role => {
-          ctx.guild.channels.forEach(async channel => {
+          ctx.guild.channels.cache.forEach(async channel => {
             await channel.overwritePermissions(role, {
               SEND_MESSAGES: false,
               ADD_REACTIONS: false,
@@ -69,10 +69,10 @@ class Mute extends Command {
         .setFooter(`Case ${caseNum}`)
         .setTimestamp()
 
-      ctx.reply(`Muted ${member.user.tag}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+      ctx.reply(`Muted ${member.user}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
       return channel.send({ embed })
     } else {
-      return ctx.reply(`Muted ${member.user.tag}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+      return ctx.reply(`Muted ${member.user}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
     }
   }
 }

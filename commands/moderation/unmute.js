@@ -25,7 +25,7 @@ class Unmute extends Command {
     if (!mutedRole) {
       ctx.guild.roles.create({
         name: 'Muted',
-        color: 'RED',
+        color: 0xff4349,
         permissions: ['READ_MESSAGES']
       })
     }
@@ -49,10 +49,10 @@ class Unmute extends Command {
         .setFooter(`Case ${caseNum}`)
         .setTimestamp()
 
-      ctx.reply(`Unmuted ${member.user.tag}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+      ctx.reply(`Unmuted ${member.user}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
       return channel.send({ embed })
     } else {
-      return ctx.reply(`Unmuted ${member.user.tag}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+      return ctx.reply(`Unmuted ${member.user}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
     }
   }
 }
