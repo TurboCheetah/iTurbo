@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0](https://github.com/TurboCheetah/iTurbo/compare/v1.5.1...v1.6.0) (2021-01-14)
+
+
+### Features
+
+* Paginate playlists embed ([68bf9b5](https://github.com/TurboCheetah/iTurbo/commit/68bf9b56cd8e2a9d4fbf931e299782a46d5e6374))
+
+
+### Bug Fixes
+
+* proper KSoft attribution capitalization ([59c3ffb](https://github.com/TurboCheetah/iTurbo/commit/59c3ffb950c588cdd9d1407a0e3b3c19e8418af6))
+* user-agent check ([6b1e869](https://github.com/TurboCheetah/iTurbo/commit/6b1e869d646c93631dc69b034174a760557d078c))
+
 ### [1.5.1](https://github.com/TurboCheetah/iTurbo/compare/v1.5.0...v1.5.1) (2021-01-13)
 
 ## [1.5.0](https://github.com/TurboCheetah/iTurbo/compare/v1.5.0-1...v1.5.0) (2021-01-13)
