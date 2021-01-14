@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.2](https://github.com/TurboCheetah/iTurbo/compare/v1.7.1...v1.7.2) (2021-01-14)
+
+
+### Bug Fixes
+
+* markdown in embed titles ([31f1769](https://github.com/TurboCheetah/iTurbo/commit/31f1769dae4646f21badeee88065d838693f6367))
+
 ### [1.7.1](https://github.com/TurboCheetah/iTurbo/compare/v1.7.0...v1.7.1) (2021-01-14)
 
 
