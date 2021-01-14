@@ -2,13 +2,13 @@ const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 const c = require('@aero/centra')
 
-class Shibe extends Command {
+class Shiba extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Post a randomly selected image of a Shiba Inu.',
       extended: 'This command will return a beautiful Shiba Inu.',
       cooldown: 3,
-      aliases: ['doge', 'shib', 'shiba', 'shibainu'],
+      aliases: ['doge', 'shib', 'shiba', 'shibainu', 'shibe'],
       botPermissions: ['EMBED_LINKS']
     })
   }
@@ -22,4 +22,4 @@ class Shibe extends Command {
   }
 }
 
-module.exports = Shibe
+module.exports = Shiba
