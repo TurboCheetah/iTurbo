@@ -16,6 +16,7 @@ const BotAPI = require('./web')
 const { Manager } = require('erela.js')
 const Spotify = require('erela.js-spotify')
 const { KSoftClient } = require('@ksoft/api') // KSoft
+const Anilist = require('anilist-node') // Anilist
 
 class MiyakoClient extends Client {
   constructor(dev) {
@@ -54,6 +55,7 @@ class MiyakoClient extends Client {
       ]
     })
     this.ksoft = new KSoftClient(this.config.ksoft)
+    this.anilist = new Anilist(this.config.anilist)
     this.version = pkgVersion
 
     // Settings.
