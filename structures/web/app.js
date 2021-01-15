@@ -58,7 +58,9 @@ module.exports = client => {
   app.get('/playlist/:userID/:playlistName', async (req, res) => {
     const id = req.params.userID
     const playlistName = req.params.playlistName
-    const data = await client.settings.users.get(id).playlist[playlistName]
+    let userSettings = await client.settings.users.get(id)
+    if (!userSettings) await client.settings.sync(id).then(async () => (userSettings = await client.settings.users.get(id)))
+    const data = userSettings.playlist[playlistName]
     if (!data) return res.status(404).json({ message: 'Not found' })
     if (data.public === false) return res.status(403).json({ message: 'Forbidden' })
     if (req.headers['user-agent'] === `iTurbo/${client.version} (DiscordBot)`) return res.json(data)
