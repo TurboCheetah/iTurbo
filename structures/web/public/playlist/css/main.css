@@ -56,11 +56,6 @@ ul, li {
 	list-style-type: none;
 }
 
-h6 {
-  text-align: center;
-}
-
-
 /* ------------------------------------ */
 input {
   display: block;
@@ -145,6 +140,10 @@ iframe {
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
+}
+
+.container-title h1, h6 {
+  text-align: center;
 }
 
 .limiter {
