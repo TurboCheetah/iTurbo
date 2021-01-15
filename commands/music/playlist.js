@@ -101,7 +101,7 @@ class Playlist extends Command {
 
     // Push changes to databse
     await ctx.author.update({ playlist })
-    return ctx.reply(`${this.client.constants.success} Successfully created playlist \`${playlistName}\`! Use \`${ctx.guild.settings.prefix}playlist append ${playlistName}; <songURL|queue>\` to add some songs`)
+    return ctx.reply(`${this.client.constants.success} Successfully created playlist \`${playlistName}\`! Use \`${ctx.guild.settings.prefix}playlist append ${playlistName}; <songURL|current|queue>\` to add some songs`)
   }
 
   async delete(ctx, args) {
@@ -203,7 +203,8 @@ class Playlist extends Command {
         return msg.edit({ embed })
       }
 
-      const tracks = player.queue.map(track => track)
+      const tracks = [player.queue.current]
+      tracks.push(player.queue.map(track => track))
       songToAppendMsg = `${tracks.length} songs`
 
       for (const track of tracks) {
