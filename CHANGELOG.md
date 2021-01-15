@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.9.0](https://github.com/TurboCheetah/iTurbo/compare/v1.8.5...v1.9.0) (2021-01-15)
+
+
+### Features
+
+* add playlist name and author to playlist UI ([ff67794](https://github.com/TurboCheetah/iTurbo/commit/ff677948ce3745bd13f67aaaac4c8bcb81c3e006))
+* implement loading emoji ([e361405](https://github.com/TurboCheetah/iTurbo/commit/e361405397597b2ac0dc8fdaaed80ed7f1e0043a))
+
+
+### Bug Fixes
+
+* added styles to wrong file ([de874ac](https://github.com/TurboCheetah/iTurbo/commit/de874ac2eb8e18fe0d91068f508d44d3b1ee387c))
+* fix user not resolving after cache clear ([1f1ac3a](https://github.com/TurboCheetah/iTurbo/commit/1f1ac3adac7e64cd77a536594002c3420bb0c3b1))
+* npNotify even when notifications disabled ([427419e](https://github.com/TurboCheetah/iTurbo/commit/427419ed0b66f854ab16369abe60d4d35a893093))
+
 ### [1.8.5](https://github.com/TurboCheetah/iTurbo/compare/v1.8.4...v1.8.5) (2021-01-14)
 
 ### [1.8.4](https://github.com/TurboCheetah/iTurbo/compare/v1.8.3...v1.8.4) (2021-01-14)
