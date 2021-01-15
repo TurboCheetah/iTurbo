@@ -33,10 +33,6 @@ h1 {
   font-family: Lato-Bold, sans-serif;
 }
 
-h5 {
-  text-align: center;
-}
-
 img.logo {
   height: 1.2em;
   font-size: 6em;
@@ -51,12 +47,6 @@ img.logo {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-
-.container-title {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
 }
 
 .button {
