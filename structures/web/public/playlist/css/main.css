@@ -283,3 +283,31 @@ th, td {
 .table100.ver1 .ps__rail-y .ps__thumb-y::before {
   background-color: #cccccc;
 }
+
+
+@media (max-width: 500px) {
+  body {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .container-table100 {
+    width: 100vw;
+  }
+
+  .wrap-table100 {
+    width: 80vw;
+  }
+
+  .table100.ver1 {
+    height: 75vh;
+  }
+
+  .limiter {
+    width: 100vw;
+  }
+
+  .m-b-110 {
+    margin-bottom: 0;
+  }
+}
