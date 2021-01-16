@@ -102,6 +102,7 @@ class Help extends Command {
         .setAuthorizedUsers([ctx.author.id])
         .setChannel(ctx.channel)
         .setPage(1)
+        .setDisabledNavigationEmojis(['delete'])
         .setPageIndicator('footer', (page, pages) => `Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'} • Page ${page} of ${pages}`)
 
       return Pagination.build()
@@ -111,7 +112,7 @@ class Help extends Command {
       .setColor(0x9590ee)
       .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64, dynamic: true }))
       .setTitle('Help')
-      .setURL('https://docs.iturbo.cc')
+      .setURL('https://docs.iturbo.cc/commands')
       .setDescription(`For all commands in a category run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <category>\`\nIf you need further help feel free to join the [support server](https://discord.gg/011UYuval0uSxjmuQ).`)
       .addField('Available Categories', keys.map(key => `[\`${key}\`](https://docs.iturbo.cc/commands/${key.toLowerCase()})`).join(' '))
       .setImage('https://i.imgur.com/g3jV9fg.gif')
