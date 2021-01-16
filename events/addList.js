@@ -5,8 +5,6 @@ class addList extends Event {
   async run(ctx, player, res) {
     const channel = this.client.channels.cache.get(player.textChannel)
 
-    if (player.queue.size > 1 && channel.guild.settings.nowplaying === false) return
-
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
       .setAuthor(`Enqueued ${res.tracks ? res.tracks.length : res.songs.length} songs from playlist`, this.client.constants.addImg)
