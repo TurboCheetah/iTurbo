@@ -21,7 +21,7 @@ class Headrub extends Command {
 
     const { url } = await this.client.ksoft.images.random('headrub', { nsfw: ctx.channel.nsfw })
 
-    const embed = new MessageEmbed().setColor(0x9590ee).setDescription(`**${member.displayName}**, you just got your head rubbed by **${ctx.member.displayName}**`).setImage(url).setFooter('Powered by ')
+    const embed = new MessageEmbed().setColor(0x9590ee).setDescription(`**${member.displayName}**, you just got your head rubbed by **${ctx.member.displayName}**`).setImage(url).setFooter('Powered by KSoft.Si')
 
     return ctx.reply({ embed })
   }

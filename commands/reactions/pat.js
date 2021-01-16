@@ -20,7 +20,7 @@ class Pat extends Command {
 
     const { url } = await this.client.ksoft.images.random('pat', { nsfw: ctx.channel.nsfw })
 
-    const embed = new MessageEmbed().setColor(0x9590ee).setDescription(`**${member.displayName}**, you just got pats from **${ctx.member.displayName}**`).setImage(url).setFooter('Powered by ')
+    const embed = new MessageEmbed().setColor(0x9590ee).setDescription(`**${member.displayName}**, you just got pats from **${ctx.member.displayName}**`).setImage(url).setFooter('Powered by KSoft.Si')
 
     return ctx.reply({ embed })
   }

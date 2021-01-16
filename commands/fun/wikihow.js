@@ -12,7 +12,7 @@ class Wikihow extends Command {
 
   async run(ctx) {
     const { url, article } = await this.client.ksoft.images.wikihow()
-    const embed = new MessageEmbed().setColor(0x9590ee).setTitle(article.title).setURL(article.link).setImage(url).setFooter('Powered by ')
+    const embed = new MessageEmbed().setColor(0x9590ee).setTitle(article.title).setURL(article.link).setImage(url).setFooter('Powered by KSoft.Si')
     ctx.reply({ embed })
   }
 }
