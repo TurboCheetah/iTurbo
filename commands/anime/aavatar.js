@@ -20,7 +20,7 @@ class AAvatar extends Command {
       .setTitle(`${ctx.channel.nsfw ? 'NSFW ' : ''}Anime Avatar`)
       .setColor(0x9590ee)
       .setImage(url)
-      .setFooter('Powered by nekos.life', ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter('Powered by nekos.life', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
 
     return ctx.reply({ embed })
   }

@@ -18,7 +18,7 @@ class Permissions extends Command {
       new MessageEmbed()
         .setTitle(`${member.displayName}'s Permissions in #${ctx.channel.name} in ${ctx.guild.name}`)
         .setColor(0x9590ee)
-        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setDescription(
           Object.entries(ctx.channel.permissionsFor(member).serialize())
             .map(perms => `${perms[1] ? this.client.constants.success : this.client.constants.error} ${this.client.events.get('message').friendlyPerms[perms[0]]}`)

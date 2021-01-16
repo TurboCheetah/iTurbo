@@ -43,7 +43,7 @@ class Play extends Command {
     if (!ctx.member.voice.channel) return ctx.msgEmbed('Please join a voice channel!', this.client.constants.errorImg)
     if (!search.length && player.paused) {
       player.pause(false)
-      return ctx.msgEmbed('▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512 }))
+      return ctx.msgEmbed('▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512, dynamic: true }))
     }
     if (!search.length) return ctx.msgEmbed('Please give me a URL or search term to play!', this.client.constants.errorImg)
 

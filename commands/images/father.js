@@ -23,7 +23,7 @@ class Father extends Command {
 
     if (text.length > 42) return ctx.reply('Text cannot be longer than 42 characters.')
 
-    const img = await this.client.img.father(user.displayAvatarURL({ size: 256, format: 'png' }), text)
+    const img = await this.client.img.father(user.displayAvatarURL({ size: 256, dynamic: true, format: 'png' }), text)
 
     return ctx.reply(new MessageAttachment(img, 'father.png'))
   }

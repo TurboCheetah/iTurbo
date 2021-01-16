@@ -71,8 +71,8 @@ class Playlist extends Command {
 
     Pagination.embed
       .setColor(0x9590ee)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
-      .setFooter('React to view info on that playlist', ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
+      .setFooter('React to view info on that playlist', ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     return Pagination.build()
   }
@@ -146,7 +146,7 @@ class Playlist extends Command {
         .setAuthor(`by ${playlist.author.tag}`, playlist.author.avatarURL)
         .setTitle(playlist.name)
         .addField('Songs', 'No songs have been added yet!')
-        .setFooter('Page 1 of 1', ctx.author.displayAvatarURL({ size: 64 }))
+        .setFooter('Page 1 of 1', ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
       return ctx.reply({ embed })
     }
@@ -166,7 +166,7 @@ class Playlist extends Command {
       .setAuthor(`by ${playlist.author.tag}`, playlist.author.avatarURL)
       .setTitle(playlist.name)
       .setThumbnail(playlist.songs[0].thumbnail)
-      .setFooter(null, ctx.author.displayAvatarURL({ size: 64 }))
+      .setFooter(null, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     if (playlist.public) Pagination.embed.setURL(`https://iturbo.cc/playlist/${ctx.author.id}/${playlist.name.replace(/ /g, '%20')}`)
 
@@ -199,7 +199,7 @@ class Playlist extends Command {
       const player = this.client.manager.players.get(ctx.guild.id)
 
       if (!player) {
-        const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+        const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512, dynamic: true }))
         return msg.edit({ embed })
       }
 
@@ -217,7 +217,7 @@ class Playlist extends Command {
       const player = this.client.manager.players.get(ctx.guild.id)
 
       if (!player) {
-        const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512 }))
+        const embed = new MessageEmbed().setColor(0x9590ee).setAuthor('| Nothing is playing!', ctx.author.displayAvatarURL({ size: 512, dynamic: true }))
         return msg.edit({ embed })
       }
 

@@ -24,7 +24,7 @@ class APIStats extends Command {
     const embed = new MessageEmbed()
       .setTitle('IMG API Stats')
       .setColor(0x9590ee)
-      .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
+      .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64, dynamic: true }))
       .addField('Version', `v${version}`, true)
       .addField('Ping', `${after} ms`)
       .addField('Uptime', this.client.utils.getDuration(uptime * 1000))

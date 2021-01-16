@@ -14,7 +14,7 @@ class Beautiful extends Command {
   async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user, true)
 
-    const img = await this.client.img.mask(user.displayAvatarURL({ size: 512, format: 'png' }))
+    const img = await this.client.img.mask(user.displayAvatarURL({ size: 512, dynamic: true, format: 'png' }))
 
     return ctx.reply(new MessageAttachment(img, 'mask.png'))
   }

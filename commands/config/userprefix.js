@@ -50,7 +50,7 @@ class UserPrefix extends Command {
 
     const embed = new MessageEmbed()
       .setTitle('User Prefixes')
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setColor(0x9590ee)
       .setDescription(ctx.author.settings.prefix.map(prefix => `• ${prefix}`).join('\n'))
 

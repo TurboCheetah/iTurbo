@@ -29,7 +29,7 @@ class Meme extends Command {
       .addField(':thumbsup: Upvotes', ` ${meme.ups}`, true)
       .addField(':thumbsdown: Downvotes', ` ${meme.downs}`, true)
       .addField(':speech_balloon: Comments', `${meme.num_comments}`, true)
-      .setFooter(`Powered by Reddit`, ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter('Powered by Reddit', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
     return ctx.reply({ embed })
   }
 }

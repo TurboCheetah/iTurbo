@@ -48,7 +48,7 @@ class Crypto extends Command {
         .addField(`Bitcoin (${data[0].symbol})`, `$${toFixedNum(Number(data[0].price), 2).toLocaleString()} USD`, true)
         .addField(`Ethereum (${data[1].symbol})`, `$${toFixedNum(Number(data[1].price), 2).toLocaleString()} USD`, true)
         .addField(`Ripple (${data[2].symbol})`, `$${toFixedNum(Number(data[2].price), 2).toLocaleString()} USD`, true)
-        .setFooter('Powered by Nomics', ctx.author.displayAvatarURL({ size: 32 }))
+        .setFooter('Powered by Nomics', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
       return ctx.reply({ embed })
     }
 
@@ -79,7 +79,7 @@ class Crypto extends Command {
       .addField('1H', `$${toFixedNum(Number(data[0]['1h'].price_change), 4).toLocaleString()} (${toFixedNum(Number(data[0]['1h'].price_change_pct) * 100, 2)}%)`, true)
       .addField('24H', `$${toFixedNum(Number(data[0]['1d'].price_change), 4).toLocaleString()} (${toFixedNum(Number(data[0]['1d'].price_change_pct) * 100, 2)}%)`, true)
       .addField('7D', `$${toFixedNum(Number(data[0]['7d'].price_change), 4).toLocaleString()} (${toFixedNum(Number(data[0]['7d'].price_change_pct) * 100, 2)}%)`, true)
-      .setFooter('Powered by Nomics', ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter('Powered by Nomics', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
     ctx.reply({ embed })
   }
 }

@@ -19,7 +19,7 @@ class Pokemon extends Command {
 
     const embed = new MessageEmbed()
       .setTitle("You have 15 seconds to guess! Who's that Pokémon!")
-      .setAuthor(ctx.member.displayName, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.member.displayName, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setImage(pokemon.imageURL)
       .setColor(0x9590ee)
 

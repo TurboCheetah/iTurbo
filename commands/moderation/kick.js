@@ -36,7 +36,7 @@ class Kick extends Command {
       await ctx.guild.update({ modlogCase: caseNum })
       const embed = new MessageEmbed()
         .setColor(0x9590ee)
-        .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL({ size: 32 }))
+        .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL({ size: 32, dynamic: true }))
         .addField('Action', 'Kick')
         .addField('Reason', reason || 'No reason specified')
         .addField('Responsible moderator', `${ctx.author.tag}`)

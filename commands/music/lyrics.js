@@ -23,7 +23,7 @@ class Lyrics extends Command {
             .setDescription(lyrics.trim().substring(0, 1990))
             .setURL(url)
             .setThumbnail(artwork)
-            .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+            .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
             .setColor(0x9590ee)
             .setFooter('Powered by ')
 
@@ -42,7 +42,7 @@ class Lyrics extends Command {
 
     if (!player && !args.length) {
       const embed = new MessageEmbed()
-        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setDescription('What song would you like to find the lyrics for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
         .setTimestamp()
         .setColor(0x9590ee)
@@ -63,7 +63,7 @@ class Lyrics extends Command {
 
       if (!args[0]) {
         const embed = new MessageEmbed()
-          .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+          .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
           .setDescription("What are the lyrics you'd like to search?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.")
           .setTimestamp()
           .setColor(0x9590ee)

@@ -25,9 +25,9 @@ class UserInfo extends Command {
     const joinedDays = Math.floor((new Date() - member.joinedAt) / (1000 * 60 * 60 * 24))
 
     const embed = new MessageEmbed()
-      .setAuthor(`${member.user.tag} ${member.nickname ? `(${member.nickname})` : ''}`, member.user.displayAvatarURL({ size: 128 }))
+      .setAuthor(`${member.user.tag} ${member.nickname ? `(${member.nickname})` : ''}`, member.user.displayAvatarURL({ size: 128, dynamic: true }))
       .setColor(member.displayHexColor || 0x9590ee)
-      .setThumbnail(member.user.displayAvatarURL({ size: 512 }))
+      .setThumbnail(member.user.displayAvatarURL({ size: 512, dynamic: true }))
       .addField('❯ Discord Join Date', `${member.user.createdAt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} (${days} days ago!)`)
       .addField('❯ Server Join Date', `${member.joinedAt.toLocaleDateString(undefined, { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' })} (${joinedDays} days ago!)`)
       .addField('❯ Status', this.statuses[member.presence.status])

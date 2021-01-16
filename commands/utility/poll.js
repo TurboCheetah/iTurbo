@@ -40,7 +40,7 @@ class Poll extends Command {
       .setTitle(question)
       .setColor(0x9590ee)
       .setDescription(choices.map(c => `${counter++}. ${c}`).join('\n'))
-      .setFooter(`Asked by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
+      .setFooter(`Asked by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     const poll = await channel.send({ embed })
 

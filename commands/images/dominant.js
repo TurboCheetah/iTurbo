@@ -15,7 +15,7 @@ class Dominant extends Command {
   async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user, true)
 
-    const { hex, rgb } = await this.client.img.dominantColor(user.displayAvatarURL({ size: 1024, format: 'png' }))
+    const { hex, rgb } = await this.client.img.dominantColor(user.displayAvatarURL({ size: 1024, dynamic: true, format: 'png' }))
     const img = await this.client.img.color(hex)
 
     return ctx.reply(`**Hex:** ${hex}\n**RGB:** rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`, new MessageAttachment(img, 'dominant.png'))

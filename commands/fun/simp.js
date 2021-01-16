@@ -1,5 +1,4 @@
 const Command = require('../../structures/Command.js')
-const { MessageEmbed } = require('discord.js')
 
 class Simp extends Command {
   constructor(...args) {
@@ -17,12 +16,10 @@ class Simp extends Command {
     if (!member.user.settings.simp) {
       const percent = Math.floor(Math.random() * (100 - 1) + 1)
       await member.user.update({ simp: percent })
-      return ctx.msgEmbed(`${member.user.username} is ${percent}% simp!`, member.user.displayAvatarURL({ size: 512 }))
-      return ctx.reply({ embed })
+      return ctx.msgEmbed(`${member.user.username} is ${percent}% simp!`, member.user.displayAvatarURL({ size: 512, dynamic: true }))
     }
 
-    return ctx.msgEmbed(`${member.user.username} is ${member.user.settings.simp}% simp!`, member.user.displayAvatarURL({ size: 512 }))
-    return ctx.reply({ embed })
+    return ctx.msgEmbed(`${member.user.username} is ${member.user.settings.simp}% simp!`, member.user.displayAvatarURL({ size: 512, dynamic: true }))
   }
 }
 

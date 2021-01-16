@@ -69,7 +69,7 @@ class CommandContext {
     return this.reply(res)
   }
 
-  msgEmbed(text, icon = this.author.displayAvatarURL({ size: 512 })) {
+  msgEmbed(text, icon = this.author.displayAvatarURL({ size: 512, dynamic: true })) {
     const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| ${text}`, icon)
     return this.channel.send({ embed })
   }

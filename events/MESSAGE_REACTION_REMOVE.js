@@ -60,7 +60,7 @@ class RawMessageReactionRemove extends Event {
       .setTitle(foundStar.title)
       .setURL(msg.url)
       .setDescription(foundStar.description || '')
-      .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(msg.author.tag, msg.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setTimestamp()
       .setFooter(`⭐ ${parseInt(star[1]) - 1} | ${msg.id}`)
       .setImage(this.client.utils.getImage(msg))

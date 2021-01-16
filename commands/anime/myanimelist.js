@@ -29,7 +29,7 @@ class MyAnimeList extends Command {
       .setImage(pictures.imageLink)
       .setURL(data.url)
       .setFooter(`ID: ${data.id} • React to view more details`)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     const dataEmbed = new MessageEmbed()
       .setColor(0x9590ee)
@@ -48,7 +48,7 @@ class MyAnimeList extends Command {
       .setThumbnail(data.picture)
       .setURL(data.url)
       .setFooter(`ID: ${data.id} • React to view more details`)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     const embeds = [synopsisEmbed, dataEmbed]
 
@@ -62,7 +62,7 @@ class MyAnimeList extends Command {
         .addField('Role', character.role, true)
         .addField('Seiyuu', `[${character.seiyuu.name}](${character.seiyuu.link})`, true)
         .setFooter(`ID: ${data.id} • React to view more details`)
-        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
       embeds.push(characterEmbed)
     }
@@ -80,7 +80,7 @@ class MyAnimeList extends Command {
   async run(ctx, args) {
     if (!args.length) {
       const embed = new MessageEmbed()
-        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setDescription('What would you like to search for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
         .setTimestamp()
         .setColor(0x9590ee)

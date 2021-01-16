@@ -40,7 +40,7 @@ class Daily extends Command {
 
     if (!voted) {
       const embed = new MessageEmbed()
-        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setDescription(`Have you upvoted today?\n\nAn upvote will double your daily claim **on every server** you share with me.${weekend ? ' Additionally today is the weekend! Giving you the opportunity to earn **4x** The rewards.' : ''}\n\nClick [here](https://top.gg/bot/742831363358589028/vote) to upvote for the bonus.\n\nDo you wish to claim your daily anyway without voting? (**y**es | **n**o)\n\nReply with \`cancel\` to cancel the operation. The message will timeout after 60 seconds.`)
         .setTimestamp()
         .setColor(0x9590ee)

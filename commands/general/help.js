@@ -41,9 +41,9 @@ class Help extends Command {
 
         Pagination.embed
           .setColor(0x9590ee)
-          .setAuthor(`Help - ${category}`, this.client.user.displayAvatarURL({ size: 32 }))
+          .setAuthor(`Help - ${category}`, this.client.user.displayAvatarURL({ size: 32, dynamic: true }))
           .setDescription(`For more information about a command run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <command>\` or hover over it`)
-          .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
+          .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
         return Pagination.build()
       }
@@ -73,20 +73,20 @@ class Help extends Command {
           .setTitle(`Help - ${this.client.utils.toProperCase(cmd.name)}`)
           .setURL(`https://docs.iturbo.cc/commands/${cmd.category.toLowerCase()}#${cmd.name}`)
           .setColor(0x9590ee)
-          .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
+          .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64, dynamic: true }))
           .setDescription([`**Description:** ${cmd.description}`, `**Category:** ${cmd.category}`, `**Aliases:** ${cmd.aliases.length ? cmd.aliases.join(', ') : 'None'}`, `**Cooldown:** ${cmd.cooldown ? cmd.cooldown + ' Seconds' : 'None'}`, `**Usage:** ${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`, `**Cost:** ${cost}`, `**Extended Help:** ${cmd.extendedHelp}`].join('\n'))
       )
     }
 
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
-      .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64 }))
+      .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64, dynamic: true }))
       .setTitle('Help')
       .setURL('https://docs.iturbo.cc')
       .setDescription(`For all commands in a category run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <category>\`\nIf you need further help feel free to join the [support server](https://discord.gg/011UYuval0uSxjmuQ).`)
       .addField('Available Categories', keys.map(key => `[\`${key}\`](https://docs.iturbo.cc/commands/${key.toLowerCase()})`).join(' '))
       .setImage('https://i.imgur.com/g3jV9fg.gif')
-      .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
 
     /*     for (const category of keys) {
           // Skip un-needed categories

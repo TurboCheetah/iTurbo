@@ -91,7 +91,7 @@ class Anilist extends Command {
   async run(ctx, args) {
     if (!args.length) {
       const embed = new MessageEmbed()
-        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setDescription('What would you like to search for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
         .setTimestamp()
         .setColor(0x9590ee)

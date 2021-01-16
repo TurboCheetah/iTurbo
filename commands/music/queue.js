@@ -25,12 +25,12 @@ class Queue extends Command {
     if (!player.queue.map(track => track).length) {
       const embed = new MessageEmbed()
         .setColor(0x9590ee)
-        .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
+        .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512, dynamic: true }))
         .setTitle(`🔊 Now playing: ${player.queue.current.title}`)
         .setURL(player.queue.current.uri)
         .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
         .addField('Up Next', 'None')
-        .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)}`, ctx.author.displayAvatarURL({ size: 64 }))
+        .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)}`, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
       return ctx.reply({ embed })
     }
 
@@ -45,11 +45,11 @@ class Queue extends Command {
 
     Pagination.embed
       .setColor(0x9590ee)
-      .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512 }))
+      .setAuthor(`| ${ctx.guild.name}'s Queue`, ctx.guild.iconURL({ size: 512, dynamic: true }))
       .setTitle(`🔊 Now playing: ${player.queue.current.title}`)
       .setURL(player.queue.current.uri)
       .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
-      .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)} ● ${player.queue.size + 1} songs`, ctx.author.displayAvatarURL({ size: 64 }))
+      .setFooter(`Total length: ${this.client.utils.formatDuration(player.queue.duration)} ● ${player.queue.size + 1} songs`, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     return Pagination.build()
   }

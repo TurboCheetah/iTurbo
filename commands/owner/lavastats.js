@@ -24,7 +24,7 @@ class LavaStats extends Command {
 
       const nodeEmbed = new MessageEmbed()
         .setColor(0x9590ee)
-        .setAuthor(node.options.host, this.client.user.displayAvatarURL({ size: 64 }))
+        .setAuthor(node.options.host, this.client.user.displayAvatarURL({ size: 64, dynamic: true }))
         .setTitle('Lavalink Stats')
         .addField('CPU', `${node.stats.cpu.systemLoad.toFixed(2) * 10}%`, true)
         .addField('Memory', `${(node.stats.memory.used / 1024 / 1024).toFixed(2)} MB`, true)

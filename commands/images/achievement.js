@@ -23,7 +23,7 @@ class Achievement extends Command {
 
     if (text.length > 21) return ctx.reply('Text cannot be longer than 21 characters.')
 
-    const img = await this.client.img.achievement(user.displayAvatarURL({ size: 64, format: 'png' }), text)
+    const img = await this.client.img.achievement(user.displayAvatarURL({ size: 64, dynamic: true, format: 'png' }), text)
 
     return ctx.reply(new MessageAttachment(img, 'achievement.png'))
   }

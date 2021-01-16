@@ -24,7 +24,7 @@ class Badge extends Command {
         .setImage(`https://robohash.org/${user.id}?set=set${set}`)
         .setTitle(`${user.tag}'s unique RoboHash.org Set ${set} Avatar.`)
         .setColor(0x9590ee)
-        .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
+        .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setTimestamp()
     )
   }

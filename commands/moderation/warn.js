@@ -32,7 +32,7 @@ class Warn extends Command {
         await ctx.guild.update({ modlogCase: caseNum })
         const embed = new MessageEmbed()
           .setColor(0x9590ee)
-          .setAuthor(`${member.tag} (${member.id})`, member.displayAvatarURL({ size: 32 }))
+          .setAuthor(`${member.tag} (${member.id})`, member.displayAvatarURL({ size: 32, dynamic: true }))
           .addField('Action', 'Warn')
           .addField('Reason', reason || 'No reason specified')
           .addField('Responsible moderator', `${ctx.author.tag}`)

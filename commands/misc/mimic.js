@@ -19,7 +19,7 @@ class Mimic extends Command {
     }
     user = await this.verifyUser(ctx, user)
     if (ctx.message.deletable) await ctx.message.delete()
-    const avatar = user.displayAvatarURL({ format: 'png', size: 2048 })
+    const avatar = user.displayAvatarURL({ format: 'png', size: 2048, dynamic: true })
     const webhook = await ctx.channel.createWebhook(user.username, { avatar })
     await webhook.send(message.join(' ').replace(/@(everyone|here)/g, '@\u200b$1'))
     await webhook.delete()

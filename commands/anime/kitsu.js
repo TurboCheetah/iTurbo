@@ -15,7 +15,7 @@ class Kitsu extends Command {
   async run(ctx, args) {
     if (!args.length) {
       const embed = new MessageEmbed()
-        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setDescription('What anime would you like to search for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
         .setTimestamp()
         .setColor(0x9590ee)
@@ -44,7 +44,7 @@ class Kitsu extends Command {
           .setThumbnail(res.attributes.posterImage && res.attributes.posterImage.original)
           .setURL(`https://kitsu.io/anime/${res.id}`)
           .setFooter(`Page ${page}/${data.length}`)
-          .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+          .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
         return ctx.reply({ embed })
       } else if (response.toLowerCase() === 'cancel') {
@@ -71,7 +71,7 @@ class Kitsu extends Command {
       .setThumbnail(res.attributes.posterImage && res.attributes.posterImage.original)
       .setURL(`https://kitsu.io/anime/${res.id}`)
       .setFooter(`Page ${page}/${data.length}`)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     return ctx.reply({ embed })
   }

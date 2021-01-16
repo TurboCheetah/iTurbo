@@ -14,7 +14,7 @@ class Delete extends Command {
   async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user, true)
 
-    const img = await this.client.img.delete(user.displayAvatarURL({ size: 256, format: 'png' }))
+    const img = await this.client.img.delete(user.displayAvatarURL({ size: 256, dynamic: true, format: 'png' }))
 
     return ctx.reply(new MessageAttachment(img, 'delete.png'))
   }

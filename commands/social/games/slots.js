@@ -22,7 +22,7 @@ class Slots extends Command {
       .setTitle('Slots')
       .setColor(0xff0000)
       .setDescription(view)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     let message
 

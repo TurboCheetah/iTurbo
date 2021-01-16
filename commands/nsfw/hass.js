@@ -19,7 +19,7 @@ class HAss extends Command {
       .setTitle('Hentai Ass')
       .setColor(0x9590ee)
       .setImage(url)
-      .setFooter(`Powered by `, ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter('Powered by ', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
 
     return ctx.reply({ embed })
   }

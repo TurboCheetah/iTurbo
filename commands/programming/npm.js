@@ -41,7 +41,7 @@ class NPM extends Command {
       .setColor(0xff0000)
       .setTitle(`NPM - ${pkg}`)
       .setURL(`https://npmjs.com/package/${pkg}`)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setDescription([body.description || 'No Description.', `**Version:** ${body['dist-tags'].latest}`, `**License:** ${body.license}`, `**Author:** ${body.author ? body.author.name : 'Unknown'}`, `**Modified:** ${new Date(body.time.modified).toDateString()}`, `**Dependencies:** ${deps && deps.length ? deps.join(', ') : 'None'}`].join('\n'))
 
     return ctx.reply({ embed })

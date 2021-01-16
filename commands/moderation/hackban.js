@@ -31,7 +31,7 @@ class HackBan extends Command {
         await ctx.guild.update({ modlogCase: caseNum })
         const embed = new MessageEmbed()
           .setColor(0x9590ee)
-          .setAuthor(`${user.tag} (${id})`, user.displayAvatarURL({ size: 32 }))
+          .setAuthor(`${user.tag} (${id})`, user.displayAvatarURL({ size: 32, dynamic: true }))
           .addField('Action', 'Ban')
           .addField('Reason', reason || 'No reason specified')
           .addField('Responsible moderator', `${ctx.author.tag}`)

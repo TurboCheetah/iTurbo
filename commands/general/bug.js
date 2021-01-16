@@ -19,7 +19,7 @@ class Bug extends Command {
       .setTitle('Bug Report')
       .setDescription(args.join(' '))
       .setColor(0x9590ee)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setFooter(ctx.author.id)
 
     await channel.send({ embed })

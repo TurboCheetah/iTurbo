@@ -25,7 +25,7 @@ class nowPlayingNotify extends Command {
     }
 
     const embed = new MessageEmbed()
-      .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setDescription('Would you like to turn now playing notifications **on** or **off**?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
       .setTimestamp()
       .setColor(0x9590ee)

@@ -36,8 +36,8 @@ class Quote extends Command {
       .setURL(message.url)
       .setDescription(message.content)
       .setTimestamp(message.createdAt)
-      .setAuthor(message.author.tag, message.author.displayAvatarURL({ size: 64 }))
-      .setThumbnail(message.author.displayAvatarURL({ size: 64 }))
+      .setAuthor(message.author.tag, message.author.displayAvatarURL({ size: 64, dynamic: true }))
+      .setThumbnail(message.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setImage(this.client.utils.getImage(message))
       .setColor(0x9590ee)
 

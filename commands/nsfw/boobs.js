@@ -24,7 +24,7 @@ class Boobs extends Command {
       const embed = new MessageEmbed()
         .setColor(0x9590ee)
         .setImage(`http://media.oboobs.ru/${data.preview}`)
-        .setFooter(`Powered by oBoobs.ru`, ctx.author.displayAvatarURL({ size: 32 }))
+        .setFooter('Powered by oBoobs.ru', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
       return ctx.reply({ embed })
     } catch (err) {
       throw this.errorMessage

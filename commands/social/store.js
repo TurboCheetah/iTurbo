@@ -162,8 +162,8 @@ class Store extends Command {
     Pagination.embed
       .setColor(0x9590ee)
       .setTitle(`${ctx.guild.name} Store`)
-      .setThumbnail(ctx.guild.iconURL({ size: 512 }))
-      .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64 }))
+      .setThumbnail(ctx.guild.iconURL({ size: 512, dynamic: true }))
+      .setFooter(`Requested by ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     // Show it.
     return Pagination.build()

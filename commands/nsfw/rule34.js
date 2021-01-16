@@ -44,7 +44,7 @@ class Rule34 extends Command {
       .setURL(random.file_url)
       .setColor(0x9590ee)
       .setImage(random.file_url)
-      .setFooter(`Powered by Rule34.XXX`, ctx.author.displayAvatarURL({ size: 32 }))
+      .setFooter('Powered by Rule34.XXX', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
     return ctx.reply({ embed })
   }
 }
