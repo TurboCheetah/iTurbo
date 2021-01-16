@@ -16,8 +16,8 @@ module.exports = Structures.extend(
           .awaitMessages(filter, { max: 1, time: limit, errors: ['time'] })
           .then(collected => {
             if (delMsg) {
-              q.delete({ timeout: 5000 })
-              collected.first().delete({ timeout: 5000 })
+              q.delete({ timeout: 2500 })
+              collected.first().delete({ timeout: 2500 })
             }
             return collected.first().content
           })
