@@ -19,6 +19,8 @@ class Command {
     this.hidden = options.hidden || false
     this.enabled = typeof options.enabled !== 'undefined' ? options.enabled : true
     this.usage = options.usage || this.name
+    this.arguments = options.arguments || {}
+    this.examples = options.examples || {}
     this.botPermissions = new Permissions(options.botPermissions || []).freeze()
     this.userPermissions = new Permissions(options.userPermissions || []).freeze()
     // Helper aliases.
