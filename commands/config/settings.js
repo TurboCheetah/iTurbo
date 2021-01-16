@@ -37,7 +37,7 @@ class Settings extends Command {
       .addField('Weeb Greetings', ctx.guild.settings.weebGreetings ? ctx.guild.channels.cache.find(c => c.id === ctx.guild.settings.weebGreetings) : 'Disabled', true)
       .addField(this.client.constants.zws, this.client.constants.zws, true)
       .addField('DJ Role', ctx.guild.settings.djRole ? ctx.guild.roles.cache.find(r => r.id === ctx.guild.settings.djRole) : 'Disabled', true)
-      .setFooter(`Requested by: ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
+      .setFooter(` ${ctx.author.tag}`, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
 
     if (!ctx.guild.settings.nowplaying) embed.addField('Now Playing Notifications', 'Disabled', true)
     // eslint-disable-next-line prettier/prettier
