@@ -17,7 +17,6 @@ class ServerIcon extends Command {
       .setTitle(`${ctx.guild.name}'s icon`)
       .setImage(ctx.guild.iconURL({ size: 2048, dynamic: true }))
       .setColor(0x9590ee)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
     return ctx.reply({ embed })
   }
 }
