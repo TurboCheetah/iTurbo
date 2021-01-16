@@ -77,8 +77,8 @@ class Help extends Command {
         .setTitle(`Help - ${this.client.utils.toProperCase(cmd.name)}`)
         .setURL(`https://docs.iturbo.cc/commands/${cmd.category.toLowerCase()}#${cmd.name}`)
         .setColor(0x9590ee)
+        .setDescription(cmd.description)
         .addField('Usage', `${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`)
-        .addField('Description', cmd.description)
         .addField('Aliases', cmd.aliases.length ? cmd.aliases.join(', ') : 'None')
       // eslint-disable-next-line prettier/prettier
       embed.addField('Category', cmd.category)
