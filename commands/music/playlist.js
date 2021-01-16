@@ -222,8 +222,10 @@ class Playlist extends Command {
         return msg.edit({ embed })
       }
 
-      const tracks = [player.queue.current]
+      let tracks = []
       tracks.push(player.queue.map(track => track))
+      tracks = tracks[0]
+      tracks.unshift(player.queue.current)
       songToAppendMsg = `${tracks.length} songs`
 
       for (const track of tracks) {
