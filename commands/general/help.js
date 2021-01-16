@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const { FieldsEmbed } = require('discord-paginationembed')
+const { Embeds, FieldsEmbed } = require('discord-paginationembed')
 
 class Help extends Command {
   constructor(...args) {
@@ -80,15 +80,31 @@ class Help extends Command {
         .addField('Usage', `${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`)
         .addField('Description', cmd.description)
         .addField('Aliases', cmd.aliases.length ? cmd.aliases.join(', ') : 'None')
-      if (cmdArgs.length) embed.addField('Arguments', cmdArgs.join('\n'))
-      if (cmdExamples.length) embed.addField('Examples', cmdExamples.join('\n'))
       // eslint-disable-next-line prettier/prettier
       embed.addField('Category', cmd.category)
         .setFooter(`Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'}`)
 
       if (cmd.extendedHelp !== 'No extended help provided.') embed.addField('Extended Help', cmd.extendedHelp)
 
-      return ctx.reply({ embed })
+      const examplesEmbed = new MessageEmbed()
+        .setTitle(`Help - ${this.client.utils.toProperCase(cmd.name)}`)
+        .setURL(`https://docs.iturbo.cc/commands/${cmd.category.toLowerCase()}#${cmd.name}`)
+        .setColor(0x9590ee)
+        .setFooter(`Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'}`)
+      if (Object.keys(cmdArgs).length) examplesEmbed.addField('Arguments', cmdArgs.join('\n'))
+      if (Object.keys(cmdExamples).length) examplesEmbed.addField('Examples', cmdExamples.join('\n'))
+
+      const embeds = [embed, examplesEmbed]
+      if (!Object.keys(cmdExamples).length) return ctx.reply({ embed })
+
+      const Pagination = new Embeds()
+        .setArray(embeds)
+        .setAuthorizedUsers([ctx.author.id])
+        .setChannel(ctx.channel)
+        .setPage(1)
+        .setPageIndicator('footer', (page, pages) => `Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'} • Page ${page} of ${pages}`)
+
+      return Pagination.build()
     }
 
     const embed = new MessageEmbed()
