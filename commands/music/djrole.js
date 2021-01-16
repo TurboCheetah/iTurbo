@@ -7,6 +7,15 @@ class DJRole extends Command {
       aliases: ['setdj'],
       userPermissions: ['MANAGE_GUILD'],
       usage: 'djrole <enable <role> | disable | current:default>',
+      arguments: {
+        enable: 'Enables the DJ role on the server',
+        disable: 'Disabled the DJ role on the server',
+        current: 'Returns the current DJ role',
+        role: 'The role that will be set as the DJ role'
+      },
+      examples: {
+        'enable DJ': 'Enables DJ roles on the server and sets "DJ" as the DJ role'
+      },
       guildOnly: true,
       cooldown: 3
     })

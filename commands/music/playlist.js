@@ -9,8 +9,27 @@ class Playlist extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Manage custom playlists.',
-      aliases: [],
-      usage: 'playlist <create|delete|append|remove|info|play|shuffle|share|import|list:default> [playlist]',
+      aliases: ['pl'],
+      usage: 'playlist <create | delete | append | remove | info | play | shuffle | share | import | list:default> [playlist]',
+      arguments: {
+        create: 'Creates a new playlist',
+        delete: 'Deletes a playlist',
+        append: 'Adds a song to a playlist',
+        remove: 'Removes a song from a playlist',
+        info: 'Returns all data belonging to a playlist',
+        play: 'Plays a playlist',
+        shuffle: 'Plays a playlist whilst shuffling it',
+        share: 'Generates a URL to share with your friends',
+        import: 'Imports a playlist via its share URL',
+        list: 'Lists all your playlists',
+        '[playlist]': "name of the playlist you'd like to modify"
+      },
+      examples: {
+        'create vibes': 'Creates a playlist called "vibes"',
+        'append vibes; https://www.youtube.com/watch?v=xLnhtTlwjak': 'Appends the song to the playlist "vibes"',
+        'append vibes; current': 'Appends the currently playing song to the playlist "vibes"',
+        'shuffle vibes': 'Adds "vibes" to the queue in a shuffled order'
+      },
       botPermissions: ['EMBED_LINKS']
     })
   }

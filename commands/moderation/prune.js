@@ -8,7 +8,15 @@ class Prune extends Command {
       guildOnly: true,
       description: 'Prunes a certain amount of messages w/o filter.',
       aliases: ['purge', 'clean'],
-      usage: 'prune [limit=50] [link|invite|bots|you|me|upload|@user]'
+      usage: 'prune [limit=50] [link|invite|bots|you|me|upload|@user]',
+      arguments: {
+        limit: 'How many messages to delete',
+        filter: 'What type of messages to delete'
+      },
+      examples: {
+        50: 'Deletes the last 50 messages',
+        '50 bots': 'Deletes the last 50 messages sent by bots'
+      }
     })
   }
 
@@ -17,7 +25,7 @@ class Prune extends Command {
     if (limit > 100) {
       return ctx.reply('I can only clean up to 100 messages at a time!')
     }
-
+    console.log(filter)
     try {
       let messages = await ctx.channel.messages.fetch({ limit: 100 })
 

@@ -6,9 +6,21 @@ class Play extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Plays the desired song',
-      aliases: ['pl', 'p'],
+      aliases: ['p'],
       botPermissions: ['CONNECT', 'SPEAK', 'EMBED_LINKS'],
-      usage: 'play <search query or URL>',
+      usage: 'play <search | youtube | soundcloud | spotify | URL>',
+      arguments: {
+        search: 'YouTube search query',
+        youtube: 'YouTube URL',
+        soundcloud: 'SoundCloud URL',
+        spotify: 'Spotify URL',
+        URL: 'Direct HTTP URL'
+      },
+      examples: {
+        'https://www.youtube.com/watch?v=fudsUhWAG_o': 'Plays the YouTube Video',
+        'https://soundcloud.com/lil_peep/lil-jeep-prod-cian-p': 'Fetches info and plays the song from SoundCloud',
+        'lil peep - gym class': 'Searches "lil peep - gym class" on YouTube and adds it to queue'
+      },
       guildOnly: true,
       cost: 0,
       cooldown: 3

@@ -5,7 +5,15 @@ class Lyrics extends Command {
   constructor(...args) {
     super(...args, {
       description: "Get a song's lyrics.",
-      usage: 'lyrics <song name|lyrics <lyrics>>',
+      usage: 'lyrics <song | lyrics>',
+      arguments: {
+        song: 'Name of the song to find the lyrics of',
+        lyrics: 'Whether or not to reverse search the lyrics of a song'
+      },
+      examples: {
+        'lil peep - witchblades': 'Returns the lyrics for "Lil Peep - Witch Blades"',
+        'lyrics when I die bury me without the lights on': 'Returns the lyrics for "Lil Peep - Witch Blades"'
+      },
       cooldown: 5,
       botPermissions: ['EMBED_LINKS']
     })
