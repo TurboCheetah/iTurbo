@@ -7,7 +7,15 @@ class MyAnimeList extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Search an Anime on MyAnimeList.net',
-      usage: 'myanimelist <query> | [page]',
+      usage: 'myanimelist <anime> | [page]',
+      arguments: {
+        anime: "The anime you'd like to search",
+        page: "The page of the results you'd like to view"
+      },
+      examples: {
+        'Plastic Memories': 'Returns data on Plastic Memories',
+        'Full Metal Alchemist | 2': 'Returns the second page of data'
+      },
       aliases: ['mal'],
       cooldown: 5,
       botPermissions: ['EMBED_LINKS']

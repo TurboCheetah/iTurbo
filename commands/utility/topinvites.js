@@ -22,7 +22,7 @@ class TopInvites extends Command {
 
     return ctx.reply(
       new MessageEmbed()
-        .setTitle(`Top Invites in ${ctx.guild.name}`)
+        .setTitle('Top Invites')
         .setColor(0x9590ee)
         .setAuthor(ctx.guild.name, ctx.guild.iconURL())
         .setDescription(topTen.map(inv => `• **${inv.inviter.username}**'s invite **${inv.code}** has **${inv.uses.toLocaleString()}** uses.`).join('\n'))

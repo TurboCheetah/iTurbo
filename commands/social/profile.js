@@ -20,7 +20,7 @@ class Profile extends Command {
       .setDescription(member.user.settings.title || `No Title set yet, use \`${ctx.guild.settings.prefix}title\` to set one`)
       .setColor(0x9590ee)
       .setAuthor(member.user.tag, member.user.displayAvatarURL({ size: 64, dynamic: true }))
-      .setThumbnail(member.user.displayAvatarURL())
+      .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
       .addField('Level', member.settings.level)
       .addField('Points', `¥${parseInt(member.settings.points).toLocaleString()}`)
       .addField('Reputation Points', member.user.settings.reputation)

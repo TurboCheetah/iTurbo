@@ -7,7 +7,11 @@ class Anilist extends Command {
   constructor(...args) {
     super(...args, {
       description: 'Retrieve user data from Anilist.co',
-      usage: 'anilist <query> | [page]',
+      usage: 'anilist <user> | [page]',
+      arguments: {
+        user: "The user you'd like to search",
+        page: "The page of the results you'd like to view"
+      },
       aliases: ['ani'],
       cooldown: 5,
       botPermissions: ['EMBED_LINKS']
