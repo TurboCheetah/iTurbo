@@ -18,13 +18,13 @@ class Loop extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.emojis.errorImg)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      return ctx.msgEmbed('Nothing is playing!', this.client.constants.emojis.errorImg)
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
 
     if (!args.length) {
@@ -40,14 +40,14 @@ class Loop extends Command {
 
       if (['on', 'enable', 'song'].includes(response.toLowerCase())) {
         player.setTrackRepeat(true)
-        return ctx.msgEmbed('Enabled looping for the current song.', this.client.constants.emojis.successImg)
+        return ctx.msgEmbed('Enabled looping for the current song.', this.client.constants.successImg)
       } else if (['queue'].includes(response.toLowerCase())) {
         player.setQueueRepeat(true)
-        return ctx.msgEmbed('Enabled looping for the queue.', this.client.constants.emojis.successImg)
+        return ctx.msgEmbed('Enabled looping for the queue.', this.client.constants.successImg)
       } else if (['off', 'disable'].includes(response)) {
         player.setTrackRepeat(false)
         player.setQueueRepeat(false)
-        return ctx.msgEmbed('Disabled looping.', this.client.constants.emojis.successImg)
+        return ctx.msgEmbed('Disabled looping.', this.client.constants.successImg)
       } else if (['cancel'].includes(response)) {
         return ctx.reply('Operation cancelled.')
       } else {
@@ -58,18 +58,18 @@ class Loop extends Command {
       case 'disable' || 'off':
         player.setTrackRepeat(false)
         player.setQueueRepeat(false)
-        ctx.msgEmbed('Disabled looping.', this.client.constants.emojis.successImg)
+        ctx.msgEmbed('Disabled looping.', this.client.constants.successImg)
         break
       case 'song':
         player.setTrackRepeat(true)
-        ctx.msgEmbed('Enabled looping for the current song.', this.client.constants.emojis.successImg)
+        ctx.msgEmbed('Enabled looping for the current song.', this.client.constants.successImg)
         break
       case 'queue':
         player.setQueueRepeat(true)
-        ctx.msgEmbed('Enabled looping for the queue.', this.client.constants.emojis.successImg)
+        ctx.msgEmbed('Enabled looping for the queue.', this.client.constants.successImg)
         break
       default:
-        ctx.msgEmbed('Invalid option!', this.client.constants.emojis.errorImg)
+        ctx.msgEmbed('Invalid option!', this.client.constants.errorImg)
         break
     }
   }

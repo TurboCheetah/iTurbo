@@ -12,15 +12,15 @@ class nowPlayingNotify extends Command {
   }
 
   async run(ctx, [args]) {
-    if (!ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed('You need the `Manage Server` permissions to change this setting.', this.client.constants.emojis.errorImg)
+    if (!ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed('You need the `Manage Server` permissions to change this setting.', this.client.constants.errorImg)
 
     if (args) {
       if (['on', 'enable'].includes(args.toLowerCase())) {
         await ctx.guild.update({ nowplaying: true })
-        return ctx.msgEmbed('Successfully turned now playing notifications on.', this.client.constants.emojis.successImg)
+        return ctx.msgEmbed('Successfully turned now playing notifications on.', this.client.constants.successImg)
       } else if (['off', 'disable'].includes(args.toLowerCase())) {
         await ctx.guild.update({ nowplaying: false })
-        return ctx.msgEmbed('Successfully turned now playing notifications off.', this.client.constants.emojis.successImg)
+        return ctx.msgEmbed('Successfully turned now playing notifications off.', this.client.constants.successImg)
       }
     }
 
@@ -36,10 +36,10 @@ class nowPlayingNotify extends Command {
 
     if (['on', 'enable'].includes(response.toLowerCase())) {
       await ctx.guild.update({ nowplaying: true })
-      return ctx.msgEmbed('Successfully turned now playing notifications on.', this.client.constants.emojis.successImg)
+      return ctx.msgEmbed('Successfully turned now playing notifications on.', this.client.constants.successImg)
     } else if (['off', 'disable'].includes(response)) {
       await ctx.guild.update({ nowplaying: false })
-      return ctx.msgEmbed('Successfully turned now playing notifications off.', this.client.constants.emojis.successImg)
+      return ctx.msgEmbed('Successfully turned now playing notifications off.', this.client.constants.successImg)
     } else if (['cancel'].includes(response)) {
       return ctx.reply('Operation cancelled.')
     } else {

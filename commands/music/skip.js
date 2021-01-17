@@ -17,13 +17,13 @@ class Skip extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.emojis.errorImg)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      return ctx.msgEmbed('Nothing is playing!', this.client.constants.emojis.errorImg)
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
 
     if (!ctx.channel.guild.settings.nowplaying) await ctx.success()

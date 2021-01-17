@@ -17,13 +17,13 @@ class Volume extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.emojis.errorImg)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      return ctx.msgEmbed('Nothing is playing!', this.client.constants.emojis.errorImg)
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
 
     if (!args[0]) {
@@ -31,11 +31,11 @@ class Volume extends Command {
     }
 
     if (isNaN(args[0])) {
-      return ctx.msgEmbed('Invalid number! Please choose a percent from 0-100%', this.client.constants.emojis.errorImg)
+      return ctx.msgEmbed('Invalid number! Please choose a percent from 0-100%', this.client.constants.errorImg)
     }
 
     player.setVolume(Number(args[0]))
-    return ctx.msgEmbed(`Set volume to ${args[0]}%`, this.client.constants.emojis.successImg)
+    return ctx.msgEmbed(`Set volume to ${args[0]}%`, this.client.constants.successImg)
   }
 }
 

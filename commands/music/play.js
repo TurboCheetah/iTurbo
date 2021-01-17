@@ -31,12 +31,12 @@ class Play extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.emojis.errorImg)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
     }
 
     const channel = ctx.member.voice.channel
 
-    if (!channel) return ctx.msgEmbed('You need to be in a voice channel to play music!', this.client.constants.emojis.errorImg)
+    if (!channel) return ctx.msgEmbed('You need to be in a voice channel to play music!', this.client.constants.errorImg)
 
     let player = this.client.manager.players.get(ctx.guild.id)
 
@@ -52,12 +52,12 @@ class Play extends Command {
 
     const search = args.join(' ')
 
-    if (!ctx.member.voice.channel) return ctx.msgEmbed('Please join a voice channel!', this.client.constants.emojis.errorImg)
+    if (!ctx.member.voice.channel) return ctx.msgEmbed('Please join a voice channel!', this.client.constants.errorImg)
     if (!search.length && player.paused) {
       player.pause(false)
       return ctx.msgEmbed('▶ Resumed the player', ctx.author.displayAvatarURL({ size: 512, dynamic: true }))
     }
-    if (!search.length) return ctx.msgEmbed('Please give me a URL or search term to play!', this.client.constants.emojis.errorImg)
+    if (!search.length) return ctx.msgEmbed('Please give me a URL or search term to play!', this.client.constants.errorImg)
 
     let res
 
@@ -122,7 +122,7 @@ class Play extends Command {
           break
       }
     } catch (err) {
-      return ctx.msgEmbed(`An error occurred while searching: ${err.message}`, this.client.constants.emojis.errorImg)
+      return ctx.msgEmbed(`An error occurred while searching: ${err.message}`, this.client.constants.errorImg)
     }
   }
 }

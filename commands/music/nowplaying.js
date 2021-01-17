@@ -19,7 +19,7 @@ class NowPlaying extends Command {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player) {
-      return ctx.msgEmbed('Nothing is playing!', this.client.constants.emojis.errorImg)
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
     }
 
     if (!song) {
