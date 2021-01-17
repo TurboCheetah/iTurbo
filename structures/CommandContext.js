@@ -48,13 +48,13 @@ class CommandContext {
   }
 
   success() {
-    return this.message.react(':success:779886882917449728').catch(err => {
+    return this.message.react(this.client.constants.reactions.success).catch(err => {
       throw err
     })
   }
 
   failure() {
-    return this.message.react(':error:779886874533560320').catch(err => {
+    return this.message.react(this.client.constants.reactions.error).catch(err => {
       throw err
     })
   }
