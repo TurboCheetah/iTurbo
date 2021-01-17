@@ -25,7 +25,7 @@ class Prune extends Command {
     if (limit > 100) {
       return ctx.reply('I can only clean up to 100 messages at a time!')
     }
-    console.log(filter)
+
     try {
       let messages = await ctx.channel.messages.fetch({ limit: 100 })
 
@@ -41,11 +41,11 @@ class Prune extends Command {
       if (!messages.includes(ctx.message.id)) messages.push(ctx.message.id)
       await ctx.channel.bulkDelete(messages)
       if (toDelete > 100) toDelete = toDelete - 1
-      return ctx.reply(`${this.client.constants.success} Successfully deleted ${messages.length > toDelete ? messages.length - 1 : messages.length} messages out of ${toDelete}.`).then(ctx => {
+      return ctx.reply(`${this.client.constants.emojis.success} Successfully deleted ${messages.length > toDelete ? messages.length - 1 : messages.length} messages out of ${toDelete}.`).then(ctx => {
         ctx.delete({ timeout: 2500 })
       })
     } catch (err) {
-      return ctx.reply(`${this.client.constants.error} ${err.message}`)
+      return ctx.reply(`${this.client.constants.emojis.error} ${err.message}`)
     }
   }
 

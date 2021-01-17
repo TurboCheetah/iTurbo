@@ -21,7 +21,7 @@ class Permissions extends Command {
         .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setDescription(
           Object.entries(ctx.channel.permissionsFor(member).serialize())
-            .map(perms => `${perms[1] ? this.client.constants.success : this.client.constants.error} ${this.client.events.get('message').friendlyPerms[perms[0]]}`)
+            .map(perms => `${perms[1] ? this.client.constants.emojis.success : this.client.constants.emojis.error} ${this.client.events.get('message').friendlyPerms[perms[0]]}`)
             .join('\n')
         )
     )

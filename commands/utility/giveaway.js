@@ -15,7 +15,7 @@ class Giveaway extends Command {
 
   async run(ctx, [action, ...args]) {
     if (!['start', 'end', 'reroll', 'delete'].includes(action)) {
-      return ctx.reply(`${this.client.constants.error} Correct usage: \`${ctx.guild.prefix}${this.usage}\``)
+      return ctx.reply(`${this.client.constants.emojis.error} Correct usage: \`${ctx.guild.prefix}${this.usage}\``)
     }
 
     return this[action](ctx, args)
@@ -25,26 +25,26 @@ class Giveaway extends Command {
     const giveawayChannel = ctx.message.mentions.channels.first()
 
     if (!giveawayChannel) {
-      return ctx.reply(`${this.client.constants.error} No channel specified. Please mention a valid channel.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
+      return ctx.reply(`${this.client.constants.emojis.error} No channel specified. Please mention a valid channel.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
     const duration = args[1]
 
     if (!duration || isNaN(ms(duration))) {
-      return ctx.reply(`${this.client.constants.error} Invalid duraiton specified. Please specify a valid duration, e.g 24h.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
+      return ctx.reply(`${this.client.constants.emojis.error} Invalid duraiton specified. Please specify a valid duration, e.g 24h.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
     const winners = args[2]
 
     if (!winners || isNaN(winners) || parseInt(winners) <= 0) {
-      return ctx.reply(`${this.client.constants.error} Invalid winner count. Please specify a valid amount of giveaway winners.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
+      return ctx.reply(`${this.client.constants.emojis.error} Invalid winner count. Please specify a valid amount of giveaway winners.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
     args.splice(0, 3)
     const prize = args.join(' ')
 
     if (!prize) {
-      return ctx.reply(`${this.client.constants.error} No prize specified! Please specify a valid prize.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
+      return ctx.reply(`${this.client.constants.emojis.error} No prize specified! Please specify a valid prize.\nCorrect usage: \`${ctx.guild.prefix}giveaway start <channel> <duration> <winnerCount> <prize>\``)
     }
 
     ctx.reply(`🎉 Started giveaway in ${giveawayChannel}! 🎉`)
@@ -78,13 +78,13 @@ class Giveaway extends Command {
 
   async end(ctx, args) {
     if (!args[0]) {
-      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway end <messageID>\``)
+      return ctx.reply(`${this.client.constants.emojis.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway end <messageID>\``)
     }
 
     const giveaway = this.client.giveawaysManager.giveaways.find(g => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find(g => g.messageID === args[0])
 
     if (!giveaway) {
-      return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
+      return ctx.reply(`${this.client.constants.emojis.error} Unable to find a giveaway with ID \`${args[0]}\``)
     }
 
     this.client.giveawaysManager
@@ -105,13 +105,13 @@ class Giveaway extends Command {
 
   async reroll(ctx, args) {
     if (!args[0]) {
-      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway reroll <messageID>\``)
+      return ctx.reply(`${this.client.constants.emojis.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway reroll <messageID>\``)
     }
 
     const giveaway = this.client.giveawaysManager.giveaways.find(g => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find(g => g.messageID === args[0])
 
     if (!giveaway) {
-      return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
+      return ctx.reply(`${this.client.constants.emojis.error} Unable to find a giveaway with ID \`${args[0]}\``)
     }
 
     this.client.giveawaysManager
@@ -130,13 +130,13 @@ class Giveaway extends Command {
 
   async delete(ctx, args) {
     if (!args[0]) {
-      return ctx.reply(`${this.client.constants.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway delete <messageID>\``)
+      return ctx.reply(`${this.client.constants.emojis.error} You need to specify a valid message ID!\nCorrect usage: \`${ctx.guild.prefix}giveaway delete <messageID>\``)
     }
 
     const giveaway = this.client.giveawaysManager.giveaways.find(g => g.prize === args.join(' ')) || this.client.giveawaysManager.giveaways.find(g => g.messageID === args[0])
 
     if (!giveaway) {
-      return ctx.reply(`${this.client.constants.error} Unable to find a giveaway with ID \`${args[0]}\``)
+      return ctx.reply(`${this.client.constants.emojis.error} Unable to find a giveaway with ID \`${args[0]}\``)
     }
 
     this.client.giveawaysManager

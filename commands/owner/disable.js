@@ -19,7 +19,7 @@ class Disable extends Command {
     }
     if (!piece.enabled) return ctx.reply(`**${piece.name}** is already disabled.`)
     piece.disable()
-    return ctx.reply(`${this.client.constants.success} Successfully disabled the ${piece.store.name.slice(0, -1)} ${piece.name}`)
+    return ctx.reply(`${this.client.constants.emojis.success} Successfully disabled the ${piece.store.name.slice(0, -1)} ${piece.name}`)
   }
 }
 

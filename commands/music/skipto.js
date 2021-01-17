@@ -16,23 +16,23 @@ class SkipTo extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.emojis.errorImg)
     }
 
     const channel = ctx.member.voice.channel
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player || !player.queue.length > 0) {
-      return ctx.msgEmbed('There is nothing in the queue!', this.client.constants.errorImg)
+      return ctx.msgEmbed('There is nothing in the queue!', this.client.constants.emojis.errorImg)
     }
 
-    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.msgEmbed('You need to be in the voice channel with me to skip to that song!', this.client.constants.errorImg)
+    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.msgEmbed('You need to be in the voice channel with me to skip to that song!', this.client.constants.emojis.errorImg)
 
-    if (!position) return ctx.msgEmbed(`Correct usage: \`${ctx.guild.settings.prefix}skipto <position>\``, this.client.constants.errorImg)
+    if (!position) return ctx.msgEmbed(`Correct usage: \`${ctx.guild.settings.prefix}skipto <position>\``, this.client.constants.emojis.errorImg)
 
     position = this.verifyInt(position, 1) - 1
 
-    ctx.msgEmbed(`Skipped to position **${[position + 1]}**!`, this.client.constants.successImg)
+    ctx.msgEmbed(`Skipped to position **${[position + 1]}**!`, this.client.constants.emojis.successImg)
 
     player.queue.remove(0, position)
     player.stop()

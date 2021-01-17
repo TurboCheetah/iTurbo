@@ -29,7 +29,7 @@ class Deduct extends Command {
 
     await member.takePoints(amount)
 
-    return ctx.reply(`${this.client.constants.success} Successfully deducted **¥${amount.toLocaleString()}** from ${member}`)
+    return ctx.reply(`${this.client.constants.emojis.success} Successfully deducted **¥${amount.toLocaleString()}** from ${member}`)
   }
 }
 

@@ -19,7 +19,7 @@ class Queue extends Command {
     const player = this.client.manager.players.get(ctx.guild.id)
 
     if (!player || !player.queue || !player.queue.current) {
-      return ctx.msgEmbed('Nothing is playing!', this.client.constants.errorImg)
+      return ctx.msgEmbed('Nothing is playing!', this.client.constants.emojis.errorImg)
     }
 
     if (!player.queue.map(track => track).length) {

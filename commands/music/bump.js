@@ -18,12 +18,12 @@ class Bump extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.emojis.errorImg)
     }
 
     const channel = ctx.member.voice.channel
 
-    if (!channel) return ctx.msgEmbed('You need to be in a voice channel to play music!', this.client.constants.errorImg)
+    if (!channel) return ctx.msgEmbed('You need to be in a voice channel to play music!', this.client.constants.emojis.errorImg)
 
     let player = this.client.manager.players.get(ctx.guild.id)
 
@@ -41,12 +41,12 @@ class Bump extends Command {
     let position = 0
     if (args.join(' ').split(' | ')[1]) position = this.verifyInt(args.join(' ').split(' | ')[1]) - 1
 
-    if (!ctx.member.voice.channel) return ctx.msgEmbed('Please join a voice channel!', this.client.constants.errorImg)
+    if (!ctx.member.voice.channel) return ctx.msgEmbed('Please join a voice channel!', this.client.constants.emojis.errorImg)
     if (!search.length && player.paused) {
       player.pause(false)
-      return ctx.msgEmbed('▶ Resumed the player', this.client.constants.successImg)
+      return ctx.msgEmbed('▶ Resumed the player', this.client.constants.emojis.successImg)
     }
-    if (!search.length) return ctx.msgEmbed('Please give me a URL or search term to play!', this.client.constants.errorImg)
+    if (!search.length) return ctx.msgEmbed('Please give me a URL or search term to play!', this.client.constants.emojis.errorImg)
 
     let res
 
@@ -111,7 +111,7 @@ class Bump extends Command {
           break
       }
     } catch (err) {
-      return ctx.msgEmbed(`An error occurred while searching: ${err.message}`, this.client.constants.errorImg)
+      return ctx.msgEmbed(`An error occurred while searching: ${err.message}`, this.client.constants.emojis.errorImg)
     }
   }
 }

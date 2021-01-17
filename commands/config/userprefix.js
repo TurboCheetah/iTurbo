@@ -40,7 +40,7 @@ class UserPrefix extends Command {
     prefix.push(prefixInput)
 
     await ctx.author.update({ prefix })
-    return ctx.reply(`${this.client.constants.success} Successfully added the prefix \`${prefixInput}\` to your list of prefixes.`)
+    return ctx.reply(`${this.client.constants.emojis.success} Successfully added the prefix \`${prefixInput}\` to your list of prefixes.`)
   }
 
   async list(ctx) {
@@ -72,7 +72,7 @@ class UserPrefix extends Command {
 
     await ctx.author.update({ prefix })
 
-    return ctx.reply(`${this.client.constants.success} Successfully removed the prefix \`${prefixInput}\` from your prefix list.`)
+    return ctx.reply(`${this.client.constants.emojis.success} Successfully removed the prefix \`${prefixInput}\` from your prefix list.`)
   }
 }
 

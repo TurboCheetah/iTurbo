@@ -19,7 +19,7 @@ class Back extends Command {
     const djRole = ctx.guild.settings.djRole
 
     if (djRole) {
-      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.errorImg)
+      if (!ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.msgEmbed(`You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`, this.client.constants.emojis.errorImg)
     }
 
     const channel = ctx.member.voice.channel
@@ -35,7 +35,7 @@ class Back extends Command {
       })
     }
 
-    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.reply(`${this.client.constants.error} You need to be in the same voice channel as me!`)
+    if (!channel || (channel && channel.id !== player.voiceChannel)) return ctx.reply(`${this.client.constants.emojis.error} You need to be in the same voice channel as me!`)
 
     const tData = await this.client.manager.decodeTrack(player.queue.previous.track)
     const track = TrackUtils.build(tData, ctx.author)

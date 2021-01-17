@@ -15,7 +15,7 @@ class CommandError extends Event {
       })
       this.client.sentry.captureException(err)
     }
-    await ctx.reply(`${this.client.constants.error} Uh! Something went wrong unexpectedly!${ctx.author.id !== this.client.constants.ownerID ? " Don't worry my master will keep track of the problem and fix it soon." : ''}`)
+    await ctx.reply(`${this.client.constants.emojis.error} Uh! Something went wrong unexpectedly!${ctx.author.id !== this.client.constants.ownerID ? " Don't worry my master will keep track of the problem and fix it soon." : ''}`)
     const channel = this.client.channels.cache.get('735638949770559569')
     if (!channel) return
     const embed = new MessageEmbed()
