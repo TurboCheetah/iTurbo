@@ -66,7 +66,7 @@ class Stats extends Command {
         .addField('Command Stats', [`Total Commands: **${this.store.size}**`, `Commands Ran: **${ran}**`].join('\n'), true)
         .addField(this.client.constants.zws, this.client.constants.zws, true)
         .addField('Useful Links', ['**📩 [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)** • **🎮 [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)** • **📖 [Documentation](https://docs.iturbo.cc)**'].join('\n'), true)
-        .setFooter(`Requested by ${ctx.author.tag}`)
+        .setFooter(`Requested by ${ctx.author.tag} • Shard ${this.client.shard.ids[0]}`)
         .setTimestamp()
     )
   }
