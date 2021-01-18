@@ -15,14 +15,26 @@ class Update extends Command {
 
     if (ctx.flags.reload) {
       if (ctx.flags.reload === 'commands' || ctx.flags.reload === 'events') {
-        await this.store.get('load').run(ctx, [ctx.flags.reload])
+        await this.client.shard.broadcastEval(`
+        (async () => {
+          await this.commands.get('load').run(${ctx}, '${[ctx.flags.reload]}')
+        })()
+        `)
       } else {
-        await this.client.commands.get('reload').run(ctx, [ctx.flags.reload])
+        await this.client.shard.broadcastEval(`
+        (async () => {
+          await this.commands.get('reload').run(${ctx}, '${[ctx.flags.reload]}')
+        })()
+        `)
       }
     }
 
     if (ctx.flags.reboot) {
-      await this.client.commands.get('reboot').run(ctx)
+      await this.client.shard.broadcastEval(`
+      (async () => {
+        await this.commands.get('reboot').run(${ctx})
+      })()
+      `)
     }
   }
 }

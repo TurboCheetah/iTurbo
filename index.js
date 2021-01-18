@@ -1,25 +1,18 @@
-/**
- * Entry file.
- * Try to keep this file minimum and abstract most of the functionality in seperate files.
- *
- * @author Raven
- * @license MIT
- */
+const { ShardingManager } = require('discord.js')
+const { devtoken, token } = require('./config.json')
 
-// Setup Module Alias.
-require('module-alias/register')
+const manager = new ShardingManager('./bot.js', {
+  token: process.argv.includes('--dev') || process.env.NODE_ENV === 'dev' ? devtoken : token,
+  totalShards: 'auto',
+  shardArgs: process.argv.includes('--dev') || process.env.NODE_ENV === 'dev' ? ['--dev'] : []
+})
 
-// Load discord.js extensions.
-require('./extensions/GuildMember.js')
-require('./extensions/TextChannel.js')
-require('./extensions/DMChannel.js')
-require('./extensions/Message.js')
-require('./extensions/Guild.js')
-require('./extensions/User.js')
-require('./extensions/Player.js')
+manager.on('shardCreate', shard => {
+  shard.on('ready', () => {
+    console.log(`Shard #${shard.id} is online`)
 
-// Import the Client.
-const MiyakoClient = require('./structures/MiyakoClient.js')
+    if (shard.id + 1 === shard.manager.totalShards) return shard.send({ type: 'shard', data: { lastShardReady: true } })
+  })
+})
 
-// Login. (And start in development mode if --dev is passed)
-new MiyakoClient(process.argv.includes('--dev') || process.env.NODE_ENV === 'dev').login()
+manager.spawn(undefined, undefined, -1)

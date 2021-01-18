@@ -1,5 +1,4 @@
 const Event = require('../structures/Event.js')
-const { MessageEmbed } = require('discord.js')
 
 class CommandError extends Event {
   async run(ctx, err) {
@@ -16,14 +15,20 @@ class CommandError extends Event {
       this.client.sentry.captureException(err)
     }
     await ctx.reply(`${this.client.constants.emojis.error} Uh! Something went wrong unexpectedly!${ctx.author.id !== this.client.constants.ownerID ? " Don't worry my master will keep track of the problem and fix it soon." : ''}`)
-    const channel = this.client.channels.cache.get('735638949770559569')
-    if (!channel) return
-    const embed = new MessageEmbed()
+
+    this.client.shard.broadcastEval(`
+    const channel = this.channels.cache.get('735638949770559569')
+    if (channel) {
+      const { MessageEmbed } = require('discord.js')
+      
+      const embed = new MessageEmbed()
       .setTitle('Command Error')
       .setColor(0x9590ee)
-      .setDescription(`An Error occured in command: ${ctx.command.name}\n\`\`\`js\n${err.stack || err}\`\`\``)
-      .setFooter(`User: ${ctx.author.tag}, Guild: ${ctx.guild ? ctx.guild.name : 'DM'}`)
-    return channel.send({ embed })
+      .setDescription("An Error occured in command: ${ctx.command.name}\\n\\n[View Stacktrace](${await this.client.utils.haste(err.stack || err)})")
+      .setFooter("User: ${ctx.author.tag}, Guild: ${ctx.guild ? ctx.guild.name : 'DM'}")
+    channel.send({ embed })
+    }
+    `)
   }
 }
 

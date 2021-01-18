@@ -1,5 +1,4 @@
 const Event = require('../structures/Event.js')
-const { MessageEmbed } = require('discord.js')
 
 class GuildDelete extends Event {
   async run(guild) {
@@ -9,18 +8,22 @@ class GuildDelete extends Event {
     // Delete guild settings.
     await this.client.settings.guilds.delete(guild.id).catch(() => null)
 
-    const channel = this.client.channels.cache.get('735636902102827108')
-
-    const embed = new MessageEmbed()
+    this.client.shard.broadcastEval(`
+    const channel = this.channels.cache.get('735636902102827108')
+    if (channel) {
+      const { MessageEmbed } = require('discord.js')
+      
+      const embed = new MessageEmbed()
       .setTitle('iTurbo left a server.')
-      .setDescription(guild.name)
-      .setThumbnail(guild.iconURL())
-      .setColor(0xff0000)
-      .addField('Owner', guild.owner ? guild.owner.user.tag : 'Failed to fetch owner information.')
-      .addField('Member Count', guild.memberCount)
-      .setFooter(guild.id)
-
-    return channel.send({ embed })
+      .setDescription('${guild.name}')
+      .setColor(0x9590ee)
+      .setThumbnail('${guild.iconURL()}')
+      .addField('Owner', "${guild.owner ? guild.owner.user.tag : 'Failed to fetch owner information.'}")
+      .addField('Member Count', '${guild.memberCount}')
+      .setFooter('${guild.id}')
+    channel.send({ embed })
+    }
+    `)
   }
 }
 

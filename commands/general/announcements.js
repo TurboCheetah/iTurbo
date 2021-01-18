@@ -13,10 +13,17 @@ class Announcements extends Command {
   }
 
   async run(ctx) {
-    const guild = this.client.guilds.cache.get('221013455342141440')
-    const channel = guild.channels.cache.get('735634944566493184')
-    const messages = await channel.messages.fetch({ limit: 1 })
-    const announcement = messages.first()
+    const announcement = (
+      await this.client.shard.broadcastEval(`
+      const guild = this.guilds.cache.get('221013455342141440')
+      if (guild) {
+        const channel = this.channels.cache.get('735634944566493184')
+        if (channel) {
+          channel.messages.fetch({ limit: 1 }).then(messages => messages.first())
+        }
+      }
+    `)
+    ).filter(output => output)[0]
 
     const embed = new MessageEmbed()
       .setTitle('Bot announcement')

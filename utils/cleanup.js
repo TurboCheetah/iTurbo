@@ -1,4 +1,4 @@
-const { SnowflakeUtil, MessageEmbed } = require('discord.js')
+const { SnowflakeUtil } = require('discord.js')
 
 // THRESHOLD equals to 30 minutes in milliseconds:
 //     - 1000 milliseconds = 1 second
@@ -69,16 +69,20 @@ class MemorySweeper {
     // Emit a log.
     console.log(`\x1b[36m[CACHE CLEANUP]\x1b[0m ${this.setColor(presences)} [Presence]s | ${this.setColor(guildMembers)} [GuildMember]s | ${this.setColor(voiceStates)} [VoiceState]s | ${this.setColor(users)} [User]s | ${this.setColor(emojis)} [Emoji]s | ${this.setColor(lastMessages)} [Last Message]s.`)
 
-    const embed = new MessageEmbed()
-      .setTitle('Cache Cleanup')
-      .setColor(0x9590ee)
-      .setDescription(`Cache cleanup sweeped:\n**Presences:** ${presences}\n**Guild Members:** ${guildMembers}\n**Voice States:** ${voiceStates}\n**Users:** ${users}\n**Emojis:** ${emojis}\n**Last Messages:** ${lastMessages}`)
-      .setFooter(`Memory Usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB (Total: ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB)`)
-
-    return this.client.channels.cache
-      .get('735636902102827108')
-      .send({ embed })
-      .catch(() => null)
+    return this.client.shard.broadcastEval(`
+      const channel = this.channels.cache.get('735636902102827108')
+      if (channel) {
+        const { MessageEmbed } = require('discord.js')
+  
+        const embed = new MessageEmbed()
+        .setTitle('Cache Cleanup')
+        .setColor(0x9590ee)
+        .setDescription('Cache cleanup sweeped:\\n**Presences:** ${presences}\\n**Guild Members:** ${guildMembers}\\n**Voice States:** ${voiceStates}\\n**Users:** ${users}\\n**Emojis:** ${emojis}\\n**Last Messages:** ${lastMessages}')
+        .setFooter('Memory Usage: ${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB (Total: ${(process.memoryUsage().heapTotal / 1024 / 1024).toFixed(2)} MB)')
+  
+      channel.send({ embed })
+      }
+      `)
   }
 
   /**

@@ -6,7 +6,7 @@ class Disable extends Command {
       description: 'Disables a command or event.',
       ownerOnly: true,
       hidden: true,
-      usage: '!disable <command|event>'
+      usage: 'disable <command|event>'
     })
   }
 
@@ -18,7 +18,10 @@ class Disable extends Command {
       return ctx.reply("Trust me you don't want to disable that one. You won't be able to do anything otherwise.")
     }
     if (!piece.enabled) return ctx.reply(`**${piece.name}** is already disabled.`)
+    this.client.shard.broadcastEval(`
+    const piece = this.commands.get('${piece.name}') || this.events.get('${piece.name}')
     piece.disable()
+    `)
     return ctx.reply(`${this.client.constants.emojis.success} Successfully disabled the ${piece.store.name.slice(0, -1)} ${piece.name}`)
   }
 }

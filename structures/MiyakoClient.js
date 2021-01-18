@@ -80,17 +80,22 @@ class MiyakoClient extends Client {
       })
       this.sentry = Sentry
       this.sentry.setTag('host', hostname())
+      this.sentry.setTag('shard', this.shard.ids[0])
       this.sentry.setTag('discord.js', version)
       this.sentry.setTag('version', this.version)
-      console.log('Connected to Sentry')
+      if (this.shard.ids[0] === 0) console.log('Connected to Sentry')
     }
 
     // Lavalink stuff
     // Emitted whenever a node connects
     this.manager
-      .on('nodeConnect', node => console.log(`Connected to Lavalink node ${node.options.identifier}.`))
+      .on('nodeConnect', node => {
+        if (this.shard.ids[0] === 0) console.log(`Connected to Lavalink node ${node.options.identifier}.`)
+      })
       // Emitted whenever a node encountered an error
-      .on('nodeError', (node, error) => console.log(`Lavalink node ${node.options.identifier} encountered an error: ${error.message}.`))
+      .on('nodeError', (node, error) => {
+        if (this.shard.ids[0] === 0) console.log(`Lavalink node ${node.options.identifier} encountered an error: ${error.message}.`)
+      })
       .on('trackStart', (player, track) => this.emit('playSong', player, track))
       // Emitted the player queue ends
       .on('queueEnd', player => {
@@ -106,11 +111,23 @@ class MiyakoClient extends Client {
     const { host, user, password, database } = this.config.postgresql
     this.db = new Pool({ host, user, password, database })
     this.dbconn = null
+
+    process.on('message', async message => {
+      if (message.type !== 'shard') return
+
+      if (message.data.lastShardReady === true) {
+        console.log('All shards ready')
+        // Setup presence.
+        await this.shard.broadcastEval('this.rollPresence()')
+        // Sweep cache.
+        await this.shard.broadcastEval('this.sweeper.run()')
+      }
+    })
   }
 
   onReady() {
     this.ready = true
-    this.console.log(`Logged in as ${this.user.tag}`)
+    if (this.shard.ids[0] === 0) this.console.log(`Logged in as ${this.user.tag}`)
     // Initiates the manager and connects to all the nodes
     this.manager.init(this.user.id)
     this.emit('miyakoReady')
@@ -134,9 +151,10 @@ class MiyakoClient extends Client {
     return super.login(this.dev ? devtoken : token)
   }
 
-  rollPresence() {
+  async rollPresence() {
     const { message, type } = this.utils.random(presences)
-    return this.user.setActivity(message.replace(/{{guilds}}/g, this.guilds.cache.size), { type }).catch(() => null)
+    // eslint-disable-next-line prettier/prettier
+    return this.user.setActivity(message.replace(/{{guilds}}/g, (await this.shard.fetchClientValues('guilds.cache.size')).reduce((acc, guildCount) => acc + guildCount, 0)), { type }).catch(() => null)
   }
 
   /**
@@ -144,29 +162,36 @@ class MiyakoClient extends Client {
    * @returns {Promise<Boolean>}
    */
   async verifyPremium(user) {
+    const premium = await this.shard.broadcastEval(`
+    (async () => {
     // First grab the support guild.
-    const guild = this.guilds.cache.get(this.constants.mainGuildID)
-
-    try {
-      // Grab the member.
-      const member = await guild.members.fetch(user)
-      // See if they have the role.
-      return member.roles.cache.has(this.constants.premiumRole)
-    } catch (err) {
-      // If an error happens, e.g member is not in the support guild then just return false.
-      return false
-    }
+    const guild = this.guilds.cache.get('${this.constants.mainGuildID}')
+      if (guild) {
+        try {
+          // Grab the member.
+          const member = await guild.members.fetch('${user}')
+          // See if they have the role.
+          return member.roles.cache.has('${this.constants.premiumRole}')
+        } catch (err) {
+          // If an error happens, e.g member is not in the support guild then just return false.
+          return false
+        }
+      }
+    })()
+    `)
+    return premium.filter(premium => premium)[0]
   }
 
   async init() {
     // Load pieces.
     const [commands, events] = await Promise.all([this.commands.loadFiles(), this.events.loadFiles()])
-    this.console.log(`Loaded ${commands} commands.`)
-    this.console.log(`Loaded ${events} events.`)
-
+    if (this.shard.ids[0] === 0) {
+      this.console.log(`Loaded ${commands} commands.`)
+      this.console.log(`Loaded ${events} events.`)
+    }
     // Connect database.
     this.dbconn = await this.db.connect()
-    this.console.log('Connected to PostgreSQL')
+    if (this.shard.ids[0] === 0) this.console.log('Connected to PostgreSQL')
 
     // Initialize schema.
     await loadSchema(this.db)
@@ -174,10 +199,10 @@ class MiyakoClient extends Client {
     // Initialize settings.
     for (const [name, settings] of Object.entries(this.settings)) {
       await settings.init()
-      this.console.log(`Loaded ${settings.cache.size} ${name}`)
+      if (this.shard.ids[0] === 0) this.console.log(`Loaded ${settings.cache.size} ${name}`)
     }
 
-    this.BotAPI.run()
+    if (this.shard.ids[0] === 0) this.BotAPI.run()
   }
 }
 

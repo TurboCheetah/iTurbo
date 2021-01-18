@@ -33,19 +33,27 @@ class Suggestion extends Command {
       }
     }
 
-    const channel = this.client.channels.cache.get('735638790621757461')
+    await this.client.shard.broadcastEval(`
+    (async () => {
+      const channel = this.channels.cache.get('735638790621757461')
+      if (channel) {
+        const { MessageEmbed } = require('discord.js')
 
-    const embed = new MessageEmbed()
-      .setTitle('New Suggestion')
-      .setDescription(args.join(' '))
-      .setColor(0x9590ee)
-      .setThumbnail(ctx.author.displayAvatarURL({ size: 512, dynamic: true }))
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 512, dynamic: true }))
-      .setFooter(`User ID: ${ctx.author.id}`)
+        const embed = new MessageEmbed()
+        .setTitle('New Suggestion')
+        .setDescription('${args.join(' ')}')
+        .setColor(0x9590ee)
+        .setThumbnail('${ctx.author.displayAvatarURL({ size: 512, dynamic: true })}')
+        .setAuthor('${ctx.author.tag}', '${ctx.author.displayAvatarURL({ size: 512, dynamic: true })}')
+        .setFooter('User ID: ${ctx.author.id}')
+  
+      const message = await channel.send({ embed })
+      await message.react(this.constants.reactions.success)
+      await message.react(this.constants.reactions.error)
+      }
+    })()
+    `)
 
-    const message = await channel.send({ embed })
-    await message.react(this.client.constants.success)
-    await message.react(this.client.constants.error)
     return ctx.reply(`Your idea has been successfully submitted${ctx.guild && ctx.guild.id !== this.client.constants.mainGuildID ? ' to the support server' : ''}.`)
   }
 }

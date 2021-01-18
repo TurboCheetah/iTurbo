@@ -23,19 +23,36 @@ class Reload extends Command {
       )
     }
 
-    try {
-      const reloaded = await piece.reload()
-      return ctx.reply(this.client.utils.random(this.client.responses.reloadSuccess).replace(/{{command}}/g, reloaded.name))
-    } catch (err) {
-      piece.store.set(piece)
+    const reload = await this.client.shard.broadcastEval(`
+      (async () => {
+        const piece = this.commands.get('${piece.name}') || this.events.get('${piece.name}')
+      
+        try {
+          await piece.reload()
+          return {
+            status: 'success'
+          }
+        } catch (err) {
+          piece.store.set(piece)
+          return {
+            status: 'failure',
+            error: err.message || err.toString()
+          }
+        }
+      })()
+      `)
+
+    if (reload.filter(res => res.status === 'failure').length > 0) {
       return ctx.reply(
         this.client.utils
           .random(this.client.responses.reloadErrUnload)
           .replace(/{{command}}/g, piece.name)
           .replace(/{{user}}/g, ctx.guild ? ctx.member.displayName : ctx.author.username)
-          .replace(/{{response}}/g, err.message || err.toString())
+          .replace(/{{response}}/g, reload.filter(res => res.error)[0].error)
       )
     }
+
+    return ctx.reply(this.client.utils.random(this.client.responses.reloadSuccess).replace(/{{command}}/g, piece.name))
   }
 }
 

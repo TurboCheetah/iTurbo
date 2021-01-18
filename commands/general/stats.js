@@ -22,21 +22,24 @@ class Stats extends Command {
       id: 'commandsRan'
     })
 
-    commandsRan.set(this.store.ran)
+    const ran = (await this.client.shard.fetchClientValues('commands.ran')).reduce((acc, ran) => acc + ran, 0)
+    commandsRan.set(ran)
 
+    const guilds = (await this.client.shard.fetchClientValues('guilds.cache.size')).reduce((acc, guildCount) => acc + guildCount, 0)
     const totalGuilds = io.metric({
       name: 'Guilds',
       id: 'totalGuilds'
     })
 
-    totalGuilds.set(client.guilds.cache.size)
+    totalGuilds.set(guilds)
 
+    const users = (await this.client.shard.broadcastEval('this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)')).reduce((acc, memberCount) => acc + memberCount, 0)
     const totalUsers = io.metric({
       name: 'Users',
       id: 'totalUsers'
     })
 
-    totalUsers.set(this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0))
+    totalUsers.set(users)
 
     const seconds = Math.floor(client.uptime / 1000) % 60
     const minutes = Math.floor((client.uptime / (1000 * 60)) % 60)
@@ -55,12 +58,12 @@ class Stats extends Command {
         .setDescription("Hi, I'm iTurbo. The all-in-one entertainment bot for your server")
         .setThumbnail(this.client.user.displayAvatarURL({ size: 512, dynamic: true }))
         .setColor(0x9590ee)
-        .addField('Bot Stats', [`Guilds: **${client.guilds.cache.size}**`, `Users: **${this.client.guilds.cache.reduce((sum, guild) => sum + (guild.available ? guild.memberCount : 0), 0)}**`, `Channels: **${client.channels.cache.size}**`, `Music Streams: **${this.client.manager.players.size}**`, `Uptime: **${uptime}**`, `Ping: **${msg.createdTimestamp - ctx.message.createdTimestamp}ms (API: ${this.client.ws.ping}ms)**`].join('\n'), true)
+        .addField('Bot Stats', [`Guilds: **${guilds}**`, `Users: **${users}**`, `Channels: **${(await this.client.shard.fetchClientValues('channels.cache.size')).reduce((acc, channelCount) => acc + channelCount, 0)}**`, `Shards: **${this.client.shard.count}**`, `Music Streams: **${(await this.client.shard.fetchClientValues('manager.players.size')).reduce((acc, playerCount) => acc + playerCount, 0)}**`, `Uptime: **${uptime}**`, `Ping: **${msg.createdTimestamp - ctx.message.createdTimestamp}ms (API: ${this.client.ws.ping}ms)**`].join('\n'), true)
         // eslint-disable-next-line prettier/prettier
         .addField('Host Stats', [`Container Hostname: **${hostname}**`, `CPU Usage: **${(loadavg()[0] * 100).toFixed(1)}% (${cpus().length}c @ ${(cpus()[0].speed / 1000).toFixed(1)}GHz)**`, `Load Average: **${loadavg().map(avg => avg.toFixed(2)).join(', ')}**`, `Memory Usage: **${((usage / total) * 100).toFixed(1)}% (${usage.toLocaleString()} / ${total.toLocaleString()} MB)**`].join('\n'), true)
         .addField(this.client.constants.zws, this.client.constants.zws, true)
         .addField('Versions', [`Bot Version: **${this.client.version}**`, `Node.js Version: **${process.version}**`, `Discord.js Version: **v${version}**`].join('\n'), true)
-        .addField('Command Stats', [`Total Commands: **${this.store.size}**`, `Commands Ran: **${this.store.ran}**`].join('\n'), true)
+        .addField('Command Stats', [`Total Commands: **${this.store.size}**`, `Commands Ran: **${ran}**`].join('\n'), true)
         .addField(this.client.constants.zws, this.client.constants.zws, true)
         .addField('Useful Links', ['**📩 [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)** • **🎮 [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)** • **📖 [Documentation](https://docs.iturbo.cc)**'].join('\n'), true)
         .setFooter(`Requested by ${ctx.author.tag}`)

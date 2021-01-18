@@ -13,7 +13,7 @@ class Leave extends Command {
     if (!guild) return ctx.reply('What guild should I leave?')
     if (guild === 'this' && ctx.guild) guild = ctx.guild.id
 
-    guild = this.client.guilds.cache.get(guild)
+    guild = (await this.client.shard.broadcastEval(`this.guilds.cache.get('${guild}')`)).filter(guild => guild)[0]
     if (!guild) return ctx.reply("I'm not in that server.")
 
     await ctx.reply(`Are you sure you want me to leave **${guild.name}** (${guild.id})`)
@@ -27,7 +27,7 @@ class Leave extends Command {
     const answer = attempts.first().content.toLowerCase()
 
     if (['yes', 'y'].includes(answer)) {
-      await guild.leave()
+      await this.client.shard.broadcastEval(`this.guilds.cache.get('${guild}').then(g => g.leave())`)
       if (guild.id === ctx.guild.id) return ctx.author.send(`${this.client.constants.emojis.success} Successfully left **${guild.name}** (${guild.id})`)
       return ctx.reply(`${this.client.constants.emojis.success} Successfully left **${guild.name}** (${guild.id})`)
     }

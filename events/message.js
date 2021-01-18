@@ -57,6 +57,15 @@ class MessageEvent extends Event {
     // Ensure the bot itself is in the member cache.
     if (msg.guild && !msg.guild.me) await msg.guild.members.fetch(this.client.user)
 
+    // Verify the member is available and its settings are synchronized.
+    if (msg.guild) {
+      if (!msg.member) await msg.guild.members.fetch(msg.author)
+      await msg.member.syncSettings()
+    }
+
+    // Verify the user settings are synchronized.
+    await msg.author.syncSettings()
+
     // Grab the current prefix.
     const prefix = msg.guild ? msg.guild.settings.prefix : this.prefix
 
@@ -127,15 +136,6 @@ class MessageEvent extends Event {
     if (command.category === 'Social' && !msg.guild.settings.social) {
       return msg.channel.send('The social economy system has been disabled in this server by an Admin so I cannot let you use that command.')
     }
-
-    // Verify the member is available and its settings are synchronized.
-    if (msg.guild) {
-      if (!msg.member) await msg.guild.members.fetch(msg.author)
-      await msg.member.syncSettingsCache()
-    }
-
-    // Verify the user settings are synchronized.
-    await msg.author.syncSettingsCache()
 
     // Check for permissions.
     if (!(await this.checkPerms(msg, command))) return
