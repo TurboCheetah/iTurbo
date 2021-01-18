@@ -47,7 +47,7 @@ class Stats extends Command {
     const days = Math.floor((client.uptime / (1000 * 60 * 60 * 24)) % 7)
     const uptime = [`${days} Days`, `${hours} Hours`, `${minutes} Minutes`, `${seconds} ${seconds > 1 ? 'Seconds' : 'Second'}`].filter(time => !time.startsWith('0')).join(', ')
     const total = (totalmem() / 1024 / 1024 / 1024).toFixed(0) * 1024
-    const usage = (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)
+    const usage = (await this.client.shard.broadcastEval('(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)')).reduce((acc, memUsage) => acc + memUsage, 0)
 
     const msg = await ctx.reply('Fetching stats...')
     msg.delete()
