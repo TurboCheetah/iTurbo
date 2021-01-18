@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/TurboCheetah/iTurbo/compare/v1.9.0...v2.0.0) (2021-01-18)
+
+
+### Features
+
+* add `clearqueue` command ([e065ff6](https://github.com/TurboCheetah/iTurbo/commit/e065ff62b1b16443e67e53833f96328e3e20cc3d))
+* add command arguments and ([725bfbd](https://github.com/TurboCheetah/iTurbo/commit/725bfbd90b21523c4c2be738ba29b416e8255f7e))
+* add command arguments and examples ([55810a8](https://github.com/TurboCheetah/iTurbo/commit/55810a8d50039f2425405c8a19ca5b603d44da6e))
+* add command arguments and examples ([c461f70](https://github.com/TurboCheetah/iTurbo/commit/c461f70df9fbd4017d1bb5270b62c029155f108d))
+* add npNotify ([c48212b](https://github.com/TurboCheetah/iTurbo/commit/c48212bf6b069535782379b7de08f9efb37afd9e))
+* anilist command ([c26e38a](https://github.com/TurboCheetah/iTurbo/commit/c26e38a12fd9d2a20862de303393a264f3e3cb68))
+* implement sharding ([c2c2cf2](https://github.com/TurboCheetah/iTurbo/commit/c2c2cf2094d0f5b5d0f5901061dd2aa2537b6f05))
+* improve help command ([8a39f3c](https://github.com/TurboCheetah/iTurbo/commit/8a39f3cf871bd45db6064e8589f7c65781fd8a75))
+
+
+### Bug Fixes
+
+* append current song when appending queue ([019d2cf](https://github.com/TurboCheetah/iTurbo/commit/019d2cf0f1e1c26aa5bfdc9a19eac745e3960765))
+* appending queue not appending correct array ([874ac18](https://github.com/TurboCheetah/iTurbo/commit/874ac18c85b66834f4aa184b94f907cca83c726e))
+* exclude additions from npnotify settings ([3513d99](https://github.com/TurboCheetah/iTurbo/commit/3513d993e9fda232b011367aeb51672a5a80ccb0))
+* optimize for mobile ([84150eb](https://github.com/TurboCheetah/iTurbo/commit/84150eb6ba7d2b30f593cf7db9471be3ee97af81))
+* playSong not firing on first song ([01e534d](https://github.com/TurboCheetah/iTurbo/commit/01e534d943117137c1554294989f5deae7e68741))
+* proper KSoft attribution ([53a6d5b](https://github.com/TurboCheetah/iTurbo/commit/53a6d5bcccb128fabbe7f159f0aaddc84f3b5608))
+* successImg and errorImg ([715348b](https://github.com/TurboCheetah/iTurbo/commit/715348b9db0edfc60083fbf6670dc354f0a53183))
+* support gif avatars ([e98f6ee](https://github.com/TurboCheetah/iTurbo/commit/e98f6ee6c60672ac763f746d2c86933c4cd3ce28))
+
 ## [1.9.0](https://github.com/TurboCheetah/iTurbo/compare/v1.8.5...v1.9.0) (2021-01-15)
 
 
