@@ -212,7 +212,7 @@ class Playlist extends Command {
       return ctx.reply(`${this.client.constants.emojis.error} Sorry, but Spotify playlists are currently disabled from being added to custom user playlists. Feel free to add individual songs though!`)
     }
 
-    const msg = await ctx.reply(`${this.client.constants.loading} Please wait, appending song(s) to playlist`)
+    const msg = await ctx.reply(`${this.client.constants.emojis.loading} Please wait, appending song(s) to playlist`)
     // Append queue
     if (songToAppend && songToAppend === 'queue') {
       const player = this.client.manager.players.get(ctx.guild.id)
@@ -284,7 +284,7 @@ class Playlist extends Command {
 
     if (!playlist[playlistName]) return ctx.reply(`${this.client.constants.emojis.error} That playlist doesn't exist!`)
 
-    const msg = await ctx.reply(`${this.client.constants.loading} Please wait, removing song from playlist`)
+    const msg = await ctx.reply(`${this.client.constants.emojis.loading} Please wait, removing song from playlist`)
 
     if (!songToRemove) return ctx.reply(`${this.client.constants.emojis.error} Please specify a song number to remove from ${playlistName}! You can get it from \`${ctx.guild.settings.prefix}playlist info ${playlistName}\``)
     // Check if song is already in the playlsit

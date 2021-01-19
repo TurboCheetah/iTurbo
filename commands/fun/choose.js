@@ -14,7 +14,7 @@ class Choose extends Command {
     const choices = args.join(' ').split(',')
     if (choices.length < 2) return ctx.reply('Not enough choices to pick from. Seperate your choices with a comma.')
 
-    const msg = await ctx.reply(`${this.client.constants.loading} **${this.client.user.username}** is thinking...`)
+    const msg = await ctx.reply(`${this.client.constants.emojis.loading} **${this.client.user.username}** is thinking...`)
 
     await this.client.utils.sleep(Math.floor(Math.random() * 1500) + 1000)
 

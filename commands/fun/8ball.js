@@ -13,7 +13,7 @@ class Eightball extends Command {
 
   async run(ctx, [question]) {
     if (!question) return ctx.reply('What do you want to ask?')
-    const msg = await ctx.reply(`${this.client.constants.loading} **8ball** is thinking...`)
+    const msg = await ctx.reply(`${this.client.constants.emojis.loading} **8ball** is thinking...`)
     await this.client.utils.sleep(1500)
     return msg.edit(`**${this.client.utils.random(this.responses)}**`)
   }
