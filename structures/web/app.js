@@ -58,8 +58,7 @@ module.exports = client => {
   app.get('/playlist/:userID/:playlistName', async (req, res) => {
     const id = req.params.userID
     const playlistName = req.params.playlistName
-    let userSettings = await client.settings.users.get(id)
-    if (!userSettings) await client.settings.users.sync(id).then(async () => (userSettings = await client.settings.users.get(id)))
+    let userSettings = await client.settings.users.sync(id).then(async () => (userSettings = await client.settings.users.get(id)))
     const data = userSettings.playlist[playlistName]
     if (!data) return res.status(404).json({ message: 'Not found' })
     if (data.public === false) return res.status(403).json({ message: 'Forbidden' })
