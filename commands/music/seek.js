@@ -31,7 +31,7 @@ class Seek extends Command {
     }
 
     player.seek(player.position + Number(args[0]) * 1000)
-    return ctx.msgEmbed(`Moved ${args[0]} seconds ${args[0] > 0 ? 'ahead' : 'behind'}!`, this.client.constants.successImg)
+    return ctx.msgEmbed(`Moved ${args[0].replace(/-/g, '')} seconds ${args[0] > 0 ? 'ahead' : 'behind'}!`, this.client.constants.successImg)
   }
 }
 

@@ -14,7 +14,8 @@ class LavaStats extends Command {
 
   async run(ctx, [page = 1]) {
     const embeds = []
-    const nodes = this.client.manager.nodes.map(node => node)
+    // const nodes = this.client.manager.nodes.map(node => node)
+    const nodes = await this.client.shard.fetchClientValues('manager.nodes')
     for (const node of nodes) {
       const seconds = Math.floor(node.stats.uptime / 1000) % 60
       const minutes = Math.floor((node.stats.uptime / (1000 * 60)) % 60)
