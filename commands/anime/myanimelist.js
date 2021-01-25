@@ -27,50 +27,43 @@ class MyAnimeList extends Command {
 
     if (!data) return ctx.reply('No results found.')
 
-    const [pictures] = await malScraper.getPictures({ name: data.englishTitle ? data.englishTitle : data.title, id: data.id })
-
     const synopsisEmbed = new MessageEmbed()
       .setColor(0x9590ee)
-      .setTitle(data.englishTitle ? `${data.englishTitle} (Japanese: ${data.title})` : data.title)
+      .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (Japanese: ${data.title})` : ''}` : data.title)
       .setDescription(data.synopsis)
       .setThumbnail(data.picture)
-      .setImage(pictures.imageLink)
       .setURL(data.url)
-      .setFooter(`ID: ${data.id} • React to view more details`)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
+      .setFooter(`ID: ${data.id}`)
 
     const dataEmbed = new MessageEmbed()
       .setColor(0x9590ee)
-      .setTitle(data.englishTitle ? `${data.englishTitle} (Japanese: ${data.title})` : data.title)
-      .addField('Age Rating', data.rating, true)
+      .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (Japanese: ${data.title})` : ''}` : data.title)
+      .addField('Age Rating', data.rating.split(' - ')[0], true)
       .addField('Episodes', `${data.episodes} (${data.duration})`, true)
-      .addField('Status', `${data.status} (From: ${data.aired})`, true)
-      .addField('Score', `${data.score} (${data.scoreStats})`, true)
+      .addField('Status', `${data.status}`, true)
+      .addField('Score', `${data.score}/10`, true)
       .addField('Ranking', data.ranked, true)
       .addField('Popularity', data.popularity, true)
       .addField('Members', data.members, true)
       .addField('Favorites', data.favorites, true)
-      .addField(data.genres.length > 1 ? 'Genres' : 'Genre', data.genres.join(', '))
-      .addField('Source', data.source, true)
       .addField(data.studios.length > 1 ? 'Studios' : 'Studio', data.studios.join(', '), true)
+      .addField(data.genres.length > 1 ? 'Genres' : 'Genre', data.genres.join(', '))
       .setThumbnail(data.picture)
       .setURL(data.url)
-      .setFooter(`ID: ${data.id} • React to view more details`)
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
+      .setFooter(`ID: ${data.id}`)
 
     const embeds = [synopsisEmbed, dataEmbed]
 
     for (const character of data.characters) {
       const characterEmbed = new MessageEmbed()
         .setColor(0x9590ee)
-        .setTitle(data.englishTitle ? `${data.englishTitle} (Japanese: ${data.title})` : data.title)
+        .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (Japanese: ${data.title})` : ''}` : data.title)
         .setImage(character.picture)
         .setURL(character.link)
         .addField('Name', character.name, true)
         .addField('Role', character.role, true)
         .addField('Seiyuu', `[${character.seiyuu.name}](${character.seiyuu.link})`, true)
-        .setFooter(`ID: ${data.id} • React to view more details`)
-        .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
+        .setFooter(`ID: ${data.id}`)
 
       embeds.push(characterEmbed)
     }
@@ -80,7 +73,7 @@ class MyAnimeList extends Command {
       .setAuthorizedUsers([ctx.author.id])
       .setChannel(ctx.channel)
       .setPage(page)
-      .setPageIndicator('footer', (page, pages) => `ID: ${data.id} • React to view more details • Page ${page} of ${pages}`)
+      .setPageIndicator('footer', (page, pages) => `ID: ${data.id} • Page ${page} of ${pages}`)
 
     return Pagination.build()
   }
