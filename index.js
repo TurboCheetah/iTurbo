@@ -15,4 +15,4 @@ manager.on('shardCreate', shard => {
   })
 })
 
-manager.spawn(undefined, undefined, -1)
+manager.spawn(undefined, undefined, -1).catch(err => console.error(err))
