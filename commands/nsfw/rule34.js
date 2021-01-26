@@ -1,6 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const { posts } = require('rule34js')
+const booru = require('booru')
 const { shorten } = require('../../utils/Utils.js')
 
 class Rule34 extends Command {
@@ -20,30 +20,24 @@ class Rule34 extends Command {
 
   async run(ctx, query) {
     const search = query.join('_').split('_|_')
-    const data = await posts({ tags: search })
+    const [posts] = await booru.search('rule34', search, { limit: 1, random: true })
 
     if (!ctx.channel.nsfw) {
       return ctx.reply('The result I found was NSFW and I cannot post it in this channel.')
     }
 
-    if (!data || !data.posts) return ctx.reply('No results were found.')
-    const random = this.client.utils.random(data.posts)
+    if (!posts || !posts.data.file_url) return ctx.reply('No results were found.')
 
-    if (!random || !random.file_url) {
-      console.log(random)
-      return ctx.reply('No results were found.')
-    }
-
-    if (random.file_url.endsWith('webm')) {
-      return ctx.reply(`Score: ${random.score}\n${random.file_url}`)
+    if (posts.data.file_url.endsWith('webm')) {
+      return ctx.reply(`Score: ${posts.data.score}\n${posts.data.file_url}`)
     }
 
     const embed = new MessageEmbed()
-      .setTitle(`Score: ${random.score}`)
-      .addField('Tags', shorten(random.tags))
-      .setURL(random.file_url)
+      .setTitle(`Score: ${posts.data.score}`)
+      .addField('Tags', shorten(posts.data.tags))
+      .setURL(posts.data.postView)
       .setColor(0x9590ee)
-      .setImage(random.file_url)
+      .setImage(posts.data.file_url)
       .setFooter('Powered by Rule34.XXX', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
     return ctx.reply({ embed })
   }
