@@ -576,11 +576,6 @@ video {
   background-color: rgba(149, 144, 238, var(--tw-bg-opacity));
 }
 
-.hover\:bg-purple-50:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgba(187, 184, 248, var(--tw-bg-opacity));
-}
-
 .hover\:bg-purple-200:hover {
   --tw-bg-opacity: 1;
   background-color: rgba(231, 229, 255, var(--tw-bg-opacity));
