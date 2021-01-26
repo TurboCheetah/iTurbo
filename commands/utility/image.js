@@ -53,7 +53,7 @@ class Image extends Command {
       return ctx.reply(`--index provided as \`${index}\` but there is only \`${results.length}\` results.`)
     }
 
-    const image = index ? results[index - 1] : this.client.utils.random(results)
+    const image = index ? results[index - 1] : this.client.utils.random(results.filter(img => ['png', 'jpg', 'jpeg'].includes(img.format)))
     const embed = new MessageEmbed().setTitle(`Image Results: ${query}`).setImage(image.url).setFooter(`Size: ${image.size}, Resolution: ${image.width}x${image.height}, Format: ${image.format}`).setColor(0x9590ee)
 
     return ctx.reply({ embed })
