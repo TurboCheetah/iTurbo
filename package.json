@@ -8,6 +8,7 @@
     "dev": "nodemon index.js --dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "build:css": "tailwind build structures/web/style.css -o structures/web/public/style.css",
     "release": "standard-version",
     "patch": "standard-version --release-as patch"
   },
@@ -58,6 +59,7 @@
     "yahoo-stock-api": "^1.0.5"
   },
   "devDependencies": {
+    "autoprefixer": "^10.2.3",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.8.1",
     "eslint-config-airbnb": "^18.2.0",
@@ -71,6 +73,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "nodemon": "^2.0.6",
     "prettier": "^2.1.1",
-    "standard-version": "^9.1.0"
+    "standard-version": "^9.1.0",
+    "tailwindcss": "^2.0.2"
   }
 }

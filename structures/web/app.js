@@ -23,7 +23,7 @@ module.exports = client => {
           fontSrc: ["'self'", 'fonts.google.com', 'fonts.gstatic.com', 'cdn.turbo.ooo'],
           styleSrc: ["'self'", 'cdn.turbo.ooo', "'unsafe-inline'"],
           scriptSrc: ["'self'", 'cdn.turbo.ooo'],
-          imgSrc: ["'self'", 'cdn.turbo.ooo']
+          imgSrc: ["'self'", 'cdn.turbo.ooo', 'i.turbo.ooo']
         }
       }
     })
@@ -48,7 +48,7 @@ module.exports = client => {
   })
 
   // Redirect to support guild
-  app.get('/discord', (req, res) => {
+  app.get('/support', (req, res) => {
     res.redirect(301, 'https://discord.gg/011UYuval0uSxjmuQ')
   })
 
