@@ -6,7 +6,7 @@ class Mute extends Command {
     super(...args, {
       description: 'Mutes a user.',
       userPermissions: ['KICK_MEMBERS'],
-      botPermissions: ['KICK_MEMBERS', 'EMBED_LINKS'],
+      botPermissions: ['KICK_MEMBERS', 'EMBED_LINKS', 'MANAGE_ROLES'],
       guildOnly: true,
       usage: 'mute <@member> [reason]'
     })
