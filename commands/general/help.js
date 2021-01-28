@@ -7,7 +7,7 @@ class Help extends Command {
     super(...args, {
       description: 'View help for commands.',
       usage: 'help [category|command]',
-      botPermissions: ['EMBED_LINKS']
+      botPermissions: ['EMBED_LINKS', 'ADD_REACTIONS']
     })
   }
 
