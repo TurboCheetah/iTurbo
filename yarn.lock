@@ -1616,10 +1616,9 @@ discord-giveaways@^4.2.1:
   dependencies:
     deepmerge "^4.2.2"
 
-discord-paginationembed@^2.0.0-beta.4:
-  version "2.0.0-beta.4"
-  resolved "https://registry.yarnpkg.com/discord-paginationembed/-/discord-paginationembed-2.0.0-beta.4.tgz#ac64a92fa7655dbc2d1f3062aca63cb3161dda1b"
-  integrity sha512-SLs+UrBmIe/VAmNEEy4VqTiMGGFExxvXyda7iJy2KADXO3NlGv/Kh4pFuabFTngADXe8DYroZjU2ZduFm7T+Jg==
+discord-paginationembed@gazmull/discord-paginationembed:
+  version "2.0.0"
+  resolved "https://codeload.github.com/gazmull/discord-paginationembed/tar.gz/bcf150b9207c3885884f181d343a592bf9247db2"
 
 discord.js@^12.5.1:
   version "12.5.1"
