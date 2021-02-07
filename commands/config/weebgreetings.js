@@ -12,7 +12,7 @@ class WeebGreetings extends Command {
   }
 
   async run(ctx, [action]) {
-    if (!action) return ctx.reply(`${this.client.constants.emojis.error} Please specify either \`${ctx.guild.settings.prefix}enable #channel\` or \`${ctx.guild.settings.prefix}disable\``)
+    if (!action) return ctx.reply(`${this.client.constants.emojis.error} Please specify either \`${ctx.guild.settings.prefix}weebgreetings enable #channel\` or \`${ctx.guild.settings.prefix}weebgreetings disable\``)
 
     if (action === 'disable') {
       await ctx.guild.update({ weebGreetings: null })
