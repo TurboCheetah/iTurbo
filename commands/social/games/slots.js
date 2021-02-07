@@ -35,7 +35,7 @@ class Slots extends Command {
 
         // Make a message and remind them to vote if they haven't
         message = `Congratulation! You won **¥${points}**`
-        if (!voted) message += `\nYou can get double the points by upvoting me here: <${this.store.get('upvote').url}>`
+        if (!voted) message += '\nYou can get double the points by upvoting me here: <https://top.gg/bot/742831363358589028/vote>'
 
         // Pay the user.
         await ctx.member.givePoints(points)
