@@ -27,9 +27,9 @@ class Announcements extends Command {
 
     const embed = new MessageEmbed()
       .setTitle('Bot announcement')
-      .setAuthor(announcement.author.username, announcement.author.displayAvatarURL({ size: 64, dynamic: true }))
+      // .setAuthor(announcement.author.username, announcement.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setDescription(announcement.cleanContent)
-      .setThumbnail(announcement.author.displayAvatarURL({ size: 512, dynamic: true }))
+      // .setThumbnail(announcement.author.displayAvatarURL({ size: 512, dynamic: true }))
       .setTimestamp(new Date(announcement.createdTimestamp))
       .setFooter(`From Turbo's Hub (run ${ctx.guild ? ctx.guild.settings.prefix : '|'}support to join us)`)
       .setColor(0x9590ee)
