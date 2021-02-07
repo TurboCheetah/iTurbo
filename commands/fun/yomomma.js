@@ -14,7 +14,7 @@ class YoMomma extends Command {
   async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user, true)
 
-    const { joke } = await c('http://api.yomomma.info').json()
+    const { joke } = await c('https://api.yomomma.info').json()
 
     return ctx.reply(`${user}, ${joke}`)
   }

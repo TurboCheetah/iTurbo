@@ -19,7 +19,7 @@ class Boobs extends Command {
 
   async run(ctx) {
     try {
-      const [data] = await c('http://api.oboobs.ru/boobs/0/1/random').json()
+      const [data] = await c('https://api.oboobs.ru/boobs/0/1/random').json()
 
       const embed = new MessageEmbed()
         .setColor(0x9590ee)

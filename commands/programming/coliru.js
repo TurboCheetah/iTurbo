@@ -40,7 +40,7 @@ class Coliru extends Command {
 
     const cmd = this.commands[lang]
     const src = code
-    const res = await c('http://coliru.stacked-crooked.com/compile', 'POST').body(JSON.stringify({ cmd, src }), 'form').text()
+    const res = await c('https://coliru.stacked-crooked.com/compile', 'POST').body(JSON.stringify({ cmd, src }), 'form').text()
 
     if (res.length < 1980) return ctx.reply(res, { code: lang })
     return this.post(ctx, { cmd, src })

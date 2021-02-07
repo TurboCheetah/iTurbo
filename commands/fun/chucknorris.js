@@ -14,7 +14,7 @@ class ChuckNorris extends Command {
   async run(ctx, [user]) {
     if (user) user = await this.verifyUser(ctx, user)
 
-    const { value } = await c('http://api.chucknorris.io/jokes/random').json()
+    const { value } = await c('https://api.chucknorris.io/jokes/random').json()
 
     return ctx.reply(user ? value.replace(/Chuck Norris/g, user.toString()) : value)
   }

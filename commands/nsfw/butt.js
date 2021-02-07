@@ -19,7 +19,7 @@ class Butt extends Command {
 
   async run(ctx) {
     try {
-      const [data] = await c('http://api.obutts.ru/butts/0/1/random').json()
+      const [data] = await c('https://api.obutts.ru/butts/0/1/random').json()
 
       const embed = new MessageEmbed()
         .setColor(0x9590ee)
