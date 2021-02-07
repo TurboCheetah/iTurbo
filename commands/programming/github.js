@@ -24,7 +24,7 @@ class GitHub extends Command {
       .json()
       .catch(() => null)
 
-    if (!body) return ctx.reply('Could not fetch that repo, are you sure it exists?')
+    if (!body || body.message === 'Not Found') return ctx.reply('Could not fetch that repo, are you sure it exists?')
 
     const size = body.size <= 1024 ? `${body.size} KB` : Math.floor(body.size / 1024) > 1024 ? `${(body.size / 1024 / 1024).toFixed(2)} GB` : `${(body.size / 1024).toFixed(2)} MB`
     const license = body.license && body.license.name && body.license.url ? `[${body.license.name}](${body.license.url})` : (body.license && body.license.name) || 'None'
