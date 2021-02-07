@@ -17,7 +17,7 @@ class Wikipedia extends Command {
     const article = await c(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(args.join(' '))}`)
       .json()
       .catch(() => {
-        throw "I couldn't find a wikipedia article with that title!"
+        throw "I couldn't find a Wikipedia article with that title!"
       })
 
     if (!article.content_urls) throw "I couldn't find a wikipedia article with that title!"
