@@ -11,7 +11,7 @@ class Help extends Command {
     })
   }
 
-  async run(ctx, [command]) {
+  async run(ctx, [command, page = 1]) {
     const map = {} // Map<Category, Array<Command.Name>>
     for (const command of this.store.values()) {
       // Check for hidden commands first so if all commands in a category is hidden we won't even show the category.
@@ -35,7 +35,7 @@ class Help extends Command {
           .setAuthorizedUsers([ctx.author.id])
           .setChannel(ctx.channel)
           .setElementsPerPage(7)
-          .setPage(1)
+          .setPage(page)
           .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages}`)
           .formatField('Commands', i => `• [**${i}**](https://docs.iturbo.cc/commands/${category.toLowerCase()}#${i} '${this.store.get(i).aliases.length > 0 ? `\nAliases: ${this.store.get(i).aliases.join(', ')}` : ''}') - ${this.store.get(i).description}`)
 
@@ -101,7 +101,7 @@ class Help extends Command {
         .setArray(embeds)
         .setAuthorizedUsers([ctx.author.id])
         .setChannel(ctx.channel)
-        .setPage(1)
+        .setPage(page)
         .setDisabledNavigationEmojis(['delete'])
         .setPageIndicator('footer', (page, pages) => `Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'} • Page ${page} of ${pages}`)
 
