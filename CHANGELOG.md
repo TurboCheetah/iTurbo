@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/TurboCheetah/iTurbo/compare/v2.0.0...v2.0.1) (2021-02-07)
+
+
+### Features
+
+* add shard to stats footer ([b67d8d5](https://github.com/TurboCheetah/iTurbo/commit/b67d8d575a6a2bf9713be55f3dfc71da4fa20578))
+* Create `clearqueue` command ([ee1345a](https://github.com/TurboCheetah/iTurbo/commit/ee1345a44b11090f00fc58ae8f76df0563b30d1f))
+* improved error handling in ShardingManager ([a8e49f8](https://github.com/TurboCheetah/iTurbo/commit/a8e49f8a0b7ba9f5da023b3225edcd9fa5efdba9))
+
+
+### Bug Fixes
+
+* announcement unable to fetch author details ([f96d44e](https://github.com/TurboCheetah/iTurbo/commit/f96d44eb3889ac9932c38342bfc50ab4c11abd04))
+* display total memory usage across all shards ([d4f24c5](https://github.com/TurboCheetah/iTurbo/commit/d4f24c5a966b074f4c0796d1569d34dd1b9d9438))
+* ensure image command returns an image ([838247f](https://github.com/TurboCheetah/iTurbo/commit/838247fa75a92845c9137feb195af7e8b9558826))
+* handle rule34 errors ([351fc26](https://github.com/TurboCheetah/iTurbo/commit/351fc269e40752cfbbe1fed9235ced695251f026))
+* help command permissions ([71b5081](https://github.com/TurboCheetah/iTurbo/commit/71b50812cf6c1b809450aa0f1dbbe75ebe428408))
+* mute permissions ([e95671a](https://github.com/TurboCheetah/iTurbo/commit/e95671ab7c8885b05d3f1502dff2f0a11b2fd216))
+* No need to update lavastats ([44f6df6](https://github.com/TurboCheetah/iTurbo/commit/44f6df6c13e9845d9039ad5a6a5da71716acf32f))
+* non-existant repositories ([cd54533](https://github.com/TurboCheetah/iTurbo/commit/cd54533fe05dddd736c9fd1f505fb2848e23ef9f))
+* remove `-` from reply embed ([d336519](https://github.com/TurboCheetah/iTurbo/commit/d336519a81ea413e7a8f4662b6d5fd53c82c4be7))
+* server errors not in JSON causing error ([c37d0a8](https://github.com/TurboCheetah/iTurbo/commit/c37d0a88cf156a94d5639dff2726b51baf6ee46b))
+* switch to HTTPS ([1c9f68f](https://github.com/TurboCheetah/iTurbo/commit/1c9f68faa2f001aaf3de0e7a0dae55aa139da658))
+* typo ([99f965b](https://github.com/TurboCheetah/iTurbo/commit/99f965b38433acc99c780facced7ea65a012765c))
+* typo ([41e88e8](https://github.com/TurboCheetah/iTurbo/commit/41e88e825e1fc6fc3c77b95026b6a3a5925800f4))
+* undefined variable ([ae0c252](https://github.com/TurboCheetah/iTurbo/commit/ae0c252d18ee741ef55f318bb8e322a747abf5e3))
+* unmute permissions ([2e94aab](https://github.com/TurboCheetah/iTurbo/commit/2e94aab4e98a005750fef60e6bc690955175a6da))
+
 ## [2.0.0](https://github.com/TurboCheetah/iTurbo/compare/v1.9.0...v2.0.0) (2021-01-18)
 
 
