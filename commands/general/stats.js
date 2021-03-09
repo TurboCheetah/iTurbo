@@ -1,5 +1,5 @@
 const Command = require('../../structures/Command.js')
-const { MessageEmbed, version } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 const { hostname, totalmem, cpus, loadavg } = require('os')
 const io = require('@pm2/io')
 
@@ -59,14 +59,17 @@ class Stats extends Command {
         .setThumbnail(this.client.user.displayAvatarURL({ size: 512, dynamic: true }))
         .setColor(0x9590ee)
         .addField('Bot Stats', [`Guilds: **${guilds}**`, `Users: **${users}**`, `Channels: **${(await this.client.shard.fetchClientValues('channels.cache.size')).reduce((acc, channelCount) => acc + channelCount, 0)}**`, `Shards: **${this.client.shard.count}**`, `Music Streams: **${(await this.client.shard.fetchClientValues('manager.players.size')).reduce((acc, playerCount) => acc + playerCount, 0)}**`, `Uptime: **${uptime}**`, `Ping: **${msg.createdTimestamp - ctx.message.createdTimestamp}ms (API: ${this.client.ws.ping}ms)**`].join('\n'), true)
+        .addField(this.client.constants.zws, this.client.constants.zws, true)
         // eslint-disable-next-line prettier/prettier
         .addField('Host Stats', [`Container Hostname: **${hostname}**`, `CPU Usage: **${(loadavg()[0] * 100).toFixed(1)}% (${cpus().length}c @ ${(cpus()[0].speed / 1000).toFixed(1)}GHz)**`, `Load Average: **${loadavg().map(avg => avg.toFixed(2)).join(', ')}**`, `Memory Usage: **${((usage / total) * 100).toFixed(1)}% (${usage.toLocaleString()} / ${total.toLocaleString()} MB)**`].join('\n'), true)
-        .addField(this.client.constants.zws, this.client.constants.zws, true)
+        // Remove clutter
+        /*
         .addField('Versions', [`Bot Version: **${this.client.version}**`, `Node.js Version: **${process.version}**`, `Discord.js Version: **v${version}**`].join('\n'), true)
         .addField('Command Stats', [`Total Commands: **${this.store.size}**`, `Commands Ran: **${ran}**`].join('\n'), true)
         .addField(this.client.constants.zws, this.client.constants.zws, true)
         .addField('Useful Links', ['**📩 [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)** • **🎮 [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)** • **📖 [Documentation](https://docs.iturbo.cc)**'].join('\n'), true)
-        .setFooter(`Requested by ${ctx.author.tag} • Shard ${this.client.shard.ids[0]}`)
+         */
+        .setFooter(`v${this.client.version} • Shard ${this.client.shard.ids[0]}`)
         .setTimestamp()
     )
   }
