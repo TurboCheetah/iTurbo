@@ -2,6 +2,9 @@ const Event = require('../structures/Event.js')
 
 class EventError extends Event {
   async run(event, err) {
+    console.log(`[EVENT] ${event.name}: ${err.stack || err}`)
+    if (this.client.sentry) this.client.sentry.captureException(err)
+
     this.client.shard.broadcastEval(`
     const channel = this.channels.cache.get('735638949770559569')
     if (channel) {
