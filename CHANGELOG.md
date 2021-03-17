@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.3](https://github.com/TurboCheetah/iTurbo/compare/v2.0.2...v2.0.3) (2021-03-17)
+
+
+### Features
+
+* add Deezer support ([aedc06e](https://github.com/TurboCheetah/iTurbo/commit/aedc06ee55664c463d48767d12b15df5025af11f))
+* send event errors to Sentry ([a3a367a](https://github.com/TurboCheetah/iTurbo/commit/a3a367a29b4184473558924e42b755dbd142003c))
+
 ### [2.0.2](https://github.com/TurboCheetah/iTurbo/compare/v2.0.1...v2.0.2) (2021-03-09)
 
 
