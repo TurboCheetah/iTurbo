@@ -15,6 +15,7 @@ const PostgresGiveawaysManager = require('./PostgresGiveawaysManager.js')
 const BotAPI = require('./web')
 const { Manager } = require('erela.js')
 const Spotify = require('erela.js-spotify')
+const Deezer = require('erela.js-deezer')
 const { KSoftClient } = require('@ksoft/api') // KSoft
 const Anilist = require('anilist-node') // Anilist
 
@@ -51,7 +52,8 @@ class MiyakoClient extends Client {
           clientID: this.config.spotify.id,
           clientSecret: this.config.spotify.secret,
           convertUnresolved: true
-        })
+        }),
+        new Deezer({ convertUnresolved: true })
       ]
     })
     this.ksoft = new KSoftClient(this.config.ksoft)

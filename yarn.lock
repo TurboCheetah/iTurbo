@@ -673,7 +673,7 @@ axios@^0.20.0:
   dependencies:
     follow-redirects "^1.10.0"
 
-axios@^0.21.0:
+axios@^0.21.0, axios@^0.21.1:
   version "0.21.1"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
   integrity sha512-dKQiRHxGD9PPRIUNIWvZhPTPpl1rf/OxTYKsqKUDjBwYylTvV7SjSHJb9ratfyzM6wCdLCOYLzs73qpg5c4iGA==
@@ -1825,6 +1825,14 @@ entities@^2.0.0, entities@~2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.1.0.tgz#992d3129cf7df6870b96c57858c249a120f8b8b5"
   integrity sha512-hCx1oky9PFrJ611mf0ifBLBRW8lUUVRlFolb5gWRfIELabBlbp9xZvrqZLZAs+NxFnbfQoeGd8wDkygjg7U85w==
+
+erela.js-deezer@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/erela.js-deezer/-/erela.js-deezer-1.0.5.tgz#322cf122fc3222ac76b9c6f14281529a8aef6c98"
+  integrity sha512-8BNTufuQalcWM+N093wUSlsA2bgXzfnrh4tfY8SgQEf6XI3b1PP3E3D1q29Dv5/5aZOlzLK3UoOiDwZr4PVC3w==
+  dependencies:
+    axios "^0.21.1"
+    erela.js "^2.3.1"
 
 erela.js-spotify@^1.2.0:
   version "1.2.0"
