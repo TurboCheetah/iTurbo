@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS users (
   title TEXT,
   prefix TEXT[],
   playlist JSON,
-  simp INTEGER
+  simp INTEGER,
+  osu TEXT
 );
 
 CREATE TABLE IF NOT EXISTS bot (

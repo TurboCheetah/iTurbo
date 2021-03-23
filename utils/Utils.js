@@ -89,6 +89,10 @@ class Utils {
     return `${int}`
   }
 
+  static formatNumber(number) {
+    return parseInt(number).toLocaleString()
+  }
+
   static formatDuration(milliseconds) {
     if (!milliseconds || !parseInt(milliseconds)) return '00:00'
     const seconds = Math.floor((milliseconds % 60000) / 1000)

@@ -18,6 +18,7 @@ const Spotify = require('erela.js-spotify')
 const Deezer = require('erela.js-deezer')
 const { KSoftClient } = require('@ksoft/api') // KSoft
 const Anilist = require('anilist-node') // Anilist
+const Osu = require('node-osu') // osu!
 
 class MiyakoClient extends Client {
   constructor(dev) {
@@ -58,6 +59,7 @@ class MiyakoClient extends Client {
     })
     this.ksoft = new KSoftClient(this.config.ksoft)
     this.anilist = new Anilist(this.config.anilist)
+    this.osu = new Osu.Api(this.config.osu, { completeScores: true })
     this.version = pkgVersion
 
     // Settings.
