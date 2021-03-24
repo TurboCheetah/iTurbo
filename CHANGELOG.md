@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.5](https://github.com/TurboCheetah/iTurbo/compare/v2.0.4...v2.0.5) (2021-03-24)
+
+
+### Bug Fixes
+
+* default to `user` mode if osu profile linked ([0d888bb](https://github.com/TurboCheetah/iTurbo/commit/0d888bbb1728769e5a78b075fe34d389c0179802))
+
 ### [2.0.4](https://github.com/TurboCheetah/iTurbo/compare/v2.0.3...v2.0.4) (2021-03-24)
 
 
