@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.4](https://github.com/TurboCheetah/iTurbo/compare/v2.0.3...v2.0.4) (2021-03-24)
+
+
+### Features
+
+* Add osu! command ([dede8cb](https://github.com/TurboCheetah/iTurbo/commit/dede8cbd1d790c2398fa1c43c6447342becf5a29))
+
+
+### Bug Fixes
+
+* ensure `mode` is specified ([45a4d4d](https://github.com/TurboCheetah/iTurbo/commit/45a4d4d9e411c6881c5284882119798a285c311b))
+
 ### [2.0.3](https://github.com/TurboCheetah/iTurbo/compare/v2.0.2...v2.0.3) (2021-03-17)
 
 
