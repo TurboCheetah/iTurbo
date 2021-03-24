@@ -33,7 +33,7 @@ class Osu extends Command {
   }
 
   async run(ctx, [mode, user]) {
-    if (!mode && ctx.author.settings.osu) return ctx.reply(`Usage: \`${ctx.guild.prefix}osu <user | recent | top | setProfile> [user]\``)
+    if (!mode && !ctx.author.settings.osu) return ctx.reply(`Usage: \`${ctx.guild.prefix}osu <user | recent | top | setProfile> [user]\``)
     else if (!mode && ctx.author.settings.osu) mode = 'user'
     if (!user && !ctx.author.settings.osu) return ctx.reply(`${this.client.constants.emojis.error} You didn't specify a user nor do you have one linked to your Discord account!`)
     else if (!user && ctx.author.settings.osu) user = ctx.author.settings.osu
