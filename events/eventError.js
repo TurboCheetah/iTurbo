@@ -2,7 +2,7 @@ const Event = require('../structures/Event.js')
 
 class EventError extends Event {
   async run(event, err) {
-    console.log(`[EVENT] ${event.name}: ${err.stack || err}`)
+    this.client.logger.error(`[EVENT] ${event.name}: ${err.stack || err}`)
     if (this.client.sentry) this.client.sentry.captureException(err)
 
     this.client.shard.broadcastEval(`

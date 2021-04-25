@@ -31,7 +31,6 @@ class DJRole extends Command {
 
   async enable(ctx, args) {
     const rolename = args.join(' ').toLowerCase()
-    console.log(rolename)
     if (!rolename) return ctx.msgEmbed(`Usage: \`${ctx.guild.prefix}djrole enable <role>\``, this.client.constants.errorImg)
 
     const role = ctx.guild.roles.cache.find(r => r.id === rolename || r.name.toLowerCase() === rolename)

@@ -20,7 +20,6 @@ class Anilist extends Command {
 
   async getData(ctx, user, page) {
     const data = await this.client.anilist.user.all(user)
-    // console.log(data.statistics.anime.statuses.filter(s => s.status === 'PLANNING'))
     if (!data || data.status === 404) return ctx.reply(`No results found.${!parseInt(user) ? ' *Hint: Make sure you use the correct capitalization.*' : ''}`)
 
     const profileEmbed = new MessageEmbed()

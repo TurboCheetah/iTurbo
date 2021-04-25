@@ -9,6 +9,7 @@ const DBL = require('dblapi.js')
 const DBLMock = require('../utils/DBLMock.js')
 const loadSchema = require('../utils/schema.js')
 const Settings = require('./Settings.js')
+const Logger = require('./Logger')
 const presences = require('../assets/json/presences.json')
 const imgapi = require('img-api')
 const PostgresGiveawaysManager = require('./PostgresGiveawaysManager.js')
@@ -32,7 +33,7 @@ class MiyakoClient extends Client {
 
     this.dev = dev || false
     this.config = require('../config.json')
-    this.console = console // TODO: Implement a console logger.
+    this.logger = new Logger()
     this.constants = require('../utils/constants.js')
     this.commands = new CommandStore(this)
     this.utils = require('../utils/Utils.js') // Easier to access everywhere.
@@ -87,18 +88,18 @@ class MiyakoClient extends Client {
       this.sentry.setTag('shard', this.shard.ids[0])
       this.sentry.setTag('discord.js', version)
       this.sentry.setTag('version', this.version)
-      if (this.shard.ids[0] === 0) console.log('Connected to Sentry')
+      if (this.shard.ids[0] === 0) this.logger.success('Connected to Sentry')
     }
 
     // Lavalink stuff
     // Emitted whenever a node connects
     this.manager
       .on('nodeConnect', node => {
-        if (this.shard.ids[0] === 0) console.log(`Connected to Lavalink node ${node.options.identifier}.`)
+        if (this.shard.ids[0] === 0) this.logger.success(`Connected to Lavalink node ${node.options.identifier}.`)
       })
       // Emitted whenever a node encountered an error
       .on('nodeError', (node, error) => {
-        if (this.shard.ids[0] === 0) console.log(`Lavalink node ${node.options.identifier} encountered an error: ${error.message}.`)
+        if (this.shard.ids[0] === 0) this.logger.success(`Lavalink node ${node.options.identifier} encountered an error: ${error.message}.`)
       })
       .on('trackStart', (player, track) => this.emit('playSong', player, track))
       // Emitted the player queue ends
@@ -120,7 +121,7 @@ class MiyakoClient extends Client {
       if (message.type !== 'shard') return
 
       if (message.data.lastShardReady === true) {
-        console.log('All shards ready')
+        this.logger.success('All shards ready')
         // Setup presence.
         await this.shard.broadcastEval('this.rollPresence()')
         // Sweep cache.
@@ -131,7 +132,7 @@ class MiyakoClient extends Client {
 
   onReady() {
     this.ready = true
-    if (this.shard.ids[0] === 0) this.console.log(`Logged in as ${this.user.tag}`)
+    if (this.shard.ids[0] === 0) this.logger.success(`Logged in as ${this.user.tag}`)
     // Initiates the manager and connects to all the nodes
     this.manager.init(this.user.id)
     this.emit('miyakoReady')
@@ -190,12 +191,12 @@ class MiyakoClient extends Client {
     // Load pieces.
     const [commands, events] = await Promise.all([this.commands.loadFiles(), this.events.loadFiles()])
     if (this.shard.ids[0] === 0) {
-      this.console.log(`Loaded ${commands} commands.`)
-      this.console.log(`Loaded ${events} events.`)
+      this.logger.success(`Loaded ${commands} commands.`)
+      this.logger.success(`Loaded ${events} events.`)
     }
     // Connect database.
     this.dbconn = await this.db.connect()
-    if (this.shard.ids[0] === 0) this.console.log('Connected to PostgreSQL')
+    if (this.shard.ids[0] === 0) this.logger.success('Connected to PostgreSQL')
 
     // Initialize schema.
     await loadSchema(this.db)
@@ -203,7 +204,7 @@ class MiyakoClient extends Client {
     // Initialize settings.
     for (const [name, settings] of Object.entries(this.settings)) {
       await settings.init()
-      if (this.shard.ids[0] === 0) this.console.log(`Loaded ${settings.cache.size} ${name}`)
+      if (this.shard.ids[0] === 0) this.logger.success(`Loaded ${settings.cache.size} ${name}`)
     }
 
     if (this.shard.ids[0] === 0) this.BotAPI.run()

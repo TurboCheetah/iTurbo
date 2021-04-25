@@ -4,7 +4,7 @@ class CommandError extends Event {
   async run(ctx, err) {
     // Allow `throw "Error message"` to rewind stack and reply from nested calls from a command.
     if (typeof err === 'string') return ctx.reply(err)
-    console.log(`[COMMAND] ${ctx.command.name}: ${err.stack || err}`)
+    this.client.logger.error(`[COMMAND] ${ctx.command.name}: ${err.stack || err}`)
     if (this.client.sentry) {
       this.client.sentry.setContext('info', {
         user: `${ctx.author.tag} (${ctx.author.id})`,

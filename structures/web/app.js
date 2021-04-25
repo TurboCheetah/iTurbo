@@ -83,7 +83,7 @@ module.exports = client => {
 
   app.listen(port, () => {
     /* eslint-disable no-console */
-    console.log(`Loaded webserver at ${url}`)
+    client.logger.success(`Loaded webserver at ${url}`)
     /* eslint-enable no-console */
   })
 }

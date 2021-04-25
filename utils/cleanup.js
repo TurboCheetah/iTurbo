@@ -67,7 +67,7 @@ class MemorySweeper {
     }
 
     // Emit a log.
-    console.log(`\x1b[36m[CACHE CLEANUP]\x1b[0m ${this.setColor(presences)} [Presence]s | ${this.setColor(guildMembers)} [GuildMember]s | ${this.setColor(voiceStates)} [VoiceState]s | ${this.setColor(users)} [User]s | ${this.setColor(emojis)} [Emoji]s | ${this.setColor(lastMessages)} [Last Message]s.`)
+    this.client.logger.warn(`\x1b[36m[CACHE CLEANUP]\x1b[0m ${this.setColor(presences)} [Presence]s | ${this.setColor(guildMembers)} [GuildMember]s | ${this.setColor(voiceStates)} [VoiceState]s | ${this.setColor(users)} [User]s | ${this.setColor(emojis)} [Emoji]s | ${this.setColor(lastMessages)} [Last Message]s.`)
 
     return this.client.shard.broadcastEval(`
       const channel = this.channels.cache.get('735636902102827108')
