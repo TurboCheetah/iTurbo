@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/TurboCheetah/iTurbo/compare/v2.0.5...v2.1.0) (2021-04-25)
+
+
+### Features
+
+* use new logger ([3d95ef9](https://github.com/TurboCheetah/iTurbo/commit/3d95ef9926a409316757238bdcd12717779643df))
+
 ### [2.0.5](https://github.com/TurboCheetah/iTurbo/compare/v2.0.4...v2.0.5) (2021-03-24)
 
 
