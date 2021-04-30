@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/TurboCheetah/iTurbo/compare/v2.1.0...v2.2.0) (2021-04-30)
+
+
+### Features
+
+* create clickable progress bar ([73c64c6](https://github.com/TurboCheetah/iTurbo/commit/73c64c6ed6a94ece0b711d5feb831f9efd986553))
+* use new logger in spawner ([97db76a](https://github.com/TurboCheetah/iTurbo/commit/97db76a90053c8770b7b8fd1050025508b2fa880))
+
 ## [2.1.0](https://github.com/TurboCheetah/iTurbo/compare/v2.0.5...v2.1.0) (2021-04-25)
 
 
