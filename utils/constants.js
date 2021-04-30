@@ -7,7 +7,8 @@ module.exports = {
     error: '<:error:779886874533560320>',
     success: '<:success:779886882917449728>',
     add: '<:add:779886892102451290>',
-    loading: '<a:loading:799475466640949268>'
+    loading: '<a:loading:799475466640949268>',
+    dance: '<a:dance:837762664394260484>'
   },
   reactions: {
     error: ':error:779886874533560320',

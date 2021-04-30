@@ -1,6 +1,5 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
-const createBar = require('string-progressbar')
 
 class NowPlaying extends Command {
   constructor(...args) {
@@ -23,6 +22,8 @@ class NowPlaying extends Command {
     }
 
     if (!song) {
+      const url = player.queue.current.uri.startsWith('https://youtube.com/watch?v=') || player.queue.current.uri.startsWith('https://www.youtube.com/watch?v=') ? `${player.queue.current.uri}&t=${(this.client.manager.players.get(ctx.guild.id).position / 1000).toFixed()}s` : player.queue.current.uri
+
       const embed = new MessageEmbed()
         .setColor(0x9590ee)
         .setAuthor('🎵 Now Playing')
@@ -31,7 +32,7 @@ class NowPlaying extends Command {
         .setThumbnail(player.queue.current.displayThumbnail('maxresdefault'))
         .addField('Requested by', player.queue.current.requester, true)
         .addField('Queue', `${player.queue.totalSize === 1 ? '1 song' : `${player.queue.totalSize} songs`} - ${this.client.utils.formatDuration(player.queue.duration)}`, true)
-        .addField('Duration', `${player.queue.current.isStream ? '🔴 Live' : `\`${this.client.utils.formatDuration(player.position > 0 ? player.position : 1)}\` [${createBar(player.queue.current.duration, Math.floor(player.position > 0 ? player.position : 1), 15, '▬', '⬤')[0]}] \`${this.client.utils.formatDuration(player.queue.current.duration)}\``}`, false)
+        .addField('Duration', `${player.queue.current.isStream ? '🔴 Live' : `[${this.client.utils.createBar(player.queue.current.duration, Math.floor(player.position > 0 ? player.position : 1), 15, '▬', this.client.constants.emojis.dance, url)[0]}] **${this.client.utils.formatDuration(player.position > 0 ? player.position : 1)}/${this.client.utils.formatDuration(player.queue.current.duration)}**`}`, false)
       return ctx.reply({ embed })
     }
 

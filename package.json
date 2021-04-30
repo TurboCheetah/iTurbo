@@ -59,7 +59,6 @@
     "node-osu": "^2.2.1",
     "pg": "^8.0.3",
     "pornsearch": "^2.4.3",
-    "string-progressbar": "^1.0.1",
     "yahoo-stock-api": "^1.0.5"
   },
   "devDependencies": {
