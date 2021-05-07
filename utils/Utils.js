@@ -157,7 +157,7 @@ class Utils {
       const percentage = current / total
       const progress = Math.round((size * percentage))
       const emptyProgress = size - progress
-      const progressText = `[${line.repeat(progress).replace(/.$/, slider)}](${url})`
+      const progressText = `[${line.repeat(progress).replace(/.$/, slider)}](${url} '${this.formatDuration(current)}')`
       const emptyProgressText = line.repeat(emptyProgress)
       const bar = progressText + emptyProgressText
       const calculated = percentage * 100
