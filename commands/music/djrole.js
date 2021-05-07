@@ -47,7 +47,7 @@ class DJRole extends Command {
   }
 
   async current(ctx, args) {
-    const role = ctx.guild.settings.djRole ? ctx.guild.roles.cache.find(r => r.id === ctx.guild.settings.djRole) : '`Disabled`'
+    const role = ctx.guild.settings.djRole ? ctx.guild.roles.cache.find(r => r.id === ctx.guild.settings.djRole) : 'Disabled'
     return ctx.msgEmbed(`The current DJ role in ${ctx.guild.name} is ${role}`)
   }
 }
