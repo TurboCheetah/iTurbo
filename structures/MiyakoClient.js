@@ -40,7 +40,17 @@ class MiyakoClient extends Client {
       messageSweepInterval: 60,
       restSweepInterval: 30,
       partials: [Constants.PartialTypes.GUILD_MEMBER, Constants.PartialTypes.REACTION, Constants.PartialTypes.MESSAGE, Constants.PartialTypes.CHANNEL, Constants.PartialTypes.USER],
-      intents: Intents.FLAGS.GUILDS | Intents.FLAGS.GUILD_MEMBERS | Intents.FLAGS.GUILD_PRESENCES | Intents.FLAGS.GUILD_VOICE_STATES | Intents.FLAGS.GUILD_BANS | Intents.FLAGS.GUILD_INVITES | Intents.FLAGS.GUILD_MESSAGES | Intents.FLAGS.GUILD_MESSAGE_REACTIONS | Intents.FLAGS.GUILD_WEBHOOKS | Intents.FLAGS.DIRECT_MESSAGES | Intents.FLAGS.GUILD_VOICE_STATES,
+      intents: Intents.FLAGS.GUILDS |
+      // Intents.FLAGS.GUILD_MEMBERS |
+      // Intents.FLAGS.GUILD_PRESENCES |
+      Intents.FLAGS.GUILD_VOICE_STATES |
+      Intents.FLAGS.GUILD_BANS |
+      Intents.FLAGS.GUILD_INVITES |
+      Intents.FLAGS.GUILD_MESSAGES |
+      Intents.FLAGS.GUILD_MESSAGE_REACTIONS |
+      Intents.FLAGS.GUILD_WEBHOOKS |
+      Intents.FLAGS.DIRECT_MESSAGES |
+      Intents.FLAGS.GUILD_VOICE_STATES,
       presence: {
         status: 'idle',
         activities: [{ name: 'things load...', type: 'WATCHING' }]
