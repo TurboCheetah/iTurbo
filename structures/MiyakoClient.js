@@ -1,4 +1,4 @@
-const { Client, version } = require('discord.js')
+const { Client, Intents, Constants, version } = require('discord.js')
 const { version: pkgVersion } = require('../package.json')
 const CommandStore = require('./CommandStore.js')
 const EventStore = require('./EventStore.js')
@@ -26,9 +26,25 @@ class MiyakoClient extends Client {
     super({
       fetchAllMembers: false,
       disableMentions: 'everyone',
-      messageCacheMaxSize: 100,
-      messageCacheLifetime: 240,
-      messageSweepInterval: 300
+      // messageCacheMaxSize: 100,
+      // messageCacheLifetime: 240,
+      // messageSweepInterval: 300,
+      allowedMentions: {
+        parse: [],
+        users: [],
+        roles: [],
+        repliedUser: false
+      },
+      messageCacheMaxSize: 30,
+      messageCacheLifetime: 150,
+      messageSweepInterval: 60,
+      restSweepInterval: 30,
+      partials: [Constants.PartialTypes.GUILD_MEMBER, Constants.PartialTypes.REACTION, Constants.PartialTypes.MESSAGE, Constants.PartialTypes.CHANNEL, Constants.PartialTypes.USER],
+      intents: Intents.FLAGS.GUILDS | Intents.FLAGS.GUILD_MEMBERS | Intents.FLAGS.GUILD_PRESENCES | Intents.FLAGS.GUILD_VOICE_STATES | Intents.FLAGS.GUILD_BANS | Intents.FLAGS.GUILD_INVITES | Intents.FLAGS.GUILD_MESSAGES | Intents.FLAGS.GUILD_MESSAGE_REACTIONS | Intents.FLAGS.GUILD_WEBHOOKS | Intents.FLAGS.DIRECT_MESSAGES | Intents.FLAGS.GUILD_VOICE_STATES,
+      presence: {
+        status: 'idle',
+        activities: [{ name: 'things load...', type: 'WATCHING' }]
+      }
     })
 
     this.dev = dev || false
@@ -158,8 +174,16 @@ class MiyakoClient extends Client {
 
   async rollPresence() {
     const { message, type } = this.utils.random(presences)
-    // eslint-disable-next-line prettier/prettier
-    return this.user.setActivity(message.replace(/{{guilds}}/g, (await this.shard.fetchClientValues('guilds.cache.size')).reduce((acc, guildCount) => acc + guildCount, 0)), { type }).catch(() => null)
+    return this.user.setPresence({
+      activities: [
+        {
+          // eslint-disable-next-line prettier/prettier
+          name: message.replace(/{{guilds}}/g, (await this.shard.fetchClientValues('guilds.cache.size')).reduce((acc, guildCount) => acc + guildCount, 0)),
+          type: type
+        }
+      ],
+      status: 'online'
+    })
   }
 
   /**

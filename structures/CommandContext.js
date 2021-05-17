@@ -44,7 +44,7 @@ class CommandContext {
   }
 
   reply(...args) {
-    return this.channel.send(...args)
+    return this.message.reply(...args)
   }
 
   success() {
