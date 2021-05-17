@@ -44,7 +44,7 @@ class CommandContext {
   }
 
   reply(...args) {
-    return this.message.reply(...args)
+    return this.message.reply(...args, { failIfNotExists: false })
   }
 
   success() {
