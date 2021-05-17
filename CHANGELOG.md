@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/TurboCheetah/iTurbo/compare/v2.2.0...v2.2.1) (2021-05-17)
+
+
+### Features
+
+* add prettier config ([c9c905b](https://github.com/TurboCheetah/iTurbo/commit/c9c905b74c6ade3951804858336888da24894e94))
+* add timestamp in progress bar ([f7f010b](https://github.com/TurboCheetah/iTurbo/commit/f7f010ba17692ad31153806060bf4a4285e07926))
+* cleaner crypto embed ([1e88725](https://github.com/TurboCheetah/iTurbo/commit/1e88725012074d918d77637543a039241479e1df))
+* switch to d.js master for inline replies ([e3fd9bf](https://github.com/TurboCheetah/iTurbo/commit/e3fd9bf8c93c394b2c4a4f2fbf1d99b50ffcf485))
+
+
+### Bug Fixes
+
+* eslint ([2c6b818](https://github.com/TurboCheetah/iTurbo/commit/2c6b818d4a8d3d477489973641e920310d2f3122))
+* remove unneccesary arrow function ([8e997f2](https://github.com/TurboCheetah/iTurbo/commit/8e997f292cde334be66bbbb124af1271737fc0b1))
+* typo ([7296177](https://github.com/TurboCheetah/iTurbo/commit/72961776217bf3ce208e8a6e25a2d5340144ddb0))
+
 ## [2.2.0](https://github.com/TurboCheetah/iTurbo/compare/v2.1.0...v2.2.0) (2021-04-30)
 
 
