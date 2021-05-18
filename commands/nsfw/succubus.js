@@ -21,7 +21,7 @@ class Succubus extends Command {
     args = args.join('-').toString().split('-')[0]
 
     const hentailist = async id => {
-      const data = await c(`https://succubus.space/hentai/${encodeURIComponent(id)}`).json()
+      const data = await c(`https://api.succubus.space/hentai/${encodeURIComponent(id)}`).json()
 
       if (!data || data.invalid === true) return ctx.reply('No results found.')
 
