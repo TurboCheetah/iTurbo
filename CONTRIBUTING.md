@@ -1,5 +1,5 @@
-# Contributing to Miyako
-Miyako is all open-source and is always open for contributions so feel free to send in pull requests anytime.
+# Contributing to iTurbo
+iTurbo is all open-source and is always open for contributions so feel free to send in pull requests anytime.
 
 ## Understanding the code.
 This guide will guide you through the code and help better understand the structure of the code.
@@ -39,8 +39,20 @@ Run takes arguments depending on the event. Event name is taken from filename if
 
 Events are reloadable.
 
-## Commands.
-TODO
+## Creating commands
+```js
+const Command = require('../../structures/Command.js')
+
+class MyCommand extends Command {
+  constructor(...args) {
+    super(...args, {
+      description: 'A very cool command!',
+    })
+  }
+
+  async run(ctx) {}
+}
+```
 
 ## Comments
 It is encouraged to add some comments and have some space between lines to keep the code readable, for example:
