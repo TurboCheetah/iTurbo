@@ -3,12 +3,12 @@ const { MessageEmbed } = require('discord.js')
 const cheerio = require('cheerio')
 const c = require('@aero/centra')
 
-class HentaiList extends Command {
+class Succubus extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Search for hentai on HentaiList',
-      usage: 'hentailist <hentai>',
-      aliases: ['hl', 'hlist'],
+      description: 'Search for hentai on Succubus.Space',
+      usage: 'succubus <hentai>',
+      aliases: ['succ', 'ss', 'hl', 'hlist'],
       cooldown: 5,
       cost: 5,
       nsfw: true,
@@ -21,7 +21,7 @@ class HentaiList extends Command {
     args = args.join('-').toString().split('-')[0]
 
     const hentailist = async id => {
-      const data = await c(`http://45.61.147.38:4445/api/hentai/${encodeURIComponent(id)}`).json()
+      const data = await c(`https://succubus.space/hentai/${encodeURIComponent(id)}`).json()
 
       if (!data || data.invalid === true) return ctx.reply('No results found.')
 
@@ -54,7 +54,7 @@ class HentaiList extends Command {
         .addField('Likes', data.likes, true)
         .addField('Interests', data.interests, true)
         .addField('Tags', `\`\`\`${tags.join(', ')}\`\`\``)
-        .setFooter(`ID: ${data.id} | Powered by HentaiList.io`, ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
+        .setFooter(`ID: ${data.id} | Powered by Succubus.Space`, ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
 
       return ctx.reply({ embed })
     }
@@ -82,4 +82,4 @@ class HentaiList extends Command {
   }
 }
 
-module.exports = HentaiList
+module.exports = Succubus
