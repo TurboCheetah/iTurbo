@@ -30,7 +30,7 @@
     "@aero/centra": "^1.0.6",
     "@discordjs/opus": "^0.3.3",
     "@ksoft/api": "^3.1.9",
-    "@pm2/io": "^4.3.5",
+    "@pm2/io": "^5.0.0",
     "@sentry/node": "^5.29.2",
     "@sentry/tracing": "^5.29.2",
     "abort-controller": "^3.0.0",
