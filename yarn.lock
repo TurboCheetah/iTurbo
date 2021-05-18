@@ -1640,8 +1640,9 @@ discord-giveaways@^4.2.1:
     deepmerge "^4.2.2"
 
 discord-paginationembed@gazmull/discord-paginationembed:
-  version "2.0.0"
-  resolved "https://codeload.github.com/gazmull/discord-paginationembed/tar.gz/bcf150b9207c3885884f181d343a592bf9247db2"
+  version "2.1.0"
+  uid "4ef3476d4c34d9c4bfe6233095515577203e4fce"
+  resolved "https://codeload.github.com/gazmull/discord-paginationembed/tar.gz/4ef3476d4c34d9c4bfe6233095515577203e4fce"
 
 discord.js@discordjs/discord.js:
   version "12.5.0"
