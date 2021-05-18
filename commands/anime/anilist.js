@@ -103,10 +103,10 @@ class Anilist extends Command {
       const response = await ctx.message.awaitReply('', filter, 60000, embed)
       if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
 
-      if (response.toLowerCase()) {
+      if (response.toLowerCase() && response.toLowerCase() !== 'cancel') {
         const page = this.verifyInt(1, 1)
         return await this.getData(ctx, response, page)
-      } else if (response.toLowerCase() === 'cancel') {
+      } else {
         return ctx.reply('Operation cancelled.')
       }
     }
