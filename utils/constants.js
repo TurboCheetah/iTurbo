@@ -4,6 +4,7 @@ module.exports = {
   premiumRole: '615930972797534216',
   color: 0x9590ee,
   success: 0x36ed82,
+  error: 0xed3636,
   emojis: {
     error: '<:error:779886874533560320>',
     success: '<:success:779886882917449728>',

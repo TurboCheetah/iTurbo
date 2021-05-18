@@ -2,9 +2,7 @@ const { promisify } = require('util')
 
 const suffixes = ['Bytes', 'KB', 'MB', 'GB']
 
-const {
-  promises: { lstat, readdir }
-} = require('fs')
+const { promises: { lstat, readdir } } = require('fs')
 const path = require('path')
 const c = require('@aero/centra')
 
@@ -163,6 +161,27 @@ class Utils {
       const calculated = percentage * 100
       return [bar, calculated]
     }
+  }
+
+  /**
+ * Verify if the input is a function.
+ * @since 0.5.0
+ * @param {*} input The function to verify
+ * @returns {boolean}
+ */
+  static isFunction(input) {
+    return typeof input === 'function'
+  }
+
+  /**
+ * Verify if an object is a promise.
+ * @since 0.5.0
+ * @param {*} input The promise to verify
+ * @returns {boolean}
+ */
+  static isThenable(input) {
+    if (!input) return false
+    return input instanceof Promise || (input !== Promise.prototype && this.isFunction(input.then) && this.isFunction(input.catch))
   }
 }
 
