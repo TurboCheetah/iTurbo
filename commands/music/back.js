@@ -15,8 +15,8 @@ class Back extends Command {
     })
   }
 
-  async run(ctx, args) {
-this.client.utils.isDJ(ctx)
+  async run(ctx) {
+    this.client.utils.isDJ(ctx)
 
     const channel = ctx.member.voice.channel
     let player = this.client.manager.players.get(ctx.guild.id)
