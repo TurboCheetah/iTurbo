@@ -91,11 +91,11 @@ class Help extends Command {
         .setURL(`https://docs.iturbo.cc/commands/${cmd.category.toLowerCase()}#${cmd.name}`)
         .setColor(0x9590ee)
         .setFooter(`Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'}`)
-      if (Object.keys(cmdArgs).length) examplesEmbed.addField('Arguments', cmdArgs.join('\n'))
-      if (Object.keys(cmdExamples).length) examplesEmbed.addField('Examples', cmdExamples.join('\n'))
+      if (cmdArgs.length) examplesEmbed.addField('Arguments', cmdArgs.join('\n'))
+      if (cmdExamples.length) examplesEmbed.addField('Examples', cmdExamples.join('\n'))
 
       const embeds = [embed, examplesEmbed]
-      if (!Object.keys(cmdExamples).length) return ctx.reply({ embed })
+      if (!cmdArgs.length && !cmdExamples.length) return ctx.reply({ embed })
 
       const Pagination = new Embeds()
         .setArray(embeds)
