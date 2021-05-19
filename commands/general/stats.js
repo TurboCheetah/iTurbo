@@ -1,7 +1,6 @@
 const Command = require('../../structures/Command.js')
 const { MessageEmbed } = require('discord.js')
 const { hostname, totalmem, cpus, loadavg } = require('os')
-const io = require('@pm2/io')
 
 class Stats extends Command {
   constructor(...args) {
@@ -16,30 +15,11 @@ class Stats extends Command {
     // eslint-disable-line no-unused-vars
     const { client } = this // Avoid typing a lot of 'this'
 
-    // Import PM2 package to take custom metrics
-    const commandsRan = io.metric({
-      name: 'Commands Ran',
-      id: 'commandsRan'
-    })
-
-    const ran = (await this.client.shard.fetchClientValues('commands.ran')).reduce((acc, ran) => acc + ran, 0)
-    commandsRan.set(ran)
+    // const ran = (await this.client.shard.fetchClientValues('commands.ran')).reduce((acc, ran) => acc + ran, 0)
 
     const guilds = (await this.client.shard.fetchClientValues('guilds.cache.size')).reduce((acc, guildCount) => acc + guildCount, 0)
-    const totalGuilds = io.metric({
-      name: 'Guilds',
-      id: 'totalGuilds'
-    })
-
-    totalGuilds.set(guilds)
 
     const users = (await this.client.shard.broadcastEval('this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)')).reduce((acc, memberCount) => acc + memberCount, 0)
-    const totalUsers = io.metric({
-      name: 'Users',
-      id: 'totalUsers'
-    })
-
-    totalUsers.set(users)
 
     const seconds = Math.floor(client.uptime / 1000) % 60
     const minutes = Math.floor((client.uptime / (1000 * 60)) % 60)

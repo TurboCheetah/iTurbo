@@ -1,7 +1,6 @@
 const Event = require('../structures/Event.js')
 const CommandContext = require('../structures/CommandContext.js')
 const { Collection, Permissions } = require('discord.js')
-const io = require('@pm2/io')
 
 // Taken from klasa https://github.com/dirigeants/klasa
 const quotes = ['"', "'", '“”', '‘’']
@@ -174,14 +173,6 @@ class MessageEvent extends Event {
 
     // Increment the counter.
     this.client.commands.ran++
-
-    // Import PM2 package to take custom metrics
-    const commandsRan = io.metric({
-      name: 'Commands Ran',
-      id: 'commandsRan'
-    })
-
-    commandsRan.set(this.client.commands.ran)
 
     // Start typing and run the command and then stop typing.
     // msg.channel.startTyping();
