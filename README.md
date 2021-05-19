@@ -7,7 +7,7 @@
     <a href="https://iturbo.cc/invite"> <img src="https://discordapp.com/api/guilds/183336666323353600/embed.png" alt="Discord server" /> </a>
   </p>
   <p>
-    <a href="https://github.com/TurboCheetah/iTurbo/actions"> <img src="https://github.com/TurboCheetah/iTurbo/workflows/Test/badge.svg" alt="Test status" /> </a>
+    <a href="https://github.com/TurboCheetah/iTurbo/actions"> <img src="https://github.com/TurboCheetah/iTurbo/actions/workflows/main.yml/badge.svg" alt="Test status" /> </a>
     <a href="https://www.codefactor.io/repository/github/TurboCheetah/iTurbo"><img src="https://www.codefactor.io/repository/github/TurboCheetah/iTurbo/badge" alt="CodeFactor" /></a>
     <a href="https://david-dm.org/"><img src="https://img.shields.io/david/TurboCheetah/iTurbo.svg?maxAge=3600" alt="Dependencies" /></a>
   </p>
