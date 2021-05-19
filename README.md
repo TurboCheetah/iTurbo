@@ -4,7 +4,6 @@
     <a href="https://iturbo.cc"> <img src="https://i.imgur.com/PmZlnHw.png" width="20%" alt="iTurbo" /> </a>
   </p>
   <p>
-    <a href="https://github.com/TurboCheetah/iTurbo/releases"> <img src="https://img.shields.io/github/release/TurboCheetah/iTurbo.svg?style=flat" alt="Release" /> </a>
     <a href="https://iturbo.cc/invite"> <img src="https://discordapp.com/api/guilds/183336666323353600/embed.png" alt="Discord server" /> </a>
   </p>
   <p>
