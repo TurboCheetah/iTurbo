@@ -7,11 +7,11 @@ services:
         image: iturbo-discord
         container_name: iTurbo-bot
         restart: always
-        depends_on: 
+        depends_on:
           - iturbo-db
           - iturbo-img-api
           - iturbo-lavalink
-        ports: 
+        ports:
           - '5000:5000'
         networks:
           - bot
@@ -19,14 +19,12 @@ services:
         image: "postgres"
         container_name: iTurbo-db
         restart: always
-        environment: 
+        environment:
           - POSTGRES_USER=turbo
           - POSTGRES_PASSWORD=turbodb
           - POSTGRES_DB=miyako
         volumes:
           - ./db:/var/lib/postgresql/data
-        # ports: 
-        #   - '5432:5432'
         networks:
           - bot
     iturbo-img-api:
@@ -36,7 +34,7 @@ services:
         ports:
           - '3030:3030'
         networks:
-          - bot 
+          - bot
     iturbo-lavalink:
         image: 'fredboat/lavalink:dev'
         container_name: iTurbo-lavalink
@@ -46,6 +44,6 @@ services:
         volumes:
           - ./application.yml:/opt/Lavalink/application.yml
         networks:
-          - bot 
+          - bot
 networks:
   bot:
