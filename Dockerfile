@@ -1,4 +1,4 @@
-FROM node:16.1.0-alpine
+FROM node:14.9.0-alpine
 
 WORKDIR /iTurbo
 COPY package.json yarn.lock ./
