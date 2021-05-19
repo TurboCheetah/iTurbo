@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 
 class Remove extends Command {
   constructor(...args) {

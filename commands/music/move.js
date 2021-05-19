@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 
 class Move extends Command {
   constructor(...args) {

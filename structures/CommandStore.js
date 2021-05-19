@@ -1,4 +1,4 @@
-const Store = require('./Store.js')
+const Store = require('./Store')
 const { Collection } = require('discord.js')
 
 class CommandStore extends Store {

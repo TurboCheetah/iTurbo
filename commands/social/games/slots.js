@@ -1,6 +1,6 @@
-const Command = require('../../../structures/Command.js')
+const Command = require('#structures/Command')
 const { MessageEmbed } = require('discord.js')
-const slots = require('../../../utils/slots.js')
+const slots = require('#utils/slots')
 
 class Slots extends Command {
   constructor(...args) {

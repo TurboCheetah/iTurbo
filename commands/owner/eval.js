@@ -6,11 +6,11 @@
  * Credit example: Copyright (c) 2019 dirigeants, MIT License
  */
 
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const { inspect } = require('util')
 const c = require('@aero/centra')
 const { MessageEmbed } = require('discord.js')
-const Stopwatch = require('../../utils/Stopwatch.js')
+const Stopwatch = require('#utils/Stopwatch')
 
 class Eval extends Command {
   constructor(...args) {

@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const { MessageAttachment } = require('discord.js')
 
 class Bed extends Command {

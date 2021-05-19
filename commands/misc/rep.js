@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 
 class Reputation extends Command {
   constructor(...args) {

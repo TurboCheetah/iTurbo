@@ -1,4 +1,4 @@
-const Event = require('../structures/Event.js')
+const Event = require('#structures/Event')
 const levenshtein = require('fast-levenshtein')
 
 class CommandUnknown extends Event {

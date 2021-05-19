@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const yahooStockAPI = require('yahoo-stock-api')
 const { MessageEmbed } = require('discord.js')
 

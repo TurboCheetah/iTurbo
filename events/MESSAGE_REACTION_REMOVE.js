@@ -1,4 +1,4 @@
-const Event = require('../structures/Event.js')
+const Event = require('#structures/Event')
 const { MessageEmbed } = require('discord.js')
 
 class RawMessageReactionRemove extends Event {

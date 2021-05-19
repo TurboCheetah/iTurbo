@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const c = require('@aero/centra')
 const cheerio = require('cheerio')
 

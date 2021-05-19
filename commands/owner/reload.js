@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 
 class Reload extends Command {
   constructor(...args) {

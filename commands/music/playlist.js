@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const { MessageEmbed } = require('discord.js')
 const { FieldsEmbed } = require('discord-paginationembed')
 const { TrackUtils } = require('erela.js')

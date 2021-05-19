@@ -1,4 +1,4 @@
-const Event = require('../structures/Event.js')
+const Event = require('#structures/Event')
 
 class RoleDelete extends Event {
   async run(role) {

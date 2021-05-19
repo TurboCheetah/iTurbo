@@ -1,5 +1,5 @@
-const Event = require('../structures/Event.js')
-const CommandContext = require('../structures/CommandContext.js')
+const Event = require('#structures/Event')
+const CommandContext = require('#structures/CommandContext')
 const { Collection, Permissions } = require('discord.js')
 
 // Taken from klasa https://github.com/dirigeants/klasa

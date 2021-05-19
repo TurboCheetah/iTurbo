@@ -10,16 +10,16 @@
 require('module-alias/register')
 
 // Load discord.js extensions.
-require('./extensions/GuildMember.js')
-require('./extensions/TextChannel.js')
-require('./extensions/DMChannel.js')
-require('./extensions/Message.js')
-require('./extensions/Guild.js')
-require('./extensions/User.js')
-require('./extensions/Player.js')
+require('#extensions/GuildMember')
+require('#extensions/TextChannel')
+require('#extensions/DMChannel')
+require('#extensions/Message')
+require('#extensions/Guild')
+require('#extensions/User')
+require('#extensions/Player')
 
 // Import the Client.
-const MiyakoClient = require('./structures/MiyakoClient.js')
+const MiyakoClient = require('#structures/MiyakoClient')
 
 // Login. (And start in development mode if --dev is passed)
 new MiyakoClient(process.argv.includes('--dev') || process.env.NODE_ENV === 'dev').login()

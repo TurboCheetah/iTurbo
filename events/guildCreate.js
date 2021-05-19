@@ -1,4 +1,4 @@
-const Event = require('../structures/Event.js')
+const Event = require('#structures/Event')
 // eslint-disable-next-line no-unused-vars
 const { MessageEmbed } = require('discord.js')
 

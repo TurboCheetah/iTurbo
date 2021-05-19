@@ -1,5 +1,5 @@
-const Command = require('../../structures/Command.js')
-const Store = require('../../structures/Store.js')
+const Command = require('#structures/Command')
+const Store = require('#structures/Store')
 
 class Load extends Command {
   constructor(...args) {

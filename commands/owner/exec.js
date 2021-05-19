@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const exec = require('util').promisify(require('child_process').exec)
 
 class Exec extends Command {

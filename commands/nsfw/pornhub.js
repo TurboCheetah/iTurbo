@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const pornsearch = require('pornsearch')
 const { MessageEmbed } = require('discord.js')
 

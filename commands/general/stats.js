@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const { MessageEmbed } = require('discord.js')
 const { hostname, totalmem, cpus, loadavg } = require('os')
 

@@ -1,4 +1,4 @@
-const Event = require('../structures/Event.js')
+const Event = require('#structures/Event')
 
 class GuildMemberAdd extends Event {
   async run(member) {

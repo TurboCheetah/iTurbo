@@ -1,7 +1,7 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const { MessageEmbed } = require('discord.js')
 const booru = require('booru')
-const { shorten } = require('../../utils/Utils.js')
+const { shorten } = require('#utils/Utils')
 
 class Rule34 extends Command {
   constructor(...args) {

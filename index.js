@@ -1,6 +1,7 @@
+require('module-alias/register')
 const { ShardingManager } = require('discord.js')
 const { devtoken, token } = require('./config.json')
-const Logger = require('./structures/Logger')
+const Logger = require('#structures/Logger')
 
 const logger = new Logger()
 

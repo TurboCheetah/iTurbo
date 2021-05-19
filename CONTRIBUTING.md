@@ -20,7 +20,7 @@ File structure
 
 ## Creating events
 ```js
-const Event = require("../structures/Event.js");
+const Event = require("#structures/Event");
 
 class MyEvent extends Event {
   constructor(...args) {
@@ -41,7 +41,7 @@ Events are reloadable.
 
 ## Creating commands
 ```js
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 
 class MyCommand extends Command {
   constructor(...args) {

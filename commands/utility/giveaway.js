@@ -1,4 +1,4 @@
-const Command = require('../../structures/Command.js')
+const Command = require('#structures/Command')
 const ms = require('ms')
 
 class Giveaway extends Command {
