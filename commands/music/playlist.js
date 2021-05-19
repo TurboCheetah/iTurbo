@@ -50,13 +50,6 @@ class Playlist extends Command {
     return true
   }
 
-  isDJ(ctx) {
-    const djRole = ctx.guild.settings.djRole
-
-    if (djRole && !ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.emojis.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
-    return true
-  }
-
   async handlePlaylist(ctx, args, spotify = false) {
     if (!args) return null
     if ((await this.isURL(args)) === true) {
@@ -308,7 +301,7 @@ class Playlist extends Command {
   }
 
   async play(ctx, args) {
-    this.isDJ(ctx)
+    this.client.utils.isDJ(ctx)
 
     if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.emojis.error} You don't have any playlist yet!`)
 
@@ -363,7 +356,7 @@ class Playlist extends Command {
   }
 
   async shuffle(ctx, args) {
-    this.isDJ(ctx)
+    this.client.utils.isDJ(ctx)
 
     if (!ctx.author.settings.playlist) return ctx.reply(`${this.client.constants.emojis.error} You don't have any playlist yet!`)
 

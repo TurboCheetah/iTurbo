@@ -183,6 +183,18 @@ class Utils {
     if (!input) return false
     return input instanceof Promise || (input !== Promise.prototype && this.isFunction(input.then) && this.isFunction(input.catch))
   }
+
+  /**
+ * Verify if a user is a DJ.
+ * @param {*} ctx The command context
+ * @returns {boolean}
+ */
+  static isDJ(ctx) {
+    const djRole = ctx.guild.settings.djRole
+
+    if (djRole && !ctx.member.roles.cache.has(djRole) && !ctx.member.permissions.has('MANAGE_GUILD')) return ctx.reply(`${this.client.constants.emojis.error} You are not a DJ! You need the ${ctx.guild.roles.cache.find(r => r.id === djRole)} role!`)
+    return true
+  }
 }
 
 Utils.sleep = promisify(setTimeout)
