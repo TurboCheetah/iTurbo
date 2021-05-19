@@ -71,7 +71,7 @@ class Eval extends Command {
   async run(ctx, args) {
     if (!args.length) return ctx.reply('You need to give me code to evaluate.')
 
-    const { code } = this.client.utils.getCodeBlock(ctx.rawArgs.replace(/--(async) /gi, ''))
+    const { code } = this.client.utils.getCodeBlock(ctx.rawArgs)
     const { success, result, time } = await this.eval(ctx, code)
     if (result.length < 1950) {
       const embed = new MessageEmbed()

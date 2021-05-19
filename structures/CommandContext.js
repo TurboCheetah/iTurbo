@@ -24,7 +24,7 @@ class CommandContext {
    */
   get rawArgs() {
     // Slice prefix + command name and trim the start/ending spaces.
-    return this.message.content.slice(this.prefix.length + this.invokedName.length).trim()
+    return this.parsedContent.slice(this.prefix.length + this.invokedName.length).trim()
   }
 
   get member() {
