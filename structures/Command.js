@@ -1,13 +1,14 @@
 const { Permissions } = require('discord.js')
 const path = require('path')
+const languages = require('#languages')
 
 class Command {
   constructor(client, file, options) {
     this.name = options.name || file.name // Command name.
     this.client = client // Client.
     this.file = file // file path information.
-    this.description = options.description || 'No Description Provided.'
-    this.extendedHelp = options.extendedHelp || 'No extended help provided.'
+    this.description = this.client.utils.isFunction(options.description) ? options.description(languages.english) : options.description || 'No Description Provided.'
+    this.extendedHelp = this.client.utils.isFunction(options.extendedHelp) ? options.extendedHelp(languages.english) : options.extendedHelp || 'No extended help provided.'
     this.ownerOnly = options.ownerOnly || false
     this.aliases = options.aliases || []
     this.cooldown = options.cooldown || 0
@@ -18,7 +19,7 @@ class Command {
     this.guildOnly = options.guildOnly || false
     this.hidden = options.hidden || false
     this.enabled = typeof options.enabled !== 'undefined' ? options.enabled : true
-    this.usage = options.usage || this.name
+    this.usage = this.client.utils.isFunction(options.usage) ? options.usage(languages.english) : options.usage || this.name
     this.arguments = options.arguments || {}
     this.examples = options.examples || {}
     this.botPermissions = new Permissions(options.botPermissions || []).freeze()
