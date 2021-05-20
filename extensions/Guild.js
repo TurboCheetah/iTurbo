@@ -1,4 +1,5 @@
 const { Structures } = require('discord.js')
+const languages = require('#languages')
 
 module.exports = Structures.extend(
   'Guild',
@@ -21,6 +22,10 @@ module.exports = Structures.extend(
 
       get prefix() {
         return this.settings.prefix
+      }
+
+      get language() {
+        return languages[this.settings.language || 'english'] || languages.english
       }
 
       syncSettings() {

@@ -27,6 +27,7 @@
     "#commands": "commands",
     "#events": "events",
     "#extensions": "extensions",
+    "#languages": "languages",
     "#monitors": "monitors",
     "#structures": "structures",
     "#utils": "utils"

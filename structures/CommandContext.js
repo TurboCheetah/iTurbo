@@ -43,6 +43,10 @@ class CommandContext {
     return this.message.guild
   }
 
+  get language() {
+    return this.message.language
+  }
+
   reply(...args) {
     return this.channel.send(...args)
   }
@@ -69,8 +73,20 @@ class CommandContext {
     return this.reply(res)
   }
 
-  msgEmbed(text, icon = this.author.displayAvatarURL({ size: 512, dynamic: true })) {
-    const embed = new MessageEmbed().setColor(0x9590ee).setAuthor(`| ${text}`, icon)
+  msgEmbed(text, icon = this.author.displayAvatarURL({ size: 512, dynamic: true }), color = this.client.constants.color) {
+    const embed = new MessageEmbed().setColor(color).setAuthor(`| ${text}`, icon)
+    return this.channel.send({ embed })
+  }
+
+  successMsg(author, description = null) {
+    const embed = new MessageEmbed().setColor(this.client.constants.success).setAuthor(author, this.client.constants.successImgGreen)
+    if (description) embed.setDescription(description)
+    return this.channel.send({ embed })
+  }
+
+  errorMsg(author, description = null) {
+    const embed = new MessageEmbed().setColor(this.client.constants.error).setAuthor(author, this.client.constants.errorImgRed)
+    if (description) embed.setDescription(description)
     return this.channel.send({ embed })
   }
 }

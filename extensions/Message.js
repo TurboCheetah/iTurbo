@@ -9,6 +9,10 @@ module.exports = Structures.extend(
         return { user: this.author, displayName: this.author.username }
       }
 
+      get language() {
+        return this.guild ? this.guild.language : this.author.language
+      }
+
       async awaitReply(question, filter, limit = 60000, embed, delMsg = false) {
         const q = await this.channel.send(question, embed)
 
