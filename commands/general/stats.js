@@ -28,6 +28,11 @@ class Stats extends Command {
     const uptime = [`${days} Days`, `${hours} Hours`, `${minutes} Minutes`, `${seconds} ${seconds > 1 ? 'Seconds' : 'Second'}`].filter(time => !time.startsWith('0')).join(', ')
     const total = (totalmem() / 1024 / 1024 / 1024).toFixed(0) * 1024
     const usage = (await this.client.shard.broadcastEval('(process.memoryUsage().heapUsed / 1024 / 1024)')).reduce((acc, memUsage) => acc + memUsage, 0).toFixed(2)
+    const nodes = this.client.manager.nodes.map(node => node)
+    let musicStreams = 0
+    for (const node of nodes) {
+      musicStreams += node.stats.playingPlayers
+    }
 
     const msg = await ctx.reply('Fetching stats...')
     msg.delete()
@@ -38,7 +43,7 @@ class Stats extends Command {
         .setDescription("Hi, I'm iTurbo. The all-in-one entertainment bot for your server")
         .setThumbnail(this.client.user.displayAvatarURL({ size: 512, dynamic: true }))
         .setColor(0x9590ee)
-        .addField('Bot Stats', [`Guilds: **${guilds}**`, `Users: **${users}**`, `Channels: **${(await this.client.shard.fetchClientValues('channels.cache.size')).reduce((acc, channelCount) => acc + channelCount, 0)}**`, `Shards: **${this.client.shard.count}**`, `Music Streams: **${(await this.client.shard.fetchClientValues('manager.players.size')).reduce((acc, playerCount) => acc + playerCount, 0)}**`, `Uptime: **${uptime}**`, `Ping: **${msg.createdTimestamp - ctx.message.createdTimestamp}ms (API: ${this.client.ws.ping}ms)**`].join('\n'), true)
+        .addField('Bot Stats', [`Guilds: **${guilds}**`, `Users: **${users}**`, `Channels: **${(await this.client.shard.fetchClientValues('channels.cache.size')).reduce((acc, channelCount) => acc + channelCount, 0)}**`, `Shards: **${this.client.shard.count}**`, `Music Streams: **${musicStreams}**`, `Uptime: **${uptime}**`, `Ping: **${msg.createdTimestamp - ctx.message.createdTimestamp}ms (API: ${this.client.ws.ping}ms)**`].join('\n'), true)
         .addField(this.client.constants.zws, this.client.constants.zws, true)
         // eslint-disable-next-line prettier/prettier
         .addField('Host Stats', [`Container Hostname: **${hostname}**`, `CPU Usage: **${(loadavg()[0] * 100).toFixed(1)}% (${cpus().length}c @ ${(cpus()[0].speed / 1000).toFixed(1)}GHz)**`, `Load Average: **${loadavg().map(avg => avg.toFixed(2)).join(', ')}**`, `Memory Usage: **${((usage / total) * 100).toFixed(1)}% (${usage.toLocaleString()} / ${total.toLocaleString()} MB)**`].join('\n'), true)
