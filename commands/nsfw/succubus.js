@@ -36,16 +36,7 @@ class Succubus extends Command {
         .setURL(data.url)
         .setThumbnail(data.cover_url)
         .setImage(data.poster_url)
-        .addField(
-          'Description',
-          data.description
-            ? this.client.utils.shorten(
-                data.description
-                  .replace(/(<([^>]+)>)/gi, '')
-                  .replace(/\/r/g, '')
-                  .replace(/\/n/g, '')
-              )
-            : 'No description given.'
+        .addField('Description', data.description ? this.client.utils.shorten(data.description.replace(/(<([^>]+)>)/gi, '').replace(/\/r/g, '').replace(/\/n/g, '')) : 'No description given.'
         )
         .addField('Release Date', data.released_at, true)
         .addField('Producer', data.brand, true)
