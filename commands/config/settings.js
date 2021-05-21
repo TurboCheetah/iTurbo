@@ -13,7 +13,7 @@ class Settings extends Command {
   }
 
   async run(ctx, args) {
-    if (!ctx.guild || args[0] === 'user') {
+    if (!ctx.guild || args[0] === 'user' || ctx.flags.user) {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setTitle('User settings')
@@ -41,7 +41,7 @@ class Settings extends Command {
 
     if (!ctx.guild.settings.nowplaying) embed.addField('Now Playing Notifications', 'Disabled', true)
     // eslint-disable-next-line prettier/prettier
-    if (ctx.guild.settings.social && (ctx.guild.settings.disabledChannels && ctx.guild.settings.disabledChannels.length > 0)) embed.addField('Disabled Level Up Channels', ctx.guild.settings.disabledChannels.map(channel => ctx.guild.channels.cache.find(c => c.id === channel)), false)
+    if (ctx.guild.settings.social && (ctx.guild.settings.disabledChannels && ctx.guild.settings.disabledChannels.length > 0)) embed.addFields([{ name: this.client.constants.zws, value: this.client.constants.zws, inline: true }, { name: 'Disabled Level Up Channels', value: ctx.guild.settings.disabledChannels.map(channel => ctx.guild.channels.cache.find(c => c.id === channel)), inline: true }])
     ctx.reply({ embed })
   }
 }
