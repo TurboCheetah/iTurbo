@@ -1,4 +1,5 @@
 const Command = require('#structures/Command')
+const { MessageEmbed } = require('discord.js')
 
 class Leaderboard extends Command {
   constructor(...args) {
@@ -31,17 +32,24 @@ class Leaderboard extends Command {
     const leaderboard = []
 
     const top = rows.slice(page * 10, (page + 1) * 10)
-
-    for (let i = 0; i < top.length; i++) {
+    for (let i = 0; i < rows.length; i++) {
       const u = top[i]
       const user = await this.client.users.fetch(u.id.split('.')[1])
-      leaderboard.push(`- [${(page * 10 + (i + 1)).toString().padStart(2, '0')}] ❯ ${user.tag}\n    => ¥${parseInt(u.points).toLocaleString()}`)
+      leaderboard.push(`**#${(page * 10 + (i + 1)).toString()}** ❯ ${user} - **¥${parseInt(u.points).toLocaleString()}**\n`)
     }
 
-    const pos = positions.indexOf(ctx.author.id).toString().padStart(2, '0')
-    const posTxt = pos === -1 ? '??' : (positions.indexOf(ctx.author.id) + 1).toString().padStart(2, '0')
-    leaderboard.push(`\n+ [${posTxt}] ❯ ${ctx.author.tag}\n    => ¥${parseInt(ctx.member.settings.points).toLocaleString()}`)
-    return ctx.reply(`**__${ctx.guild.name}__**'s Leaderboard (Page **${page + 1}** out of **${totalPages || 1}**)\n\`\`\`${leaderboard.join('\n')}\`\`\``)
+    const pos = positions.indexOf(ctx.author.id).toString()
+    const posTxt = pos === -1 ? '??' : (positions.indexOf(ctx.author.id) + 1).toString()
+
+    const embed = new MessageEmbed()
+      .setColor(this.client.constants.color)
+      .setTitle(ctx.language.get('leaderboardTitle', ctx.guild))
+      .setThumbnail(ctx.guild.iconURL({ size: 512, dynamic: true }))
+      .setDescription(ctx.language.get('leaderboardPosition', posTxt, parseInt(ctx.member.settings.points).toLocaleString()))
+      .addField(ctx.language.get('leaderboardText'), leaderboard.join('\n'))
+      .setFooter(ctx.language.get('page', page + 1, totalPages || 1), ctx.author.avatarURL({ size: 128, dynamic: true }))
+
+    return ctx.reply({ embed })
   }
 }
 
