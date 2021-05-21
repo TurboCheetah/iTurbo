@@ -14,7 +14,7 @@ class CatFace extends Command {
   async run(ctx) {
     const { cat } = await c('https://nekos.life/api/v2/cat').json()
 
-    return ctx.reply(cat)
+    ctx.reply(cat)
   }
 }
 

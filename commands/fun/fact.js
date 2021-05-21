@@ -13,7 +13,7 @@ class Fact extends Command {
   async run(ctx) {
     const { fact } = await c('https://nekos.life/api/v2/fact').json()
 
-    return ctx.reply(fact)
+    ctx.reply(fact)
   }
 }
 

@@ -1,27 +1,8 @@
-const Command = require('#structures/Command')
-const { MessageEmbed } = require('discord.js')
-const c = require('@aero/centra')
+const NekosLifeCommand = require('#structures/NekosLifeCommand')
 
-class Neko extends Command {
+class Neko extends NekosLifeCommand {
   constructor(...args) {
-    super(...args, {
-      description: 'Get a random Neko.',
-      cooldown: 3,
-      cost: 5,
-      botPermissions: ['EMBED_LINKS']
-    })
-  }
-
-  async run(ctx) {
-    const { url } = await c('https://nekos.life/api/v2/img/neko').json()
-
-    const embed = new MessageEmbed()
-      .setTitle('Neko')
-      .setColor(0x9590ee)
-      .setImage(url)
-      .setFooter('Powered by nekos.life', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
-
-    return ctx.reply({ embed })
+    super('neko', ...args)
   }
 }
 

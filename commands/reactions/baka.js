@@ -1,26 +1,10 @@
-const Command = require('#structures/Command')
-const { MessageEmbed } = require('discord.js')
-const c = require('@aero/centra')
+const NekosLifeCommand = require('#structures/NekosLifeCommand')
 
-class Baka extends Command {
+class Baka extends NekosLifeCommand {
   constructor(...args) {
-    super(...args, {
-      description: 'Baka baka baka!',
-      cooldown: 3,
-      cost: 5,
-      botPermissions: ['EMBED_LINKS']
+    super('baka', ...args, {
+      usage: language => language.get('COMMAND_BAKA_USAGE')
     })
-  }
-
-  async run(ctx, [member]) {
-    member = await this.verifyMember(ctx, member, true)
-
-    const { url } = await c('https://nekos.life/api/v2/img/baka').json()
-
-    const embed = new MessageEmbed().setColor(0x9590ee).setImage(url).setFooter('Powered by nekos.life')
-
-    if (member.id !== ctx.author.id) embed.setDescription(`**${member.displayName}**, you baka!`)
-    return ctx.reply({ embed })
   }
 }
 

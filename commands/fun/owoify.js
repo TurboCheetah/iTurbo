@@ -19,7 +19,7 @@ class OwOify extends Command {
 
     const { owo } = await c(`https://nekos.life/api/v2/owoify?text=${encodeURIComponent(text)}`).json()
 
-    return ctx.reply(owo)
+    ctx.reply(owo)
   }
 }
 

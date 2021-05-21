@@ -64,6 +64,44 @@ module.exports = new Language('english', 'English', {
   CATEGORY_SOCIAL: 'Social',
   CATEGORY_UTILITY: 'Utility',
 
+  // Animal Commands
+  COMMAND_LIZARD_DESCRIPTION: 'Grabs a random lizard image from nekos.life',
+  // Anime Commands
+  COMMAND_AAVATAR_DESCRIPTION: 'Get an anime avatar',
+  COMMAND_AAVATAR_EXTENDEDHELP: 'The output will be NSFW only if the channel is a NSFW channel',
+  COMMAND_NEKO_DESCRIPTION: 'Get a random Neko',
+  // Config Commands
+  // Fun Commands
+  // General Commands
+  // Image Commands
+  // Miscellaneous Commands
+  // Moderation Commands
+  // Music Commands
+  // NSFW Commands
+  // Owner Commands
+  // Programming Commands
+  // Reaction Commands
+  COMMAND_BAKA_DESCRIPTION: 'Baka baka baka!',
+  COMMAND_BAKA_USAGE: 'baka [@user]',
+  COMMAND_BAKA_RESPONSE: (_, member) => `**${member.displayName}**, you baka!`,
+  COMMAND_CUDDLE_DESCRIPTION: 'Cuddle someone',
+  COMMAND_CUDDLE_NOMENTION: 'You need to mention someone to cuddle with',
+  COMMAND_CUDDLE_SELF: "You can't cuddle yourself!",
+  COMMAND_CUDDLE_RESPONSE: (author, member) => `**${member.displayName}**, you just got cuddled by **${author.displayName}**`,
+  COMMAND_FEED_DESCRIPTION: 'Feed someone',
+  COMMAND_FEED_USAGE: 'feed <@user>',
+  COMMAND_FEED_NOMENTION: 'You need to mention someone to feed!',
+  COMMAND_FEED_SELF: "You can't feed yourself!",
+  COMMAND_FEED_RESPONSE: (author, member) => `**${member.displayName}**, you just got fed by **${author.displayName}**`,
+  COMMAND_POKE_DESCRIPTION: 'Poke someone',
+  COMMAND_POKE_USAGE: 'poke <@user>',
+  COMMAND_POKE_NOMENTION: 'You need to mention someone to poke!',
+  COMMAND_POKE_SELF: "You can't poke yourself!",
+  COMMAND_POKE_RESPONSE: (author, member) => `**${member.displayName}**, you just got poked by **${author.displayName}**`,
+  COMMAND_SMUG_DESCRIPTION: 'Someone feels a bit smug',
+  // Search Commands
+  // Social Commands
+  // Utility Commands
   COMMAND_STATS_DESCRIPTION: "Hi, I'm Miyako. The all-in-one entertainment bot for your server brought to you by my master Ravener#5796",
   COMMAND_STATS_TITLE: 'Miyako - Bot Statistics',
   COMMAND_STATS_FIELD: 'Bot Stats',
