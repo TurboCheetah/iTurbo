@@ -18,7 +18,7 @@ class WeebGreetings extends Command {
       case 'enable':
         if (!ctx.message.mentions.channels.size) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('weebgreetingsSpecify'))
         await ctx.guild.update({ weebGreetings: ctx.message.mentions.channels.first().id })
-        ctx.successMsg(ctx.language.get('success'), ctx.language.get('weebgreetingsEnabled'))
+        ctx.successMsg(ctx.language.get('success'), ctx.language.get('weebgreetingsEnabled', ctx.message.mentions.channels.first()))
         break
       case 'disable':
         await ctx.guild.update({ weebGreetings: null })
