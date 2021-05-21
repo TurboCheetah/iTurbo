@@ -73,7 +73,7 @@ class Eval extends Command {
 
     const { code } = this.client.utils.getCodeBlock(ctx.rawArgs)
     const { success, result, time } = await this.eval(ctx, code)
-    if (result.length < 1950) {
+    if (result.length < 1024) {
       const embed = new MessageEmbed()
         .setColor(success ? this.client.constants.success : this.client.constants.error)
         .setTitle(success ? 'Success' : 'Error')
