@@ -1,20 +1,8 @@
-const Command = require('#structures/Command')
-const { MessageEmbed } = require('discord.js')
+const KSoftImageCommand = require('#structures/KSoftImageCommand')
 
-class Bird extends Command {
+class Bird extends KSoftImageCommand {
   constructor(...args) {
-    super(...args, {
-      description: language => language.get('birdDescription'),
-      aliases: ['birb', 'chirp'],
-      cooldown: 3,
-      botPermissions: ['EMBED_LINKS']
-    })
-  }
-
-  async run(ctx) {
-    const { url } = await this.client.ksoft.images.random('birb', { nsfw: false })
-
-    ctx.reply(new MessageEmbed().setTitle('Random Bird').setColor(0x9590ee).setImage(url).setFooter('Powered by KSoft.Si'))
+    super({ command: 'birb' }, ...args)
   }
 }
 

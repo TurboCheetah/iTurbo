@@ -1,5 +1,6 @@
 /*
- * Authored-By: Raven (https://github.com/ravener/)
+ * Co-Authored-By: Raven (https://github.com/ravener/)
+ * Co-Authored-By: Turbo (https://turbo.ooo/)
  * License: MIT License
  */
 
@@ -30,6 +31,8 @@ module.exports = new Language('english', 'English', {
   seconds: 'Seconds',
   blacklisted: "You've been blacklisted from using the bot for abusive reasons. Please join https://discord.gg/mDkMbEh or contact Ravener#5796 for a chance to appeal.",
   blacklistedGuild: (guild) => `The server **${guild.name}** has been blacklisted from using the bot. If you are an Admin of the server please join https://discord.gg/mDkMbEh or contact Ravener#5796 for a chance to appeal.`,
+  poweredByNekosLife: 'Powered by Nekos.Life',
+  poweredByKSoft: 'Powered by KSoft.si',
 
   // These are random funny responses we use for some replies
   // Located in utils/responses.js
@@ -220,6 +223,7 @@ module.exports = new Language('english', 'English', {
   weebgreetingsDisabled: 'Successfully disabled weeb greetings',
   weebgreetingsInvalid: 'Please specify `enable <#channel>` or `disable`',
   // Fun Commands
+  wikihowDescription: 'Gets a random wikihow image',
   // General Commands
   // Image Commands
   // Miscellaneous Commands
@@ -227,6 +231,12 @@ module.exports = new Language('english', 'English', {
   // Music Commands
   djRole: 'DJ Role',
   // NSFW Commands
+  hassDescription: 'Hentai ass',
+  hentaiDescription: 'Hentai',
+  lewdnekoDescription: 'Lewd neko hentai',
+  redditDescription: 'Returns a reddit post for the specified category. If no category is given, a post will be returned from any of the possible categories',
+  redditUsage: 'reddit [ass|boobs|thighs]',
+  redditGifDescription: 'Returns a random porn gif from Reddit',
   // Owner Commands
   // Programming Commands
 
@@ -243,6 +253,41 @@ module.exports = new Language('english', 'English', {
   feedNoMention: 'You need to mention someone to feed!',
   feedSelf: "You can't feed yourself!",
   feedResponse: (author, member) => `**${member.displayName}**, you just got fed by **${author.displayName}**`,
+  headrubDescription: "Rub someone's head",
+  headrubUsage: 'headrub <@user>',
+  headrubSelf: "You can't rub your own head!",
+  headrubNoMention: 'Whose head are you going to rub?',
+  headrubResponse: (author, member) => `**${member.displayName}**, you just got your head rubbed by **${author.displayName}**`,
+  hugDescription: 'Hug someone',
+  hugUsage: 'hug <@user>',
+  hugNoMention: 'Who are you going to hug?',
+  hugSelf: "You can't hug yourself!",
+  hugResponse: (author, member) => `**${member.displayName}**, you just got hugged by **${author.displayName}**`,
+  kissDescription: 'kiss someone',
+  kissUsage: 'kiss <@user>',
+  kissNoMention: 'Who are you going to kiss?',
+  kissSelf: "You can't kiss yourself!",
+  kissResponse: (author, member) => `**${member.displayName}**, you just got a kiss from **${author.displayName}**`,
+  lickDescription: 'lick someone',
+  lickUsage: 'lick <@user>',
+  lickNoMention: 'Who are you going to lick?',
+  lickSelf: "You can't lick yourself!",
+  lickResponse: (author, member) => `**${member.displayName}**, you just got licked by **${author.displayName}**`,
+  patDescription: 'pat someone',
+  patUsage: 'pat <@user>',
+  patNoMention: 'Who are you going to give pats to?',
+  patSelf: "You can't pat yourself!",
+  patResponse: (author, member) => `**${member.displayName}**, you just got pats from **${author.displayName}**`,
+  spankDescription: 'spank someone',
+  spankUsage: 'spank <@user>',
+  spankNoMention: 'Who are you going to spank?',
+  spankSelf: "You can't spank yourself!",
+  spankResponse: (author, member) => `**${member.displayName}**, you just got spanked by **${author.displayName}**`,
+  tickleDescription: 'tickle someone',
+  tickleUsage: 'tickle <@user>',
+  tickleNoMention: 'Who are you going to tickle?',
+  tickleSelf: "You can't tickle yourself!",
+  tickleResponse: (author, member) => `**${member.displayName}**, you just got tickled by **${author.displayName}**`,
   pokeDescription: 'Poke someone',
   pokeUsage: 'poke <@user>',
   pokeNoMention: 'You need to mention someone to poke!',

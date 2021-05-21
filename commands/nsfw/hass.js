@@ -1,27 +1,13 @@
-const Command = require('#structures/Command')
-const { MessageEmbed } = require('discord.js')
+const KSoftImageCommand = require('#structures/KSoftImageCommand')
 
-class HAss extends Command {
+class HAss extends KSoftImageCommand {
   constructor(...args) {
-    super(...args, {
-      description: 'Hentai Ass',
-      cooldown: 3,
-      cost: 3,
-      nsfw: true,
-      botPermissions: ['EMBED_LINKS']
-    })
-  }
-
-  async run(ctx) {
-    const { url } = await this.client.ksoft.images.random('ass', { nsfw: ctx.channel.nsfw })
-
-    const embed = new MessageEmbed()
-      .setTitle('Hentai Ass')
-      .setColor(0x9590ee)
-      .setImage(url)
-      .setFooter('Powered by KSoft.Si', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
-
-    return ctx.reply({ embed })
+    super({
+      command: 'ass',
+      cooldown: 5,
+      cost: 15,
+      nsfw: true
+    }, ...args)
   }
 }
 

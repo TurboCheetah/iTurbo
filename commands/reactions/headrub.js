@@ -1,29 +1,12 @@
-const Command = require('#structures/Command')
-const { MessageEmbed } = require('discord.js')
+const KSoftImageCommand = require('#structures/KSoftImageCommand')
 
-class Headrub extends Command {
+class Headrub extends KSoftImageCommand {
   constructor(...args) {
-    super(...args, {
-      description: "Rub someone's head",
-      usage: 'headrub <@member>',
+    super({
+      command: 'headrub',
       aliases: ['rub'],
-      guildOnly: true,
-      cooldown: 3,
-      cost: 5,
-      botPermissions: ['EMBED_LINKS']
-    })
-  }
-
-  async run(ctx, [member]) {
-    member = await this.verifyMember(ctx, member)
-
-    if (member.id === ctx.author.id) return ctx.reply("You can't rub your own head!")
-
-    const { url } = await this.client.ksoft.images.random('headrub', { nsfw: ctx.channel.nsfw })
-
-    const embed = new MessageEmbed().setColor(0x9590ee).setDescription(`**${member.displayName}**, you just got your head rubbed by **${ctx.member.displayName}**`).setImage(url).setFooter('Powered by KSoft.Si')
-
-    return ctx.reply({ embed })
+      guildOnly: true
+    }, ...args)
   }
 }
 

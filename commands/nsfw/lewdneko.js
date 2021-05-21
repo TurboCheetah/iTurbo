@@ -1,28 +1,14 @@
-const Command = require('#structures/Command')
-const { MessageEmbed } = require('discord.js')
+const KSoftImageCommand = require('#structures/KSoftImageCommand')
 
-class LewdNeko extends Command {
+class LewdNeko extends KSoftImageCommand {
   constructor(...args) {
-    super(...args, {
-      description: 'Lewd Neko Hentai',
+    super({
+      command: 'neko',
+      aliases: ['lneko'],
       cooldown: 5,
       cost: 15,
-      nsfw: true,
-      aliases: ['lneko'],
-      botPermissions: ['EMBED_LINKS']
-    })
-  }
-
-  async run(ctx) {
-    const { url } = await this.client.ksoft.images.random('neko', { nsfw: ctx.channel.nsfw })
-
-    const embed = new MessageEmbed()
-      .setTitle('Lewd Neko')
-      .setColor(0x9590ee)
-      .setImage(url)
-      .setFooter('Powered by KSoft.Si', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
-
-    return ctx.reply({ embed })
+      nsfw: true
+    }, ...args)
   }
 }
 
