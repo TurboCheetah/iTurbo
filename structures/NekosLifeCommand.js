@@ -21,7 +21,7 @@ class NekosLifeCommand extends Command {
     const embed = new MessageEmbed()
       .setColor(this.client.constants.color)
       .setImage(url)
-      .setFooter('Powered by nekos.life')
+      .setFooter(ctx.language.get('poweredByNekosLife'))
 
     if (member) {
       member = await this.verifyMember(ctx, member)
