@@ -3,20 +3,20 @@ const { MessageEmbed } = require('discord.js')
 const c = require('@aero/centra')
 
 class NekosLifeCommand extends Command {
-  constructor(command, ...args) {
+  constructor({ name, ...options }, ...args) {
     super(...args, {
-      description: language => language.get(`COMMAND_${command.toUpperCase()}_DESCRIPTION`),
+      description: language => language.get(`${name}Description`),
       cooldown: 3,
       cost: 5,
-      botPermissions: ['EMBED_LINKS']
+      botPermissions: ['EMBED_LINKS'],
+      ...options
     })
-    this.command = command
   }
 
   async run(ctx, [member]) {
-    if (this.guildOnly && !member) return ctx.reply(ctx.language.get(`COMMAND_${this.command.toUpperCase()}_NOMENTION`))
+    if (this.guildOnly && !member) return ctx.reply(ctx.language.get(`${this.name}NoMention`))
 
-    const { url } = await c(`https://nekos.life/api/v2/img/${this.command !== 'aavatar' ? this.command : `${ctx.channel.nsfw ? 'nsfw_' : ''}avatar`}`).json()
+    const { url } = await c(`https://nekos.life/api/v2/img/${this.name !== 'aavatar' ? this.name : `${ctx.channel.nsfw ? 'nsfw_' : ''}avatar`}`).json()
 
     const embed = new MessageEmbed()
       .setColor(this.client.constants.color)
@@ -25,8 +25,8 @@ class NekosLifeCommand extends Command {
 
     if (member) {
       member = await this.verifyMember(ctx, member)
-      if (member.id === ctx.author.id) return ctx.reply(ctx.language.get(`COMMAND_${this.command.toUpperCase()}_SELF`))
-      embed.setDescription(ctx.language.get(`COMMAND_${this.command.toUpperCase()}_RESPONSE`, ctx.member, member))
+      if (member.id === ctx.author.id) return ctx.reply(ctx.language.get(`${this.name}Self`))
+      embed.setDescription(ctx.language.get(`${this.name}Response`, ctx.member, member))
     }
 
     return ctx.reply({ embed })

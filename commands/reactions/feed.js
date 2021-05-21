@@ -2,10 +2,11 @@ const NekosLifeCommand = require('#structures/NekosLifeCommand')
 
 class Feed extends NekosLifeCommand {
   constructor(...args) {
-    super('feed', ...args, {
-      usage: language => language.get('COMMAND_FEED_USAGE'),
+    super({
+      name: 'feed',
+      usage: language => language.get('feedUsage'),
       guildOnly: true
-    })
+    }, ...args)
   }
 }
 

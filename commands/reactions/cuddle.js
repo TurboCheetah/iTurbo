@@ -2,10 +2,11 @@ const NekosLifeCommand = require('#structures/NekosLifeCommand')
 
 class Cuddle extends NekosLifeCommand {
   constructor(...args) {
-    super('cuddle', ...args, {
-      usage: language => language.get('COMMAND_BAKA_USAGE'),
+    super({
+      name: 'cuddle',
+      usage: language => language.get('cuddleUsage'),
       guildOnly: true
-    })
+    }, ...args)
   }
 }
 
