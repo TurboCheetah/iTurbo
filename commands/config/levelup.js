@@ -16,7 +16,7 @@ class LevelUp extends Command {
     if (!action || !['enable', 'disable'].includes(action)) {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
-        .setDescription('Do you want me to disable or enable levelup messages?')
+        .setDescription('Do you want me to **enable** or **disable** levelup messages?')
         .setTimestamp()
         .setColor(0x9590ee)
 
@@ -26,10 +26,10 @@ class LevelUp extends Command {
 
       if (['enable'].includes(response.toLowerCase())) {
         await ctx.guild.update({ levelup: true })
-        return ctx.reply(`${this.client.constants.emojis.success} Successfully enabled level up messages.`)
+        return ctx.successMsg('Successfully enabled level up messages.')
       } else if (['disable'].includes(response.toLowerCase())) {
         await ctx.guild.update({ levelup: false })
-        return ctx.reply(`${this.client.constants.emojis.success} Successfully disabled level up messages.`)
+        return ctx.successMsg('Successfully disabled level up messages.')
       } else if (response.toLowerCase() === 'cancel') {
         return ctx.reply('Operation cancelled.')
       }
@@ -37,12 +37,12 @@ class LevelUp extends Command {
 
     if (action === 'enable') {
       await ctx.guild.update({ levelup: true })
-      return ctx.reply(`${this.client.constants.emojis.success} Successfully enabled level up messages.`)
+      return ctx.successMsg('Successfully enabled level up messages.')
     }
 
     if (action === 'disable') {
       await ctx.guild.update({ levelup: false })
-      return ctx.reply(`${this.client.constants.emojis.success} Successfully disabled level up messages.`)
+      return ctx.successMsg('Successfully disabled level up messages.')
     }
   }
 }

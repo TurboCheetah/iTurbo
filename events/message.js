@@ -37,14 +37,14 @@ class MessageEvent extends Event {
     const user = msg.author.id === this.client.constants.ownerID ? [] : msg.channel.permissionsFor(msg.author).missing(cmd.userPermissions)
 
     if (user.length > 0) {
-      await msg.channel.send(`You do not have the following permission${user.length === 1 ? '' : 's'} to run this command: \`${user.map(p => this.friendlyPerms[p]).join(', ')}\``)
+      await msg.erorrMsg('Error', `You do not have the following permission${user.length === 1 ? '' : 's'} to run this command: **${user.map(p => this.friendlyPerms[p]).join(', ')}**`)
       return false
     }
 
     // Now check if the bot has the permissions to perform the intended action.
     const bot = msg.channel.permissionsFor(this.client.user).missing(cmd.botPermissions)
     if (bot.length > 0) {
-      await msg.channel.send(`Hey! I need the following permission${bot.length === 1 ? '' : 's'} to do that: \`${bot.map(p => this.friendlyPerms[p]).join(', ')}\``)
+      await msg.erorrMsg('Error', `Hey! I need the following permission${bot.length === 1 ? '' : 's'} to do that: **${bot.map(p => this.friendlyPerms[p]).join(', ')}**`)
       return false
     }
 
@@ -73,7 +73,7 @@ class MessageEvent extends Event {
 
     // Check for @mention only.
     if (msg.content === this.client.user.toString() || (msg.guild && msg.content === msg.guild.me.toString())) {
-      return msg.channel.send(`Hi! Run \`${prefix}help\` to get a list of commands you can use.`)
+      return msg.channel.send(`Hi! Run **${prefix}help** to get a list of commands you can use.`)
     }
 
     // Users can have their own list of prefixes globally.
@@ -116,7 +116,7 @@ class MessageEvent extends Event {
     // Command checks.
 
     if (command.ownerOnly && msg.author.id !== this.client.constants.ownerID) {
-      return msg.channel.send("What do you think you're doing? That command is only for my master!")
+      return msg.channel.send("Baka! What do you think you're doing? That command is only for my master!")
     }
 
     // Check for NSFW channel. NSFW is allowed in DMs
@@ -133,7 +133,7 @@ class MessageEvent extends Event {
     }
 
     if (command.category === 'Social' && !msg.guild.settings.social) {
-      return msg.channel.send('The social economy system has been disabled in this server by an Admin so I cannot let you use that command.')
+      return msg.channel.send('The social economy system has been disabled in this server by an admin so I cannot let you use that command.')
     }
 
     // Check for permissions.
@@ -154,7 +154,7 @@ class MessageEvent extends Event {
 
       // Verify enough balance.
       if (balance < cost) {
-        return msg.channel.send(`You need **¥${cost}** to run that command but you only have **¥${balance}**.${claim}`)
+        return msg.erorrMsg('Error', `You need **¥${cost}** to run that command but you only have **¥${balance}**.${claim}`)
       }
       // Deduct.
       await msg.member.takePoints(cost)

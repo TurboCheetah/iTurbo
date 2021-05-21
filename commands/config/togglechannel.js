@@ -21,12 +21,12 @@ class ToggleChannel extends Command {
     if (disabledChannels.includes(channel.id)) {
       disabledChannels.splice(channel.id.indexOf(disabledChannels, 1))
       await ctx.guild.update({ disabledChannels })
-      return ctx.reply(`${this.client.constants.emojis.success} Users talking in ${channel} will earn points.`)
+      return ctx.successMsg('Success', `Users talking in ${channel} will now earn points.`)
     }
 
     disabledChannels.push(channel.id)
     await ctx.guild.update({ disabledChannels })
-    return ctx.reply(`${this.client.constants.emojis.success} Users talking in ${channel} will no longer earn points.`)
+    return ctx.successMsg('Success', `Users talking in ${channel} will no longer earn points.`)
   }
 }
 

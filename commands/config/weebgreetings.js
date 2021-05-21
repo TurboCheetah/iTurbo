@@ -12,21 +12,22 @@ class WeebGreetings extends Command {
   }
 
   async run(ctx, [action]) {
-    if (!action) return ctx.reply(`${this.client.constants.emojis.error} Please specify either \`${ctx.guild.settings.prefix}weebgreetings enable #channel\` or \`${ctx.guild.settings.prefix}weebgreetings disable\``)
+    if (!action) return ctx.errorMsg('Error', `Correct usage: \`${ctx.guild.prefix}${this.usage}\``)
 
-    if (action === 'disable') {
-      await ctx.guild.update({ weebGreetings: null })
-      return ctx.reply(`${this.client.constants.emojis.success} Successfully disabled weeb greetings.`)
+    switch (action) {
+      case 'enable':
+        if (!ctx.message.mentions.channels.size) return ctx.reply('Specify the channel you want to enable it on.')
+        await ctx.guild.update({ weebGreetings: ctx.message.mentions.channels.first().id })
+        ctx.successMsg('Success', `Successfully enabled weeb greetings for the channel ${ctx.message.mentions.channels.first()}`)
+        break
+      case 'disable':
+        await ctx.guild.update({ weebGreetings: null })
+        ctx.successMsg('Success', 'Successfully disabled weeb greetings.')
+        break
+      default:
+        ctx.errorMsg('Error', 'Invalid action either specify `enable <#channel>` or `disable`')
+        break
     }
-
-    if (action === 'enable') {
-      if (!ctx.message.mentions.channels.size) return ctx.reply('Specify the channel you want to enable it on.')
-      const channel = ctx.message.mentions.channels.first()
-      await ctx.guild.update({ weebGreetings: channel.id })
-      return ctx.reply(`${this.client.constants.emojis.success} Successfully enabled weeb greetings for the channel ${channel}`)
-    }
-
-    return ctx.reply('Invalid action either specify `enable #channel` or `disable`')
   }
 }
 

@@ -12,27 +12,27 @@ class Prefix extends Command {
 
   async run(ctx, args) {
     if (!args.length) {
-      return ctx.reply(`The prefix for this server is \`${ctx.guild.settings.prefix}\``)
+      return ctx.reply(`The prefix for this server is **${ctx.guild.settings.prefix}**`)
     }
 
     if (!ctx.member.permissions.has('MANAGE_GUILD')) {
-      return ctx.reply('You need the `Manage Server` permissions to change the prefix.')
+      return ctx.errorMsg('Error', 'You need the `Manage Server` permission to change the prefix.')
     }
 
     const prefix = args.join(' ')
 
     if (prefix === 'reset') return this.reset(ctx)
-    if (prefix.length > 10) return ctx.reply("Prefix can't be longer than 10 characters.")
-    if (prefix === ctx.guild.settings.prefix) throw new Error('That is already the current prefix.')
+    if (prefix.length > 10) return ctx.errorMsg("Prefix can't be longer than 10 characters.")
+    if (prefix === ctx.guild.settings.prefix) return ctx.errorMsg('That is already the current prefix.')
 
     await ctx.guild.update({ prefix })
-    return ctx.reply(`${this.client.constants.emojis.success} Successfully updated prefix to: \`${prefix}\``)
+    return ctx.successMsg('Success', `Updated prefix to **${prefix}**`)
   }
 
   async reset(ctx) {
-    if (ctx.guild.settings.prefix === '|') return ctx.reply('The prefix is already the default.')
+    if (ctx.guild.settings.prefix === '|') return ctx.errorMsg('The prefix is already set to the default.')
     await ctx.guild.update({ prefix: '|' })
-    return ctx.reply('Reset the prefix for this server to `|`')
+    return ctx.successMsg('Success', 'Reset the prefix for this server to **|**')
   }
 }
 

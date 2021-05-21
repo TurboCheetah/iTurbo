@@ -20,6 +20,8 @@ module.exports = {
   },
   zws: '\u200B',
   errorImg: 'https://i.imgur.com/NxqHz0I.png',
+  errorImgRed: 'https://i.imgur.com/XkBTm7x.png',
   successImg: 'https://i.imgur.com/H6YDov0.png',
+  successImgGreen: 'https://i.imgur.com/HsBy00P.png',
   addImg: 'https://i.imgur.com/Nmg88HS.png'
 }

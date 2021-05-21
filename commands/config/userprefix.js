@@ -14,7 +14,7 @@ class UserPrefix extends Command {
 
   async run(ctx, [action = 'list', ...args]) {
     if (!['add', 'remove', 'list'].includes(action)) {
-      return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+      return ctx.errorMsg('Invalid Action', `Correct usage: \`${ctx.guild.prefix}${this.usage}\``)
     }
 
     return this[action](ctx, args)
@@ -22,30 +22,30 @@ class UserPrefix extends Command {
 
   async add(ctx, args) {
     if (ctx.author.settings.prefix && ctx.author.settings.prefix.length >= 10) {
-      return ctx.reply("You can't have more than 10 prefixes. Remove some before trying again.")
+      return ctx.errorMsg('Error', "You can't have more than 10 prefixes. Remove some before trying again.")
     }
 
     const prefixInput = args.join(' ').toLowerCase()
-    if (!prefixInput) return ctx.reply('You must provide a prefix.')
+    if (!prefixInput) return ctx.errorMsg('Error', 'You must provide a prefix.')
 
     // User prefixes get an extra 5 chars compared to guild prefixes.
-    if (prefixInput.length > 15) return ctx.reply('Prefix cannot be longer than 15 characters!')
+    if (prefixInput.length > 15) return ctx.errorMsg('Error', 'Prefix cannot be longer than 15 characters!')
 
     // Get existing prefixes to append to.
     const prefix = ctx.author.settings.prefix || []
 
     // Avoid duplicates.
-    if (prefix.includes(prefixInput)) return ctx.reply('That prefix is already on the list.')
+    if (prefix.includes(prefixInput)) return ctx.errorMsg('Error', 'That prefix is already on the list.')
 
     prefix.push(prefixInput)
 
     await ctx.author.update({ prefix })
-    return ctx.reply(`${this.client.constants.emojis.success} Successfully added the prefix \`${prefixInput}\` to your list of prefixes.`)
+    return ctx.successMsg('Success', `Successfully added the prefix **${prefixInput}** to your list of prefixes.`)
   }
 
   async list(ctx) {
     if (!ctx.author.settings.prefix || !ctx.author.settings.prefix.length) {
-      return ctx.reply("You don't have any user prefixes yet!")
+      return ctx.errorMsg('Error', "You don't have any user prefixes yet!")
     }
 
     const embed = new MessageEmbed()
@@ -59,20 +59,20 @@ class UserPrefix extends Command {
 
   async remove(ctx, args) {
     if (!ctx.author.settings.prefix || !ctx.author.settings.prefix) {
-      return ctx.reply("You don't have any prefixes to remove!")
+      return ctx.errorMsg('Error', "You don't have any prefixes to remove!")
     }
 
     const prefixInput = args.join(' ').toLowerCase()
-    if (!prefixInput) return ctx.reply('You must provide a prefix to remove!')
+    if (!prefixInput) return ctx.errorMsg('Error', 'You must provide a prefix to remove!')
 
     const prefix = ctx.author.settings.prefix
-    if (!prefix.includes(prefixInput)) return ctx.reply('That prefix is not in your list.')
+    if (!prefix.includes(prefixInput)) return ctx.errorMsg('Error', 'That prefix is not in your list.')
 
     prefix.splice(prefix.indexOf(prefixInput), 1)
 
     await ctx.author.update({ prefix })
 
-    return ctx.reply(`${this.client.constants.emojis.success} Successfully removed the prefix \`${prefixInput}\` from your prefix list.`)
+    return ctx.successMsg('Success', `Removed the prefix **${prefixInput}** from your prefix list.`)
   }
 }
 

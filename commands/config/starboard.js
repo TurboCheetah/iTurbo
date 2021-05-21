@@ -12,29 +12,27 @@ class Starboard extends Command {
   }
 
   async run(ctx, [action, amount]) {
-    if (!action) return ctx.reply('Specify one of `enable #channel`, `disable` or `limit <amount>`')
-
-    if (action === 'disable') {
-      await ctx.guild.update({ starboard: null })
-      return ctx.reply(`${this.client.constants.emojis.success} Successfully disabled the server starboard.`)
+    switch (action) {
+      case 'enable':
+        if (!ctx.message.mentions.channels.size) return ctx.errorMsg('Specify the channel you want to enable it on.')
+        await ctx.guild.update({ starboard: ctx.message.mentions.channels.first().id })
+        ctx.successMsg(`Successfully enabled the server starboard for the channel ${ctx.message.mentions.channels.first()}`)
+        break
+      case 'disable':
+        await ctx.guild.update({ starboard: null })
+        ctx.successMsg('Successfully disabled the server starboard.')
+        break
+      case 'limit':
+        amount = this.verifyInt(amount)
+        if (amount < 1) return ctx.errorMsg('Limit cannot be less than 1')
+        if (amount > ctx.guild.memberCount) return ctx.errorMsg('Limit cannot be more than the amount of members in the server.')
+        await ctx.guild.update({ starboardLimit: amount })
+        ctx.successMsg(`Successfully updated the starboard star limit to ${amount}`)
+        break
+      default:
+        ctx.errorMsg('Error', `Correct usage: \`${ctx.guild.prefix}${this.usage}\``)
+        break
     }
-
-    if (action === 'enable') {
-      if (!ctx.message.mentions.channels.size) return ctx.reply('Specify the channel you want to enable it on.')
-      const channel = ctx.message.mentions.channels.first()
-      await ctx.guild.update({ starboard: channel.id })
-      return ctx.reply(`${this.client.constants.emojis.success} Successfully enabled the server starboard for the channel ${channel}`)
-    }
-
-    if (action === 'limit') {
-      amount = this.verifyInt(amount)
-      if (amount < 1) return ctx.reply('Limit cannot be less than 1')
-      if (amount > ctx.guild.memberCount) return ctx.reply('Limit cannot be more than the amount of members in the server.')
-      await ctx.guild.update({ starboardLimit: amount })
-      return ctx.reply(`${this.client.constants.emojis.success} Successfully updated the starboard star limit to ${amount}`)
-    }
-
-    return ctx.reply(`${this.client.constants.emojis.error} Invalid action. Specify one of \`enable #channel\`, \`disable\` or \`limit <amount>\``)
   }
 }
 
