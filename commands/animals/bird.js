@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 class Bird extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('COMMAND_BIRD_DESCRIPTION'),
+      description: language => language.get('birdDescription'),
       aliases: ['birb', 'chirp'],
       cooldown: 3,
       botPermissions: ['EMBED_LINKS']

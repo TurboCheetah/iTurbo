@@ -1,21 +1,11 @@
-const Command = require('#structures/Command')
-const { MessageEmbed } = require('discord.js')
-const c = require('@aero/centra')
+const AnimalCommand = require('#structures/AnimalCommand')
 
-class Cat extends Command {
+class Cat extends AnimalCommand {
   constructor(...args) {
-    super(...args, {
-      description: language => language.get('COMMAND_CAT_DESCRIPTION'),
-      aliases: ['meow', 'catpic', 'randomcat'],
-      cooldown: 3,
-      botPermissions: ['EMBED_LINKS']
-    })
-  }
-
-  async run(ctx) {
-    const { file } = await c('https://aws.random.cat/meow').json()
-
-    ctx.reply(new MessageEmbed().setTitle('Random Cat').setColor(0x9590ee).setImage(file))
+    super({
+      url: 'https://aws.random.cat/meow',
+      aliases: ['meow', 'catpic', 'randomcat']
+    }, ...args)
   }
 }
 

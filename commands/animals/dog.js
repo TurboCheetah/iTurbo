@@ -1,21 +1,11 @@
-const Command = require('#structures/Command')
-const { MessageEmbed } = require('discord.js')
-const c = require('@aero/centra')
+const AnimalCommand = require('#structures/AnimalCommand')
 
-class Dog extends Command {
+class Dog extends AnimalCommand {
   constructor(...args) {
-    super(...args, {
-      description: language => language.get('COMMAND_DOG_DESCRIPTION'),
-      aliases: ['randomdog', 'woof'],
-      cooldown: 3,
-      botPermissions: ['EMBED_LINKS']
-    })
-  }
-
-  async run(ctx) {
-    const { message } = await c('https://dog.ceo/api/breeds/image/random').json()
-
-    ctx.reply(new MessageEmbed().setTitle('Random Dog').setColor(0x9590ee).setImage(message))
+    super({
+      url: 'https://dog.ceo/api/breeds/image/random',
+      aliases: ['randomdog', 'woof']
+    }, ...args)
   }
 }
 
