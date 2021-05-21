@@ -4,10 +4,10 @@ const { MessageEmbed } = require('discord.js')
 class LevelUp extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Enable/Disable Level up messages.',
+      description: language => language.get('levelupDescription'),
+      usage: language => language.get('levelupUsage'),
       aliases: ['levelupmessages', 'levelmessage', 'lvlmsg', 'lvlupmessages'],
       userPermissions: ['MANAGE_GUILD'],
-      usage: 'levelup <enable/disable>',
       guildOnly: true
     })
   }
@@ -15,34 +15,34 @@ class LevelUp extends Command {
   async run(ctx, [action]) {
     if (!action || !['enable', 'disable'].includes(action)) {
       const embed = new MessageEmbed()
-        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
-        .setDescription('Do you want me to **enable** or **disable** levelup messages?')
+        .setColor(this.client.constants.color)
+        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 128, dynamic: true }))
+        .setDescription(ctx.language.get('levelupPrompt'))
         .setTimestamp()
-        .setColor(0x9590ee)
 
       const filter = msg => msg.author.id === ctx.author.id
       const response = await ctx.message.awaitReply('', filter, 60000, embed)
-      if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
+      if (!response) return ctx.reply(ctx.language.get('noReplyTimeout', 60))
 
       if (['enable'].includes(response.toLowerCase())) {
         await ctx.guild.update({ levelup: true })
-        return ctx.successMsg('Successfully enabled level up messages.')
+        return ctx.successMsg(ctx.language.get('levelupEnabled'))
       } else if (['disable'].includes(response.toLowerCase())) {
         await ctx.guild.update({ levelup: false })
-        return ctx.successMsg('Successfully disabled level up messages.')
+        return ctx.successMsg(ctx.language.get('levelupDisabled'))
       } else if (response.toLowerCase() === 'cancel') {
-        return ctx.reply('Operation cancelled.')
+        return ctx.reply(ctx.language.get('operationCancelled'))
       }
     }
 
     if (action === 'enable') {
       await ctx.guild.update({ levelup: true })
-      return ctx.successMsg('Successfully enabled level up messages.')
+      return ctx.successMsg(ctx.language.get('levelupEnabled'))
     }
 
     if (action === 'disable') {
       await ctx.guild.update({ levelup: false })
-      return ctx.successMsg('Successfully disabled level up messages.')
+      return ctx.successMsg(ctx.language.get('levelupDisabled'))
     }
   }
 }

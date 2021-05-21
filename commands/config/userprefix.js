@@ -4,17 +4,17 @@ const { MessageEmbed } = require('discord.js')
 class UserPrefix extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Manage Per-User Global prefixes.',
+      description: language => language.get('userprefixDescription'),
+      extendedHelp: language => language.get('userprefixExtendedHelp'),
+      usage: language => language.get('userprefixUsage'),
       aliases: ['uprefix'],
-      usage: 'userprefix <add|remove|list:default> <prefix>',
-      extendedHelp: 'With this command you can add a prefix that only you can use everywhere this bot is available. Convenient for those who find the prefix uncomfortable or just wants to stick with one prefix everywhere. Keep in mind prefixes are case insensitives so do not worry about that.',
       botPermissions: ['EMBED_LINKS']
     })
   }
 
   async run(ctx, [action = 'list', ...args]) {
     if (!['add', 'remove', 'list'].includes(action)) {
-      return ctx.errorMsg('Invalid Action', `Correct usage: \`${ctx.guild.prefix}${this.usage}\``)
+      return ctx.errorMsg(ctx.language.get('invalidAction'), ctx.language.get('correctUsage', ctx.guild.prefix, this.usage))
     }
 
     return this[action](ctx, args)
@@ -22,36 +22,36 @@ class UserPrefix extends Command {
 
   async add(ctx, args) {
     if (ctx.author.settings.prefix && ctx.author.settings.prefix.length >= 10) {
-      return ctx.errorMsg('Error', "You can't have more than 10 prefixes. Remove some before trying again.")
+      return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixOverLimit'))
     }
 
     const prefixInput = args.join(' ').toLowerCase()
-    if (!prefixInput) return ctx.errorMsg('Error', 'You must provide a prefix.')
+    if (!prefixInput) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixNoPrefix'))
 
     // User prefixes get an extra 5 chars compared to guild prefixes.
-    if (prefixInput.length > 15) return ctx.errorMsg('Error', 'Prefix cannot be longer than 15 characters!')
+    if (prefixInput.length > 15) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixLong'))
 
     // Get existing prefixes to append to.
     const prefix = ctx.author.settings.prefix || []
 
     // Avoid duplicates.
-    if (prefix.includes(prefixInput)) return ctx.errorMsg('Error', 'That prefix is already on the list.')
+    if (prefix.includes(prefixInput)) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixAlreadyAdded'))
 
     prefix.push(prefixInput)
 
     await ctx.author.update({ prefix })
-    return ctx.successMsg('Success', `Successfully added the prefix **${prefixInput}** to your list of prefixes.`)
+    return ctx.successMsg('Success', ctx.language.get('userprefixSuccess', prefixInput))
   }
 
   async list(ctx) {
     if (!ctx.author.settings.prefix || !ctx.author.settings.prefix.length) {
-      return ctx.errorMsg('Error', "You don't have any user prefixes yet!")
+      return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixNoPrefixes'))
     }
 
     const embed = new MessageEmbed()
-      .setTitle('User Prefixes')
-      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
-      .setColor(0x9590ee)
+      .setColor(this.client.constants.color)
+      .setTitle(ctx.language.get('userprefixTitle'))
+      .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 128, dynamic: true }))
       .setDescription(ctx.author.settings.prefix.map(prefix => `• ${prefix}`).join('\n'))
 
     return ctx.reply({ embed })
@@ -59,20 +59,20 @@ class UserPrefix extends Command {
 
   async remove(ctx, args) {
     if (!ctx.author.settings.prefix || !ctx.author.settings.prefix) {
-      return ctx.errorMsg('Error', "You don't have any prefixes to remove!")
+      return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixNoneToRemove'))
     }
 
     const prefixInput = args.join(' ').toLowerCase()
-    if (!prefixInput) return ctx.errorMsg('Error', 'You must provide a prefix to remove!')
+    if (!prefixInput) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixNoPrefixToRemove'))
 
     const prefix = ctx.author.settings.prefix
-    if (!prefix.includes(prefixInput)) return ctx.errorMsg('Error', 'That prefix is not in your list.')
+    if (!prefix.includes(prefixInput)) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixInvalid'))
 
     prefix.splice(prefix.indexOf(prefixInput), 1)
 
     await ctx.author.update({ prefix })
 
-    return ctx.successMsg('Success', `Removed the prefix **${prefixInput}** from your prefix list.`)
+    return ctx.successMsg(ctx.language.get('success'), ctx.language.get('userprefixRemoved', prefixInput))
   }
 }
 

@@ -3,9 +3,9 @@ const Command = require('#structures/Command')
 class Starboard extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Configure the server starboard.',
-      extendedHelp: 'The starboard is a channel where when users add a star reaction to messages it will be posted there. It is used to highlight funny/embarrassing/dumb moments and such. You can set a limit to avoid messages below the limit to be posted in the starboard channel.',
-      usage: 'starboard limit <amount> | enable <#channel> | disable',
+      description: language => language.get('starboardDescription'),
+      extendedHelp: language => language.get('starboardExtendedHelp'),
+      usage: language => language.get('starboardUsage'),
       userPermissions: ['MANAGE_GUILD'],
       guildOnly: true
     })
@@ -14,23 +14,23 @@ class Starboard extends Command {
   async run(ctx, [action, amount]) {
     switch (action) {
       case 'enable':
-        if (!ctx.message.mentions.channels.size) return ctx.errorMsg('Specify the channel you want to enable it on.')
+        if (!ctx.message.mentions.channels.size) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('starboardSpecify'))
         await ctx.guild.update({ starboard: ctx.message.mentions.channels.first().id })
-        ctx.successMsg(`Successfully enabled the server starboard for the channel ${ctx.message.mentions.channels.first()}`)
+        ctx.successMsg(ctx.language.get('success'), ctx.language.get('starBoardEnabled', ctx.message.mentions.channels.first()))
         break
       case 'disable':
         await ctx.guild.update({ starboard: null })
-        ctx.successMsg('Successfully disabled the server starboard.')
+        ctx.successMsg(ctx.language.get('success'), ctx.language.get('starBoardDisabled'))
         break
       case 'limit':
         amount = this.verifyInt(amount)
-        if (amount < 1) return ctx.errorMsg('Limit cannot be less than 1')
-        if (amount > ctx.guild.memberCount) return ctx.errorMsg('Limit cannot be more than the amount of members in the server.')
+        if (amount < 1) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('starboardLess'))
+        if (amount > ctx.guild.memberCount) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('starboardMore'))
         await ctx.guild.update({ starboardLimit: amount })
-        ctx.successMsg(`Successfully updated the starboard star limit to ${amount}`)
+        ctx.successMsg(ctx.language.get('success'), ctx.language.get('starboardLimitUpdated', amount))
         break
       default:
-        ctx.errorMsg('Error', `Correct usage: \`${ctx.guild.prefix}${this.usage}\``)
+        ctx.errorMsg(ctx.language.get('error'), ctx.language.get('correctUsage', ctx.guild.prefix, this.usage))
         break
     }
   }

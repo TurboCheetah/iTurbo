@@ -3,9 +3,9 @@ const Command = require('#structures/Command')
 class ToggleChannel extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Enables or disables the earning of points in a channel',
+      description: language => language.get('togglechannelDescription'),
+      usage: language => language.get('togglechannelUsage'),
       aliases: ['togglepoints', 'disablechannel', 'enablechannel'],
-      usage: 'togglechannel [channel]',
       userPermissions: ['MANAGE_GUILD'],
       guildOnly: true
     })
@@ -21,12 +21,12 @@ class ToggleChannel extends Command {
     if (disabledChannels.includes(channel.id)) {
       disabledChannels.splice(channel.id.indexOf(disabledChannels, 1))
       await ctx.guild.update({ disabledChannels })
-      return ctx.successMsg('Success', `Users talking in ${channel} will now earn points.`)
+      return ctx.successMsg(ctx.language.get('success'), ctx.language.get('togglechannelEnabled'))
     }
 
     disabledChannels.push(channel.id)
     await ctx.guild.update({ disabledChannels })
-    return ctx.successMsg('Success', `Users talking in ${channel} will no longer earn points.`)
+    return ctx.successMsg(ctx.language.get('success'), ctx.language.get('togglechannelDisabled'))
   }
 }
 

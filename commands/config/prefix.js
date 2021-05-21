@@ -3,8 +3,8 @@ const Command = require('#structures/Command')
 class Prefix extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Set or reset the prefix for this server.',
-      usage: 'prefix [prefix|reset]',
+      description: language => language.get('prefixDescription'),
+      usage: language => language.get('prefixUsage'),
       guildOnly: true,
       aliases: ['setprefix', 'changeprefix']
     })
@@ -12,27 +12,27 @@ class Prefix extends Command {
 
   async run(ctx, args) {
     if (!args.length) {
-      return ctx.reply(`The prefix for this server is **${ctx.guild.settings.prefix}**`)
+      return ctx.reply(ctx.language.get('prefixCurrent', ctx.guild.settings.prefix))
     }
 
     if (!ctx.member.permissions.has('MANAGE_GUILD')) {
-      return ctx.errorMsg('Error', 'You need the `Manage Server` permission to change the prefix.')
+      return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('prefixNoPerms'))
     }
 
     const prefix = args.join(' ')
 
     if (prefix === 'reset') return this.reset(ctx)
-    if (prefix.length > 10) return ctx.errorMsg("Prefix can't be longer than 10 characters.")
-    if (prefix === ctx.guild.settings.prefix) return ctx.errorMsg('That is already the current prefix.')
+    if (prefix.length > 10) return ctx.errorMsg(ctx.language.get('prefixTooLong'))
+    if (prefix === ctx.guild.settings.prefix) return ctx.errorMsg(ctx.language.get('prefixAlreadyCurrent'))
 
     await ctx.guild.update({ prefix })
-    return ctx.successMsg('Success', `Updated prefix to **${prefix}**`)
+    return ctx.successMsg(ctx.language.get('success'), ctx.language.get('prefixUpdated', prefix))
   }
 
   async reset(ctx) {
-    if (ctx.guild.settings.prefix === '|') return ctx.errorMsg('The prefix is already set to the default.')
+    if (ctx.guild.settings.prefix === '|') return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('prefixAlreadyDefault'))
     await ctx.guild.update({ prefix: '|' })
-    return ctx.successMsg('Success', 'Reset the prefix for this server to **|**')
+    return ctx.successMsg(ctx.language.get('success'), ctx.language.get('prefixReset'))
   }
 }
 
