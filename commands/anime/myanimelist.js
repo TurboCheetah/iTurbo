@@ -6,8 +6,8 @@ const malScraper = require('mal-scraper')
 class MyAnimeList extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Search an Anime on MyAnimeList.net',
-      usage: 'myanimelist <anime> | [page]',
+      description: language => language.get('myAnimeListDescription'),
+      usage: language => language.get('myAnimeListUsage'),
       arguments: {
         anime: "The anime you'd like to search",
         page: "The page of the results you'd like to view"
@@ -25,45 +25,45 @@ class MyAnimeList extends Command {
   async getData(ctx, anime, page) {
     const data = await malScraper.getInfoFromName(anime)
 
-    if (!data) return ctx.reply('No results found.')
+    if (!data) return ctx.reply(ctx.language.get('noResults'))
 
     const synopsisEmbed = new MessageEmbed()
-      .setColor(0x9590ee)
-      .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (Japanese: ${data.title})` : ''}` : data.title)
+      .setColor(this.client.constants.color)
+      .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (${ctx.language.get('myAnimeListJapanese', data.title)})` : ''}` : data.title)
       .setDescription(data.synopsis)
       .setThumbnail(data.picture)
       .setURL(data.url)
-      .setFooter(`ID: ${data.id}`)
+      .setFooter(`${ctx.language.get('myAnimeListID')} ${data.id}`)
 
     const dataEmbed = new MessageEmbed()
-      .setColor(0x9590ee)
-      .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (Japanese: ${data.title})` : ''}` : data.title)
-      .addField('Age Rating', data.rating.split(' - ')[0], true)
-      .addField('Episodes', `${data.episodes} (${data.duration})`, true)
-      .addField('Status', `${data.status}`, true)
-      .addField('Score', `${data.score}/10`, true)
-      .addField('Ranking', data.ranked, true)
-      .addField('Popularity', data.popularity, true)
-      .addField('Members', data.members, true)
-      .addField('Favorites', data.favorites, true)
-      .addField(data.studios.length > 1 ? 'Studios' : 'Studio', data.studios.join(', '), true)
-      .addField(data.genres.length > 1 ? 'Genres' : 'Genre', data.genres.join(', '))
+      .setColor(this.client.constants.color)
+      .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (${ctx.language.get('myAnimeListJapanese', data.title)})` : ''}` : data.title)
+      .addField(ctx.language.get('myAnimeListAgeRating'), data.rating.split(' - ')[0], true)
+      .addField(ctx.language.get('myAnimeListEpisodes'), `${data.episodes} (${data.duration})`, true)
+      .addField(ctx.language.get('myAnimeListStatus'), `${data.status}`, true)
+      .addField(ctx.language.get('myAnimeListScore'), `${data.score}/10`, true)
+      .addField(ctx.language.get('myAnimeListRanking'), data.ranked, true)
+      .addField(ctx.language.get('myAnimeListPopularity'), data.popularity, true)
+      .addField(ctx.language.get('myAnimeListMembers'), data.members, true)
+      .addField(ctx.language.get('myAnimeListFavorites'), data.favorites, true)
+      .addField(data.studios.length > 1 ? ctx.language.get('myAnimeListStudios') : ctx.language.get('myAnimeListStudio'), data.studios.join(', '), true)
+      .addField(data.genres.length > 1 ? ctx.language.get('myAnimeListGenres') : ctx.language.get('myAnimeListGenre'), data.genres.join(', '))
       .setThumbnail(data.picture)
       .setURL(data.url)
-      .setFooter(`ID: ${data.id}`)
+      .setFooter(ctx.language.get('myAnimeListID', data.id))
 
     const embeds = [synopsisEmbed, dataEmbed]
 
     for (const character of data.characters) {
       const characterEmbed = new MessageEmbed()
-        .setColor(0x9590ee)
-        .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (Japanese: ${data.title})` : ''}` : data.title)
+        .setColor(this.client.constants.color)
+        .setTitle(data.englishTitle ? `${data.englishTitle}${data.title.toLowerCase() !== data.englishTitle.toLowerCase() ? ` (${ctx.language.get('myAnimeListJapanese')} ${data.title})` : ''}` : data.title)
         .setImage(character.picture)
         .setURL(character.link)
-        .addField('Name', character.name, true)
-        .addField('Role', character.role, true)
-        .addField('Seiyuu', `[${character.seiyuu.name}](${character.seiyuu.link})`, true)
-        .setFooter(`ID: ${data.id}`)
+        .addField(ctx.language.get('myAnimeListName'), character.name, true)
+        .addField(ctx.language.get('myAnimeListRole'), character.role, true)
+        .addField(ctx.language.get('myAnimeListSeiyuu'), `[${character.seiyuu.name}](${character.seiyuu.link})`, true)
+        .setFooter(ctx.language.get('myAnimeListID', data.id))
 
       embeds.push(characterEmbed)
     }
@@ -73,7 +73,7 @@ class MyAnimeList extends Command {
       .setAuthorizedUsers([ctx.author.id])
       .setChannel(ctx.channel)
       .setPage(page)
-      .setPageIndicator('footer', (page, pages) => `ID: ${data.id} • Page ${page} of ${pages}`)
+      .setPageIndicator('footer', (page, pages) => `${ctx.language.get('myAnimeListID', data.id)} • ${ctx.language.get('page', page, pages)}`)
 
     return Pagination.build()
   }
@@ -82,19 +82,19 @@ class MyAnimeList extends Command {
     if (!args.length) {
       const embed = new MessageEmbed()
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
-        .setDescription('What would you like to search for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.')
+        .setDescription(ctx.language.get('myAnimeListPrompt'))
         .setTimestamp()
-        .setColor(0x9590ee)
+        .setColor(this.client.constants.color)
 
       const filter = msg => msg.author.id === ctx.author.id
       const response = await ctx.message.awaitReply('', filter, 60000, embed)
-      if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
+      if (!response) return ctx.reply(ctx.language.get('noReplyTimeout', 60))
 
       if (response.toLowerCase()) {
         const page = this.verifyInt(1, 1)
         return await this.getData(ctx, response, page)
       } else if (response.toLowerCase() === 'cancel') {
-        return ctx.reply('Operation cancelled.')
+        return ctx.reply(ctx.language.get('operationCancelled'))
       }
     }
     let [title, page = 1] = args.join(' ').split(' | ')

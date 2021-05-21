@@ -3,7 +3,7 @@ const Command = require('#structures/Command')
 class Waifu extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('COMMAND_WAIFU_DESCRIPTION'),
+      description: language => language.get('waifuDescription'),
       cooldown: 3,
       botPermissions: ['EMBED_LINKS']
     })
