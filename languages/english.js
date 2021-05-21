@@ -65,6 +65,10 @@ module.exports = new Language('english', 'English', {
   CATEGORY_UTILITY: 'Utility',
 
   // Animal Commands
+  COMMAND_BIRD_DESCRIPTION: 'Grabs a random bird image',
+  COMMAND_CAT_DESCRIPTION: 'Grabs a picture of a random cat',
+  COMMAND_DOG_DESCRIPTION: 'Grabs a random dog image',
+  COMMAND_SHIBA_DESCRIPTION: 'Grabs a beautiful Shiba Inu image',
   COMMAND_LIZARD_DESCRIPTION: 'Grabs a random lizard image from nekos.life',
   // Anime Commands
   COMMAND_AAVATAR_DESCRIPTION: 'Get an anime avatar',

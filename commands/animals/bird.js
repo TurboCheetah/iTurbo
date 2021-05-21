@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js')
 class Bird extends Command {
   constructor(...args) {
     super(...args, {
+      description: language => language.get('COMMAND_BIRD_DESCRIPTION'),
       aliases: ['birb', 'chirp'],
-      description: 'Grabs a random bird image from the KSoft API.',
       cooldown: 3,
       botPermissions: ['EMBED_LINKS']
     })
@@ -14,7 +14,7 @@ class Bird extends Command {
   async run(ctx) {
     const { url } = await this.client.ksoft.images.random('birb', { nsfw: false })
 
-    return ctx.reply(new MessageEmbed().setTitle('Random Bird').setImage(url).setColor(0x9590ee).setFooter('Powered by KSoft.Si'))
+    ctx.reply(new MessageEmbed().setTitle('Random Bird').setColor(0x9590ee).setImage(url).setFooter('Powered by KSoft.Si'))
   }
 }
 

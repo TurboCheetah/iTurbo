@@ -5,10 +5,9 @@ const c = require('@aero/centra')
 class Shiba extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Post a randomly selected image of a Shiba Inu.',
-      extended: 'This command will return a beautiful Shiba Inu.',
-      cooldown: 3,
+      description: language => language.get('COMMAND_SHIBA_DESCRIPTION'),
       aliases: ['doge', 'shib', 'shiba', 'shibainu', 'shibe'],
+      cooldown: 3,
       botPermissions: ['EMBED_LINKS']
     })
   }
@@ -16,9 +15,7 @@ class Shiba extends Command {
   async run(ctx) {
     const [url] = await c('https://shibe.online/api/shibes').json()
 
-    const embed = new MessageEmbed().setTitle('Shiba Inu').setColor(0x9590ee).setImage(url)
-
-    return ctx.reply({ embed })
+    ctx.reply(new MessageEmbed().setTitle('Shiba Inu').setColor(0x9590ee).setImage(url))
   }
 }
 
