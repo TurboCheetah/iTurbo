@@ -5,8 +5,7 @@ class Announcements extends Command {
   constructor(...args) {
     super(...args, {
       name: 'announcements',
-      description: 'Get bot related announcements.',
-      usage: 'announcements',
+      description: language => language.get('announcementsDescription'),
       aliases: ['announce', 'news'],
       botPermissions: ['EMBED_LINKS']
     })
@@ -26,13 +25,13 @@ class Announcements extends Command {
     ).filter(output => output)[0]
 
     const embed = new MessageEmbed()
-      .setTitle('Bot announcement')
+      .setColor(this.client.constants.color)
+      .setTitle(ctx.language.get('announcementsTitle'))
       // .setAuthor(announcement.author.username, announcement.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setDescription(announcement.cleanContent)
       // .setThumbnail(announcement.author.displayAvatarURL({ size: 512, dynamic: true }))
       .setTimestamp(new Date(announcement.createdTimestamp))
-      .setFooter(`From Turbo's Hub (run ${ctx.guild ? ctx.guild.settings.prefix : '|'}support to join us)`)
-      .setColor(0x9590ee)
+      .setFooter(ctx.language.get('announcementsFooter'))
 
     return ctx.reply({ embed })
   }

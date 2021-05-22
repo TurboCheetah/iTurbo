@@ -4,6 +4,7 @@ class AAvatar extends NekosLifeCommand {
   constructor(...args) {
     super({
       name: 'avatar',
+      description: language => language.get('aavatarDescription'),
       extendedHelp: language => language.get('aavatarExtenedHelp')
     }, ...args)
   }

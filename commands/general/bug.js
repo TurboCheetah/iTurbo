@@ -4,9 +4,9 @@ const { MessageEmbed } = require('discord.js')
 class Bug extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Found a bug? report with this.',
+      description: language => language.get('bugDescription'),
+      usage: language => language.get('bugUsage'),
       cooldown: 60,
-      usage: 'bug <report>',
       aliases: ['reportbug', 'bugreport'],
       botPermissions: ['EMBED_LINKS']
     })
@@ -15,14 +15,14 @@ class Bug extends Command {
   async run(ctx, args) {
     if (!args.length) {
       const embed = new MessageEmbed()
+        .setColor(this.client.constants.color)
         .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
-        .setDescription('Please describe the bug as best as you can.')
+        .setDescription(ctx.language.get('bugPrompt'))
         .setTimestamp()
-        .setColor(0x9590ee)
 
       const filter = msg => msg.author.id === ctx.author.id
       const response = await ctx.message.awaitReply('', filter, 60000, embed)
-      if (!response) return ctx.reply('No reply within 60 seconds. Time out.')
+      if (!response) return ctx.reply(ctx.language.get('noReplyTimeout', 60))
 
       if (response) {
         await this.client.shard.broadcastEval(`
@@ -31,19 +31,19 @@ class Bug extends Command {
           const { MessageEmbed } = require('discord.js')
     
           const embed = new MessageEmbed()
-          .setTitle('Bug Report')
+          .setTitle('${ctx.language.get('bugTitile')}')
           .setDescription('${args.join(' ')}')
-          .setColor(0x9590ee)
-          .setAuthor('${ctx.author.tag}', '${ctx.author.displayAvatarURL({ size: 64, dynamic: true })}')
+          .setColor(this.client.constants.color)
+          .setAuthor('${ctx.author.tag}', '${ctx.author.displayAvatarURL({ size: 128, dynamic: true })}')
           .setFooter('${ctx.author.id}')
     
         channel.send({ embed })
         }
         `)
 
-        return ctx.reply(`Your bug report has been sent${ctx.guild && ctx.guild.id === this.client.constants.mainGuildID ? '' : ' to the support server.'} You will hear back from my owner in DMs if there is anything wrong with your report. Have a nice day!`)
+        return ctx.reply(ctx.language.get('bugSuccess', ctx))
       } else if (response.toLowerCase() === 'cancel') {
-        return ctx.reply('Operation cancelled.')
+        return ctx.reply(ctx.language.get('operationCancelled'))
       }
     }
     await this.client.shard.broadcastEval(`
@@ -52,17 +52,17 @@ class Bug extends Command {
       const { MessageEmbed } = require('discord.js')
 
       const embed = new MessageEmbed()
-      .setTitle('Bug Report')
+      .setTitle('${ctx.language.get('bugTitile')}')
       .setDescription('${args.join(' ')}')
-      .setColor(0x9590ee)
-      .setAuthor('${ctx.author.tag}', '${ctx.author.displayAvatarURL({ size: 64, dynamic: true })}')
+      .setColor(this.client.constants.color)
+      .setAuthor('${ctx.author.tag}', '${ctx.author.displayAvatarURL({ size: 128, dynamic: true })}')
       .setFooter('${ctx.author.id}')
 
     channel.send({ embed })
     }
     `)
 
-    return ctx.reply(`Your bug report has been sent${ctx.guild && ctx.guild.id === this.client.constants.mainGuildID ? '' : ' to the support server.'} You will hear back from my owner in DMs if there is anything wrong with your report. Have a nice day!`)
+    return ctx.reply(ctx.language.get('bugSuccess', ctx))
   }
 }
 

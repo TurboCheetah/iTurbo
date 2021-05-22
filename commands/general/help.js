@@ -5,8 +5,8 @@ const { Embeds, FieldsEmbed } = require('discord-paginationembed')
 class Help extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'View help for commands.',
-      usage: 'help [category|command]',
+      description: language => language.get('helpDescription'),
+      usage: language => language.get('helpUsage'),
       botPermissions: ['EMBED_LINKS', 'ADD_REACTIONS']
     })
   }
@@ -36,22 +36,22 @@ class Help extends Command {
           .setChannel(ctx.channel)
           .setElementsPerPage(7)
           .setPage(page)
-          .setPageIndicator('footer', (page, pages) => `Page ${page} of ${pages}`)
-          .formatField('Commands', i => `• [**${i}**](https://docs.iturbo.cc/commands/${category.toLowerCase()}#${i} '${this.store.get(i).aliases.length > 0 ? `\nAliases: ${this.store.get(i).aliases.join(', ')}` : ''}') - ${this.store.get(i).description}`)
+          .setPageIndicator('footer', (page, pages) => ctx.language.get('page', page, pages))
+          .formatField(ctx.language.get('helpCommands'), i => `• [**${i}**](https://docs.iturbo.cc/commands/${category.toLowerCase()}#${i} '${this.store.get(i).aliases.length > 0 ? `\n${ctx.language.get('helpCommandAliases', this.store.get(i).aliases.join(', '))}` : ''}') - ${this.store.get(i).description}`)
 
         Pagination.embed
-          .setColor(0x9590ee)
-          .setAuthor(`Help - ${category}`, this.client.user.displayAvatarURL({ size: 32, dynamic: true }))
-          .setDescription(`For more information about a command run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <command>\` or hover over it`)
-          .setFooter(`Requested by ${ctx.author.tag}`, null)
+          .setColor(this.client.constants.color)
+          .setAuthor(ctx.language.get('helpCategory'), this.client.user.displayAvatarURL({ size: 128, dynamic: true }))
+          .setDescription(ctx.language.get('helpCategoryDescription', ctx))
+          .setFooter(ctx.language.get('requestedBy', ctx.author.tag), null)
 
         return Pagination.build()
       }
 
       const cmd = this.store.get(command.toLowerCase())
-      if (!cmd) return ctx.reply("That category/command does not exist! Why would you think I'd have such a thing?")
+      if (!cmd) return ctx.reply(ctx.language.get('helpDoesNotExist'))
 
-      let cost = 'Free'
+      let cost = ctx.language.get('helpCost')
 
       if (cmd.cost && ctx.guild && ctx.guild.settings.social) {
         const premium = await this.client.verifyPremium(ctx.author)
@@ -65,7 +65,7 @@ class Help extends Command {
       }
 
       if (cmd.nsfw && ctx.guild && !ctx.channel.nsfw) {
-        return ctx.reply("You can't view details of that command in a non NSFW channel.")
+        return ctx.reply(ctx.language.get('helpIsNSFW'))
       }
 
       const cmdArgs = []
@@ -74,25 +74,26 @@ class Help extends Command {
       for (const [key, value] of Object.entries(cmd.examples)) cmdExamples.push(`• \`${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.name} ${key}\` ${value}`)
 
       const embed = new MessageEmbed()
-        .setTitle(`Help - ${this.client.utils.toProperCase(cmd.name)}`)
+        .setTitle(ctx.language.get('helpCommand', this.client.utils.toProperCase(cmd.name)))
         .setURL(`https://docs.iturbo.cc/commands/${cmd.category.toLowerCase()}#${cmd.name}`)
-        .setColor(0x9590ee)
+        .setColor(this.client.constants.color)
         .setDescription(cmd.description)
-        .addField('Usage', `${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`)
-        .addField('Aliases', cmd.aliases.length ? cmd.aliases.join(', ') : 'None')
+        .addField(ctx.language.get('helpCommandUsage'), `${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`)
+        .addField(ctx.language.get('helpCommandAliases'), cmd.aliases.length ? cmd.aliases.join(', ') : ctx.language.get('none'))
       // eslint-disable-next-line prettier/prettier
-      embed.addField('Category', cmd.category)
-        .setFooter(`Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'}`)
+      embed.addField(ctx.language.get('helpCommandCategory'), cmd.category)
+        .setFooter(`${ctx.language.get('helpCommandCost', cost)} • ${ctx.language.get('helpCommandCooldown', cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.language.get('none'))}`)
 
-      if (cmd.extendedHelp !== 'No extended help provided.') embed.addField('Extended Help', cmd.extendedHelp)
+      if (cmd.extendedHelp !== ctx.language.get('helpNoExtendedHelp')) embed.addField(ctx.language.get('helpExtendedHelp'), cmd.extendedHelp)
 
       const examplesEmbed = new MessageEmbed()
-        .setTitle(`Help - ${this.client.utils.toProperCase(cmd.name)}`)
+        .setTitle(ctx.language.get('helpCommand', this.client.utils.toProperCase(cmd.name)))
         .setURL(`https://docs.iturbo.cc/commands/${cmd.category.toLowerCase()}#${cmd.name}`)
-        .setColor(0x9590ee)
-        .setFooter(`Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'}`)
-      if (cmdArgs.length) examplesEmbed.addField('Arguments', cmdArgs.join('\n'))
-      if (cmdExamples.length) examplesEmbed.addField('Examples', cmdExamples.join('\n'))
+        .setColor(this.client.constants.color)
+        .setFooter(`${ctx.language.get('helpCommandCost', cost)} • ${ctx.language.get('helpCommandCooldown', cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.language.get('none'))}`)
+
+      if (cmdArgs.length) examplesEmbed.addField(ctx.language.get('helpCommandArguments'), cmdArgs.join('\n'))
+      if (cmdExamples.length) examplesEmbed.addField(ctx.language.get('helpCommandExamples'), cmdExamples.join('\n'))
 
       const embeds = [embed, examplesEmbed]
       if (!cmdArgs.length && !cmdExamples.length) return ctx.reply({ embed })
@@ -103,18 +104,18 @@ class Help extends Command {
         .setChannel(ctx.channel)
         .setPage(page)
         .setDisabledNavigationEmojis(['delete'])
-        .setPageIndicator('footer', (page, pages) => `Cost: ${cost} • Cooldown: ${cmd.cooldown ? `${cmd.cooldown} Seconds` : 'None'} • Page ${page} of ${pages}`)
+        .setPageIndicator('footer', (page, pages) => `${ctx.language.get('helpCommandCost', cost)} • ${ctx.language.get('helpCommandCooldown', cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.language.get('none'))} • ${ctx.language.get('page', page, pages)}`)
 
       return Pagination.build()
     }
 
     const embed = new MessageEmbed()
-      .setColor(0x9590ee)
-      .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 64, dynamic: true }))
-      .setTitle('Help')
+      .setColor(this.client.constants.color)
+      .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 128, dynamic: true }))
+      .setTitle(ctx.language.get('helpTitle'))
       .setURL('https://docs.iturbo.cc/commands')
-      .setDescription(`For all commands in a category run \`${ctx.guild ? ctx.guild.settings.prefix : '|'}help <category>\`\nIf you need further help feel free to join the [support server](https://discord.gg/011UYuval0uSxjmuQ).`)
-      .addField('Available Categories', keys.map(key => `[\`${key}\`](https://docs.iturbo.cc/commands/${key.toLowerCase()})`).join(' '))
+      .setDescription(ctx.language.get('helpBaseDesc', ctx))
+      .addField(ctx.language.get('helpBaseAvail'), keys.map(key => `[\`${key}\`](https://docs.iturbo.cc/commands/${key.toLowerCase()})`).join(' '))
       .setImage('https://i.imgur.com/g3jV9fg.gif')
 
     /*     for (const category of keys) {

@@ -3,12 +3,12 @@ const Command = require('#structures/Command')
 class Ping extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Shows the network latency to Discord'
+      description: language => language.get('pingDescription')
     })
   }
 
   async run(ctx) {
-    const msg = await ctx.reply('Ping?')
+    const msg = await ctx.reply(ctx.language.get('pingMessage'))
 
     return msg.edit(
       this.client.utils
