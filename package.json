@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@aero/centra": "^1.0.6",
-    "@discordjs/opus": "^0.3.3",
+    "@discordjs/opus": "^0.5.0",
     "@ksoft/api": "^3.1.9",
     "@sentry/node": "^5.29.2",
     "@sentry/tracing": "^6.4.1",
@@ -73,15 +73,15 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-html": "^6.1.0",
+    "eslint-plugin-html": "^6.1.2",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-promise": "^4.3.1",
     "nodemon": "^2.0.6",
-    "prettier": "^2.1.1",
-    "standard-version": "^9.1.0",
+    "prettier": "^2.3.0",
+    "standard-version": "^9.3.0",
     "tailwindcss": "^2.1.2"
   }
 }
