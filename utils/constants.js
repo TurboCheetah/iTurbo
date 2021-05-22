@@ -28,6 +28,7 @@ module.exports = {
     ass: ['ass', 'paag', 'asstastic', 'buttplug', 'whooties', 'AssholeBehindThong', 'Frogbutt', 'rearpussy', 'CuteLittleButts', 'HungryButts', 'reversecowgirl', 'facedownassup', 'butt', 'butts', 'pawg', 'bigasses', 'cosplaybutts', 'girlsinyogapants', 'BubbleButts', 'assinthong', 'smalltitsbigass', 'CelebrityButts', 'booty'],
     boobs: ['smallboobs', 'boobs', 'tits', 'tinytits', 'bigtitssmallnip', 'boobies', 'rosynips', 'tiddies'],
     thighs: ['girlsinyogapants', 'Thighs', 'thighhighs', 'ThickThighs', 'UnderwearGW', 'datgap', 'leggingsgonewild', 'pawg', 'hipcleavage', 'legs', 'pantyhose'],
-    gifs: ['nsfw_gif', 'nsfw_gifs', 'porn_gifs', 'povjiggle', 'slowmojiggles', 'tittydrop', 'verticalgifs']
+    gifs: ['nsfw_gif', 'nsfw_gifs', 'porn_gifs', 'povjiggle', 'slowmojiggles', 'tittydrop', 'verticalgifs'],
+    memes: ['dankmemes', 'me_irl', 'memes']
   }
 }

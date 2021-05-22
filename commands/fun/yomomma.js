@@ -4,10 +4,10 @@ const c = require('@aero/centra')
 class YoMomma extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Yo momma so fat.',
+      description: language => language.get('yomommaDescription'),
+      usage: language => language.get('yomommaUsage'),
       aliases: ['urmom'],
-      cooldown: 3,
-      usage: 'yomomma [@user]'
+      cooldown: 3
     })
   }
 
@@ -16,7 +16,7 @@ class YoMomma extends Command {
 
     const { joke } = await c('https://api.yomomma.info').json()
 
-    return ctx.reply(`${user}, ${joke}`)
+    return ctx.reply(ctx.language.get('yomommaJoke', user, joke))
   }
 }
 

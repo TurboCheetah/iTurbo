@@ -3,14 +3,14 @@ const Command = require('#structures/Command')
 class Say extends Command {
   constructor(...args) {
     super(...args, {
-      aliases: ['echo', 'talk', 'repeat'],
-      description: 'I will say whatever you want me to.',
-      usage: 'say <message>'
+      description: language => language.get('sayDescription'),
+      usage: language => language.get('sayUsage'),
+      aliases: ['echo', 'talk', 'repeat']
     })
   }
 
   async run(ctx, args) {
-    if (!args.length) return ctx.reply('What do you want me to say?')
+    if (!args.length) return ctx.reply(ctx.language.get('sayNoText'))
     if (ctx.message.deletable) await ctx.message.delete().catch(() => null)
     return ctx.reply(args.join(' '), { disableMentions: 'all' })
   }

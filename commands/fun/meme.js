@@ -1,11 +1,10 @@
 const Command = require('#structures/Command')
 const { MessageEmbed } = require('discord.js')
-const c = require('@aero/centra')
 
 class Meme extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Get a random meme from Reddit',
+      description: language => language.get('memeDescription'),
       cooldown: 5,
       cost: 5,
       aliases: ['memes', 'dankmemes'],
@@ -14,23 +13,17 @@ class Meme extends Command {
   }
 
   async run(ctx) {
-    const subs = ['dankmemes', 'me_irl', 'memes']
-    const search = ['hot', 'top']
-    const {
-      data: { children }
-    } = await c(`https://www.reddit.com/r/${this.client.utils.random(subs)}/${this.client.utils.random(search)}.json?sort=top&t=day&limit=500`).json()
-    const meme = this.client.utils.random(children).data
+    const { url, post: { title, subreddit, link, upvotes, author, comments } } = await this.client.ksoft.images.reddit(this.client.utils.random(this.client.constants.subreddits.memes), { span: 'week' })
 
     const embed = new MessageEmbed()
-      .setTitle(`r/${meme.subreddit} - ${meme.title}`)
-      .setURL(`https://reddit.com${meme.source}`)
-      .setColor(0x9590ee)
-      .setImage(meme.url)
-      .addField(':thumbsup: Upvotes', ` ${meme.ups}`, true)
-      .addField(':thumbsdown: Downvotes', ` ${meme.downs}`, true)
-      .addField(':speech_balloon: Comments', `${meme.num_comments}`, true)
-      .setFooter('Powered by Reddit', ctx.author.displayAvatarURL({ size: 32, dynamic: true }))
-    return ctx.reply({ embed })
+      .setColor(this.client.constants.color)
+      .setAuthor(author, undefined, `https://reddit.com${author}`)
+      .setTitle(title)
+      .setURL(link)
+      .setImage(url)
+      .setFooter(`${subreddit} • 👍 ${upvotes} • 💬 ${comments}`)
+
+    ctx.reply({ embed })
   }
 }
 

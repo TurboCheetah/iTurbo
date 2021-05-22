@@ -4,10 +4,10 @@ const c = require('@aero/centra')
 class ChuckNorris extends Command {
   constructor(...args) {
     super(...args, {
+      description: language => language.get('chucknorrisDescription'),
+      usage: language => language.get('chucknorrisUsage'),
       aliases: ['chucknorrisjoke'],
-      description: 'Chuck Norris has some good jokes.',
-      cooldown: 3,
-      usage: 'chucknorris [@user]'
+      cooldown: 3
     })
   }
 

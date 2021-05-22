@@ -3,14 +3,14 @@ const Command = require('#structures/Command')
 class Compliment extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Compliments a user.',
-      usage: 'compliment [@user]'
+      description: language => language.get('complimentDescription'),
+      usage: language => language.get('complimentUsage')
     })
   }
 
   async run(ctx, [member]) {
     const user = await this.verifyUser(ctx, member, true)
-    if (user.id === this.client.user.id) return ctx.reply("Thanks but you don't have to ask me to compliment myself. Baka!")
+    if (user.id === this.client.user.id) return ctx.reply(ctx.language.get('complimentBot'))
     return ctx.reply(`${user}: ${compliments[Math.floor(Math.random() * compliments.length)]}`)
   }
 }

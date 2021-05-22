@@ -3,19 +3,17 @@ const Command = require('#structures/Command')
 class Eightball extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Ask the magic 8ball anything.',
-      usage: '8ball <question>',
+      description: language => language.get('eightBallDescription'),
+      usage: language => language.get('eightBallUsage'),
       aliases: ['eightball', 'ball', 'magic8']
     })
-
-    this.responses = ['It is certain', 'It is decidedly so', 'without a doubt', 'Yes definitely', 'You may rely on it', 'As I see it, Yes', 'Most likely', 'Outlook good', 'Yes', 'Signs point to yes', 'Reply hazy try again', 'Ask again later', 'Better not tell you now', 'Cannot predict now', 'Concentrate and ask again', 'Dont count on it', 'My reply is no', 'My sources say no', 'Outlook not so good', 'Very doubtful']
   }
 
   async run(ctx, [question]) {
-    if (!question) return ctx.reply('What do you want to ask?')
-    const msg = await ctx.reply(`${this.client.constants.emojis.loading} **8ball** is thinking...`)
+    if (!question) return ctx.reply(ctx.language.get('eightBallNoQuestion'))
+    const msg = await ctx.reply(ctx.language.get('eightBallThinking', this.client.constants.emojis.loading))
     await this.client.utils.sleep(1500)
-    return msg.edit(`**${this.client.utils.random(this.responses)}**`)
+    return msg.edit(`**${this.client.utils.random(ctx.language.get('eightBallresponses'))}**`)
   }
 }
 

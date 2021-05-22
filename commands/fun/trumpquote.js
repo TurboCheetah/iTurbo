@@ -4,7 +4,7 @@ const c = require('@aero/centra')
 class TrumpQuote extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Returns a random Donald Trump quote.',
+      description: language => language.get('trumpquoteDescription'),
       cooldown: 3
     })
   }

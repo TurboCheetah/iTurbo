@@ -4,7 +4,7 @@ const c = require('@aero/centra')
 class CatFace extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Get a random cat face',
+      description: language => language.get('catfaceDescription'),
       aliases: ['catemoji'],
       cooldown: 3,
       cost: 3

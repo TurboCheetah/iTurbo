@@ -4,7 +4,7 @@ const c = require('@aero/centra')
 class Fact extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Get a random fact.',
+      description: language => language.get('factDescription'),
       aliases: ['facts', 'randomfact', 'randomfacts'],
       cooldown: 3
     })

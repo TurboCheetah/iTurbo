@@ -3,14 +3,14 @@ const Command = require('#structures/Command')
 class SwapCase extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'swap the case of a message.',
-      usage: 'swapcase <text>',
+      description: language => language.get('swapcaseDescription'),
+      usage: language => language.get('swapcaseUsage'),
       aliases: ['scase']
     })
   }
 
   async run(ctx, args) {
-    if (!args.length) return ctx.reply("You didn't give me any input.")
+    if (!args.length) return ctx.reply(ctx.language.get('swapcaseNoText'))
 
     return ctx.reply(
       args.join(' ').replace(/\w/g, ch => {

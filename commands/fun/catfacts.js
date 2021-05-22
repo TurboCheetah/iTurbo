@@ -4,10 +4,10 @@ const c = require('@aero/centra')
 class CatFacts extends Command {
   constructor(...args) {
     super(...args, {
+      description: language => language.get('catfactsDescription'),
       aliases: ['catfact', 'kittenfact'],
       cooldown: 3,
-      cost: 10,
-      description: 'Let me tell you a misterious cat fact.'
+      cost: 10
     })
   }
 

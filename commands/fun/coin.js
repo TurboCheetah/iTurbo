@@ -3,26 +3,26 @@ const Command = require('#structures/Command')
 class Coin extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Flip a coin.',
-      extendedHelp: 'You can bet on what it will land on.',
-      usage: 'coin [tails|heads]',
-      cost: 5,
-      aliases: ['coinflip', 'flipcoin']
+      description: language => language.get('coinDescription'),
+      extendedHelp: language => language.get('coinExtendedHelp'),
+      usage: language => language.get('coinUsage'),
+      aliases: ['coinflip', 'flipcoin'],
+      cost: 5
     })
   }
 
   async run(ctx, [bet]) {
     if (bet && !['heads', 'tails'].includes(bet.toLowerCase())) {
-      return ctx.reply('Invalid bet. You can only bet on `heads` or `tails`')
+      return ctx.reply(ctx.language.get('coinInvalidBet'))
     }
 
     const flipped = this.client.utils.random(['Heads', 'Tails'])
 
     if (bet && flipped.toLowerCase() === bet.toLowerCase()) {
-      return ctx.reply(`Congratulations! The coin landed on \`${flipped}\``)
+      return ctx.reply(ctx.language.get('coinLandedBet', flipped))
     }
 
-    return ctx.reply(`The coin landed on \`${flipped}\``)
+    return ctx.reply(ctx.language.get('coinLanded'))
   }
 }
 

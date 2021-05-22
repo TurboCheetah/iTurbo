@@ -3,14 +3,14 @@ const Command = require('#structures/Command')
 class RandomCase extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Random case a message.',
-      usage: 'randomcase <text>',
+      description: language => language.get('randomcaseDescription'),
+      usage: language => language.get('randomcaseUsage'),
       aliases: ['rcase']
     })
   }
 
   async run(ctx, args) {
-    if (!args.length) return ctx.reply("You didn't give me any input.")
+    if (!args.length) return ctx.reply(ctx.language.get('randomcaseNoInput'))
 
     return ctx.reply(
       args.join(' ').replace(/\w/g, ch => {

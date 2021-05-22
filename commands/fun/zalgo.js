@@ -3,17 +3,17 @@ const Command = require('#structures/Command')
 class Zalgo extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Convert text to zalgo text.',
-      usage: 'zalgo <text>',
+      description: language => language.get('zalgoDescription'),
+      usage: language => language.get('zalgoUsage'),
       cost: 10
     })
   }
 
   async run(ctx, args) {
-    if (!args.length) return ctx.reply('You must give me an argument!')
+    if (!args.length) return ctx.reply(ctx.language.get('zalgoNoArgumnent'))
 
     const text = args.join(' ')
-    if (text.length > 180) return ctx.reply('Cannot use more than 180 characters. While the Discord limit is 2000 characters the zalgo characters also add up extra characters. 180 characters is in fact already 1980 characters with this command.')
+    if (text.length > 180) return ctx.reply(ctx.language.get('zalgoCharLimit'))
 
     return ctx.reply(
       text
