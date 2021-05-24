@@ -39,7 +39,7 @@
     "@sentry/node": "^5.29.2",
     "@sentry/tracing": "^6.4.1",
     "abort-controller": "^3.0.0",
-    "anilist-node": "^1.8.1",
+    "anilist-node": "^1.9.0",
     "booru": "^2.4.0",
     "chalk": "^4.1.1",
     "cheerio": "^1.0.0-rc.3",
