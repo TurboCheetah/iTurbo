@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS "guilds" (
   "starboardLimit" INTEGER DEFAULT 2,
   nowplaying BOOLEAN DEFAULT true,
   "disabledChannels" TEXT[],
-  "djRole" TEXT
+  "djRole" TEXT,
+  language TEXT DEFAULT 'en-US'
 );
 
 CREATE TABLE IF NOT EXISTS members (
@@ -30,7 +31,8 @@ CREATE TABLE IF NOT EXISTS users (
   prefix TEXT[],
   playlist JSON,
   simp INTEGER,
-  osu TEXT
+  osu TEXT,
+  language TEXT DEFAULT 'en-US'
 );
 
 CREATE TABLE IF NOT EXISTS bot (
