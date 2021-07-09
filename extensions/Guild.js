@@ -14,7 +14,8 @@ module.exports = Structures.extend(
             levelup: true,
             social: true,
             starboard: null,
-            starboardLimit: 2
+            starboardLimit: 2,
+            language: 'en-US'
           }
         )
       }
