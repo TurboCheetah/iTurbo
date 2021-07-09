@@ -12,7 +12,7 @@ module.exports = Structures.extend(
             repscooldown: 0,
             title: null,
             prefix: null,
-            language: 'english'
+            language: 'en-US'
           }
         )
       }
