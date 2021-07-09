@@ -4,11 +4,11 @@ const { MessageEmbed } = require('discord.js')
 class Unmute extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Unmutes a user.',
+      description: language => language('commands/moderation/unmute:description'),
       userPermissions: ['KICK_MEMBERS'],
       botPermissions: ['KICK_MEMBERS', 'EMBED_LINKS', 'MANAGE_ROLES'],
       guildOnly: true,
-      usage: 'unmute <@member> [reason]'
+      usage: language => language('commands/moderation/unmute:usage')
     })
   }
 
@@ -30,7 +30,7 @@ class Unmute extends Command {
       })
     }
 
-    if (member.roles.cache.has(mutedRole)) return ctx.reply(`${member.user} isn't muted!`)
+    if (member.roles.cache.has(mutedRole)) return ctx.tr('commands/moderation/unmute:notMuted', { user: member.user })
 
     await member.roles.remove(mutedRole)
 
@@ -43,16 +43,16 @@ class Unmute extends Command {
       const embed = new MessageEmbed()
         .setColor(0x9590ee)
         .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL({ size: 32, dynamic: true }))
-        .addField('Action', 'Unmute')
-        .addField('Reason', reason || 'No reason specified')
-        .addField('Responsible moderator', `${ctx.author.tag}`)
-        .setFooter(`Case ${caseNum}`)
+        .addField(ctx.translate('commands/moderation/unmute:action'), ctx.translate('commands/moderation/unmute:unmute'))
+        .addField(ctx.translate('commands/moderation/unmute:reason'), reason || ctx.translate('commands/moderation/unmute:noReason'))
+        .addField(ctx.translate('commands/moderation/unmute:responsibleModerator'), `${ctx.author.tag}`)
+        .setFooter(ctx.translate('commands/moderation/unmute:case', { caseNum }))
         .setTimestamp()
 
-      ctx.reply(`Unmuted ${member.user}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+      ctx.tr('commands/moderation/unmute:success', { user: member.user.tag, reason: reason || ctx.translate('commands/moderation/unmute:noReason') })
       return channel.send({ embed })
     } else {
-      return ctx.reply(`Unmuted ${member.user}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+      return ctx.tr('commands/moderation/unmute:success', { user: member.user.tag, reason: reason || ctx.translate('commands/moderation/unmute:noReason') })
     }
   }
 }

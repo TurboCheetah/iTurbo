@@ -1,0 +1,11 @@
+{
+  "descripton": "Set or reset the prefix for this server",
+  "usage": "prefix [prefix|reset]",
+  "current": "The prefix for this server is **{{prefix}}**",
+  "noPerms": "You need the `Manage Server` permission to change the prefix",
+  "tooLong": "Prefix can't be longer than 10 characters",
+  "alreadyCurrent": "That is already the current prefix",
+  "updated": "Updated prefix to **{{prefix}}**",
+  "alreadyDefault": "The prefix is already set to the default",
+  "reset": "Reset the prefix for this server to **|**"
+}

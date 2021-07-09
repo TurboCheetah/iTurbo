@@ -6,9 +6,9 @@ class Prune extends Command {
       userPermissions: ['MANAGE_MESSAGES'],
       botPermissions: ['MANAGE_MESSAGES'],
       guildOnly: true,
-      description: 'Prunes a certain amount of messages w/o filter.',
+      description: language => language('commands/moderation/prune:description'),
       aliases: ['purge', 'clean'],
-      usage: 'prune [limit=50] [link|invite|bots|you|me|upload|@user]',
+      usage: language => language('commands/moderation/prune:usage'),
       arguments: {
         limit: 'How many messages to delete',
         filter: 'What type of messages to delete'
@@ -23,7 +23,7 @@ class Prune extends Command {
   async run(ctx, [limit, filter = null]) {
     limit = this.verifyInt(limit, 50)
     if (limit > 100) {
-      return ctx.reply('I can only clean up to 100 messages at a time!')
+      return ctx.tr('commands/moderation/prune:max')
     }
 
     try {
@@ -41,7 +41,7 @@ class Prune extends Command {
       if (!messages.includes(ctx.message.id)) messages.push(ctx.message.id)
       await ctx.channel.bulkDelete(messages)
       if (toDelete > 100) toDelete = toDelete - 1
-      return ctx.reply(`${this.client.constants.emojis.success} Successfully deleted ${messages.length > toDelete ? messages.length - 1 : messages.length} messages out of ${toDelete}.`).then(ctx => {
+      return ctx.successMsg(ctx.translate('common:success'), ctx.translate('commands/moderation/prune:success', { messages: messages.length > toDelete ? messages.length - 1 : messages.length, toDelete })).then(ctx => {
         ctx.delete({ timeout: 2500 })
       })
     } catch (err) {

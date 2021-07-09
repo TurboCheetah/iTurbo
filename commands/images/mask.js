@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Beautiful extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Get protected against COVID-19',
+      description: language => language('commands/images/mask:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'mask [@user]'
+      usage: language => language('commands/images/mask:usage')
     })
   }
 

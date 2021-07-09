@@ -4,7 +4,7 @@ class Feed extends NekosLifeCommand {
   constructor(...args) {
     super({
       name: 'feed',
-      usage: language => language.get('feedUsage'),
+      usage: language => language('feedUsage'),
       guildOnly: true
     }, ...args)
   }

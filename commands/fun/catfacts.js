@@ -4,7 +4,7 @@ const c = require('@aero/centra')
 class CatFacts extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('catfactsDescription'),
+      description: language => language('commands/fun/catfacts:description'),
       aliases: ['catfact', 'kittenfact'],
       cooldown: 3,
       cost: 10
@@ -14,7 +14,7 @@ class CatFacts extends Command {
   async run(ctx) {
     const { fact } = await c('https://catfact.ninja/fact').json()
 
-    return ctx.reply(`📢 **Catfact:** *${fact}*`)
+    return ctx.tr('commands/fun/catfacts:fact', { fact })
   }
 }
 

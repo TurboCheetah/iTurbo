@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Delete extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Delete this',
+      description: language => language('commands/images/delete:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'delete [@user]'
+      usage: language => language('commands/images/delete:usage')
     })
   }
 

@@ -7,7 +7,7 @@ class Tom extends Command {
       description: '😁🔫',
       cooldown: 3,
       cost: 5,
-      usage: 'tom [@user]'
+      usage: language => language('commands/images/tom:usage')
     })
   }
 

@@ -4,11 +4,12 @@ const { MessageAttachment } = require('discord.js')
 class Dominant extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Get dominant color of an avatar.',
+      description: language => language('commands/images/dominant:description'),
       aliases: ['dominantcolor', 'avatarcolor', 'avcolor'],
       cooldown: 3,
       cost: 5,
-      usage: 'dominant [@user]'
+      usage: language => language('commands/images/dominant:usage')
+
     })
   }
 

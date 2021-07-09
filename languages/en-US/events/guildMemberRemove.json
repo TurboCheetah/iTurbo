@@ -1,0 +1,14 @@
+{
+  "goodbyeMessages": [
+    "Awh, I-I have no words for t-this, b-but, I-I'll miss you **{{user}}-san**!",
+    "Awh, **{{user}}** has left... n-not that I care! Baka!",
+    "**{{user}}-san**.... N-no...",
+    "**{{user}}** left, not like we needed them or anything.",
+    "**{{user}}** why would you leave me here, alone!?",
+    "**{{user}}** discovered the leave button.",
+    "Eep! **{{user}}** left?! Th-they're always leaving me, that baka...",
+    "Finally, I thought **{{user}}** would never leave!",
+    "Woah! **{{user}}** left **{{guild}}**! B-baka, why did they even join?!",
+    "Woo, **{{user}}** left, now I only have to handle **{{amount}}** users!"
+  ]
+}

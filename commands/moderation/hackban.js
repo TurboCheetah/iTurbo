@@ -4,20 +4,20 @@ const { MessageEmbed } = require('discord.js')
 class HackBan extends Command {
   constructor(...args) {
     super(...args, {
-      description: "Bans a user that isn't in the server.",
-      extendedHelp: 'This command will ban a user that is not in the server to prevent them from joining in the future.',
+      description: language => language('commands/moderation/hackban:description'),
+      extendedHelp: language => language('commands/moderation/hackban:extendedHelp'),
       userPermissions: ['BAN_MEMBERS'],
       aliases: ['hban'],
       botPermissions: ['BAN_MEMBERS', 'EMBED_LINKS'],
-      usage: 'hackban <userID> [reason]',
+      usage: language => language('commands/moderation/hackban:usage'),
       guildOnly: true
     })
   }
 
   async run(ctx, [id, ...reason]) {
-    if (!id) return ctx.reply(`Usage: \`${ctx.guild.prefix}${this.usage}\``)
+    if (!id) return ctx.tr('common:correctUsage', { prefix: ctx.guild.prefix, usage: this.usage })
 
-    if (isNaN(parseInt(id))) return ctx.reply('Invalid user id.')
+    if (isNaN(parseInt(id))) return ctx.tr('commands/moderation/hackban:invalidID')
 
     reason = reason.join(' ') || undefined
 
@@ -32,19 +32,19 @@ class HackBan extends Command {
         const embed = new MessageEmbed()
           .setColor(0x9590ee)
           .setAuthor(`${user.tag} (${id})`, user.displayAvatarURL({ size: 32, dynamic: true }))
-          .addField('Action', 'Ban')
-          .addField('Reason', reason || 'No reason specified')
-          .addField('Responsible moderator', `${ctx.author.tag}`)
-          .setFooter(`Case ${caseNum}`)
+          .addField(ctx.translate('commands/moderation/hackban:action'), ctx.translate('commands/moderation/hackban:ban'))
+          .addField(ctx.translate('commands/moderation/hackban:reason'), reason || ctx.translate('commands/moderation/hackban:noReason'))
+          .addField(ctx.translate('commands/moderation/hackban:responsibleModerator'), `${ctx.author.tag}`)
+          .setFooter(ctx.translate('commands/moderation/hackban:case', { caseNum }))
           .setTimestamp()
 
-        ctx.reply(`Banned ${user.tag}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+        ctx.tr('commands/moderation/ban:success', { user: user.tag, reason: reason || ctx.translate('commands/moderation/hackban:noReason') })
         return channel.send({ embed })
       } else {
-        return ctx.reply(`Banned ${user.tag}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+        return ctx.tr('commands/moderation/hackban:success', { user: user.tag, reason: reason || ctx.translate('commands/moderation/hackban:noReason') })
       }
     } catch (err) {
-      return ctx.reply("Couldn't ban that user, make sure the ID is valid.")
+      return ctx.tr('commands/moderation/hackban:failure')
     }
   }
 }

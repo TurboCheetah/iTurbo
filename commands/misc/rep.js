@@ -3,8 +3,8 @@ const Command = require('#structures/Command')
 class Reputation extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Give a reputation point to someone.',
-      usage: 'rep <@user>',
+      description: language => language('commands/misc/rep:description'),
+      usage: language => language('commands/misc/rep:usage'),
       guildOnly: true,
       aliases: ['reputation']
     })
@@ -12,16 +12,16 @@ class Reputation extends Command {
 
   async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user)
-    if (user.bot) return ctx.reply('Bots cannot earn reputation points.')
-    if (user.id === ctx.author.id) return ctx.reply('You cannot give a reputation point to yourself.')
+    if (user.bot) return ctx.tr('commands/misc/rep:bot')
+    if (user.id === ctx.author.id) return ctx.tr('commands/misc/rep:author')
     if (ctx.author.settings.repcooldown && Date.now() < ctx.author.settings.repcooldown) {
-      return ctx.reply(`You can give another reputation point in **${this.client.utils.getDuration(ctx.author.settings.repcooldown - Date.now())}**`)
+      return ctx.tr('commands/misc/rep:cooldown', { time: this.client.utils.getDuration(ctx.author.settings.repcooldown - Date.now()) })
     }
     await user.syncSettings()
     const reputation = user.settings.reputation + 1
     await user.update({ reputation })
     await ctx.author.update({ repcooldown: new Date(ctx.message.createdTimestamp + 43200000) })
-    return ctx.reply(`${this.client.constants.emojis.success} Successfully gave a reputation point to ${user}`)
+    return ctx.successMsg(ctx.translate('common:success'), ctx.translate('commands/misc/rep:success', { user }))
   }
 }
 

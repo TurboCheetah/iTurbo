@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Respect extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Press F to pay respects',
+      description: language => language('commands/images/respect:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'respect [@user]'
+      usage: language => language('commands/images/respect:usage')
     })
   }
 

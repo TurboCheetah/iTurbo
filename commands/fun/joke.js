@@ -5,7 +5,7 @@ const c = require('@aero/centra')
 class Joke extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('jokeDescription'),
+      description: language => language('commands/fun/joke:description'),
       aliases: ['jk'],
       cooldown: 3,
       botPermissions: ['EMBED_LINKS']
@@ -15,7 +15,7 @@ class Joke extends Command {
   async run(ctx) {
     const body = await c('https://sv443.net/jokeapi/v2/joke/Any').json()
 
-    if (body.error) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('jokeError'))
+    if (body.error) return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/fun/joke:error'))
     const flags = Object.entries(body.flags)
       .filter(x => x[1])
       .map(x => x[0])

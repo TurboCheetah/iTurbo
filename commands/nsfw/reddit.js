@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js')
 class Reddit extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('redditDescription'),
-      usage: language => language.get('redditUsage'),
+      description: language => language('redditDescription'),
+      usage: language => language('redditUsage'),
       aliases: ['porn', 'nsfwr', 'rnsfw'],
       cooldown: 3,
       cost: 15,

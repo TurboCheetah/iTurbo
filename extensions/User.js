@@ -1,5 +1,4 @@
 const { Structures } = require('discord.js')
-const languages = require('#languages')
 
 module.exports = Structures.extend(
   'User',
@@ -16,10 +15,6 @@ module.exports = Structures.extend(
             language: 'english'
           }
         )
-      }
-
-      get language() {
-        return languages[this.settings.language || 'english'] || languages.english
       }
 
       update(obj) {

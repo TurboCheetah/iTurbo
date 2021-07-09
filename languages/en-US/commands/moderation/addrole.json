@@ -1,0 +1,9 @@
+{
+"description": "Adds a role to someone`",
+"usage": "addrole <@user> <roleName>",
+"noRole": "You must provide the name or ID of the role you want to add.",
+"doesNotExist": "That role does not exist!",
+"userHierarchy": "You cannot add that role.",
+"botHierarchy": "I can't add that role.",
+"success": "Added **{{role}}** to **{{user}}**"
+}

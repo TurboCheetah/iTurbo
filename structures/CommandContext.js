@@ -43,12 +43,18 @@ class CommandContext {
     return this.message.guild
   }
 
-  get language() {
-    return this.message.language
-  }
-
   reply(...args) {
     return this.channel.send(...args)
+  }
+
+  translate(key, args) {
+    return this.message.translate(key, args)
+  }
+
+  tr(key, args, options = {}) {
+    const str = this.translate(key, args)
+    if (options.edit) return this.message.edit(str)
+    return this.channel.send(str)
   }
 
   success() {

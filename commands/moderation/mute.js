@@ -4,22 +4,22 @@ const { MessageEmbed } = require('discord.js')
 class Mute extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Mutes a user.',
+      description: language => language('commands/moderation/mute:description'),
       userPermissions: ['KICK_MEMBERS'],
       botPermissions: ['KICK_MEMBERS', 'EMBED_LINKS', 'MANAGE_ROLES'],
       guildOnly: true,
-      usage: 'mute <@member> [reason]'
+      usage: language => language('commands/moderation/mute:usage')
     })
   }
 
   async run(ctx, [member, ...reason]) {
     member = await this.verifyMember(ctx, member)
 
-    if (member.id === ctx.author.id) return ctx.reply('Why would you mute yourself?')
-    if (member.id === this.client.user.id) return ctx.reply('Why would you mute me?')
-    if (member.id === ctx.guild.ownerID) return ctx.reply("You can't mute the owner.")
+    if (member.id === ctx.author.id) return ctx.tr('commands/moderation/mute:muteYourself')
+    if (member.id === this.client.user.id) return ctx.tr('commands/moderation/mute:muteMe')
+    if (member.id === ctx.guild.ownerID) return ctx.tr('commands/moderation/mute:muteOwner')
 
-    if (member.roles.highest.position >= ctx.member.roles.highest.position) return ctx.reply('You cannot mute this user.')
+    if (member.roles.highest.position >= ctx.member.roles.highest.position) return ctx.tr('commands/moderation/mute:unmutable')
 
     reason = reason.length ? reason.join(' ') : null
     const name = 'Muted'
@@ -44,7 +44,7 @@ class Mute extends Command {
               CONNECT: false
             })
           })
-          ctx.reply('Muted role was not found. Please re-run the command and it will be created.')
+          ctx.tr('commands/moderation/mute:noMuteRole')
         })
         .catch(console.error)
       return
@@ -63,16 +63,16 @@ class Mute extends Command {
       const embed = new MessageEmbed()
         .setColor(0x9590ee)
         .setAuthor(`${member.user.tag} (${member.id})`, member.user.displayAvatarURL({ size: 32, dynamic: true }))
-        .addField('Action', 'Mute')
-        .addField('Reason', reason || 'No reason specified')
-        .addField('Responsible moderator', `${ctx.author.tag}`)
-        .setFooter(`Case ${caseNum}`)
+        .addField(ctx.translate('commands/moderation/mute:action'), ctx.translate('commands/moderation/mute:mute'))
+        .addField(ctx.translate('commands/moderation/mute:reason'), reason || ctx.translate('commands/moderation/mute:noReason'))
+        .addField(ctx.translate('commands/moderation/mute:responsibleModerator'), `${ctx.author.tag}`)
+        .setFooter(ctx.translate('commands/moderation/mute:case', { caseNum }))
         .setTimestamp()
 
-      ctx.reply(`Muted ${member.user}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+      ctx.tr('commands/moderation/mute:success', { user: member.user.tag, reason: reason || ctx.translate('commands/moderation/mute:noReason') })
       return channel.send({ embed })
     } else {
-      return ctx.reply(`Muted ${member.user}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+      return ctx.tr('commands/moderation/mute:success', { user: member.user.tag, reason: reason || ctx.translate('commands/moderation/mute:noReason') })
     }
   }
 }

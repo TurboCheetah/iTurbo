@@ -1,0 +1,5 @@
+{
+"description": "View all permissions of a user",
+"usage": "permissions [@user]",
+"title": "{{user}}'s Permissions in #{{channel}} in {{guild}}"
+}

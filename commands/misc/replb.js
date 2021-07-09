@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 class RepLB extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'View top people with most reputations.',
+      description: language => language('commands/misc/replb:description'),
       aliases: ['repleaderboard', 'reputationleaderboard', 'reputationlb'],
       botPermissions: ['EMBED_LINKS']
     })
@@ -17,13 +17,13 @@ class RepLB extends Command {
       limit: 10
     })
 
-    if (!rows.length) return ctx.reply('Looks like no one has any reputations.')
+    if (!rows.length) return ctx.tr('commands/misc/replb:noRep')
 
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
-      .setTitle(`Top${rows.length === 1 ? '' : ` ${rows.length}`} respected user${rows.length > 1 ? 's' : ''} by reputations`)
+      .setTitle(ctx.translate('commands/misc/replb:title', { amount: rows.length === 1 ? '' : ` ${rows.length}`, length: rows.length > 1 ? 's' : '' }))
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
-      .setFooter(`Give reputation to users via ${ctx.guild.settings.prefix}rep @user to help them climb the leaderboard.`)
+      .setFooter(ctx.translate('commands/misc/replb:footer', { prefix: ctx.guild.settings.prefix }))
 
     const lb = []
 

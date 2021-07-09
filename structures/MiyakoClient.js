@@ -20,6 +20,7 @@ const Deezer = require('erela.js-deezer')
 const { KSoftClient } = require('@ksoft/api') // KSoft
 const Anilist = require('anilist-node') // Anilist
 const Osu = require('node-osu') // osu!
+const languages = require('#utils/languages')
 
 class MiyakoClient extends Client {
   constructor(dev) {
@@ -66,6 +67,7 @@ class MiyakoClient extends Client {
     this.events = new EventStore(this)
     this.sweeper = new MemorySweeper(this)
     this.responses = require('#utils/responses')
+    this.languages = require('#languages/language-meta.json')
     this.img = new imgapi.Client({ host: this.config.imgapi })
     this.BotAPI = new BotAPI(this)
     this.manager = new Manager({
@@ -222,6 +224,8 @@ class MiyakoClient extends Client {
   }
 
   async init() {
+    // Load translations
+    this.translations = await languages()
     // Load pieces.
     const [commands, events] = await Promise.all([this.commands.loadFiles(), this.events.loadFiles()])
     if (this.shard.ids[0] === 0) {

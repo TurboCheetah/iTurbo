@@ -1,0 +1,26 @@
+{
+  "reloadMissingArg": [
+    "N-nani?! I don't know what to do, you didn't give me anything!",
+    "You are supposed to provide a command to reload!"
+  ],
+
+  "reloadNotFound": [
+    "Eeeh?! **{{user}}-san**, why would you ask me to find a command that doesn't exist, it wasn't even an alias.",
+    "What are you doing? **{{command}}** doesn't exist!"
+  ],
+
+  "reloadErrUnload": [
+    "**{{user}}-san**, I think I broke it... This happened: **{{response}}**",
+    "There was an error, probably your fault! **{{response}}**"
+  ],
+
+  "reloadErrLoad": [
+    "Ugh, can't you do one thing right? You ended up breaking **{{command}}**.",
+    "**{{command}}** is broken... Not my fault or problem though! (**{{response}}**)"
+  ],
+
+  "reloadSuccess": [
+    "Yatta! **{{command}}** reloaded, now we can get back to what we were doing, or whatever you want to do...",
+    "I've reloaded **{{command}}**, not that I could see any point in it..."
+  ]
+}

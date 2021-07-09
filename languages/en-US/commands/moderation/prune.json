@@ -1,0 +1,6 @@
+{
+"description": "Prunes a certain amount of messages w/o filter",
+"usage": "prune [limit=50] [link|invite|bots|you|me|upload|@user]",
+"max": "I can only clean up to 100 messages at a time!",
+"success": "Successfully deleted {{messages}} messages out of {{toDelete}}."
+}

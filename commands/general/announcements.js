@@ -5,7 +5,7 @@ class Announcements extends Command {
   constructor(...args) {
     super(...args, {
       name: 'announcements',
-      description: language => language.get('announcementsDescription'),
+      description: language => language('commands/general/announcements:description'),
       aliases: ['announce', 'news'],
       botPermissions: ['EMBED_LINKS']
     })
@@ -26,12 +26,12 @@ class Announcements extends Command {
 
     const embed = new MessageEmbed()
       .setColor(this.client.constants.color)
-      .setTitle(ctx.language.get('announcementsTitle'))
+      .setTitle(ctx.translate('commands/general/announcements:title'))
       // .setAuthor(announcement.author.username, announcement.author.displayAvatarURL({ size: 64, dynamic: true }))
       .setDescription(announcement.cleanContent)
       // .setThumbnail(announcement.author.displayAvatarURL({ size: 512, dynamic: true }))
       .setTimestamp(new Date(announcement.createdTimestamp))
-      .setFooter(ctx.language.get('announcementsFooter'))
+      .setFooter(ctx.translate('commands/general/announcements:footer', { prefix: ctx.guild ? ctx.guild.settings.prefix : '|' }))
 
     return ctx.reply({ embed })
   }

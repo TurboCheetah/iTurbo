@@ -4,10 +4,11 @@ const { MessageAttachment } = require('discord.js')
 class Painting extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Painting that kills you if you look at it',
+      description: language => language('commands/images/painting:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'painting [@user]'
+      usage: language => language('commands/images/painting:usage')
+
     })
   }
 

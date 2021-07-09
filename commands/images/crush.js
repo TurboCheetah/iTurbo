@@ -4,10 +4,11 @@ const { MessageAttachment } = require('discord.js')
 class Crush extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Crush over a user.',
+      description: language => language('commands/images/crush:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'crush <@user> [@user]'
+      usage: language => language('commands/images/crush:usage')
+
     })
   }
 

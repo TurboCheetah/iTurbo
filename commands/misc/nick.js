@@ -3,10 +3,10 @@ const Command = require('#structures/Command')
 class Nick extends Command {
   constructor(...args) {
     super(...args, {
-      description: "Change someone's nick!",
+      description: language => language('commands/misc/nick:description'),
       botPermissions: ['MANAGE_NICKNAMES'],
       userPermissions: ['MANAGE_NICKNAMES'],
-      usage: 'nick <you|me|@member> <nick>',
+      usage: language => language('commands/misc/nick:usage'),
       guildOnly: true,
       aliases: ['nickname', 'changenickname', 'changenick', 'setnick', 'setnickname']
     })
@@ -17,16 +17,19 @@ class Nick extends Command {
     else if (member === 'you') member = ctx.guild.me
     else member = await this.verifyMember(ctx, member)
 
-    if (!nick.length) return ctx.reply("You didn't tell me what nickname to use.")
+    if (!nick.length) return ctx.tr('commands/misc/nick:noNick')
     nick = nick.join(' ')
 
-    if (nick.length >= 32) return ctx.reply('Nickname must be less than 32 characters.')
+    if (nick.length >= 32) return ctx.tr('commands/misc/nick:exceedsLength')
     if (member.roles.highest.position > ctx.guild.me.roles.highest.position) {
-      return ctx.reply("I can't edit nicknames of people with higher role than mine.")
+      return ctx.tr('commands/misc/nick:hierarchy')
     }
 
     await member.edit({ nick })
-    return ctx.reply(`Set ${member === ctx.guild.me ? 'my' : member === ctx.member ? 'your' : member.user.username}'s nickname to **${nick}**`)
+    return ctx.tr('commands/misc/nick:success', {
+      user: member === ctx.guild.me ? 'my' : member === ctx.member ? 'your' : `${member.user.username}'s`,
+      nick
+    })
   }
 }
 

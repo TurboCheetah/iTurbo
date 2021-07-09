@@ -1,0 +1,14 @@
+{
+"description": "Bans a user that isn't in the server",
+"usage": "hackban <userID> [reason]",
+"extendedHelp": "This command will ban a user that is not in the server to prevent them from joining in the future",
+"invalidID": "Invalid userID specified.",
+"action": "Action",
+"ban": "Ban",
+"reason": "Reason",
+"noReason": "No reason specified",
+"responsibleModerator": "Responsible Moderator",
+"case": "Case {{caseNum}}",
+"success": "Banned {{user}}. Reason {{reason}}",
+"failure": "Couldn't ban that user, make sure the ID is valid."
+}

@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Fear extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'I fear no man',
+      description: language => language('commands/images/fear:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'fear [@user]'
+      usage: language => language('commands/images/fear:usage')
     })
   }
 

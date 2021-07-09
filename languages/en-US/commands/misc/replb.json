@@ -1,0 +1,6 @@
+{
+"description": "View top people with most reputations",
+"noRep": "Looks like no one has any reputation",
+"title": "Top{{amount}} respected user{{length}} by reputations",
+"footer": "Give reputation to users via {{prefix}}rep @user to help them climb the leaderboard"
+}

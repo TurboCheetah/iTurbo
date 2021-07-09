@@ -5,7 +5,7 @@ const { hostname, totalmem, cpus, loadavg } = require('os')
 class Stats extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('statsDescription'),
+      description: language => language('commands/general/stats:description'),
       aliases: ['info', 'uptime'],
       botPermissions: ['EMBED_LINKS']
     })
@@ -24,7 +24,7 @@ class Stats extends Command {
     const minutes = Math.floor((client.uptime / (1000 * 60)) % 60)
     const hours = Math.floor((client.uptime / (1000 * 60 * 60)) % 24)
     const days = Math.floor((client.uptime / (1000 * 60 * 60 * 24)) % 7)
-    const uptime = ctx.language.get('statsUptimeArr', days, hours, minutes, seconds).filter(time => !time.startsWith('0')).join(', ')
+    const uptime = ctx.translate('commands/general/stats:uptimeArr', { days: days, hours: hours, minutes: minutes, seconds: seconds, plural: seconds > 1 ? 'Seconds' : 'Second' }).filter(time => !time.startsWith('0')).join(', ')
     const total = (totalmem() / 1024 / 1024 / 1024).toFixed(0) * 1024
     const usage = (await this.client.shard.broadcastEval('(process.memoryUsage().heapUsed / 1024 / 1024)')).reduce((acc, memUsage) => acc + memUsage, 0).toFixed(2)
     const nodes = this.client.manager.nodes.map(node => node)
@@ -33,19 +33,19 @@ class Stats extends Command {
       musicStreams += node.stats.playingPlayers
     }
 
-    const msg = await ctx.reply(ctx.language.get('statsFetching'))
+    const msg = await ctx.tr('commands/general/suggestion:fetching')
     msg.delete()
 
     return ctx.reply(
       new MessageEmbed()
-        .setTitle(ctx.language.get('statsTitle'))
-        .setDescription(ctx.language.get('statsDesc'))
+        .setTitle(ctx.translate('commands/general/stats:title'))
+        .setDescription(ctx.translate('commands/general/stats:desc'))
         .setThumbnail(this.client.user.displayAvatarURL({ size: 512, dynamic: true }))
         .setColor(this.client.constants.color)
-        .addField(ctx.language.get('statsBot'), [ctx.language.get('statsGuilds', guilds), ctx.language.get('statsUsers', users), ctx.language.get('statsChannels', (await this.client.shard.fetchClientValues('channels.cache.size')).reduce((acc, channelCount) => acc + channelCount, 0)), ctx.language.get('statsShards', this.client.shard.count), ctx.language.get('statsStreams', musicStreams), ctx.language.get('statsUptime', uptime), ctx.language.get('statsPing', msg.createdTimestamp - ctx.message.createdTimestamp, this.client.ws.ping)].join('\n'), true)
+        .addField(ctx.translate('commands/general/stats:bot'), [ctx.translate('commands/general/stats:guilds', { guilds }), ctx.translate('commands/general/stats:users', { users }), ctx.translate('commands/general/stats:channels', { channels: (await this.client.shard.fetchClientValues('channels.cache.size')).reduce((acc, channelCount) => acc + channelCount, 0) }), ctx.translate('commands/general/stats:shards', { shards: this.client.shard.count }), ctx.translate('commands/general/stats:streams', { streams: musicStreams }), ctx.translate('commands/general/stats:uptime', { uptime }), ctx.translate('commands/general/stats:ping', { ping: msg.createdTimestamp - ctx.message.createdTimestamp, api: this.client.ws.ping })].join('\n'), true)
         .addField(this.client.constants.zws, this.client.constants.zws, true)
         // eslint-disable-next-line prettier/prettier
-        .addField(ctx.language.get('statsHost'), [ctx.language.get('statsHostname', hostname), ctx.language.get('statsCPU', `${(loadavg()[0] * 100).toFixed(1)}% (${cpus().length}c @ ${(cpus()[0].speed / 1000).toFixed(1)}GHz)`), ctx.language.get('statsLoadAverage', loadavg().map(avg => avg.toFixed(2)).join(', ')), ctx.language.get('statsMemUsage', `${((usage / total) * 100).toFixed(1)}% (${usage.toLocaleString()} / ${total.toLocaleString()} MB)`)].join('\n'), true)
+        .addField(ctx.translate('commands/general/stats:host'), [ctx.translate('commands/general/stats:hostname', { hostname }), ctx.translate('commands/general/stats:cpu', { usage: `${(loadavg()[0] * 100).toFixed(1)}% (${cpus().length}c @ ${(cpus()[0].speed / 1000).toFixed(1)}GHz)` }), ctx.translate('commands/general/stats:loadAverage', { load: loadavg().map(avg => avg.toFixed(2)).join(', ') }), ctx.translate('commands/general/stats:memUsage', { usage: `${((usage / total) * 100).toFixed(1)}% (${usage.toLocaleString()} / ${total.toLocaleString()} MB)` })].join('\n'), true)
         // Remove clutter
         /*
         .addField('Versions', [`Bot Version: **${this.client.version}**`, `Node.js Version: **${process.version}**`, `Discord.js Version: **v${version}**`].join('\n'), true)
@@ -53,7 +53,7 @@ class Stats extends Command {
         .addField(this.client.constants.zws, this.client.constants.zws, true)
         .addField('Useful Links', ['**📩 [Invite me to your server](https://discordapp.com/oauth2/authorize?client_id=175249503421464576&permissions=2016537702&scope=bot)** • **🎮 [Join our Discord Server](https://discord.gg/011UYuval0uSxjmuQ)** • **📖 [Documentation](https://docs.iturbo.cc)**'].join('\n'), true)
          */
-        .setFooter(ctx.language.get('statsFooter', this.client.version, this.client.shard.ids[0]))
+        .setFooter(ctx.translate('commands/general/stats:footer', { version: this.client.version, shard: this.client.shard.ids[0] }))
         .setTimestamp()
     )
   }

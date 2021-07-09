@@ -4,7 +4,7 @@ class Cuddle extends NekosLifeCommand {
   constructor(...args) {
     super({
       name: 'cuddle',
-      usage: language => language.get('cuddleUsage'),
+      usage: language => language('cuddleUsage'),
       guildOnly: true
     }, ...args)
   }

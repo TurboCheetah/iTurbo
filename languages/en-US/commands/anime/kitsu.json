@@ -1,0 +1,10 @@
+{
+  "description": "Search an anime on Kitsu.io",
+  "usage": "kitsu <anime> | [page]",
+  "prompt": "What anime would you like to search for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.",
+  "invalidPage": "Invalid page {{page}} there are only {{length}} pages.",
+  "japanese": "Japanese: {{title}}",
+  "ageRating": "Age Rating",
+  "episodes": "Episodes",
+  "episodeData": "{{count}} ({{length}} minutes per episode)"
+}

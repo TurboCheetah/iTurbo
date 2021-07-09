@@ -1,0 +1,15 @@
+{
+"description": "Kicks a user",
+"usage": "kick <@user> [reason]",
+"kickYourself": "Why woudl you kick yourself?",
+"kickMe": "Why would you kick me?",
+"kickOwner": "You can't kick the owner.",
+"unkickable": "I cannot kick this user.",
+"action": "Action",
+"kick": "Kick",
+"reason": "Reason",
+"noReason": "No reason specified",
+"responsibleModerator": "Responsible Moderator",
+"case": "Case {{caseNum}}",
+"success": "Kicked {{user}}. Reason {{reason}}"
+}

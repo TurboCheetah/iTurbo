@@ -1,0 +1,7 @@
+{
+  "description": "Enable or disable the social economy system",
+  "usage": "social <enable | disable>",
+  "prompt": "Do you want me to **enable** or **disable** economy features in this server?",
+  "enabled": "Successfully enabled the social economy system",
+  "disabled": "Successfully disabled the social economy system"
+}

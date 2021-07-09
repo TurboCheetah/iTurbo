@@ -1,5 +1,4 @@
 const { Structures } = require('discord.js')
-const languages = require('#languages')
 
 module.exports = Structures.extend(
   'Guild',
@@ -24,10 +23,6 @@ module.exports = Structures.extend(
         return this.settings.prefix
       }
 
-      get language() {
-        return languages[this.settings.language || 'english'] || languages.english
-      }
-
       syncSettings() {
         return this.client.settings.guilds.sync(this.id)
       }
@@ -40,6 +35,12 @@ module.exports = Structures.extend(
        */
       update(obj) {
         return this.client.settings.guilds.update(this.id, obj)
+      }
+
+      translate(key, args) {
+        const language = this.client.translations.get(this.settings.language)
+        if (!language) throw 'Message: Invalid language set in data.'
+        return language(key, args)
       }
     }
 )

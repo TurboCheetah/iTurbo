@@ -1,0 +1,10 @@
+{
+  "description": "Got a suggestion to improve the bot? Submit it using this command",
+  "usage": "suggestion <idea>",
+  "prompt": "What would you like to suggest?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds",
+  "success": "Your idea has been successfully submitted{{isSupport}}",
+  "invalid": "Invalid response, please try again",
+  "title": "New Suggestion",
+  "footer": "User ID: {{user}}",
+  "submitted": "Your idea has been successfully submitted{{isSupport}}"
+}

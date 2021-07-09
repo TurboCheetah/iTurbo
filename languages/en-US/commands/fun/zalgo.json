@@ -1,0 +1,6 @@
+{
+  "description": "Convert text to zalgo text",
+  "usage": "zalgo <text>",
+  "noArgument": "You must give me some text to convert!",
+  "charLimit": "Cannot use more than 180 characters. While the Discord limit is 2000 characters the zalgo characters also add up extra characters. 180 characters is in fact already 1980 characters with this command"
+}

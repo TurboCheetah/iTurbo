@@ -4,16 +4,16 @@ const { MessageAttachment } = require('discord.js')
 class Color extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'View a color by hex e.g #FF0000 or with a name like red',
+      description: language => language('commands/images/color:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'color <hex|name>',
+      usage: language => language('commands/images/color:usage'),
       aliases: ['colour']
     })
   }
 
   async run(ctx, args) {
-    if (!args.length) return ctx.reply('You need to provide a color #HEX or a name.')
+    if (!args.length) return ctx.tr('commands/images/color:noColor')
 
     const img = await this.client.img.color(args.join(' ')).catch(err => {
       // Can't be bothered to make the input correct.

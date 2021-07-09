@@ -3,14 +3,14 @@ const Command = require('#structures/Command')
 class Reverse extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('reverseDescription'),
-      usage: language => language.get('reverseUsage'),
+      description: language => language('commands/fun/reverse:description'),
+      usage: language => language('commands/fun/reverse:usage'),
       aliases: ['rev']
     })
   }
 
   async run(ctx, args) {
-    if (!args.length) return ctx.reply(ctx.language.get('reverseNoInput'))
+    if (!args.length) return ctx.tr('commands/fun/reverse:noInput')
     return ctx.reply(args.join(' ').split('').reverse().join(''))
   }
 }

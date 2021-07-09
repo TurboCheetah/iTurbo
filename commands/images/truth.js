@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Truth extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'The truth is under the paper',
+      description: language => language('commands/images/truth:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'truth [@user]'
+      usage: language => language('commands/images/truth:usage')
     })
   }
 

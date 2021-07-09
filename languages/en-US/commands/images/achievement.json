@@ -1,0 +1,4 @@
+{
+    "description": "Achievement get!",
+    "usage": "achievement [@user] <text>"
+}

@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Tweet extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Tweet something as Trump.',
+      description: language => language('commands/images/tweet:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'tweet <text>'
+      usage: language => language('commands/images/tweet:usage')
     })
   }
 

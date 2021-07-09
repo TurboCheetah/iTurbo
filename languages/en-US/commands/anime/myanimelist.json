@@ -1,0 +1,22 @@
+{
+  "description": "Search an Anime on MyAnimeList",
+  "usage": "myanimelist <anime> | [page]",
+  "japanese": "Japanese: {{title}}",
+  "ageRating": "Age Rating",
+  "episodes": "Episodes",
+  "status": "Status",
+  "score": "Score",
+  "ranking": "Ranking",
+  "popularity": "Popularity",
+  "members": "Members",
+  "favorites": "Favorites",
+  "studio": "Studio",
+  "studios": "Studios",
+  "genre": "Genre",
+  "genres": "Genres",
+  "name": "Name",
+  "role": "Role",
+  "seiyuu": "Seiyuu",
+  "prompt": "What would you like to search for?\n\nReply with `cancel` to cancel the operation. The message will timeout after 60 seconds.",
+  "id": "ID: {{id}}"
+}

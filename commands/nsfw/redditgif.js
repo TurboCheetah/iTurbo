@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 class RedditGif extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('redditGifDescription'),
+      description: language => language('redditGifDescription'),
       aliases: ['porngif', 'pgif', 'nsfwrgif', 'rnsfwgif', 'rgif'],
       cooldown: 3,
       cost: 15,

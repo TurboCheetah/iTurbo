@@ -3,10 +3,10 @@ const Command = require('#structures/Command')
 class Mimic extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Copy someone and talk as them.',
+      description: language => language('commands/misc/mimic:description'),
       aliases: ['copycat'],
       botPermissions: ['MANAGE_WEBHOOKS'],
-      usage: 'mimic <@user> <msg...>',
+      usage: language => language('commands/misc/mimic:usage'),
       guildOnly: true,
       cost: 20,
       cooldown: 30
@@ -15,7 +15,7 @@ class Mimic extends Command {
 
   async run(ctx, [user, ...message]) {
     if (!message || message.length === 0) {
-      return ctx.reply('Please specify a message!')
+      return ctx.tr('common:noArgs')
     }
     user = await this.verifyUser(ctx, user)
     if (ctx.message.deletable) await ctx.message.delete()

@@ -6,8 +6,8 @@ const c = require('@aero/centra')
 class Urban extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('urbanDescription'),
-      usage: language => language.get('urbanUsage'),
+      description: language => language('commands/fun/urban:description'),
+      usage: language => language('commands/fun/urban:usage'),
       aliases: ['ud', 'urbandictionary'],
       botPermissions: ['EMBED_LINKS'],
       cooldown: 3
@@ -17,16 +17,16 @@ class Urban extends Command {
   async run(ctx, args) {
     const [query, page = 1] = args.join(' ').split(', ')
 
-    if (isNaN(parseInt(page))) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('urbanNaN'))
+    if (isNaN(parseInt(page))) return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/fun/urban:nan'))
 
     const index = page - 1
-    if (index < 0) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('urbanNegative'))
+    if (index < 0) return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/fun/urban:negative'))
 
     const { list } = await c(`http://api.urbandictionary.com/v0/define?term=${encodeURIComponent(query)}`).json()
 
     const result = list[index]
 
-    if (typeof result === 'undefined') return ctx.errorMsg(ctx.language.get('error'), index === 0 ? ctx.language.get('urbanNoResult') : ctx.language.get('urbanNoPage'))
+    if (typeof result === 'undefined') return ctx.errorMsg(ctx.translate('common:error'), index === 0 ? ctx.translate('commands/fun/urban:noResult') : ctx.translate('commands/fun/urban:noPage'))
 
     const embeds = []
 
@@ -35,15 +35,15 @@ class Urban extends Command {
 
       embeds.push(new MessageEmbed()
         .setColor(this.client.constants.color)
-        .setTitle(ctx.language.get('urbanWord', this.client.utils.toProperCase(query)))
+        .setTitle(ctx.translate('commands/fun/urban:word', this.client.utils.toProperCase(query)))
         .setURL(def.permalink)
         .setThumbnail('http://i.imgur.com/CcIZZsa.png')
-        .addField(ctx.language.get('urbanDefinition'), definition)
-        .addField(ctx.language.get('urbanExample'), this.example(def.example))
-        .addField(ctx.language.get('urbanAuthor'), def.author, true)
-        .addField(ctx.language.get('urbanLikes'), `👍 ${def.thumbs_up}`, true)
-        .addField(ctx.language.get('urbanDislikes'), `👎 ${def.thumbs_down}`, true)
-        .setFooter(`${ctx.language.get('urbanIndex', page, list.length)} • ${ctx.language.get('urbanAttribution')}`))
+        .addField(ctx.translate('commands/fun/urban:definition'), definition)
+        .addField(ctx.translate('commands/fun/urban:example'), this.example(def.example))
+        .addField(ctx.translate('commands/fun/urban:author'), def.author, true)
+        .addField(ctx.translate('commands/fun/urban:likes'), `👍 ${def.thumbs_up}`, true)
+        .addField(ctx.translate('commands/fun/urban:dislikes'), `👎 ${def.thumbs_down}`, true)
+        .setFooter(`${ctx.translate('commands/fun/urban:index', { index: page, length: list.length })} • ${ctx.translate('commands/fun/urban:attribution')}`))
     }
 
     const Pagination = new Embeds()
@@ -51,7 +51,7 @@ class Urban extends Command {
       .setAuthorizedUsers([ctx.author.id])
       .setChannel(ctx.channel)
       .setPage(parseInt(page))
-      .setPageIndicator('footer', (page, pages) => `${ctx.language.get('page', page, pages)} • ${ctx.language.get('urbanAttribution')}`)
+      .setPageIndicator('footer', (page, pages) => `${ctx.translate('page', { page: page, pages: pages })} • ${ctx.translate('commands/fun/urban:attribution')}`)
 
     return Pagination.build()
   }
@@ -67,7 +67,7 @@ class Urban extends Command {
     const format = this.format(definition)
     if (format.length < 750) return format
     if (definition.length < 750) return definition
-    return `${this.cutText(definition, 750)}... [${ctx.language.get('urbanContinue')}](${permalink})`
+    return `${this.cutText(definition, 750)}... [${ctx.translate('commands/fun/urban:continue')}](${permalink})`
   }
 
   cutText(str, length) {

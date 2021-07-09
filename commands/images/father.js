@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Father extends Command {
   constructor(...args) {
     super(...args, {
-      description: "As a father it's my job to respect my son's opinions",
+      description: language => language('commands/images/father:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'father [@user] <text>'
+      usage: language => language('commands/images/father:usage')
     })
   }
 
@@ -17,11 +17,11 @@ class Father extends Command {
       return ctx.author
     })
 
-    if (!args.length) return ctx.reply('You need to provide some text.')
+    if (!args.length) return ctx.tr('common:noArgs')
 
     const text = args.join(' ')
 
-    if (text.length > 42) return ctx.reply('Text cannot be longer than 42 characters.')
+    if (text.length > 42) return ctx.tr('common:exceedsLength', { length: 42 })
 
     const img = await this.client.img.father(user.displayAvatarURL({ size: 256, dynamic: true, format: 'png' }), text)
 

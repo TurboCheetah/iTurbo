@@ -1,0 +1,7 @@
+{
+  "description": "Found a bug? Use this command to report it",
+  "usage": "bug <report>",
+  "prompt": "Please describe the bug as best as you can",
+  "title": "Bug Report",
+  "success": "Your bug report has been sent{{isSupport}}. You will hear back from my owner in DMs if there is anything wrong with your report. Have a nice day!"
+}

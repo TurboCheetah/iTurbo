@@ -4,9 +4,9 @@ const { MessageEmbed } = require('discord.js')
 class UserPrefix extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('userprefixDescription'),
-      extendedHelp: language => language.get('userprefixExtendedHelp'),
-      usage: language => language.get('userprefixUsage'),
+      description: language => language('commands/config/userprefix:description'),
+      extendedHelp: language => language('commands/config/userprefix:extendedHelp'),
+      usage: language => language('commands/config/userprefix:usage'),
       aliases: ['uprefix'],
       botPermissions: ['EMBED_LINKS']
     })
@@ -14,7 +14,7 @@ class UserPrefix extends Command {
 
   async run(ctx, [action = 'list', ...args]) {
     if (!['add', 'remove', 'list'].includes(action)) {
-      return ctx.errorMsg(ctx.language.get('invalidAction'), ctx.language.get('correctUsage', ctx.guild.prefix, this.usage))
+      return ctx.errorMsg(ctx.translate('common:invalidAction'), ctx.translate('common:correctUsage', { prefix: ctx.guild.prefix, usage: this.usage }))
     }
 
     return this[action](ctx, args)
@@ -22,35 +22,35 @@ class UserPrefix extends Command {
 
   async add(ctx, args) {
     if (ctx.author.settings.prefix && ctx.author.settings.prefix.length >= 10) {
-      return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixOverLimit'))
+      return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/config/userprefix:overLimit'))
     }
 
     const prefixInput = args.join(' ').toLowerCase()
-    if (!prefixInput) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixNoPrefix'))
+    if (!prefixInput) return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/config/userprefix:noPrefix'))
 
     // User prefixes get an extra 5 chars compared to guild prefixes.
-    if (prefixInput.length > 15) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixLong'))
+    if (prefixInput.length > 15) return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/config/userprefix:long'))
 
     // Get existing prefixes to append to.
     const prefix = ctx.author.settings.prefix || []
 
     // Avoid duplicates.
-    if (prefix.includes(prefixInput)) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixAlreadyAdded'))
+    if (prefix.includes(prefixInput)) return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/config/userprefix:alreadyAdded'))
 
     prefix.push(prefixInput)
 
     await ctx.author.update({ prefix })
-    return ctx.successMsg('Success', ctx.language.get('userprefixSuccess', prefixInput))
+    return ctx.successMsg('Success', ctx.translate('commands/config/userprefix:success', { prefix: prefixInput }))
   }
 
   async list(ctx) {
     if (!ctx.author.settings.prefix || !ctx.author.settings.prefix.length) {
-      return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixNoPrefixes'))
+      return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/config/userprefix:noPrefixes'))
     }
 
     const embed = new MessageEmbed()
       .setColor(this.client.constants.color)
-      .setTitle(ctx.language.get('userprefixTitle'))
+      .setTitle(ctx.translate('commands/config/userprefix:title'))
       .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 128, dynamic: true }))
       .setDescription(ctx.author.settings.prefix.map(prefix => `• ${prefix}`).join('\n'))
 
@@ -59,20 +59,20 @@ class UserPrefix extends Command {
 
   async remove(ctx, args) {
     if (!ctx.author.settings.prefix || !ctx.author.settings.prefix) {
-      return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixNoneToRemove'))
+      return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/config/userprefix:noneToRemove'))
     }
 
     const prefixInput = args.join(' ').toLowerCase()
-    if (!prefixInput) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixNoPrefixToRemove'))
+    if (!prefixInput) return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/config/userprefix:noPrefixToRemove'))
 
     const prefix = ctx.author.settings.prefix
-    if (!prefix.includes(prefixInput)) return ctx.errorMsg(ctx.language.get('error'), ctx.language.get('userprefixInvalid'))
+    if (!prefix.includes(prefixInput)) return ctx.errorMsg(ctx.translate('common:error'), ctx.translate('commands/config/userprefix:invalid'))
 
     prefix.splice(prefix.indexOf(prefixInput), 1)
 
     await ctx.author.update({ prefix })
 
-    return ctx.successMsg(ctx.language.get('success'), ctx.language.get('userprefixRemoved', prefixInput))
+    return ctx.successMsg(ctx.translate('common:success'), ctx.translate('commands/config/userprefix:removed', { prefix: prefixInput }))
   }
 }
 

@@ -1,0 +1,5 @@
+{
+  "description": "Swap the case of a message",
+  "usage": "swapcase <text>",
+  "noText": "You didn't give me any text"
+}

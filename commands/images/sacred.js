@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Sacred extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'The ancient sacred texts',
+      description: language => language('commands/images/sacred:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'sacred [@user]'
+      usage: language => language('commands/images/sacred:usage')
     })
   }
 

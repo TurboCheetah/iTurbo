@@ -4,7 +4,7 @@ class Baka extends NekosLifeCommand {
   constructor(...args) {
     super({
       name: 'baka',
-      usage: language => language.get('bakaUsage')
+      usage: language => language('bakaUsage')
     }, ...args)
   }
 }

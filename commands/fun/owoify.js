@@ -4,8 +4,8 @@ const c = require('@aero/centra')
 class OwOify extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('owoifyDescription'),
-      usage: language => language.get('owoifyUsage'),
+      description: language => language('commands/fun/owoify:description'),
+      usage: language => language('commands/fun/owoify:usage'),
       cooldown: 3,
       aliases: ['owo']
     })

@@ -1,0 +1,4 @@
+{
+    "description": "Tweet something as Trump.",
+    "usage": "tweet <text>"
+}

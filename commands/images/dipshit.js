@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Dipshit extends Command {
   constructor(...args) {
     super(...args, {
-      description: "Did you mean 'dipshit'?",
+      description: language => language('commands/images/dipshit:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'dipshit [@user|text]'
+      usage: language => language('commands/images/dipshit:usage')
     })
   }
 

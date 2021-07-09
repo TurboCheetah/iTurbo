@@ -1,0 +1,17 @@
+{
+  "description": "Searches Urban Dictionary for the definition of the search term",
+  "usage": "urban <query>, [page]",
+  "nan": "Page must be a number",
+  "negative": "The number cannot be zero or negative",
+  "noResult": "I could not find this entry in Urban Dictionary",
+  "noPage": "I could not find this page in Urban Dictionary, try a lower page index",
+  "word": "Word: {{word}}",
+  "definition": "Defintion",
+  "example": "Example",
+  "author": "Author",
+  "likes": "Likes",
+  "dislikes": "Dislikes",
+  "attribution": "Powered by Urban Dictionary",
+  "index": "Definition {{index}} of {{length}}",
+  "Continue": "continue reading"
+}

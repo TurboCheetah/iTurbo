@@ -5,7 +5,7 @@ const c = require('@aero/centra')
 class AnimalCommand extends Command {
   constructor({ url, ...options }, ...args) {
     super(...args, {
-      description: language => language.get(`${options.name}Description`),
+      description: language => language(`commands/animal/${options.name}:description`),
       cooldown: 3,
       botPermissions: ['EMBED_LINKS'],
       ...options

@@ -3,17 +3,17 @@ const Command = require('#structures/Command')
 class Zalgo extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('zalgoDescription'),
-      usage: language => language.get('zalgoUsage'),
+      description: language => language('commands/fun/zalgo:description'),
+      usage: language => language('commands/fun/zalgo:usage'),
       cost: 10
     })
   }
 
   async run(ctx, args) {
-    if (!args.length) return ctx.reply(ctx.language.get('zalgoNoArgumnent'))
+    if (!args.length) return ctx.tr('commands/fun/zalgo:noArgumnent')
 
     const text = args.join(' ')
-    if (text.length > 180) return ctx.reply(ctx.language.get('zalgoCharLimit'))
+    if (text.length > 180) return ctx.tr('commands/fun/zalgo:charLimit')
 
     return ctx.reply(
       text

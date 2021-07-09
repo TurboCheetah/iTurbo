@@ -5,8 +5,8 @@ const { Embeds, FieldsEmbed } = require('discord-paginationembed')
 class Help extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('helpDescription'),
-      usage: language => language.get('helpUsage'),
+      description: language => language('commands/general/help:description'),
+      usage: language => language('commands/general/help:usage'),
       botPermissions: ['EMBED_LINKS', 'ADD_REACTIONS']
     })
   }
@@ -36,22 +36,22 @@ class Help extends Command {
           .setChannel(ctx.channel)
           .setElementsPerPage(7)
           .setPage(page)
-          .setPageIndicator('footer', (page, pages) => ctx.language.get('page', page, pages))
-          .formatField(ctx.language.get('helpCommands'), i => `• [**${i}**](https://docs.iturbo.cc/commands/${category.toLowerCase()}#${i} '${this.store.get(i).aliases.length > 0 ? `\n${ctx.language.get('helpCommandAliases', this.store.get(i).aliases.join(', '))}` : ''}') - ${this.store.get(i).description}`)
+          .setPageIndicator('footer', (page, pages) => ctx.translate('page', { page: page, pages: pages }))
+          .formatField(ctx.translate('commands/general/help:commands'), i => `• [**${i}**](https://docs.iturbo.cc/commands/${category.toLowerCase()}#${i} '${this.store.get(i).aliases.length > 0 ? `\n${ctx.translate('commands/general/help:commandAliases', { aliases: this.store.get(i).aliases.join(', ') })}` : ''}') - ${this.store.get(i).description}`)
 
         Pagination.embed
           .setColor(this.client.constants.color)
-          .setAuthor(ctx.language.get('helpCategory'), this.client.user.displayAvatarURL({ size: 128, dynamic: true }))
-          .setDescription(ctx.language.get('helpCategoryDescription', ctx))
-          .setFooter(ctx.language.get('requestedBy', ctx.author.tag), null)
+          .setAuthor(ctx.translate('commands/general/help:category', { category }), this.client.user.displayAvatarURL({ size: 128, dynamic: true }))
+          .setDescription(ctx.translate('commands/general/help:categoryDescription', { prefix: ctx.guild ? ctx.guild.settings.prefix : '|' }))
+          .setFooter(ctx.translate('common:requestedBy', { requester: ctx.author.tag }), null)
 
         return Pagination.build()
       }
 
       const cmd = this.store.get(command.toLowerCase())
-      if (!cmd) return ctx.reply(ctx.language.get('helpDoesNotExist'))
+      if (!cmd) return ctx.tr('commands/general/help:doesNotExist')
 
-      let cost = ctx.language.get('helpCost')
+      let cost = ctx.translate('commands/general/help:cost')
 
       if (cmd.cost && ctx.guild && ctx.guild.settings.social) {
         const premium = await this.client.verifyPremium(ctx.author)
@@ -65,7 +65,7 @@ class Help extends Command {
       }
 
       if (cmd.nsfw && ctx.guild && !ctx.channel.nsfw) {
-        return ctx.reply(ctx.language.get('helpIsNSFW'))
+        return ctx.tr('commands/general/help:isNSFW')
       }
 
       const cmdArgs = []
@@ -74,26 +74,26 @@ class Help extends Command {
       for (const [key, value] of Object.entries(cmd.examples)) cmdExamples.push(`• \`${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.name} ${key}\` ${value}`)
 
       const embed = new MessageEmbed()
-        .setTitle(ctx.language.get('helpCommand', this.client.utils.toProperCase(cmd.name)))
+        .setTitle(ctx.translate('commands/general/help:command', { command: this.client.utils.toProperCase(cmd.name) }))
         .setURL(`https://docs.iturbo.cc/commands/${cmd.category.toLowerCase()}#${cmd.name}`)
         .setColor(this.client.constants.color)
         .setDescription(cmd.description)
-        .addField(ctx.language.get('helpCommandUsage'), `${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`)
-        .addField(ctx.language.get('helpCommandAliases'), cmd.aliases.length ? cmd.aliases.join(', ') : ctx.language.get('none'))
+        .addField(ctx.translate('commands/general/help:commandUsage'), `${ctx.guild ? ctx.guild.settings.prefix : '|'}${cmd.usage}`)
+        .addField(ctx.translate('commands/general/help:commandAliases'), cmd.aliases.length ? cmd.aliases.join(', ') : ctx.translate('common:none'))
       // eslint-disable-next-line prettier/prettier
-      embed.addField(ctx.language.get('helpCommandCategory'), cmd.category)
-        .setFooter(`${ctx.language.get('helpCommandCost', cost)} • ${ctx.language.get('helpCommandCooldown', cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.language.get('none'))}`)
+      embed.addField(ctx.translate('commands/general/help:commandCategory'), cmd.category)
+        .setFooter(`${ctx.translate('commands/general/help:commandCost', { cost })} • ${ctx.translate('commands/general/help:commandCooldown', { cooldown: cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.translate('common:none') })}`)
 
-      if (cmd.extendedHelp !== ctx.language.get('helpNoExtendedHelp')) embed.addField(ctx.language.get('helpExtendedHelp'), cmd.extendedHelp)
+      if (cmd.extendedHelp !== ctx.translate('commands/general/help:noExtendedHelp')) embed.addField(ctx.translate('commands/general/help:extendedHelp'), cmd.extendedHelp)
 
       const examplesEmbed = new MessageEmbed()
-        .setTitle(ctx.language.get('helpCommand', this.client.utils.toProperCase(cmd.name)))
+        .setTitle(ctx.translate('commands/general/help:command', { command: this.client.utils.toProperCase(cmd.name) }))
         .setURL(`https://docs.iturbo.cc/commands/${cmd.category.toLowerCase()}#${cmd.name}`)
         .setColor(this.client.constants.color)
-        .setFooter(`${ctx.language.get('helpCommandCost', cost)} • ${ctx.language.get('helpCommandCooldown', cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.language.get('none'))}`)
+        .setFooter(`${ctx.translate('commands/general/help:commandCost', { cost })} • ${ctx.translate('commands/general/help:commandCooldown', { cooldown: cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.translate('common:none') })}`)
 
-      if (cmdArgs.length) examplesEmbed.addField(ctx.language.get('helpCommandArguments'), cmdArgs.join('\n'))
-      if (cmdExamples.length) examplesEmbed.addField(ctx.language.get('helpCommandExamples'), cmdExamples.join('\n'))
+      if (cmdArgs.length) examplesEmbed.addField(ctx.translate('commands/general/help:commandArguments'), cmdArgs.join('\n'))
+      if (cmdExamples.length) examplesEmbed.addField(ctx.translate('commands/general/help:commandExamples'), cmdExamples.join('\n'))
 
       const embeds = [embed, examplesEmbed]
       if (!cmdArgs.length && !cmdExamples.length) return ctx.reply({ embed })
@@ -104,7 +104,7 @@ class Help extends Command {
         .setChannel(ctx.channel)
         .setPage(page)
         .setDisabledNavigationEmojis(['delete'])
-        .setPageIndicator('footer', (page, pages) => `${ctx.language.get('helpCommandCost', cost)} • ${ctx.language.get('helpCommandCooldown', cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.language.get('none'))} • ${ctx.language.get('page', page, pages)}`)
+        .setPageIndicator('footer', (page, pages) => `${ctx.translate('commands/general/help:commandCost', { cost })} • ${ctx.translate('commands/general/help:commandCooldown', { cooldown: cmd.cooldown ? `${cmd.cooldown} Seconds` : ctx.translate('common:none') })} • ${ctx.translate('page', { page: page, pages: pages })}`)
 
       return Pagination.build()
     }
@@ -112,10 +112,10 @@ class Help extends Command {
     const embed = new MessageEmbed()
       .setColor(this.client.constants.color)
       .setAuthor(this.client.user.tag, this.client.user.displayAvatarURL({ size: 128, dynamic: true }))
-      .setTitle(ctx.language.get('helpTitle'))
+      .setTitle(ctx.translate('commands/general/help:title'))
       .setURL('https://docs.iturbo.cc/commands')
-      .setDescription(ctx.language.get('helpBaseDesc', ctx))
-      .addField(ctx.language.get('helpBaseAvail'), keys.map(key => `[\`${key}\`](https://docs.iturbo.cc/commands/${key.toLowerCase()})`).join(' '))
+      .setDescription(ctx.translate('commands/general/help:baseDesc', { prefix: ctx.guild ? ctx.guild.settings.prefix : '|' }))
+      .addField(ctx.translate('commands/general/help:baseAvail'), keys.map(key => `[\`${key}\`](https://docs.iturbo.cc/commands/${key.toLowerCase()})`).join(' '))
       .setImage('https://i.imgur.com/g3jV9fg.gif')
 
     /*     for (const category of keys) {

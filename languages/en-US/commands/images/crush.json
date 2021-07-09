@@ -1,0 +1,4 @@
+{
+    "description": "Declare your love for a user",
+    "usage": "crush <@user> [@user]"
+}

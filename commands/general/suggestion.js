@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js')
 class Suggestion extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('suggestionDescription'),
-      usage: language => language.get('suggestionUsage'),
+      description: language => language('commands/general/suggestion:description'),
+      usage: language => language('commands/general/suggestion:usage'),
       aliases: ['suggest'],
       cooldown: 60,
       botPermissions: ['EMBED_LINKS']
@@ -16,20 +16,20 @@ class Suggestion extends Command {
     if (!args.length) {
       const embed = new MessageEmbed()
         .setColor(this.client.constants.color)
-        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
-        .setDescription(ctx.language.get('suggestionPrompt'))
+        .setAuthor(ctx.author.username, ctx.author.displayAvatarURL({ size: 128, dynamic: true }))
+        .setDescription(ctx.translate('commands/general/suggestion:prompt'))
         .setTimestamp()
 
       const filter = msg => msg.author.id === ctx.author.id
       const response = await ctx.message.awaitReply('', filter, 60000, embed)
-      if (!response) return ctx.reply(ctx.language.get('noReplyTimeout', 60))
+      if (!response) return ctx.reply('common:noReplyTimeout', { time: 60 })
 
       if (response.toLowerCase()) {
-        return ctx.reply(ctx.language.get('suggestionSuccess', ctx))
+        return ctx.reply('commands/general/suggestion:success', { isSupport: ctx.guild && ctx.guild.id !== this.client.constants.mainGuildID ? ' to the support server' : '' })
       } else if (['cancel'].includes(response)) {
-        return ctx.reply(ctx.language.get('operationCancelled'))
+        return ctx.reply('common:operationCancelled')
       } else {
-        return ctx.reply(ctx.language.get('suggestionInvalid'))
+        return ctx.reply('commands/general/suggestion:invalid')
       }
     }
 
@@ -41,11 +41,11 @@ class Suggestion extends Command {
 
         const embed = new MessageEmbed()
         .setColor(this.client.constants.color)
-        .setTitle('${ctx.language.get('suggestionTitle')}')
+        .setTitle('${ctx.translate('commands/general/suggestion:title')}')
         .setDescription('${args.join(' ')}')
         .setThumbnail('${ctx.author.displayAvatarURL({ size: 512, dynamic: true })}')
         .setAuthor('${ctx.author.tag}', '${ctx.author.displayAvatarURL({ size: 128, dynamic: true })}')
-        .setFooter('${ctx.language.get('suggestionFooter', ctx.author.id)}')
+        .setFooter('${ctx.translate('commands/general/suggestion:footer', ctx.author.id)}')
   
       const message = await channel.send({ embed })
       await message.react(this.constants.reactions.success)
@@ -54,7 +54,7 @@ class Suggestion extends Command {
     })()
     `)
 
-    return ctx.reply(ctx.language.get('suggestionSubmitted'))
+    return ctx.tr('commands/general/suggestion:submitted', { isSupport: ctx.guild && ctx.guild.id !== this.client.constants.mainGuildID ? ' to the support server' : '' })
   }
 }
 

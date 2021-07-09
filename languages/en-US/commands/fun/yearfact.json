@@ -1,0 +1,5 @@
+{
+  "description": "Get a fact about a specific or random year",
+  "usage": "yearfact [year | random]",
+  "nan": "Does that look like a year to you?"
+}

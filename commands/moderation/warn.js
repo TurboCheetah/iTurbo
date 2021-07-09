@@ -4,26 +4,26 @@ const { MessageEmbed } = require('discord.js')
 class Warn extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Warns a member',
+      description: language => language('commands/moderation/warn:description'),
       userPermissions: ['KICK_MEMBERS'],
       botPermissions: ['EMBED_LINKS'],
-      usage: 'warn <@user> <reason>',
+      usage: language => language('commands/moderation/warn:usage'),
       guildOnly: true
     })
   }
 
   async run(ctx, [member, ...reason]) {
     member = await this.verifyUser(ctx, member)
-    if (!reason.length) return ctx.reply("You didn't give me a reason.")
+    if (!reason.length) return ctx.tr('commands/moderation/warn:noReason')
     reason = reason.length ? reason.join(' ') : null
 
-    if (member.id === ctx.author.id) return ctx.reply("You can't warn yourself.")
-    if (member.id === this.client.user.id) return ctx.reply('Why would you try to warn me?')
-    if (member.bot) return ctx.reply("You can't warn bots.")
-    if (member.id === ctx.guild.ownerID) return ctx.reply("You can't warn the owner.")
+    if (member.id === ctx.author.id) return ctx.tr('commands/moderation/warn:warnYourself')
+    if (member.id === this.client.user.id) return ctx.tr('commands/moderation/warn:warnMe')
+    if (member.bot) return ctx.tr('commands/moderation/warn:warnBot')
+    if (member.id === ctx.guild.ownerID) return ctx.tr('commands/moderation/warn:warnOwner')
 
     try {
-      await member.send(`You've been warned by **${ctx.author.tag}** in **${ctx.guild.name}** for: ${reason}`)
+      await member.send(ctx.translate('commands/moderation/warn:warned', { moderator: ctx.author.tag, guild: ctx.guild.name, reason }))
       if (ctx.guild.settings.modlog) {
         const channel = this.client.channels.cache.get(ctx.guild.settings.modlog)
         if (!channel) return
@@ -33,20 +33,20 @@ class Warn extends Command {
         const embed = new MessageEmbed()
           .setColor(0x9590ee)
           .setAuthor(`${member.tag} (${member.id})`, member.displayAvatarURL({ size: 32, dynamic: true }))
-          .addField('Action', 'Warn')
-          .addField('Reason', reason || 'No reason specified')
-          .addField('Responsible moderator', `${ctx.author.tag}`)
-          .setFooter(`Case ${caseNum}`)
+          .addField(ctx.translate('commands/moderation/warn:action'), ctx.translate('commands/moderation/warn:warn'))
+          .addField(ctx.translate('commands/moderation/warn:reason'), reason || ctx.translate('commands/moderation/warn:noReason'))
+          .addField(ctx.translate('commands/moderation/warn:responsibleModerator'), `${ctx.author.tag}`)
+          .setFooter(ctx.translate('commands/moderation/warn:case', { caseNum }))
           .setTimestamp()
 
-        ctx.reply(`Warned ${member.tag}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+        ctx.tr('commands/moderation/warn:success', { user: member.tag, reason: reason || ctx.translate('commands/moderation/warn:noReason') })
         return channel.send({ embed })
       } else {
-        return ctx.reply(`Warned ${member.tag}. Reason: ${reason ? `${reason}` : 'No reason specified'}`)
+        return ctx.tr('commands/moderation/warn:success', { user: member.tag, reason: reason || ctx.translate('commands/moderation/warn:noReason') })
       }
     } catch (err) {
       console.error(err)
-      return ctx.reply("I couldn't DM the user, maybe they have DMs blocked.")
+      return ctx.tr('commands/moderation/warn:noDM')
     }
   }
 }

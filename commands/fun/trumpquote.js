@@ -4,7 +4,7 @@ const c = require('@aero/centra')
 class TrumpQuote extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('trumpquoteDescription'),
+      description: language => language('commands/fun/trumpquote:description'),
       cooldown: 3
     })
   }

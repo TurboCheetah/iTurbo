@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js')
 class Settings extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('settingsDescription'),
-      usage: language => language.get('settingsUsage'),
+      description: language => language('commands/config/settings:description'),
+      usage: language => language('commands/config/settings:usage'),
       aliases: ['config'],
       botPermissions: ['EMBED_LINKS'],
       cooldown: 3
@@ -17,9 +17,9 @@ class Settings extends Command {
       const embed = new MessageEmbed()
         .setColor(this.client.constants.color)
         .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
-        .setTitle(ctx.language.get('settingsUserTitle'))
+        .setTitle(ctx.translate('commands/config/settings:userTitle'))
         // eslint-disable-next-line prettier/prettier
-        .addField(ctx.author.settings.prefix.length > 1 ? ctx.language.get('settingsPrefixPlural') : ctx.language.get('settingsPrefix'), ctx.author.settings.prefix.length > 0 ? ctx.author.settings.prefix.map(p => `\`${p}\``).join(', ') : ctx.language.get('none'), true)
+        .addField(ctx.author.settings.prefix.length > 1 ? ctx.translate('commands/config/settings:prefixPlural') : ctx.translate('commands/config/settings:prefix'), ctx.author.settings.prefix.length > 0 ? ctx.author.settings.prefix.map(p => `\`${p}\``).join(', ') : ctx.translate('common:none'), true)
 
       return ctx.reply({ embed })
     }
@@ -27,21 +27,21 @@ class Settings extends Command {
     const embed = new MessageEmbed()
       .setColor(this.client.constants.color)
       .setAuthor(ctx.guild.name, ctx.guild.iconURL({ size: 128, dynamic: true }))
-      .setTitle(ctx.language.get('settingsGuildTitle'))
-      .addField(ctx.language.get('settingsPrefix'), `\`${ctx.guild.settings.prefix}\``, true)
+      .setTitle(ctx.translate('commands/config/settings:guildTitle'))
+      .addField(ctx.translate('commands/config/settings:prefix'), `\`${ctx.guild.settings.prefix}\``, true)
       .addField(this.client.constants.zws, this.client.constants.zws, true)
-      .addField(ctx.language.get('settingsLevelUp'), ctx.guild.settings.levelup ? ctx.language.get('enabled') : ctx.language.get('disabled'), true)
-      .addField(ctx.language.get('settingsEconomy'), ctx.guild.settings.social ? ctx.language.get('enabled') : ctx.language.get('disabled'), true)
+      .addField(ctx.translate('commands/config/settings:levelUp'), ctx.guild.settings.levelup ? ctx.translate('enabled') : ctx.translate('disabled'), true)
+      .addField(ctx.translate('commands/config/settings:economy'), ctx.guild.settings.social ? ctx.translate('enabled') : ctx.translate('disabled'), true)
       .addField(this.client.constants.zws, this.client.constants.zws, true)
-      .addField(ctx.language.get('settingsStarboard'), ctx.guild.settings.starboard ? ctx.guild.channels.cache.find(c => c.id === ctx.guild.settings.starboard) : ctx.language.get('disabled'), true)
-      .addField(ctx.language.get('weebgreetings'), ctx.guild.settings.weebGreetings ? ctx.guild.channels.cache.find(c => c.id === ctx.guild.settings.weebGreetings) : ctx.language.get('disabled'), true)
+      .addField(ctx.translate('commands/config/settings:starboard'), ctx.guild.settings.starboard ? ctx.guild.channels.cache.find(c => c.id === ctx.guild.settings.starboard) : ctx.translate('disabled'), true)
+      .addField(ctx.translate('common:weebgreetings'), ctx.guild.settings.weebGreetings ? ctx.guild.channels.cache.find(c => c.id === ctx.guild.settings.weebGreetings) : ctx.translate('disabled'), true)
       .addField(this.client.constants.zws, this.client.constants.zws, true)
-      .addField(ctx.language.get('djRole'), ctx.guild.settings.djRole ? ctx.guild.roles.cache.find(r => r.id === ctx.guild.settings.djRole) : ctx.language.get('disabled'), true)
-      .setFooter(ctx.language.get('requestedBy', ctx.author.tag), ctx.author.displayAvatarURL({ size: 128, dynamic: true }))
+      .addField(ctx.translate('common:djRole'), ctx.guild.settings.djRole ? ctx.guild.roles.cache.find(r => r.id === ctx.guild.settings.djRole) : ctx.translate('disabled'), true)
+      .setFooter(ctx.translate('common:requestedBy', { requester: ctx.author.tag }), ctx.author.displayAvatarURL({ size: 128, dynamic: true }))
 
-    if (!ctx.guild.settings.nowplaying) embed.addField(ctx.language.get('settingsNowPlaying'), ctx.language.get('disabled'), true)
+    if (!ctx.guild.settings.nowplaying) embed.addField(ctx.translate('commands/config/settings:nowPlaying'), ctx.translate('disabled'), true)
     // eslint-disable-next-line prettier/prettier
-    if (ctx.guild.settings.social && (ctx.guild.settings.disabledChannels && ctx.guild.settings.disabledChannels.length > 0)) embed.addFields([{ name: this.client.constants.zws, value: this.client.constants.zws, inline: true }, { name: ctx.language.get('settingsDisabledLevelUp'), value: ctx.guild.settings.disabledChannels.map(channel => ctx.guild.channels.cache.find(c => c.id === channel)), inline: true }])
+    if (ctx.guild.settings.social && (ctx.guild.settings.disabledChannels && ctx.guild.settings.disabledChannels.length > 0)) embed.addFields([{ name: this.client.constants.zws, value: this.client.constants.zws, inline: true }, { name: ctx.translate('commands/config/settings:disabledLevelUp'), value: ctx.guild.settings.disabledChannels.map(channel => ctx.guild.channels.cache.find(c => c.id === channel)), inline: true }])
     ctx.reply({ embed })
   }
 }

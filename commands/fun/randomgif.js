@@ -4,8 +4,8 @@ const c = require('@aero/centra')
 class RandomGIF extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('randomgifDescription'),
-      usage: language => language.get('randomgifUsage'),
+      description: language => language('commands/fun/randomgif:description'),
+      usage: language => language('commands/fun/randomgif:usage'),
       aliases: ['rgif', 'randgif'],
       cooldown: 5
     })

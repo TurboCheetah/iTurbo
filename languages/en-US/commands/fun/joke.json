@@ -1,0 +1,4 @@
+{
+  "description": "Get a random joke",
+  "error": "Something went wrong with the API. Try again later"
+}

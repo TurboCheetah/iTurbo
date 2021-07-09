@@ -4,7 +4,7 @@ class Poke extends NekosLifeCommand {
   constructor(...args) {
     super({
       name: 'poke',
-      usage: language => language.get('pokeUsage'),
+      usage: language => language('pokeUsage'),
       guildOnly: true
     }, ...args)
   }

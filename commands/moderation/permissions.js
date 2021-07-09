@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js')
 class Permissions extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'View all permissions of a User.',
-      usage: 'permissions [user]',
+      description: language => language('commands/moderation/permissions:description'),
+      usage: language => language('commands/moderation/permissions:usage'),
       guildOnly: true,
       aliases: ['perms'],
       botPermissions: ['EMBED_LINKS']
@@ -16,7 +16,7 @@ class Permissions extends Command {
     member = await this.verifyMember(ctx, member, true)
     return ctx.reply(
       new MessageEmbed()
-        .setTitle(`${member.displayName}'s Permissions in #${ctx.channel.name} in ${ctx.guild.name}`)
+        .setTitle(ctx.translate('commands/moderation/permissions:title', { user: member.displayName, channel: ctx.channel.name, guild: ctx.guild.name }))
         .setColor(0x9590ee)
         .setAuthor(ctx.author.tag, ctx.author.displayAvatarURL({ size: 64, dynamic: true }))
         .setDescription(

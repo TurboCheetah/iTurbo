@@ -1,0 +1,18 @@
+{
+  "levelMessages": [
+    "You're only level **{{level}}**, Not bad...",
+    "Pfft, level **{{level}}**?",
+    "**{{user}}** your level? It's **{{level}}**, baka",
+    "**{{user}}**, again with this? Whatever, you're level **{{level}}**.",
+    "**{{user}}-san** here you go, it's **{{level}}**.",
+    "You're level **{{level}}**, maybe if you were a wee bit more active it'd be higher.",
+    "Only a level **{{level}}**? Even I'm better than that.",
+    "Level **{{level}}**? What, where you hoping to be higher than **{{level}}**?",
+    "Only level **{{level}}**? Pfft! I've seen much better than that."
+  ],
+
+  "otherLevelMessages": [
+    "Look just ask **{{user}}** next time, but I will forgive you. Here, this is their level: **{{level}}**.",
+    "Why do you want to view **{{user}}**'s level? Anyway they are level **{{level}}**."
+  ]
+}

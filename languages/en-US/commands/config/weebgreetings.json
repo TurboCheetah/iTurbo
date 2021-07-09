@@ -1,0 +1,8 @@
+{
+  "description": "Enable/disable weeb style welcome/leave messages",
+  "usage": "weebgreetings <enable <channel> | disable>",
+  "enabled": "Successfully enabled weeb greetings for the channel {{channel}}",
+  "specify": "Specify the channel you want weeb greetings to show up in",
+  "disabled": "Successfully disabled weeb greetings",
+  "invalid": "Please specify `enable <#channel>` or `disable`"
+}

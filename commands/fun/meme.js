@@ -4,7 +4,7 @@ const { MessageEmbed } = require('discord.js')
 class Meme extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('memeDescription'),
+      description: language => language('commands/fun/meme:description'),
       cooldown: 5,
       cost: 5,
       aliases: ['memes', 'dankmemes'],

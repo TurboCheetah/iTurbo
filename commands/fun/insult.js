@@ -3,14 +3,14 @@ const Command = require('#structures/Command')
 class Insult extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('insultDescription'),
-      usage: language => language.get('insultUsage')
+      description: language => language('commands/fun/insult:description'),
+      usage: language => language('commands/fun/insult:usage')
     })
   }
 
   async run(ctx, [user]) {
     user = await this.verifyUser(ctx, user, true)
-    if (user.id === this.client.user.id) return ctx.reply(ctx.language.get('insultBot'))
+    if (user.id === this.client.user.id) return ctx.tr('commands/fun/insult:bot')
     const roll = this.client.utils.random // Shorter to type.
     return ctx.reply(`${user}, you know what? you're nothing but ${roll(start)} ${roll(middle)} ${roll(end)}.`)
   }

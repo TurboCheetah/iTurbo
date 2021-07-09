@@ -1,0 +1,8 @@
+{
+  "description": "Pick a random choice!",
+  "help": "Separate choices with a comma",
+  "usage": "choose <option 1, option 2, option 3, ...>",
+  "noChoice": "Not enough choices to pick from. Make sure you seperate your choices with a comma",
+  "thinking": "{{loading}} **{{user}}** is thinking...",
+  "choice": "I think **{{choice}}**"
+}

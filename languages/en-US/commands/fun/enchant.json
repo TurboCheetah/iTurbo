@@ -1,0 +1,5 @@
+{
+  "description": "Convert your text into minecraft enchantment table language",
+  "usage": "enchant <text>",
+  "noArgs": "You must give me something to enchant."
+}

@@ -4,10 +4,10 @@ const { MessageAttachment } = require('discord.js')
 class Achievement extends Command {
   constructor(...args) {
     super(...args, {
-      description: 'Achievement Get!',
+      description: language => language('commands/images/achievement:description'),
       cooldown: 3,
       cost: 5,
-      usage: 'achievement [@user] <text>'
+      usage: language => language('commands/images/achievement:usage')
     })
   }
 
@@ -17,11 +17,11 @@ class Achievement extends Command {
       return ctx.author
     })
 
-    if (!args.length) return ctx.reply('You need to provide some text.')
+    if (!args.length) return ctx.tr('common:noArgs')
 
     const text = args.join(' ')
 
-    if (text.length > 21) return ctx.reply('Text cannot be longer than 21 characters.')
+    if (text.length > 21) return ctx.tr('common:exceedsLength', { length: 21 })
 
     const img = await this.client.img.achievement(user.displayAvatarURL({ size: 64, dynamic: true, format: 'png' }), text)
 

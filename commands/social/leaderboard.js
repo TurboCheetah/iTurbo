@@ -43,11 +43,11 @@ class Leaderboard extends Command {
 
     const embed = new MessageEmbed()
       .setColor(this.client.constants.color)
-      .setTitle(ctx.language.get('leaderboardTitle', ctx.guild))
+      .setTitle(ctx.translate('leaderboardTitle', ctx.guild))
       .setThumbnail(ctx.guild.iconURL({ size: 512, dynamic: true }))
-      .setDescription(ctx.language.get('leaderboardPosition', posTxt, parseInt(ctx.member.settings.points).toLocaleString()))
-      .addField(ctx.language.get('leaderboardText'), leaderboard.join('\n'))
-      .setFooter(ctx.language.get('page', page + 1, totalPages || 1), ctx.author.avatarURL({ size: 128, dynamic: true }))
+      .setDescription(ctx.translate('leaderboardPosition', posTxt, parseInt(ctx.member.settings.points).toLocaleString()))
+      .addField(ctx.translate('leaderboardText'), leaderboard.join('\n'))
+      .setFooter(ctx.translate('page', page + 1, totalPages || 1), ctx.author.avatarURL({ size: 128, dynamic: true }))
 
     return ctx.reply({ embed })
   }

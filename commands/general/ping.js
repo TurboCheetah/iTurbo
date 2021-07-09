@@ -3,19 +3,14 @@ const Command = require('#structures/Command')
 class Ping extends Command {
   constructor(...args) {
     super(...args, {
-      description: language => language.get('pingDescription')
+      description: language => language('commands/general/ping:description')
     })
   }
 
   async run(ctx) {
-    const msg = await ctx.reply(ctx.language.get('pingMessage'))
+    const msg = await ctx.tr('commands/general/ping:message')
 
-    return msg.edit(
-      this.client.utils
-        .random(this.client.responses.pingMessages)
-        .replace(/{{user}}/g, ctx.guild ? ctx.member.displayName : ctx.author.username)
-        .replace(/{{ms}}/g, `${msg.createdTimestamp - ctx.message.createdTimestamp}`)
-    )
+    return msg.edit(this.client.utils.random(ctx.translate('commands/general/ping:messages', { user: ctx.guild ? ctx.member.displayName : ctx.author.username, ms: msg.createdTimestamp - ctx.message.createdTimestamp })))
   }
 }
 

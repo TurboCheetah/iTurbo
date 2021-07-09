@@ -1,0 +1,4 @@
+{
+    "description": "Copy someone and talk as them.",
+    "usage": "mimic <@user> <msg>"
+}
