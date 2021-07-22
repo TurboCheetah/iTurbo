@@ -36,7 +36,7 @@
     "@aero/centra": "^1.0.6",
     "@discordjs/opus": "^0.5.0",
     "@ksoft/api": "^3.1.9",
-    "@sentry/node": "^5.29.2",
+    "@sentry/node": "^6.10.0",
     "@sentry/tracing": "^6.4.1",
     "abort-controller": "^3.0.0",
     "anilist-node": "^1.8.1",
