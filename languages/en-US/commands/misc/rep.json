@@ -1,8 +1,0 @@
-{
-"description": "Give a reputation point to someone",
-"usage": "rep <@user>",
-"bot": "Bots cannot earn reputation points.",
-"author": "You cannot give a reputation point to yourself.",
-"onCooldown": "You can give another reputation point in **{{time}}**",
-"success": "Successfully gave a reputation point to {{user}}"
-}

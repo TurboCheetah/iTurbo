@@ -1,4 +1,0 @@
-{
-  "description": "Gives you a random dog fact",
-  "fact": "📢 **Dog fact:** *{{fact}}*"
-}

@@ -1,7 +1,0 @@
-{
-  "description": "Enable/disable level up messages",
-  "usage": "levelup <enable/disable>",
-  "prompt": "Do you want me to **enable** or **disable** levelup messages?",
-  "enabled": "Successfully enabled level up messages.",
-  "disabled": "Successfully disabled level up messages."
-}

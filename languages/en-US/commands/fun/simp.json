@@ -1,6 +1,0 @@
-{
-  "description": "Based on my simp-o-meter I will determine the amount of simp you have in you",
-  "usage": "simp [@user]",
-  "bot": "Bots aren't simps :(",
-  "message": "{{user}} is {{percent}}% simp!"
-}

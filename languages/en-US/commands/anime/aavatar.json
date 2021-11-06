@@ -1,4 +1,0 @@
-{
-  "description": "Get an anime avatar",
-  "extendedHelp": "The output will be NSFW only if the channel is a NSFW channel"
-}

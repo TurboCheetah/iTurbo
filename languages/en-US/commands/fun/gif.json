@@ -1,5 +1,0 @@
-{
-  "description": "Search for a gif on Giphy",
-  "usage": "gif <query>",
-  "noArgs": "What am I supposed to search?"
-}

@@ -1,0 +1,22 @@
+{
+  "extends": ["standard-with-typescript", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "@typescript-eslint/no-floating-promises": "off",
+    "space-before-function-paren": "off",
+    "no-throw-literal": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "semi": false,
+        "arrowParens": "avoid",
+        "trailingComma": "none",
+        "printWidth": 2048
+      }
+    ]
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
+}

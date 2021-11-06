@@ -1,6 +1,0 @@
-{
-  "description": "Enables or disables the earning of points in a channel",
-  "usage": "togglechannel [channel]",
-  "enabled": "Users talking in {{channel}} will now earn points.",
-  "disabled": "Users talking in {{channel}} will no longer earn points."
-}

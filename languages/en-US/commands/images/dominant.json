@@ -1,4 +1,0 @@
-{
-    "description": "Get dominant color of an avatar.",
-    "usage": "dominant [@user]"
-}

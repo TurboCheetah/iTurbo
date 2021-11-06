@@ -1,5 +1,0 @@
-{
-  "description": "Reverse a string",
-  "usage": "reverse <text>",
-  "noInput": "What am I supposed to reverse?"
-}

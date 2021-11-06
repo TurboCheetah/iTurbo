@@ -1,5 +1,0 @@
-{
-  "description": "Randomize the capitalization of a message",
-  "usage": "randomcase <text>",
-  "noInput": "You didn't give me any input"
-}

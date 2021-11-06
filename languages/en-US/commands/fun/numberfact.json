@@ -1,5 +1,0 @@
-{
-  "description": "Get a fact about a specific or random number",
-  "usage": "numberfact [number|random]",
-  "nan": "Does that look like a number to you?"
-}
