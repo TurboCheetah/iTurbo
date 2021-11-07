@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@aero/centra@^1.0.0", "@aero/centra@^1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@aero/centra/-/centra-1.0.6.tgz#0151359a4c6a9054d36fa6c31353b2fd3d860e6f"
-  integrity sha512-e7sUh/VjugT8LsHb4/hcbmhaVVi9deWWPQnlMnU0RAnF8+iCdGdCcKvoHnDNl/ELykwjpbKpBYbWPx0yKZaDpw==
+"@aero/centra@^1.0.0", "@aero/centra@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@aero/centra/-/centra-1.0.8.tgz#e73f96f96426d216c47cedadb417f82be339effa"
+  integrity sha512-ku3GzR89TCFAzBqK6j41SRAUPZHYrZO57ZzuQnmanlED509sIWt362rz+Msoytq0s9V0j0TqqZCoaK/fszb07g==
 
 "@babel/code-frame@7.12.11", "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.11":
   version "7.12.11"
