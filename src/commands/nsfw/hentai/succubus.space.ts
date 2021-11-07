@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption, SlashGroup } from 'discordx'
 import { request, gql } from 'graphql-request'
-import { Doujin } from '../types/doujin.type'
-import { Hentai } from '../types/hentai.type'
-import { shorten, toProperCase } from './utils'
+import { Doujin } from '../../../types/doujin.type'
+import { Hentai } from '../../../types/hentai.type'
+import { shorten, toProperCase } from '../../../utils/utils'
 
 @Discord()
 @SlashGroup('succubusspace', 'Retrieve data from Succubus.Space')
@@ -13,8 +12,10 @@ export abstract class SuccubusSpaceCommands {
   async hentai(
     @SlashOption('query', { description: "The ID or name of the hentai you'd like to search for", required: true })
     search: string,
+    @SlashOption('public', { description: 'Display this command publicly', required: false })
+    ephemeral: boolean,
     interaction: CommandInteraction
-  ) {
+  ): Promise<any> {
     let query
     if (isNaN(+search)) {
       query = gql`
@@ -60,7 +61,7 @@ export abstract class SuccubusSpaceCommands {
       `
     }
 
-    await interaction.deferReply()
+    await interaction.deferReply({ ephemeral: !ephemeral })
 
     const { hentai }: { hentai: Hentai } = await request('https://api.succubus.space/graphql', query, isNaN(+search) ? { name: search } : { id: +search })
 
@@ -94,8 +95,10 @@ export abstract class SuccubusSpaceCommands {
   async doujin(
     @SlashOption('query', { description: "The ID or name of the doujin you'd like to search for", required: true })
     search: string,
+    @SlashOption('public', { description: 'Display this command publicly', required: false })
+    ephemeral: boolean,
     interaction: CommandInteraction
-  ) {
+  ): Promise<any> {
     let query
     if (isNaN(+search)) {
       query = gql`
@@ -141,7 +144,7 @@ export abstract class SuccubusSpaceCommands {
       `
     }
 
-    await interaction.deferReply()
+    await interaction.deferReply({ ephemeral: !ephemeral })
 
     const { doujin }: { doujin: Doujin } = await request('https://api.succubus.space/graphql', query, isNaN(+search) ? { name: search } : { id: +search })
 

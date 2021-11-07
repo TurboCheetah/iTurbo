@@ -4,6 +4,7 @@ import { Intents, Interaction } from 'discord.js'
 import { Client } from 'discordx'
 import Anilist from 'anilist-node'
 import { KSoftClient } from '@ksoft/api'
+import { Logger } from './utils/Logger'
 
 export class Bot extends Client {
   anilist: Anilist
@@ -31,7 +32,7 @@ export class Bot extends Client {
       super.user?.setActivity('myself be rewritten', { type: 'WATCHING' })
       super.user?.setPresence({ status: 'idle' })
 
-      console.log('Bot started')
+      Logger.success(`Bot started`)
     })
 
     super.on('interactionCreate', (interaction: Interaction) => {

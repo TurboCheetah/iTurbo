@@ -1,10 +1,9 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption, SlashGroup } from 'discordx'
 import { Pagination } from '@discordx/utilities'
-import { client } from '../index'
+import { client } from '../../index'
 import ms from 'ms'
-import { zws } from '../constants'
+import { zws } from '../../constants'
 
 @Discord()
 @SlashGroup('anilist', 'Retrieve data from anilist')
@@ -13,15 +12,17 @@ export abstract class AnilistCommands {
   async anime(
     @SlashOption('name', { description: "The name of the anime you'd like to search for", required: true })
     name: string,
-    @SlashOption('result', { description: "The result you'd like to view", required: false })
-    result: number,
+    @SlashOption('page', { description: "The page you'd like to view", required: false })
+    page: number,
+    @SlashOption('public', { description: 'Display this command publicly', required: false })
+    ephemeral: boolean,
     interaction: CommandInteraction
-  ) {
-    await interaction.deferReply()
+  ): Promise<void> {
+    await interaction.deferReply({ ephemeral: !ephemeral })
 
     const {
       media: [search]
-    } = await client.anilist.searchEntry.anime(name, undefined, result, 1)
+    } = await client.anilist.searchEntry.anime(name, undefined, page, 1)
     const data = await client.anilist.media.anime(search.id)
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
@@ -47,9 +48,11 @@ export abstract class AnilistCommands {
     name: string,
     @SlashOption('result', { description: "The result you'd like to view", required: false })
     result: number,
+    @SlashOption('public', { description: 'Display this command publicly', required: false })
+    ephemeral: boolean,
     interaction: CommandInteraction
-  ) {
-    await interaction.deferReply()
+  ): Promise<void> {
+    await interaction.deferReply({ ephemeral: !ephemeral })
 
     const {
       media: [search]
@@ -77,9 +80,11 @@ export abstract class AnilistCommands {
   async user(
     @SlashOption('user', { description: "The name of the user you'd like to search for", required: true })
     user: string,
+    @SlashOption('public', { description: 'Display this command publicly', required: false })
+    ephemeral: boolean,
     interaction: CommandInteraction
-  ) {
-    await interaction.deferReply()
+  ): Promise<void> {
+    await interaction.deferReply({ ephemeral: !ephemeral })
 
     const data = await client.anilist.user.all(user)
     const profileEmbed = new MessageEmbed()

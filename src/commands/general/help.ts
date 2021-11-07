@@ -1,12 +1,14 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, MetadataStorage, Slash } from 'discordx'
 import { Pagination } from '@discordx/utilities'
-import { toProperCase } from './utils'
+import { toProperCase } from '../../utils/utils'
 
 @Discord()
 export abstract class HelpCommand {
   @Slash('help', { description: 'View a list of all commands' })
   async pages(interaction: CommandInteraction): Promise<void> {
+    await interaction.deferReply({ ephemeral: true })
+
     const commands = MetadataStorage.instance.applicationCommands.map(cmd => {
       return { name: cmd.name, description: cmd.description }
     })

@@ -1,6 +1,5 @@
 import { TextBasedChannels } from 'discord.js'
 
-// eslint-disable-next-line @typescript-eslint/no-extraneous-class
 export const toProperCase = (str: string): string => {
   return str.replace(/([^\W_]+[^\s-]*) */g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase())
 }
@@ -15,6 +14,5 @@ export const shorten = (text: string, maxLen = 1024): string => {
 
 export const isNSFW = (channel: TextBasedChannels): boolean => {
   if (channel.type === 'GUILD_TEXT' && !channel.nsfw) return true
-
   return false
 }

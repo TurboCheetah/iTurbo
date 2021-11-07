@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { search } from 'booru'
-import { isNSFW, shorten } from './utils'
+import { isNSFW, shorten } from '../../utils/utils'
 
 @Discord()
 export abstract class Rule34Command {
@@ -10,11 +9,13 @@ export abstract class Rule34Command {
   async rule34(
     @SlashOption('query', { description: "What you'd like to search for", required: true })
     query: string,
+    @SlashOption('public', { description: 'Display this command publicly', required: false })
+    ephemeral: boolean,
     interaction: CommandInteraction
-  ) {
+  ): Promise<any> {
     if (isNSFW(interaction.channel as TextBasedChannels)) return await interaction.reply('The result I found was NSFW and I cannot post it in this channel.')
 
-    await interaction.deferReply()
+    await interaction.deferReply({ ephemeral: !ephemeral })
 
     const [posts] = await search('rule34', query.split(' ').join('_').split('_|_'), { limit: 1, random: true })
 

@@ -3,6 +3,7 @@
   "plugins": ["prettier"],
   "rules": {
     "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-extraneous-class": "off",
     "space-before-function-paren": "off",
     "no-throw-literal": "off",
     "prettier/prettier": [
