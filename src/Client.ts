@@ -28,6 +28,9 @@ export class Bot extends Client {
       // init permissions; enabled log to see changes
       await super.initApplicationPermissions(true)
 
+      super.user?.setActivity('myself be rewritten', { type: 'WATCHING' })
+      super.user?.setPresence({ status: 'idle' })
+
       console.log('Bot started')
     })
 
