@@ -5,5 +5,7 @@ services:
     image: ghcr.io/turbocheetah/iturbo:rewrite
     container_name: iturbo-bot
     restart: unless-stopped
+    environment:
+      - NODE_ENV=production
     env_file:
       - .env
