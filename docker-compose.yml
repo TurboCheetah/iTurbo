@@ -1,8 +1,9 @@
-version: '3.7'
+version: "3.7"
 
 services:
-    iturbo-bot:
-        image: ghcr.io/turbocheetah/succubus.space-telegram:main
-        container_name: iturbo-bot
-        restart: unless-stopped
-        env-file: .env
+  iturbo-bot:
+    image: ghcr.io/turbocheetah/iturbo:rewrite
+    container_name: iturbo-bot
+    restart: unless-stopped
+    env_file:
+      - .env
