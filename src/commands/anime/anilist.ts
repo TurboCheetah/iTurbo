@@ -1,8 +1,9 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption, SlashGroup } from 'discordx'
 import { Pagination } from '@discordx/utilities'
-import { client } from '../../index'
 import ms from 'ms'
+import { AnimeEntry, MangaEntry } from 'anilist-node'
+import { client } from '../../index'
 import { zws } from '../../constants'
 
 @Discord()
@@ -19,61 +20,70 @@ export abstract class AnilistCommands {
     interaction: CommandInteraction
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
+    const { media } = await client.anilist.searchEntry.anime(name, undefined, page, 5)
+    const data: AnimeEntry[] = []
+    for (const entry of media) {
+      data.push(await client.anilist.media.anime(entry.id))
+    }
 
-    const {
-      media: [search]
-    } = await client.anilist.searchEntry.anime(name, undefined, page, 1)
-    const data = await client.anilist.media.anime(search.id)
-    const embed = new MessageEmbed()
-      .setColor(0x9590ee)
-      .setTitle(data.title.romaji)
-      .setURL(data.siteUrl)
-      .setThumbnail(data.coverImage.large)
-      .setImage(`https://img.anili.st/media/${data.id}`)
-      .setDescription(data.description !== null ? `${data.title.english !== null ? `**English Title:** ${data.title.english}\n` : ''}${data.title.native !== null ? `**Japanese Title:** ${data.title.native}\n` : ''}\n${data.description.replace(/<.+?>/gi, '')}` : 'This anime does not have a description.')
-      .addField('Type', data.format === 'TV' ? '📺 TV' : data.format === 'MOVIE' ? '🎬 Movie' : '💿 OVA', true)
-      .addField('Episode(s)', `${data.episodes}`, true)
-      .addField('Duration', ms(data.duration * 60 * 1000, { long: true }), true)
-      .addField('Score', `${data.averageScore}%`, true)
-      .addField('Favorites', `${data.favourites}`, true)
-      .addField('Popularity', `${data.popularity}`, true)
-      .setFooter(`ID: ${data.id}`)
+    const pages = data.map(d => {
+      return new MessageEmbed()
+        .setColor(0x9590ee)
+        .setTitle(d.title.romaji)
+        .setURL(d.siteUrl)
+        .setThumbnail(d.coverImage.large)
+        .setImage(`https://img.anili.st/media/${d.id}`)
+        .setDescription(d.description !== null ? `${d.title.english !== null ? `**English Title:** ${d.title.english}\n` : ''}${d.title.native !== null ? `**Japanese Title:** ${d.title.native}\n` : ''}\n${d.description.replace(/<.+?>/gi, '')}` : 'This anime does not have a description.')
+        .addField('Type', d.format === 'TV' ? '📺 TV' : d.format === 'MOVIE' ? '🎬 Movie' : '💿 OVA', true)
+        .addField('Episode(s)', `${d.episodes}`, true)
+        .addField('Duration', ms(d.duration * 60 * 1000, { long: true }), true)
+        .addField('Score', `${d.averageScore}%`, true)
+        .addField('Favorites', `${d.favourites}`, true)
+        .addField('Popularity', `${d.popularity}`, true)
+        .setFooter(`ID: ${d.id}`)
+    })
 
-    interaction.editReply({ embeds: [embed] })
+    const pagination = new Pagination(interaction, pages)
+    await pagination.send()
   }
 
   @Slash('manga')
   async manga(
     @SlashOption('name', { description: "The name of the anime you'd like to search for", required: true })
     name: string,
-    @SlashOption('result', { description: "The result you'd like to view", required: false })
-    result: number,
+    @SlashOption('page', { description: "The page you'd like to view", required: false })
+    page: number,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const {
-      media: [search]
-    } = await client.anilist.searchEntry.manga(name, undefined, result, 1)
-    const data = await client.anilist.media.manga(search.id)
+    const { media } = await client.anilist.searchEntry.manga(name, undefined, page, 5)
+    const data: MangaEntry[] = []
+    for (const entry of media) {
+      data.push(await client.anilist.media.manga(entry.id))
+    }
 
-    const embed = new MessageEmbed()
-      .setColor(0x9590ee)
-      .setTitle(data.title.romaji)
-      .setURL(data.siteUrl)
-      .setThumbnail(data.coverImage.large)
-      .setImage(`https://img.anili.st/media/${data.id}`)
-      .setDescription(data.description !== null ? `${data.title.english !== null ? `**English Title:** ${data.title.english}\n` : ''}${data.title.native !== null ? `**Japanese Title:** ${data.title.native}\n` : ''}\n${data.description.replace(/<.+?>/gi, '')}` : 'This manga does not have a description.')
-      .addField('Chapter(s)', `${data.chapters}`, true)
-      .addField('Volume(s)', data.volumes !== 0 ? `${data.volumes}` : 'None', true)
-      .addField('Score', `${data.averageScore}%`, true)
-      .addField('Favorites', `${data.favourites}`, true)
-      .addField('Popularity', `${data.popularity}`, true)
-      .addField('Genre(s)', data.genres.join(', '), true)
+    const pages = data.map(d => {
+      return new MessageEmbed()
+        .setColor(0x9590ee)
+        .setTitle(d.title.romaji)
+        .setURL(d.siteUrl)
+        .setThumbnail(d.coverImage.large)
+        .setImage(`https://img.anili.st/media/${d.id}`)
+        .setDescription(d.description !== null ? `${d.title.english !== null ? `**English Title:** ${d.title.english}\n` : ''}${d.title.native !== null ? `**Japanese Title:** ${d.title.native}\n` : ''}\n${d.description.replace(/<.+?>/gi, '')}` : 'This manga does not have a description.')
+        .addField('Chapter(s)', `${d.chapters}`, true)
+        .addField('Volume(s)', d.volumes !== 0 ? `${d.volumes}` : 'None', true)
+        .addField('Score', `${d.averageScore}%`, true)
+        .addField('Favorites', `${d.favourites}`, true)
+        .addField('Popularity', `${d.popularity}`, true)
+        .addField('Genre(s)', d.genres.join(', '), true)
+        .setFooter(`ID: ${d.id}`)
+    })
 
-    interaction.editReply({ embeds: [embed] })
+    const pagination = new Pagination(interaction, pages)
+    await pagination.send()
   }
 
   @Slash('user')
