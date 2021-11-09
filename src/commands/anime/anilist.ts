@@ -4,7 +4,7 @@ import { Pagination } from '@discordx/utilities'
 import ms from 'ms'
 import { AnimeEntry, MangaEntry } from 'anilist-node'
 import { client } from '../../index'
-import { zws } from '../../constants'
+import { zws } from '../../utils/constants'
 
 @Discord()
 @SlashGroup('anilist', 'Retrieve data from anilist')
