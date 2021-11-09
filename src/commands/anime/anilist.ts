@@ -34,7 +34,7 @@ export abstract class AnilistCommands {
         .setThumbnail(d.coverImage.large)
         .setImage(`https://img.anili.st/media/${d.id}`)
         .setDescription(d.description !== null ? `${d.title.english !== null ? `**English Title:** ${d.title.english}\n` : ''}${d.title.native !== null ? `**Japanese Title:** ${d.title.native}\n` : ''}\n${d.description.replace(/<.+?>/gi, '')}` : 'This anime does not have a description.')
-        .addField('Type', d.format === 'TV' ? '📺 TV' : d.format === 'MOVIE' ? '🎬 Movie' : '💿 OVA', true)
+        .addField('Type', d.format === 'TV' ? '📺 TV' : d.format === 'MOVIE' ? '🎬 Movie' : d.format === 'ONA' ? '🌐 ONA' : '💿 OVA', true)
         .addField('Episode(s)', `${d.episodes}`, true)
         .addField('Duration', ms(d.duration * 60 * 1000, { long: true }), true)
         .addField('Score', `${d.averageScore}%`, true)
