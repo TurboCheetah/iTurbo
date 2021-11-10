@@ -12,7 +12,7 @@ export abstract class HentaiCommands {
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<void> {
-    if (isNSFW(interaction.channel as TextBasedChannels)) return await interaction.reply('The result I found was NSFW and I cannot post it in this channel.')
+    if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply('Please re-run this command with private mode enabled or in an NSFW channel!')
 
     await interaction.deferReply({ ephemeral: !ephemeral })
     const res = await client.ksoft.images.random('ass', { nsfw: true })
@@ -28,7 +28,7 @@ export abstract class HentaiCommands {
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<void> {
-    if (isNSFW(interaction.channel as TextBasedChannels)) return await interaction.reply('The result I found was NSFW and I cannot post it in this channel.')
+    if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply('Please re-run this command with private mode enabled or in an NSFW channel!')
 
     await interaction.deferReply({ ephemeral: !ephemeral })
     const res = await client.ksoft.images.random(random(['hentai', 'hentai_gif']), { nsfw: true })
@@ -44,7 +44,7 @@ export abstract class HentaiCommands {
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<void> {
-    if (isNSFW(interaction.channel as TextBasedChannels)) return await interaction.reply('The result I found was NSFW and I cannot post it in this channel.')
+    if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply('Please re-run this command with private mode enabled or in an NSFW channel!')
 
     await interaction.deferReply({ ephemeral: !ephemeral })
     const res = await client.ksoft.images.random('neko', { nsfw: true })
