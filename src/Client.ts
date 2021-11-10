@@ -4,11 +4,14 @@ import { Intents, Interaction } from 'discord.js'
 import { Client } from 'discordx'
 import Anilist from 'anilist-node'
 import { KSoftClient } from '@ksoft/api'
+import { API } from 'nhentai'
 import { Logger } from './utils/Logger'
 
 export class Bot extends Client {
-  anilist: Anilist
-  ksoft: KSoftClient
+  public anilist: Anilist
+  public ksoft: KSoftClient
+  public nhentai: API
+
   constructor() {
     super({
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
@@ -19,6 +22,7 @@ export class Bot extends Client {
 
     this.anilist = new Anilist(process.env.ANILIST_TOKEN)
     this.ksoft = new KSoftClient(process.env.KSOFT_TOKEN as string)
+    this.nhentai = new API()
   }
 
   async init(): Promise<void> {

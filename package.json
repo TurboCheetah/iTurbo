@@ -55,6 +55,7 @@
     "graphql": "15.x",
     "graphql-request": "^3.6.1",
     "ms": "^2.1.3",
+    "nhentai": "^3.0.0",
     "reflect-metadata": "^0.1.13"
   }
 }
