@@ -14,7 +14,7 @@ export class Logger {
     return console.log(`${bgGreenBright.gray(dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss'))} ${greenBright(text)}`)
   }
 
-  public staticerror(text: string | Error): void {
+  public static error(text: string | Error): void {
     return console.log(`${bgRed.white(dayjs(new Date()).format('YYYY-MM-DD HH:mm:ss'))} ${red(text)}`)
   }
 
