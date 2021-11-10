@@ -9,7 +9,7 @@ import { zws } from '../../utils/constants'
 @Discord()
 @SlashGroup('anilist', 'Retrieve data from anilist')
 export abstract class AnilistCommands {
-  @Slash('anime')
+  @Slash('anime', { description: 'Search for an anime on Anilist' })
   async anime(
     @SlashOption('name', { description: "The name of the anime you'd like to search for", required: true })
     name: string,
@@ -47,7 +47,7 @@ export abstract class AnilistCommands {
     await pagination.send()
   }
 
-  @Slash('manga')
+  @Slash('manga', { description: 'Search for a manga on Anilist' })
   async manga(
     @SlashOption('name', { description: "The name of the anime you'd like to search for", required: true })
     name: string,
@@ -86,7 +86,7 @@ export abstract class AnilistCommands {
     await pagination.send()
   }
 
-  @Slash('user')
+  @Slash('user', { description: 'Search for a user on Anilist' })
   async user(
     @SlashOption('user', { description: "The name of the user you'd like to search for", required: true })
     user: string,

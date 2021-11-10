@@ -7,7 +7,7 @@ import { isNSFW } from '../../../utils/utils'
 @Discord()
 @SlashGroup('nhentai', 'Read doujin from nHentai')
 export abstract class NHentaiCommands {
-  @Slash('doujin')
+  @Slash('doujin', { description: 'Read doujin from nHentai' })
   async doujin(
     @SlashOption('id', { description: "The name of the ID of the doujin you'd like to read", required: true })
     id: number,
@@ -48,7 +48,7 @@ export abstract class NHentaiCommands {
     await pagination.send()
   }
 
-  @Slash('random')
+  @Slash('random', { description: 'Read a random doujin from nHentai' })
   async random(
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,

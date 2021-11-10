@@ -8,7 +8,7 @@ import { shorten, toProperCase } from '../../../utils/utils'
 @Discord()
 @SlashGroup('succubusspace', 'Retrieve data from Succubus.Space')
 export abstract class SuccubusSpaceCommands {
-  @Slash('hentai')
+  @Slash('hentai', { description: 'Search for a hentai on Succubus.Space' })
   async hentai(
     @SlashOption('query', { description: "The ID or name of the hentai you'd like to search for", required: true })
     search: string,
@@ -91,7 +91,7 @@ export abstract class SuccubusSpaceCommands {
     interaction.editReply({ embeds: [embed] })
   }
 
-  @Slash('doujin')
+  @Slash('doujin', { description: 'Search for a doujin on Succubus.Space' })
   async doujin(
     @SlashOption('query', { description: "The ID or name of the doujin you'd like to search for", required: true })
     search: string,
