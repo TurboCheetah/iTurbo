@@ -13,7 +13,7 @@ export abstract class Rule34Command {
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<any> {
-    if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply('Please re-run this command with private mode enabled or in an NSFW channel!')
+    if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 
