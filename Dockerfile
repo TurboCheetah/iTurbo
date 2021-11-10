@@ -11,10 +11,10 @@ WORKDIR /app
 COPY --from=builder /app/package.json /app/yarn.lock ./
 RUN yarn --prod
 
-FROM node:16-alpine as runner
+FROM gcr.io/distroless/nodejs:16 as runner
 WORKDIR /app
 USER 1000
 COPY --from=production-dependencies /app .
 COPY --from=builder /app/dist dist
 ENV NODE_ENV production
-CMD ["node", "dist/index.js"]
+CMD ["dist/index.js"]
