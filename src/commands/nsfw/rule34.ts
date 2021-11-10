@@ -2,6 +2,7 @@ import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { search } from 'booru'
 import { isNSFW, shorten } from '../../utils/utils'
+import { Pagination } from '@discordx/utilities'
 
 @Discord()
 export abstract class Rule34Command {
@@ -9,6 +10,8 @@ export abstract class Rule34Command {
   async rule34(
     @SlashOption('query', { description: "What you'd like to search for", required: true })
     query: string,
+    @SlashOption('animated', { description: 'Do you want videos/gifs?', required: false })
+    animated: boolean,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction
@@ -17,21 +20,36 @@ export abstract class Rule34Command {
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const [posts] = await search('rule34', query.split(' ').join('_').split('_|_'), { limit: 1, random: true })
+    const q = query
+      .split(' ')
+      .join('_')
+      .split('_|_')
+      .filter(tag => tag !== 'animated')
+      .concat(animated ? 'animated' : '-animated')
 
-    if (posts === null || posts.file_url === null) return await interaction.editReply('No results were found.')
+    const [...posts] = await search('rule34', q, { limit: animated ? 1 : 10, random: true })
 
-    if (posts.file_url?.endsWith('webm')) {
-      return await interaction.editReply(`Score: ${posts.score}\n${posts.file_url}`)
-    }
+    if (posts === null) return await interaction.editReply('No results were found.')
 
-    const embed = new MessageEmbed()
-      .setTitle(`Score: ${posts.score}`)
-      .addField('Tags', shorten(posts.tags.join(' ')))
-      .setColor(0x9590ee)
-      .setImage(posts.file_url)
-      .setFooter('Powered by Rule34.XXX')
+    if (animated && posts[0].fileUrl !== null) return await interaction.editReply(posts[0].fileUrl)
 
-    interaction.editReply({ embeds: [embed] })
+    const pages = posts
+      .filter(post => post.fileUrl !== null && !post.fileUrl.endsWith('.webm') && !post.fileUrl.endsWith('.mp4'))
+      .map(post => {
+        return (
+          new MessageEmbed()
+            .setTitle(`Score: ${post.score}`)
+            .addField('Tags', shorten(post.tags.join(' ')))
+            .setColor(0x9590ee)
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            .setImage(post.fileUrl!)
+            .setFooter('Powered by Rule34.XXX')
+        )
+      })
+
+    const pagination = new Pagination(interaction, pages)
+    await pagination.send()
+
+    // interaction.editReply({ embeds: [embed] })
   }
 }
