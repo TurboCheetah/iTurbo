@@ -21,8 +21,7 @@ export abstract class Rule34Command {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
     const q = query
-      .split(' ')
-      .join('_')
+      .replace(/\s/g, '_')
       .split('_|_')
       .filter(tag => tag !== 'animated')
       .concat(animated ? 'animated' : '-animated')
