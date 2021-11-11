@@ -1,7 +1,7 @@
 import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Pagination } from '@discordx/utilities'
-import { client } from '../../../index'
+import { Bot } from '../../../Client'
 import { isNSFW } from '../../../utils/utils'
 
 @Discord()
@@ -21,7 +21,7 @@ export abstract class NHentaiCommands {
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const doujin = await client.nhentai.fetchDoujin(id)
+    const doujin = await (interaction.client as Bot).nhentai.fetchDoujin(id)
 
     if (doujin === null) return await interaction.editReply({ embeds: [new MessageEmbed().setColor(0xee9090).setTitle('Doujin not found').setDescription('Please try another ID.')] })
 
@@ -58,7 +58,7 @@ export abstract class NHentaiCommands {
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const doujin = await client.nhentai.randomDoujin()
+    const doujin = await (interaction.client as Bot).nhentai.randomDoujin()
 
     const coverEmbed = new MessageEmbed()
       .setColor(0x9590ee)

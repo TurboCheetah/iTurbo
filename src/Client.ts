@@ -6,11 +6,13 @@ import Anilist from 'anilist-node'
 import { KSoftClient } from '@ksoft/api'
 import { API } from 'nhentai'
 import { Logger } from './utils/Logger'
+import Manager from './Manager'
 
 export class Bot extends Client {
   public anilist: Anilist
   public ksoft: KSoftClient
   public nhentai: API
+  public cluster?: Manager
 
   constructor() {
     super({
@@ -25,7 +27,7 @@ export class Bot extends Client {
     this.nhentai = new API()
   }
 
-  async init(): Promise<void> {
+  async init(): Promise<this> {
     super.once('ready', async () => {
       // init all applicaiton commands
       await super.initApplicationCommands()
@@ -33,10 +35,11 @@ export class Bot extends Client {
       // init permissions; enabled log to see changes
       await super.initApplicationPermissions(true)
 
-      super.user?.setActivity('myself be rewritten', { type: 'WATCHING' })
-      super.user?.setPresence({ status: 'idle' })
+      this.user?.setActivity('anime', { type: 'WATCHING' })
+      this.user?.setPresence({ status: 'idle' })
 
-      Logger.success(`Bot started`)
+      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+      Logger.success(`${this.user?.tag} serving x guilds`)
     })
 
     super.on('interactionCreate', (interaction: Interaction) => {
@@ -44,5 +47,7 @@ export class Bot extends Client {
     })
 
     super.login(process.env.NODE_ENV === 'development' ? process.env.DEV_TOKEN ?? '' : process.env.TOKEN ?? '')
+
+    return this
   }
 }

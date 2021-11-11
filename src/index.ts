@@ -1,13 +1,19 @@
 import * as dotenv from 'dotenv'
-import path from 'path'
-import { Bot } from './Client'
+import { join } from 'path'
+import { ShardingManager } from 'kurasuta'
 import { Logger } from './utils/Logger'
+import { Bot } from './Client'
+import { Client } from 'discord.js'
 
-dotenv.config({ path: path.join(__dirname, '/../.env') })
+dotenv.config({ path: join(__dirname, '/../.env') })
 process.env.NODE_ENV ??= 'development'
 process.on('unhandledRejection', (err: Error) => Logger.error(err))
 
-const bot = new Bot()
-bot.init()
+const manager = new ShardingManager(join(__dirname, 'Manager'), {
+  development: process.env.NODE_ENV === 'development',
+  client: Bot as typeof Client,
+  token: process.env.TOKEN,
+  clusterCount: 1
+})
 
-export const client = bot
+manager.spawn()

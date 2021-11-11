@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashChoice, SlashOption } from 'discordx'
-import { client } from '../../index'
+import { Bot } from '../../Client'
 import { isNSFW, random } from '../../utils/utils'
 
 @Discord()
@@ -43,7 +43,7 @@ export abstract class RedditCommand {
     }
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await client.ksoft.images.reddit(random(subreddits), { removeNSFW: false, span: 'all' })
+    const res = await (interaction.client as Bot).ksoft.images.reddit(random(subreddits), { removeNSFW: false, span: 'all' })
 
     const embed = new MessageEmbed().setTitle(`${res.post.subreddit} - ${res.post.title}`).setURL(res.url).setColor(0x9590ee).setImage(res.url).setDescription(`:thumbsup: ${res.post.upvotes} | :speech_balloon: ${res.post.comments}`).setFooter('Powered by Reddit')
 

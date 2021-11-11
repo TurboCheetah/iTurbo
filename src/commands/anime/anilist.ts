@@ -3,7 +3,7 @@ import { Discord, Slash, SlashOption, SlashGroup } from 'discordx'
 import { Pagination } from '@discordx/utilities'
 import ms from 'ms'
 import { AnimeEntry, MangaEntry } from 'anilist-node'
-import { client } from '../../index'
+import { Bot } from '../../Client'
 import { zws } from '../../utils/constants'
 
 @Discord()
@@ -20,10 +20,10 @@ export abstract class AnilistCommands {
     interaction: CommandInteraction
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const { media } = await client.anilist.searchEntry.anime(name, undefined, page, 5)
+    const { media } = await (interaction.client as Bot).anilist.searchEntry.anime(name, undefined, page, 5)
     const data: AnimeEntry[] = []
     for (const entry of media) {
-      data.push(await client.anilist.media.anime(entry.id))
+      data.push(await (interaction.client as Bot).anilist.media.anime(entry.id))
     }
 
     const pages = data.map(d => {
@@ -59,10 +59,10 @@ export abstract class AnilistCommands {
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const { media } = await client.anilist.searchEntry.manga(name, undefined, page, 5)
+    const { media } = await (interaction.client as Bot).anilist.searchEntry.manga(name, undefined, page, 5)
     const data: MangaEntry[] = []
     for (const entry of media) {
-      data.push(await client.anilist.media.manga(entry.id))
+      data.push(await (interaction.client as Bot).anilist.media.manga(entry.id))
     }
 
     const pages = data.map(d => {
@@ -96,7 +96,7 @@ export abstract class AnilistCommands {
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const data = await client.anilist.user.all(user)
+    const data = await (interaction.client as Bot).anilist.user.all(user)
     const profileEmbed = new MessageEmbed()
       .setColor(0x9590ee)
       .setAuthor('Profile')

@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
-import { client } from '../../../index'
+import { Bot } from '../../../Client'
 import { isNSFW, random } from '../../../utils/utils'
 
 @Discord()
@@ -15,7 +15,7 @@ export abstract class HentaiCommands {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await client.ksoft.images.random('ass', { nsfw: true })
+    const res = await (interaction.client as Bot).ksoft.images.random('ass', { nsfw: true })
 
     const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
 
@@ -31,7 +31,7 @@ export abstract class HentaiCommands {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await client.ksoft.images.random(random(['hentai', 'hentai_gif']), { nsfw: true })
+    const res = await (interaction.client as Bot).ksoft.images.random(random(['hentai', 'hentai_gif']), { nsfw: true })
 
     const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
 
@@ -47,7 +47,7 @@ export abstract class HentaiCommands {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await client.ksoft.images.random('neko', { nsfw: true })
+    const res = await (interaction.client as Bot).ksoft.images.random('neko', { nsfw: true })
 
     const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
 
