@@ -1,1 +1,3 @@
-export const zws = '\u200B'
+export class Constants {
+  static zws = '\u200B'
+}

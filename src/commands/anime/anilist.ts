@@ -4,7 +4,6 @@ import { Pagination } from '@discordx/utilities'
 import ms from 'ms'
 import { AnimeEntry, MangaEntry } from 'anilist-node'
 import { Bot } from '../../Client'
-import { zws } from '../../utils/constants'
 
 @Discord()
 @SlashGroup('anilist', 'Retrieve data from anilist')
@@ -17,13 +16,14 @@ export abstract class AnilistCommands {
     page: number,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: Bot
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const { media } = await (interaction.client as Bot).anilist.searchEntry.anime(name, undefined, page, 5)
+    const { media } = await client.anilist.searchEntry.anime(name, undefined, page, 5)
     const data: AnimeEntry[] = []
     for (const entry of media) {
-      data.push(await (interaction.client as Bot).anilist.media.anime(entry.id))
+      data.push(await client.anilist.media.anime(entry.id))
     }
 
     const pages = data.map(d => {
@@ -55,14 +55,15 @@ export abstract class AnilistCommands {
     page: number,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: Bot
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const { media } = await (interaction.client as Bot).anilist.searchEntry.manga(name, undefined, page, 5)
+    const { media } = await client.anilist.searchEntry.manga(name, undefined, page, 5)
     const data: MangaEntry[] = []
     for (const entry of media) {
-      data.push(await (interaction.client as Bot).anilist.media.manga(entry.id))
+      data.push(await client.anilist.media.manga(entry.id))
     }
 
     const pages = data.map(d => {
@@ -92,11 +93,12 @@ export abstract class AnilistCommands {
     user: string,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: Bot
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const data = await (interaction.client as Bot).anilist.user.all(user)
+    const data = await client.anilist.user.all(user)
     const profileEmbed = new MessageEmbed()
       .setColor(0x9590ee)
       .setAuthor('Profile')
@@ -105,10 +107,10 @@ export abstract class AnilistCommands {
       .setThumbnail(data.avatar.large !== null ? data.avatar.large : '')
       .addField('Animes Watched', `${data.statistics.anime.count}`, true)
       .addField('Episodes Watched', `${data.statistics.anime.episodesWatched}`, true)
-      .addField(zws, zws, true)
+      .addField(client.constants.zws, client.constants.zws, true)
       .addField('Planning to Watch', `${data.statistics.anime.statuses.filter(s => s.status === 'PLANNING')[0].count}`, true)
       .addField('Time Watched', ms(data.statistics.anime.minutesWatched * 60 * 1000, { long: true }), true)
-      .addField(zws, zws, true)
+      .addField(client.constants.zws, client.constants.zws, true)
       .addField(
         'Top Genres',
         data.statistics.anime.genres
@@ -127,7 +129,7 @@ export abstract class AnilistCommands {
       .setThumbnail(data.avatar.large !== null ? data.avatar.large : '')
       .addField('Mangas Read', `${data.statistics.manga.count}`, true)
       .addField('Volumes Read', `${data.statistics.manga.volumesRead}`, true)
-      .addField(zws, zws, true)
+      .addField(client.constants.zws, client.constants.zws, true)
       // eslint-disable-next-line prettier/prettier
       .addField('Top Genres', (data.statistics.manga.genres.length > 0) ? data.statistics.manga.genres.slice(0, 5).map(g => `${g.genre} (${g.count})`).join(', ') : 'None')
       .setFooter(`ID: ${data.id} • React to view more details`)
@@ -142,7 +144,7 @@ export abstract class AnilistCommands {
       .addField('Anime', (data.favourites.anime.length > 0) ? data.favourites.anime.slice(0, 5).map(a => `[${a.title.romaji}](https://anilist.co/anime/${a.id})`).join(', ') : 'None', true)
       // eslint-disable-next-line prettier/prettier
       .addField('Manga', (data.favourites.manga.length > 0) ? data.favourites.manga.slice(0, 5).map(m => `[${m.title.romaji}](https://anilist.co/manga/${m.id})`).join(', ') : 'None', true)
-      .addField(zws, zws, true)
+      .addField(client.constants.zws, client.constants.zws, true)
       // eslint-disable-next-line prettier/prettier
       // .addField('Characters', data.favourites.character !== null ? data.favourites.character.slice(0, 5).map(c => `[${c.name}](https://anilist.co/character/${c.id})`).join(', ') : 'None', true)
       .addField(
@@ -155,7 +157,7 @@ export abstract class AnilistCommands {
           : 'None',
         true
       )
-      .addField(zws, zws, true)
+      .addField(client.constants.zws, client.constants.zws, true)
       .addField(
         'Studios',
         data.favourites.studios.length > 0
