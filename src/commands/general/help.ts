@@ -6,12 +6,14 @@ import { toProperCase } from '../../utils/utils'
 @Discord()
 export abstract class HelpCommand {
   @Slash('help', { description: 'View a list of all commands' })
-  async pages(interaction: CommandInteraction): Promise<void> {
+  async help(interaction: CommandInteraction): Promise<void> {
     await interaction.deferReply({ ephemeral: true })
 
-    const commands = MetadataStorage.instance.applicationCommands.map(cmd => {
-      return { name: cmd.name, description: cmd.description }
-    })
+    const commands = MetadataStorage.instance.applicationCommands
+      .filter(cmd => cmd.name !== 'eval')
+      .map(cmd => {
+        return { name: cmd.name, description: cmd.description }
+      })
 
     const pages = commands.map((cmd, i) => {
       return new MessageEmbed()
