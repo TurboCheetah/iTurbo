@@ -44,7 +44,7 @@ export class Bot extends Client {
       this.user?.setPresence({ status: 'idle' })
 
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      Logger.success(`${this.user?.tag} serving x guilds`)
+      Logger.success(`${this.user?.tag} serving ${((await this.shard?.fetchClientValues('guilds.cache.size')) as number[]).reduce((acc, guildCount) => acc + guildCount, 0)} guilds`)
     })
 
     super.on('interactionCreate', (interaction: Interaction) => {
