@@ -15,7 +15,8 @@ export abstract class RedditCommand {
     query: string,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: Bot
   ): Promise<any> {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
@@ -43,7 +44,7 @@ export abstract class RedditCommand {
     }
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await (interaction.client as Bot).ksoft.images.reddit(random(subreddits), { removeNSFW: false, span: 'all' })
+    const res = await client.ksoft.images.reddit(random(subreddits), { removeNSFW: false, span: 'all' })
 
     const embed = new MessageEmbed().setTitle(`${res.post.subreddit} - ${res.post.title}`).setURL(res.url).setColor(0x9590ee).setImage(res.url).setDescription(`:thumbsup: ${res.post.upvotes} | :speech_balloon: ${res.post.comments}`).setFooter('Powered by Reddit')
 

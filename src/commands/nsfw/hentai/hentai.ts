@@ -10,12 +10,13 @@ export abstract class HentaiCommands {
   async ass(
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: Bot
   ): Promise<void> {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await (interaction.client as Bot).ksoft.images.random('ass', { nsfw: true })
+    const res = await client.ksoft.images.random('ass', { nsfw: true })
 
     const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
 
@@ -26,12 +27,13 @@ export abstract class HentaiCommands {
   async hentai(
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: Bot
   ): Promise<void> {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await (interaction.client as Bot).ksoft.images.random(random(['hentai', 'hentai_gif']), { nsfw: true })
+    const res = await client.ksoft.images.random(random(['hentai', 'hentai_gif']), { nsfw: true })
 
     const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
 
@@ -42,12 +44,13 @@ export abstract class HentaiCommands {
   async neko(
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: Bot
   ): Promise<void> {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await (interaction.client as Bot).ksoft.images.random('neko', { nsfw: true })
+    const res = await client.ksoft.images.random('neko', { nsfw: true })
 
     const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
 
