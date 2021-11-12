@@ -9,8 +9,8 @@ export abstract class PingCommand {
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
       .setTitle('Pong 🏓')
-      .addField('Roundtrip', `\`\`\`${reply.createdTimestamp - interaction.createdTimestamp} ms\`\`\``, true)
-      .addField('Websocket', `\`\`\`${interaction.client.ws.ping} ms\`\`\``, true)
+      .addField('Roundtrip', `${reply.createdTimestamp - interaction.createdTimestamp}ms`, true)
+      .addField('Websocket', `${interaction.client.ws.ping}ms`, true)
     interaction.editReply({ embeds: [embed] })
   }
 }
