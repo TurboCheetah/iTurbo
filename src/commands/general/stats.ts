@@ -12,7 +12,7 @@ export abstract class StatsCommand {
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction,
-    client: Bot
+    client: IslaClient
   ): Promise<void> {
     const reply = (await interaction.deferReply({ fetchReply: true, ephemeral: !ephemeral })) as Message
 

@@ -11,7 +11,7 @@ import { inspect } from 'util'
 export abstract class EvalCommand {
   @Slash('eval', { description: 'Evaluates some code' })
   @Guard(IsOwner)
-  async eval(@SlashOption('code', { description: 'The code to evaluate', required: true }) code: string, interaction: CommandInteraction, client: Bot): Promise<void> {
+  async eval(@SlashOption('code', { description: 'The code to evaluate', required: true }) code: string, interaction: CommandInteraction, client: IslaClient): Promise<void> {
     await interaction.deferReply({ ephemeral: true })
 
     const isAsync: boolean = code.includes('await') || code.includes('return')

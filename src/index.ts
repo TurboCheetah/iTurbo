@@ -10,7 +10,7 @@ process.on('unhandledRejection', (err: Error) => console.error(err))
 
 const manager = new ShardingManager(join(__dirname, 'Manager'), {
   development: process.env.NODE_ENV === 'development',
-  client: Bot as typeof Client,
+  client: IslaClient as typeof Client,
   token: process.env.NODE_ENV === 'development' ? process.env.DEV_TOKEN : process.env.TOKEN
 })
 

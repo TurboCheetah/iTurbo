@@ -17,7 +17,7 @@ export abstract class AnilistCommands {
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction,
-    client: Bot
+    client: IslaClient
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
     const { media } = await client.anilist.searchEntry.anime(name, undefined, page, 5)
@@ -56,7 +56,7 @@ export abstract class AnilistCommands {
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction,
-    client: Bot
+    client: IslaClient
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
@@ -94,7 +94,7 @@ export abstract class AnilistCommands {
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction,
-    client: Bot
+    client: IslaClient
   ): Promise<void> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 

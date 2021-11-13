@@ -16,7 +16,7 @@ export abstract class NHentaiCommands {
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction,
-    client: Bot
+    client: IslaClient
   ): Promise<any> {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
@@ -54,7 +54,7 @@ export abstract class NHentaiCommands {
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction,
-    client: Bot
+    client: IslaClient
   ): Promise<void> {
     if (isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
