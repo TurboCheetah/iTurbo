@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { CommandInteraction, Message, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
-import { Bot } from '../../Client'
+import { IslaClient } from '../../Client'
 import { cpus, hostname, loadavg, totalmem } from 'os'
 
 @Discord()

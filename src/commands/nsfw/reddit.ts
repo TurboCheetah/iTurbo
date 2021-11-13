@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashChoice, SlashOption } from 'discordx'
-import { Bot } from '../../Client'
+import { IslaClient } from '../../Client'
 import { isNSFW, random } from '../../utils/utils'
 
 @Discord()

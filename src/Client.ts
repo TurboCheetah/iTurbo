@@ -10,7 +10,7 @@ import { Logger } from './utils/Logger'
 import { NotABot } from './guards/NotABot'
 import { Constants } from './utils/constants'
 
-export class Bot extends Client {
+export class IslaClient extends Client {
   public anilist: Anilist
   public ksoft: KSoftClient
   public nhentai: API

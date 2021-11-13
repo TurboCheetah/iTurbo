@@ -3,7 +3,7 @@ import { Discord, Slash, SlashOption, SlashGroup } from 'discordx'
 import { Pagination } from '@discordx/utilities'
 import ms from 'ms'
 import { AnimeEntry, MangaEntry } from 'anilist-node'
-import { Bot } from '../../Client'
+import { IslaClient } from '../../Client'
 
 @Discord()
 @SlashGroup('anilist', 'Retrieve data from anilist')
