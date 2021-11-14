@@ -2,7 +2,7 @@ import { BaseCluster, ShardingManager } from 'kurasuta'
 import { IslaClient } from './Client'
 
 export default class Manager extends BaseCluster {
-  public client!: Bot
+  public client!: IslaClient
 
   constructor(...args: [ShardingManager]) {
     super(...args)
@@ -11,6 +11,6 @@ export default class Manager extends BaseCluster {
   }
 
   async launch(): Promise<void> {
-    this.client.init()
+    this.client.login(process.env.NODE_ENV === 'development' ? process.env.DEV_TOKEN ?? '' : process.env.TOKEN ?? '')
   }
 }

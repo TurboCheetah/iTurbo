@@ -1,12 +1,11 @@
 import 'reflect-metadata'
 import path from 'path'
-import { Intents, Interaction } from 'discord.js'
+import { Intents } from 'discord.js'
 import { Client } from 'discordx'
 import Manager from './Manager'
 import Anilist from 'anilist-node'
 import { KSoftClient } from '@ksoft/api'
 import { API } from 'nhentai'
-import { Logger } from './utils/Logger'
 import { NotABot } from './guards/NotABot'
 import { Constants } from './utils/constants'
 
@@ -15,7 +14,7 @@ export class IslaClient extends Client {
   public ksoft: KSoftClient
   public nhentai: API
   public cluster?: Manager
-  constants: typeof Constants
+  public constants: typeof Constants
 
   constructor() {
     super({
@@ -30,28 +29,5 @@ export class IslaClient extends Client {
     this.ksoft = new KSoftClient(process.env.KSOFT_TOKEN as string)
     this.nhentai = new API()
     this.constants = Constants
-  }
-
-  async init(): Promise<this> {
-    super.once('ready', async () => {
-      // init all applicaiton commands
-      await super.initApplicationCommands()
-
-      // init permissions; enabled log to see changes
-      await super.initApplicationPermissions(true)
-
-      this.user?.setActivity('anime', { type: 'WATCHING' })
-
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-      Logger.success(`${this.user?.tag} serving ${((await this.shard?.fetchClientValues('guilds.cache.size')) as number[]).reduce((acc, guildCount) => acc + guildCount, 0)} guilds`)
-    })
-
-    super.on('interactionCreate', (interaction: Interaction) => {
-      super.executeInteraction(interaction)
-    })
-
-    super.login(process.env.NODE_ENV === 'development' ? process.env.DEV_TOKEN ?? '' : process.env.TOKEN ?? '')
-
-    return this
   }
 }
