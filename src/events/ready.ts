@@ -1,11 +1,11 @@
 import { Discord, ArgsOf, Once } from 'discordx'
 import { Logger } from '../utils/Logger'
-import Manager from '../Manager'
+import { IslaClient } from '../Client'
 
 @Discord()
 export abstract class ReadyEvent {
   @Once('ready')
-  async ready([_client]: ArgsOf<'ready'>, client: Manager['client']): Promise<void> {
+  async ready([_client]: ArgsOf<'ready'>, client: IslaClient): Promise<void> {
     // init all applicaiton commands
     await client.initApplicationCommands()
 
