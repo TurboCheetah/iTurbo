@@ -13,6 +13,6 @@ export const shorten = (text: string, maxLen = 1024): string => {
 }
 
 export const isNSFW = (channel: TextBasedChannels): boolean => {
-  if (channel.type === 'GUILD_TEXT' && !channel.nsfw) return true
+  if (channel.type === 'GUILD_TEXT' && channel.nsfw) return true
   return false
 }
