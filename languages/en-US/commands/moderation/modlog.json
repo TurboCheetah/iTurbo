@@ -1,8 +1,0 @@
-{
-"description": "Enable or disable a modlog channel",
-"usage": "modlog <enable | disable> <channel>",
-"current": "The modlog channel is currently set to {{channel}}",
-"disabled": "Successfully disabled the modlog",
-"noChannel": "Please specify the channel you want to enable it on.",
-"enabled": "Successfully enabled the modlog"
-}

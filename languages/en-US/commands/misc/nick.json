@@ -1,8 +1,0 @@
-{
-"description": "Change someone's nick",
-"usage": "nick <you|me|@member> <nick>",
-"noNick": "You didn't tell me what nickname to use.",
-"exceedsLength": "Nickname must be less than 32 characters.",
-"hierarchy": "I can't edit nicknames of people with higher role than mine.",
-"success": "Set {{user}} nickname to **{{nick}}**"
-}

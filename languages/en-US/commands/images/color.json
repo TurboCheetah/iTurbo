@@ -1,5 +1,0 @@
-{
-    "description": "View a color by hex e.g #FF0000 or with a name like red",
-    "usage": "color <hex|name>",
-    "noColor": "You need to provide a color #HEX or a name."
-}

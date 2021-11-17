@@ -1,9 +1,0 @@
-{
-"description": "Removes a role from someone",
-"usage": "removerole <@user> <role>",
-"noRole": "You must provide a role to remove.",
-"doesNotExist": "That role does not exist.",
-"userHierarchy": "You cannot remove that role.",
-"botHierarchy": "I cannot remove that role.",
-"success": "Removed **{{role}}** from **{{user}}**"
-}

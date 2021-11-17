@@ -1,8 +1,0 @@
-{
-  "description": "Flip a coin",
-  "extendedHelp": "You can bet one what it will land on",
-  "usage": "coin [tails | heads]",
-  "invalidBet": "Invalid bet. You can only bet on **heads** or **tails**",
-  "landedBet": "Congratulations! The coin landed on **{{flipped}}**",
-  "landed": "The coin landed on **{{flipped}}**"
-}

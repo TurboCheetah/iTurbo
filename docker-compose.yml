@@ -1,49 +1,11 @@
-version: '3.3'
+version: "3.7"
+
 services:
-    iturbo:
-        build:
-          context: .
-          dockerfile: ./Dockerfile
-        image: iturbo-discord
-        container_name: iTurbo-bot
-        restart: always
-        depends_on:
-          - iturbo-db
-          - iturbo-img-api
-          - iturbo-lavalink
-        ports:
-          - '5000:5000'
-        networks:
-          - bot
-    iturbo-db:
-        image: "postgres"
-        container_name: iTurbo-db
-        restart: always
-        environment:
-          - POSTGRES_USER=turbo
-          - POSTGRES_PASSWORD=turbodb
-          - POSTGRES_DB=miyako
-        volumes:
-          - ./db:/var/lib/postgresql/data
-        networks:
-          - bot
-    iturbo-img-api:
-        image: 'iceemc/img-api:latest'
-        container_name: iTurbo-img-api
-        restart: always
-        ports:
-          - '3030:3030'
-        networks:
-          - bot
-    iturbo-lavalink:
-        image: 'fredboat/lavalink:dev'
-        container_name: iTurbo-lavalink
-        restart: always
-        ports:
-          - '2333:2333'
-        volumes:
-          - ./application.yml:/opt/Lavalink/application.yml
-        networks:
-          - bot
-networks:
-  bot:
+  iturbo-bot:
+    image: ghcr.io/turbocheetah/iturbo:rewrite
+    container_name: iturbo-bot
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env

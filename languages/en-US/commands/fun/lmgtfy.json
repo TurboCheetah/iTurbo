@@ -1,9 +1,0 @@
-{
-  "description": "Let me Google that for you!",
-  "usage": "lmgtfy <query>",
-  "responses": [
-    "Oh come on how hard is it to Google that! But here you go: {{url}}",
-    "Jeez! how lazy are you? Here you go anyway {{url}}",
-    "Um, Why do you want me to Google that? Here you go {{url}}"
-  ]
-}

@@ -1,5 +1,4 @@
-config.json
+dist
 node_modules
-core
-.vscode
-application.yml
+yarn.lock
+.env

@@ -1,4 +1,0 @@
-{
-  "description": "Get a random gif from Giphy",
-  "usage": "randomgif [tag]"
-}
