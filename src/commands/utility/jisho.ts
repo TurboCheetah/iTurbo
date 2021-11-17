@@ -1,8 +1,8 @@
-import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js'
-import { Discord, Slash, SlashOption } from 'discordx'
-import { Pagination } from '@discordx/utilities'
-import { toProperCase } from '../../utils/utils'
 import c from '@aero/centra'
+import { Pagination } from '@discordx/utilities'
+import { CommandInteraction, MessageEmbed } from 'discord.js'
+import { Discord, Slash, SlashOption } from 'discordx'
+import { toProperCase } from '../../utils/utils'
 
 @Discord()
 export abstract class JishoCommand {
@@ -20,15 +20,16 @@ export abstract class JishoCommand {
 
     if (!data.length) return await interaction.editReply('No results found')
 
-    const pages = data.map(d => {
+    const pages = data.map((d: { japanese: Array<{ reading: string; word: string }>; senses: Array<{ english_definitions: any[] }>; is_common: boolean }) => {
       return new MessageEmbed()
         .setColor(0x9590ee)
-        .setTitle(`${toProperCase(word)}`)
         .setURL(`https://jisho.org/search/${word}`)
+        .setTitle(`${toProperCase(word)}`)
         .addField('Japanese', d.japanese[0].word || d.japanese[0].reading, false)
         .addField('Reading', d.japanese[0].reading || d.japanese[0].word, false)
         .addField('English Meaning', `${toProperCase(d.senses[0].english_definitions.join(', '))}`, false)
-        .setFooter('Powered by Jisho.org', (interaction.member as GuildMember).displayAvatarURL({ dynamic: true }))
+        .addField('Common', d.is_common ? 'Yes' : 'No', false)
+        .setFooter('Powered by Jisho.org')
     })
 
     const pagination = new Pagination(interaction, pages)
