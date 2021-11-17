@@ -497,10 +497,10 @@ binarytf@^2.0.0:
   resolved "https://registry.yarnpkg.com/binarytf/-/binarytf-2.0.0.tgz#c5476cc5cdf023d075b9b8fa62612b86d36f666c"
   integrity sha512-CS0MvijAFAHBBw4LgIHBP7wzdW3KWEB0KeMjblK0rHOyyhnkoMu3puW7uhJXlnS5WDn5M2XQFaQBtw00FwRfcA==
 
-booru@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/booru/-/booru-2.4.2.tgz#d3f2a14e21092cee87d1cd6f853e4f3a38354eae"
-  integrity sha512-2EKfQsfI9sQoPE4fRgXP9AEW24n9oxSU27SUmjy+g8Tl1WV1Jr+wyIC8KznRSk4B7IOElAdDLMMvd6GXebr6gQ==
+booru@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/booru/-/booru-2.5.0.tgz#be2d04cf5a8e25fded43bdcea84ce78713369437"
+  integrity sha512-1EZeJ4+WgJCKLsRO6iKgURgOBA9gZcL1d5p4kpt2a878H3khqpgksx81JukuZaHpeRJYivajSjLpabD474GPmA==
   dependencies:
     fast-xml-parser "^3.19.0"
     node-fetch "^2.6.1"
