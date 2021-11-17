@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
   iturbo-bot:
-    image: ghcr.io/turbocheetah/iturbo:rewrite
+    image: ghcr.io/turbocheetah/iturbo:master
     container_name: iturbo-bot
     restart: unless-stopped
     environment:
