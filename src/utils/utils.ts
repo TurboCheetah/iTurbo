@@ -13,7 +13,7 @@ export const shorten = (text: string, maxLen = 1024): string => {
 }
 
 export const formatNumber = (number: number | string): string => {
-  return parseInt(`${number}`).toLocaleString()
+  return (+number).toLocaleString()
 }
 
 export const isNSFW = (channel: TextBasedChannels): boolean => {
