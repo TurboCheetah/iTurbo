@@ -31,7 +31,7 @@ export abstract class MovieCommand {
       return embed
     })
 
-    const pagination = new Pagination(interaction, pages)
+    const pagination = new Pagination(interaction, pages, { type: 'BUTTON' })
     await pagination.send()
   }
 }
