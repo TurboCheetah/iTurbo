@@ -18,13 +18,13 @@ export abstract class NHentaiCommands {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<any> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
+    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 
     const doujin = await client.nhentai.fetchDoujin(id)
 
-    if (doujin === null) return await interaction.editReply({ embeds: [new MessageEmbed().setColor(0xee9090).setTitle('Doujin not found').setDescription('Please try another ID.')] })
+    if (doujin === null) return interaction.editReply({ embeds: [new MessageEmbed().setColor(0xee9090).setTitle('Doujin not found').setDescription('Please try another ID.')] })
 
     const coverEmbed = new MessageEmbed()
       .setColor(0x9590ee)
@@ -56,7 +56,7 @@ export abstract class NHentaiCommands {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
+    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 

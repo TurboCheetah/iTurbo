@@ -16,7 +16,7 @@ export abstract class Rule34Command {
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<any> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
+    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 
@@ -28,9 +28,9 @@ export abstract class Rule34Command {
 
     const [...posts] = await search('rule34', q, { limit: animated ? 1 : 10, random: true })
 
-    if (posts === null) return await interaction.editReply('No results were found.')
+    if (posts === null) return interaction.editReply('No results were found.')
 
-    if (animated && posts[0].fileUrl !== null) return await interaction.editReply(posts[0].fileUrl)
+    if (animated && posts[0].fileUrl !== null) return interaction.editReply(posts[0].fileUrl)
 
     const pages = posts
       .filter(post => post.fileUrl !== null && !post.fileUrl.endsWith('.webm') && !post.fileUrl.endsWith('.mp4'))
