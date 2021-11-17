@@ -18,7 +18,7 @@ export abstract class JishoCommand {
 
     const { data } = await c(`https://jisho.org/api/v1/search/words`, 'GET').query({ keyword: word }).json()
 
-    if (!data.length) return await interaction.editReply('No results found')
+    if (!data.length) return interaction.editReply('No results found')
 
     const pages = data.map((d: { japanese: Array<{ reading: string; word: string }>; senses: Array<{ english_definitions: any[] }>; is_common: boolean }) => {
       return new MessageEmbed()
