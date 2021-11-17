@@ -72,14 +72,14 @@
     combined-stream "^1.0.8"
     mime-types "^2.1.12"
 
-"@discordx/utilities@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@discordx/utilities/-/utilities-3.0.4.tgz#587aca09ff20008f2a62d3250cb569609700c868"
-  integrity sha512-54F62J3P+NaQ+J6/o8ZPo8qjOaHD4K+JolaDHom6Lpy0GtYRc0+vckI+cfo+wPNqijx3LHq1u7wuxqrJF3iJIA==
+"@discordx/utilities@^3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@discordx/utilities/-/utilities-3.1.5.tgz#63bc27334492a9ee3191cfdfff6df70df3564f74"
+  integrity sha512-2BC2qfOqjY/1joxfRGylMXScSX+DNyndh9jOuotlCJ+HARQCxWdFvDuE6bPynwFLd4H8hprecSgS4lIOEz+bYg==
   dependencies:
     discord.js "^13.3.1"
-    discordx "^8.1.0"
     lodash "^4.17.21"
+    tslib "^2.3.1"
 
 "@eslint/eslintrc@^0.4.3":
   version "0.4.3"

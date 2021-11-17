@@ -43,7 +43,7 @@
   },
   "dependencies": {
     "@aero/centra": "^1.0.8",
-    "@discordx/utilities": "^3.0.4",
+    "@discordx/utilities": "^3.1.5",
     "@ksoft/api": "^3.1.9",
     "anilist-node": "^1.11.0",
     "booru": "^2.4.2",
