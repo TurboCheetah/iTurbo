@@ -6,6 +6,7 @@ import Manager from './Manager'
 import Anilist from 'anilist-node'
 import { KSoftClient } from '@ksoft/api'
 import { API } from 'nhentai'
+import Taihou from 'taihou'
 import { NotABot } from './guards/NotABot'
 import { Constants } from './utils/constants'
 
@@ -14,6 +15,7 @@ export class IslaClient extends Client {
   public ksoft: KSoftClient
   public nhentai: API
   public cluster?: Manager
+  public taihou: typeof Taihou
   public constants: typeof Constants
 
   constructor() {
@@ -28,6 +30,7 @@ export class IslaClient extends Client {
     this.anilist = new Anilist(process.env.ANILIST_TOKEN)
     this.ksoft = new KSoftClient(process.env.KSOFT_TOKEN as string)
     this.nhentai = new API()
+    this.taihou = new Taihou(process.env.WEEBSH_TOKEN, true, { userAgent: 'iTurbo/3.0.0' })
     this.constants = Constants
   }
 }
