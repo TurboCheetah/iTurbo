@@ -1,5 +1,3 @@
-import 'reflect-metadata'
-import path from 'path'
 import { Intents } from 'discord.js'
 import { Client } from 'discordx'
 import Manager from '#/Manager'
@@ -25,7 +23,6 @@ export class IslaClient extends Client {
   constructor() {
     super({
       intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
-      classes: [path.join(__dirname, 'commands', '**/*.{ts,js}'), path.join(__dirname, 'events', '**/*.{ts,js}')],
       botGuilds: process.env.NODE_ENV === 'development' ? [String(process.env.DEV_GUILD) ?? ''] : undefined,
       silent: true,
       guards: [NotABot]

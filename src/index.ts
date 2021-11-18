@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import * as dotenv from 'dotenv'
 import { join } from 'path'
 import { ShardingManager } from 'kurasuta'
