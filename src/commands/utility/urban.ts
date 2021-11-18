@@ -18,7 +18,7 @@ export abstract class UrbanCommand {
 
     const { list } = await c('https://api.urbandictionary.com/v0/define', 'GET').query({ term: word }).json()
 
-    if (!list.length) return await interaction.editReply('No results found')
+    if (!list.length) return interaction.editReply('No results found')
 
     const pages = list.map((d: { definition: string; permalink: string; thumbs_up: number; thumbs_down: number; author: string; example: string }) => {
       const definition = this.content(d.definition, d.permalink)

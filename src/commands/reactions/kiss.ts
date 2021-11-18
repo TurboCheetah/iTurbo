@@ -12,7 +12,7 @@ export abstract class KissCommand {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (member === (interaction.member as GuildMember)) return await interaction.reply({ content: "You can't kiss yourself!", ephemeral: true })
+    if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't kiss yourself!", ephemeral: true })
 
     await interaction.deferReply()
 
