@@ -1,11 +1,12 @@
-import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
-import { Discord, Slash, SlashChoice, SlashOption } from 'discordx'
+import { CommandInteraction, MessageEmbed } from 'discord.js'
+import { Discord, Guard, Slash, SlashChoice, SlashOption } from 'discordx'
 import { IslaClient } from '../../Client'
-import { isNSFW, random } from '../../utils/utils'
+import { IsNsfw } from '../../guards/IsNsfw'
 
 @Discord()
 export abstract class RedditCommand {
   @Slash('reddit', { description: 'Returns a reddit post for the specified category' })
+  @Guard(IsNsfw)
   async reddit(
     @SlashChoice('Ass', 'ass')
     @SlashChoice('Boobs', 'boobs')
@@ -18,8 +19,6 @@ export abstract class RedditCommand {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<any> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
-
     let subreddits = []
     switch (query) {
       case 'ass':
@@ -44,7 +43,7 @@ export abstract class RedditCommand {
     }
 
     await interaction.deferReply({ ephemeral: !ephemeral })
-    const res = await client.ksoft.images.reddit(random(subreddits), { removeNSFW: false, span: 'all' })
+    const res = await client.ksoft.images.reddit(client.utils.random(subreddits), { removeNSFW: false, span: 'all' })
 
     const embed = new MessageEmbed().setTitle(`${res.post.subreddit} - ${res.post.title}`).setURL(res.url).setColor(0x9590ee).setImage(res.url).setDescription(`:thumbsup: ${res.post.upvotes} | :speech_balloon: ${res.post.comments}`).setFooter('Powered by Reddit')
 

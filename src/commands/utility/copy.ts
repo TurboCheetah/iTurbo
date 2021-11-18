@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
-import { resolveEmoji } from '../../utils/utils'
+import { IslaClient } from '../../Client'
 
 @Discord()
 export abstract class CopyCommand {
@@ -8,11 +8,12 @@ export abstract class CopyCommand {
   async copy(
     @SlashOption('emoji', { description: "The emoji you'd like to copy", required: true })
     emoji: string,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: IslaClient
   ): Promise<any> {
     await interaction.deferReply()
 
-    const e = resolveEmoji(emoji)
+    const e = client.utils.resolveEmoji(emoji)
     if (!e) return interaction.editReply('Invalid emoji')
 
     const url = `https://cdn.discordapp.com/emojis/${e.id}.${e.animated ? 'gif' : 'png'}`

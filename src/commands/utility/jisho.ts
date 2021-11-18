@@ -2,7 +2,7 @@ import c from '@aero/centra'
 import { Pagination } from '@discordx/utilities'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
-import { toProperCase } from '../../utils/utils'
+import { IslaClient } from '../../Client'
 
 @Discord()
 export abstract class JishoCommand {
@@ -12,7 +12,8 @@ export abstract class JishoCommand {
     word: string,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: IslaClient
   ): Promise<any> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
@@ -24,10 +25,10 @@ export abstract class JishoCommand {
       return new MessageEmbed()
         .setColor(0x9590ee)
         .setURL(`https://jisho.org/search/${word}`)
-        .setTitle(`${toProperCase(word)}`)
+        .setTitle(`${client.utils.toProperCase(word)}`)
         .addField('Japanese', d.japanese[0].word || d.japanese[0].reading, false)
         .addField('Reading', d.japanese[0].reading || d.japanese[0].word, false)
-        .addField('English Meaning', `${toProperCase(d.senses[0].english_definitions.join(', '))}`, false)
+        .addField('English Meaning', `${client.utils.toProperCase(d.senses[0].english_definitions.join(', '))}`, false)
         .addField('Common', d.is_common ? 'Yes' : 'No', false)
         .setFooter('Powered by Jisho.org')
     })

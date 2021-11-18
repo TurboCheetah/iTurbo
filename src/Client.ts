@@ -9,7 +9,8 @@ import { API } from 'nhentai'
 import Taihou from 'taihou'
 import { Api as Osu } from 'node-osu'
 import { NotABot } from './guards/NotABot'
-import { Constants } from './utils/constants'
+import { Constants } from './utils/Constants'
+import { Utils } from './utils/Utils'
 
 export class IslaClient extends Client {
   public anilist: Anilist
@@ -18,6 +19,7 @@ export class IslaClient extends Client {
   public cluster?: Manager
   public taihou: typeof Taihou
   public osu: Osu
+  public utils = Utils
   public constants: typeof Constants
 
   constructor() {

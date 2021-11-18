@@ -1,14 +1,15 @@
-import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
-import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Pagination } from '@discordx/utilities'
-import { IslaClient } from '../../../Client'
-import { isNSFW } from '../../../utils/utils'
+import { CommandInteraction, MessageEmbed } from 'discord.js'
+import { Discord, Guard, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Doujin } from 'nhentai'
+import { IslaClient } from '../../../Client'
+import { IsNsfw } from '../../../guards/IsNsfw'
 
 @Discord()
 @SlashGroup('nhentai', 'Read doujin from nHentai')
 export abstract class NHentaiCommands {
   @Slash('doujin', { description: 'Read doujin from nHentai' })
+  @Guard(IsNsfw)
   async doujin(
     @SlashOption('id', { description: "The name of the ID of the doujin you'd like to read", required: true })
     id: number,
@@ -19,8 +20,6 @@ export abstract class NHentaiCommands {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<any> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
-
     await interaction.deferReply({ ephemeral: !ephemeral })
 
     const doujin = await client.nhentai.fetchDoujin(id)
@@ -34,14 +33,13 @@ export abstract class NHentaiCommands {
   }
 
   @Slash('random', { description: 'Read a random doujin from nHentai' })
+  @Guard(IsNsfw)
   async random(
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
-
     await interaction.deferReply({ ephemeral: !ephemeral })
 
     const doujin = await client.nhentai.randomDoujin()

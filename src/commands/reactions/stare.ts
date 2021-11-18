@@ -1,7 +1,6 @@
 import { CommandInteraction, GuildMember, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '../../Client'
-import { isNSFW } from '../../utils/utils'
 
 @Discord()
 export abstract class StareCommand {
@@ -16,7 +15,7 @@ export abstract class StareCommand {
 
     await interaction.deferReply()
 
-    const { url } = await client.taihou.toph.getRandomImage('stare', { nsfw: isNSFW(interaction.channel as TextBasedChannels) })
+    const { url } = await client.taihou.toph.getRandomImage('stare', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannels) })
     const embed = new MessageEmbed().setColor(0x9590ee).setImage(url)
     if (member) embed.setDescription(`**${(interaction.member as GuildMember).displayName}** starred at **${member.displayName}**`)
     interaction.editReply({ embeds: [embed] })

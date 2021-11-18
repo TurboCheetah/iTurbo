@@ -1,12 +1,12 @@
+import { Pagination } from '@discordx/utilities'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, MetadataStorage, Slash } from 'discordx'
-import { Pagination } from '@discordx/utilities'
-import { toProperCase } from '../../utils/utils'
+import { IslaClient } from '../../Client'
 
 @Discord()
 export abstract class HelpCommand {
   @Slash('help', { description: 'View a list of all commands' })
-  async help(interaction: CommandInteraction): Promise<void> {
+  async help(interaction: CommandInteraction, client: IslaClient): Promise<void> {
     await interaction.deferReply({ ephemeral: true })
 
     const commands = MetadataStorage.instance.applicationCommands
@@ -18,7 +18,7 @@ export abstract class HelpCommand {
     const pages = commands.map((cmd, i) => {
       return new MessageEmbed()
         .setColor(0x9590ee)
-        .setTitle(`**${toProperCase(cmd.name)}**`)
+        .setTitle(`**${client.utils.toProperCase(cmd.name)}**`)
         .setDescription(cmd.description)
         .setFooter(`Command ${i + 1} of ${commands.length}`)
     })

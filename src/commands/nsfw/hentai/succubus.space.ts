@@ -1,9 +1,9 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
-import { Discord, Slash, SlashOption, SlashGroup } from 'discordx'
-import { request, gql } from 'graphql-request'
+import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
+import { gql, request } from 'graphql-request'
+import { IslaClient } from '../../../Client'
 import { Doujin } from '../../../types/doujin.type'
 import { Hentai } from '../../../types/hentai.type'
-import { shorten, toProperCase } from '../../../utils/utils'
 
 @Discord()
 @SlashGroup('succubusspace', 'Retrieve data from Succubus.Space')
@@ -14,7 +14,8 @@ export abstract class SuccubusSpaceCommands {
     search: string,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: IslaClient
   ): Promise<any> {
     const query = gql`
       query hentai($id: Int, $name: String) {
@@ -54,10 +55,10 @@ export abstract class SuccubusSpaceCommands {
       .setURL(hentai.url)
       .setThumbnail(hentai.coverURL)
       .setImage(hentai.posterURL)
-      .addField('Description', hentai.description !== null ? shorten(hentai.description) : 'No description given.')
+      .addField('Description', hentai.description !== null ? client.utils.shorten(hentai.description) : 'No description given.')
       .addField('Release Date', new Date(hentai.releasedAt).toLocaleDateString(), true)
       .addField('Producer', hentai.brand, true)
-      .addField('Censored', toProperCase(hentai.isCensored.toString()), true)
+      .addField('Censored', client.utils.toProperCase(hentai.isCensored.toString()), true)
       .addField('Views', hentai.views.toLocaleString(), true)
       .addField('Likes', hentai.likes.toLocaleString(), true)
       .addField('Interests', hentai.interests.toLocaleString(), true)

@@ -1,7 +1,7 @@
 import c from '@aero/centra'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
-import { toProperCase } from '../../utils/utils'
+import { IslaClient } from '../../Client'
 
 @Discord()
 export abstract class WikipediaCommand {
@@ -11,11 +11,12 @@ export abstract class WikipediaCommand {
     query: string,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: IslaClient
   ): Promise<any> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
-    const article = await c('https://en.wikipedia.org/api/rest_v1/page/summary/', 'GET').path(toProperCase(query)).json()
+    const article = await c('https://en.wikipedia.org/api/rest_v1/page/summary/', 'GET').path(client.utils.toProperCase(query)).json()
 
     if (!article.content_urls) interaction.editReply("I couldn't find a wikipedia article with that title!")
 

@@ -1,7 +1,6 @@
 import { CommandInteraction, GuildMember, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '../../Client'
-import { isNSFW } from '../../utils/utils'
 
 @Discord()
 export abstract class HugCommand {
@@ -16,7 +15,7 @@ export abstract class HugCommand {
 
     await interaction.deferReply()
 
-    const { url } = await client.taihou.toph.getRandomImage('hug', { nsfw: isNSFW(interaction.channel as TextBasedChannels) })
+    const { url } = await client.taihou.toph.getRandomImage('hug', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannels) })
     const embed = new MessageEmbed()
       .setColor(0x9590ee)
       .setDescription(`**${(interaction.member as GuildMember).displayName}** hugged **${member.displayName}**`)

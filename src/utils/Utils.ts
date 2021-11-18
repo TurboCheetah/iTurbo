@@ -1,6 +1,6 @@
 import { TextBasedChannels } from 'discord.js'
 
-export class utils {
+export class Utils {
   constructor() {
     throw new Error('Utils is a static class and cannot be instantiated.')
   }

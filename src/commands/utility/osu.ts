@@ -1,8 +1,7 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashChoice, SlashOption } from 'discordx'
-import { IslaClient } from '../../Client'
 import ms from 'ms'
-import { formatNumber } from '../../utils/utils'
+import { IslaClient } from '../../Client'
 
 @Discord()
 export abstract class OsuCommand {
@@ -44,16 +43,16 @@ export abstract class OsuCommand {
             .setThumbnail(`https://s.ppy.sh/a/${osuUser.id}`)
             .setURL(`https://osu.ppy.sh/users/${osuUser.id}`)
             .setColor(0x9590ee)
-            .addField('Games', formatNumber(osuUser.counts.plays), true)
+            .addField('Games', client.utils.formatNumber(osuUser.counts.plays), true)
             .addField(client.constants.zws, client.constants.zws, true)
             .addField('Accuracy', osuUser.accuracyFormatted, true)
             .addField('Level', osuUser.level.toString().substring(0, 5), true)
             .addField(client.constants.zws, client.constants.zws, true)
             .addField('Playtime', ms(osuUser.secondsPlayed * 1000, { long: true }), true)
-            .addField('Global 🌐', `${formatNumber(+osuUser.pp.rank)}`, true)
+            .addField('Global 🌐', `${client.utils.formatNumber(+osuUser.pp.rank)}`, true)
             .addField(client.constants.zws, client.constants.zws, true)
-            .addField(`Country :flag_${osuUser.country.toLowerCase()}:`, `${formatNumber(+osuUser.pp.countryRank)}`, true)
-            .addField('Scores', `${ranks.ssh}: ${formatNumber(osuUser.counts.SSH)}\n${ranks.ss}: ${formatNumber(osuUser.counts.SS)}\n${ranks.sh}: ${formatNumber(osuUser.counts.SH)}\n${ranks.s}: ${formatNumber(osuUser.counts.S)}\n${ranks.a}: ${formatNumber(osuUser.counts.A)}\n`, true)
+            .addField(`Country :flag_${osuUser.country.toLowerCase()}:`, `${client.utils.formatNumber(+osuUser.pp.countryRank)}`, true)
+            .addField('Scores', `${ranks.ssh}: ${client.utils.formatNumber(osuUser.counts.SSH)}\n${ranks.ss}: ${client.utils.formatNumber(osuUser.counts.SS)}\n${ranks.sh}: ${client.utils.formatNumber(osuUser.counts.SH)}\n${ranks.s}: ${client.utils.formatNumber(osuUser.counts.S)}\n${ranks.a}: ${client.utils.formatNumber(osuUser.counts.A)}\n`, true)
             .setFooter(`Started playing on ${(osuUser.joinDate as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`)
           interaction.editReply({ embeds: [embed] })
         } catch (err) {
@@ -74,11 +73,11 @@ export abstract class OsuCommand {
             .addField('Beatmap Info', `**Title**: [${top.beatmap.title}](https://osu.ppy.sh/b/${top.beatmap.id})\n**Author**: ${top.beatmap.creator}\n**Artist**: ${top.beatmap.artist}\n**Difficulty**: ${top.beatmap.version} | ${Math.round(top.beatmap.difficulty.rating * 100) / 100}\n**BPM**: ${top.beatmap.bpm}`, false)
             .addField('PP', `${Math.round(top.pp * 100) / 100}`, true)
             .addField(client.constants.zws, client.constants.zws, true)
-            .addField('Combo', `${formatNumber(top.maxCombo)}x/${formatNumber(top.beatmap.maxCombo)}x`, true)
+            .addField('Combo', `${client.utils.formatNumber(top.maxCombo)}x/${client.utils.formatNumber(top.beatmap.maxCombo)}x`, true)
             .addField('Accuracy', `${Math.round((top.accuracy as number) * 100 * 100) / 100}%`, true)
             .addField(client.constants.zws, client.constants.zws, true)
-            .addField('Score', formatNumber(top.score), true)
-            .addField('Hits', `Miss: **${formatNumber(top.counts.miss)}**, 50: **${formatNumber(top.counts['50'])}**, 100: **${formatNumber(top.counts['100'])}**, 300: **${formatNumber(top.counts['300'])}**`, false)
+            .addField('Score', client.utils.formatNumber(top.score), true)
+            .addField('Hits', `Miss: **${client.utils.formatNumber(top.counts.miss)}**, 50: **${client.utils.formatNumber(top.counts['50'])}**, 100: **${client.utils.formatNumber(top.counts['100'])}**, 300: **${client.utils.formatNumber(top.counts['300'])}**`, false)
             .addField('Mods', top.mods.length ? (top.mods as string[]).join(', ') : 'None', false)
             .setFooter(`Score placed on ${(top.date as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`)
           interaction.editReply({ embeds: [embed] })
@@ -99,13 +98,13 @@ export abstract class OsuCommand {
             .addField('Beatmap Info', `**Title**: [${recent.beatmap.title}](https://osu.ppy.sh/b/${recent.beatmap.id})\n**Author**: ${recent.beatmap.creator}\n**Artist**: ${recent.beatmap.artist}\n**Difficulty**: ${recent.beatmap.version} | ${Math.round(recent.beatmap.difficulty.rating * 100) / 100}\n**BPM**: ${recent.beatmap.bpm}`, false)
             .addField('PP', `${Math.round(recent.pp * 100) / 100}`, true)
             .addField(client.constants.zws, client.constants.zws, true)
-            .addField('Combo', `${formatNumber(recent.maxCombo)}x/${formatNumber(recent.beatmap.maxCombo)}x`, true)
+            .addField('Combo', `${client.utils.formatNumber(recent.maxCombo)}x/${client.utils.formatNumber(recent.beatmap.maxCombo)}x`, true)
             .addField('Accuracy', `${Math.round((recent.accuracy as number) * 100 * 100) / 100}%`, true)
             .addField(client.constants.zws, client.constants.zws, true)
-            .addField('Score', formatNumber(recent.score), true)
+            .addField('Score', client.utils.formatNumber(recent.score), true)
             .addField('Mods', recent.mods.length ? (recent.mods as string[]).join(', ') : 'None', true)
             .addField(client.constants.zws, client.constants.zws, true)
-            .addField('Hits', `Miss: **${formatNumber(recent.counts.miss)}**\n50: **${formatNumber(recent.counts['50'])}**\n100: **${formatNumber(recent.counts['100'])}**\n300: **${formatNumber(recent.counts['300'])}**`, true)
+            .addField('Hits', `Miss: **${client.utils.formatNumber(recent.counts.miss)}**\n50: **${client.utils.formatNumber(recent.counts['50'])}**\n100: **${client.utils.formatNumber(recent.counts['100'])}**\n300: **${client.utils.formatNumber(recent.counts['300'])}**`, true)
             .setFooter(`Score placed on ${(recent.date as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`)
           interaction.editReply({ embeds: [embed] })
         } catch (err) {

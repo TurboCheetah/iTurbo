@@ -2,7 +2,7 @@ import c from '@aero/centra'
 import { Pagination } from '@discordx/utilities'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
-import { toProperCase } from '../../utils/utils'
+import { IslaClient } from '../../Client'
 
 @Discord()
 export abstract class UrbanCommand {
@@ -12,7 +12,8 @@ export abstract class UrbanCommand {
     word: string,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: IslaClient
   ): Promise<any> {
     await interaction.deferReply({ ephemeral: !ephemeral })
 
@@ -23,7 +24,7 @@ export abstract class UrbanCommand {
     const pages = list.map((d: { definition: string; permalink: string; thumbs_up: number; thumbs_down: number; author: string; example: string }) => {
       const definition = this.content(d.definition, d.permalink)
 
-      return new MessageEmbed().setColor(0x9590ee).setTitle(toProperCase(word)).setURL(d.permalink).setThumbnail('http://i.imgur.com/CcIZZsa.png').addField('Definition', definition).addField('Example', this.example(d.example)).addField('Author', d.author, true).addField('Likes', `👍 ${d.thumbs_up}`, true).addField('Dislikes', `👎 ${d.thumbs_down}`, true).setFooter('Powered by UrbanDictionary')
+      return new MessageEmbed().setColor(0x9590ee).setTitle(client.utils.toProperCase(word)).setURL(d.permalink).setThumbnail('http://i.imgur.com/CcIZZsa.png').addField('Definition', definition).addField('Example', this.example(d.example)).addField('Author', d.author, true).addField('Likes', `👍 ${d.thumbs_up}`, true).addField('Dislikes', `👎 ${d.thumbs_down}`, true).setFooter('Powered by UrbanDictionary')
     })
 
     const pagination = new Pagination(interaction, pages, { type: 'BUTTON' })

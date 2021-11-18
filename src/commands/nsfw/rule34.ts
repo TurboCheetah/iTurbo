@@ -1,12 +1,14 @@
-import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
-import { Discord, Slash, SlashOption } from 'discordx'
-import { search } from 'booru'
-import { isNSFW, shorten } from '../../utils/utils'
 import { Pagination } from '@discordx/utilities'
+import { search } from 'booru'
+import { CommandInteraction, MessageEmbed } from 'discord.js'
+import { Discord, Guard, Slash, SlashOption } from 'discordx'
+import { IslaClient } from '../../Client'
+import { IsNsfw } from '../../guards/IsNsfw'
 
 @Discord()
 export abstract class Rule34Command {
   @Slash('rule34', { description: "Rule 34: If it exists there's porn of it" })
+  @Guard(IsNsfw)
   async rule34(
     @SlashOption('query', { description: "What you'd like to search for", required: true })
     query: string,
@@ -14,10 +16,9 @@ export abstract class Rule34Command {
     animated: boolean,
     @SlashOption('public', { description: 'Display this command publicly', required: false })
     ephemeral: boolean,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
+    client: IslaClient
   ): Promise<any> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
-
     await interaction.deferReply({ ephemeral: !ephemeral })
 
     const q = query
@@ -38,7 +39,7 @@ export abstract class Rule34Command {
         return (
           new MessageEmbed()
             .setTitle(`Score: ${post.score}`)
-            .addField('Tags', shorten(post.tags.join(' ')))
+            .addField('Tags', client.utils.shorten(post.tags.join(' ')))
             .setColor(0x9590ee)
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             .setImage(post.fileUrl!)
