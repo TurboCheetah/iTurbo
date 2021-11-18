@@ -13,7 +13,7 @@ export abstract class HentaiCommands {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
+    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
     const res = await client.ksoft.images.random('ass', { nsfw: true })
@@ -30,7 +30,7 @@ export abstract class HentaiCommands {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
+    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
     const res = await client.ksoft.images.random(random(['hentai', 'hentai_gif']), { nsfw: true })
@@ -47,7 +47,7 @@ export abstract class HentaiCommands {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
+    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
     const res = await client.ksoft.images.random('neko', { nsfw: true })

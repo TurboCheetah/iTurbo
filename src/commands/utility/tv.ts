@@ -17,7 +17,7 @@ export abstract class TVCommand {
 
     const { results } = await c(`https://api.themoviedb.org/3/search/tv`, 'GET').query({ query: show, api_key: process.env.TMDB }).json()
 
-    if (!results.length) return interaction.editReply('No results found')
+    if (!results.length) return await interaction.editReply('No results found')
     console.log(results)
 
     const pages = results.map((s: { poster_path: string; name: string; overview: string; original_name: string; vote_count: number; vote_average: number; popularity: number; first_air_date: string }) => {

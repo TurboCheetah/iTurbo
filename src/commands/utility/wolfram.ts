@@ -23,7 +23,7 @@ export abstract class WolframCommand {
       })
       .json()
 
-    if (!queryresult.pods || queryresult.pods.error) return interaction.editReply("Couldn't find an answer to that question!")
+    if (!queryresult.pods || queryresult.pods.error) return await interaction.editReply("Couldn't find an answer to that question!")
 
     const embed = new MessageEmbed().setColor(0x9590ee).setTitle(queryresult.pods[0].subpods[0].plaintext).setDescription(queryresult.pods[1].subpods[0].plaintext.substring(0, 1950))
 

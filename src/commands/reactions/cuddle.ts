@@ -12,7 +12,7 @@ export abstract class CuddleCommand {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't cuddle with yourself!", ephemeral: true })
+    if (member === (interaction.member as GuildMember)) return await interaction.reply({ content: "You can't cuddle with yourself!", ephemeral: true })
 
     await interaction.deferReply()
 

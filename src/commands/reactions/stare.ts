@@ -12,7 +12,7 @@ export abstract class StareCommand {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (member && member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't stare at yourself!", ephemeral: true })
+    if (member && member === (interaction.member as GuildMember)) return await interaction.reply({ content: "You can't stare at yourself!", ephemeral: true })
 
     await interaction.deferReply()
 

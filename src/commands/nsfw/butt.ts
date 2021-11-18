@@ -12,7 +12,7 @@ export abstract class ButtCommand {
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<void> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
+    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     await interaction.deferReply({ ephemeral: !ephemeral })
     const [data]: [OBoobs] = await centra('http://api.obutts.ru/butts/0/1/random', 'GET').json()

@@ -13,12 +13,12 @@ export abstract class CopyCommand {
     await interaction.deferReply()
 
     const e = resolveEmoji(emoji)
-    if (!e) return interaction.editReply('Invalid emoji')
+    if (!e) return await interaction.editReply('Invalid emoji')
 
     const url = `https://cdn.discordapp.com/emojis/${e.id}.${e.animated ? 'gif' : 'png'}`
     await interaction.guild?.emojis.create(url, e.name)
 
     const embed = new MessageEmbed().setColor(0x9590ee).setTitle(e.name).setImage(url)
-    return interaction.editReply({ embeds: [embed] })
+    return await interaction.editReply({ embeds: [embed] })
   }
 }

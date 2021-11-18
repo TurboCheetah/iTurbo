@@ -21,7 +21,7 @@ export abstract class TopInvitesCommand {
       : null
     console.log(topTen)
 
-    if (!topTen || !topTen.length) return interaction.editReply('There are no invites or none of them have been used!')
+    if (!topTen || !topTen.length) return await interaction.editReply('There are no invites or none of them have been used!')
 
     const embed = new MessageEmbed()
       .setColor(0x9590ee)

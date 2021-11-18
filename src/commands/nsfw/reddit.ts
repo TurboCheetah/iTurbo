@@ -18,7 +18,7 @@ export abstract class RedditCommand {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<any> {
-    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
+    if (!isNSFW(interaction.channel as TextBasedChannels) && ephemeral) return await interaction.reply({ content: 'Please re-run this command with private mode enabled or in an NSFW channel!', ephemeral: true })
 
     let subreddits = []
     switch (query) {

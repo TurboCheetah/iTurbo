@@ -65,7 +65,7 @@ export abstract class SuccubusSpaceCommands {
 
     const { hentai }: { hentai: Hentai } = await request('https://api.succubus.space/graphql', query, isNaN(+search) ? { name: search } : { id: +search })
 
-    if (hentai.invalid === true) return interaction.editReply('This hentai could not be found.')
+    if (hentai.invalid === true) return await interaction.editReply('This hentai could not be found.')
 
     const tags = []
     for (let i = 0; i < hentai.tags.length; i++) {
@@ -148,7 +148,7 @@ export abstract class SuccubusSpaceCommands {
 
     const { doujin }: { doujin: Doujin } = await request('https://api.succubus.space/graphql', query, isNaN(+search) ? { name: search } : { id: +search })
 
-    if (doujin.invalid) return interaction.editReply('This doujin could not be found.')
+    if (doujin.invalid) return await interaction.editReply('This doujin could not be found.')
 
     const tags = []
     for (let i = 0; i < doujin.tags.length; i++) {

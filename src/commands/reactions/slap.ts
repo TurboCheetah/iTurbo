@@ -12,7 +12,7 @@ export abstract class SlapCommand {
     interaction: CommandInteraction,
     client: IslaClient
   ): Promise<void> {
-    if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't slap yourself!", ephemeral: true })
+    if (member === (interaction.member as GuildMember)) return await interaction.reply({ content: "You can't slap yourself!", ephemeral: true })
 
     await interaction.deferReply()
 
