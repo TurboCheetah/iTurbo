@@ -16,56 +16,32 @@ export abstract class SuccubusSpaceCommands {
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<any> {
-    let query
-    if (isNaN(+search)) {
-      query = gql`
-        query hentai($name: String!) {
-          hentai(name: $name) {
-            id
-            name
-            description
-            coverURL
-            posterURL
-            releasedAt
-            brand
-            isCensored
-            views
-            likes
-            interests
-            tags
-            url
-            invalid
-          }
+    const query = gql`
+      query hentai($id: Int, $name: String) {
+        hentai(id: $id, name: $name) {
+          id
+          name
+          description
+          coverURL
+          posterURL
+          releasedAt
+          brand
+          isCensored
+          views
+          likes
+          interests
+          tags
+          url
+          invalid
         }
-      `
-    } else {
-      query = gql`
-        query hentai($id: Int!) {
-          hentai(id: $id) {
-            id
-            name
-            description
-            coverURL
-            posterURL
-            releasedAt
-            brand
-            isCensored
-            views
-            likes
-            interests
-            tags
-            url
-            invalid
-          }
-        }
-      `
-    }
+      }
+    `
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 
     const { hentai }: { hentai: Hentai } = await request('https://api.succubus.space/graphql', query, isNaN(+search) ? { name: search } : { id: +search })
 
-    if (hentai.invalid === true) return await interaction.editReply('This hentai could not be found.')
+    if (hentai.invalid === true) return interaction.editReply('This hentai could not be found.')
 
     const tags = []
     for (let i = 0; i < hentai.tags.length; i++) {
@@ -99,56 +75,32 @@ export abstract class SuccubusSpaceCommands {
     ephemeral: boolean,
     interaction: CommandInteraction
   ): Promise<any> {
-    let query
-    if (isNaN(+search)) {
-      query = gql`
-        query doujin($name: String!) {
-          doujin(name: $name) {
-            id
-            titles {
-              english
-              japanese
-              pretty
-            }
-            uploadDate
-            length
-            favorites
-            url
-            cover
-            thumbnail
-            tags
-            invalid
+    const query = gql`
+      query doujin($id: Int, $name: String) {
+        doujin(id: $id, name: $name) {
+          id
+          titles {
+            english
+            japanese
+            pretty
           }
+          uploadDate
+          length
+          favorites
+          url
+          cover
+          thumbnail
+          tags
+          invalid
         }
-      `
-    } else {
-      query = gql`
-        query doujin($id: Int!) {
-          doujin(id: $id) {
-            id
-            titles {
-              english
-              japanese
-              pretty
-            }
-            uploadDate
-            length
-            favorites
-            url
-            cover
-            thumbnail
-            tags
-            invalid
-          }
-        }
-      `
-    }
+      }
+    `
 
     await interaction.deferReply({ ephemeral: !ephemeral })
 
     const { doujin }: { doujin: Doujin } = await request('https://api.succubus.space/graphql', query, isNaN(+search) ? { name: search } : { id: +search })
 
-    if (doujin.invalid) return await interaction.editReply('This doujin could not be found.')
+    if (doujin.invalid) return interaction.editReply('This doujin could not be found.')
 
     const tags = []
     for (let i = 0; i < doujin.tags.length; i++) {
