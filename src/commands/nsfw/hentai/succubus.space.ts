@@ -2,8 +2,8 @@ import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { gql, request } from 'graphql-request'
 import { IslaClient } from '#/Client'
-import { Doujin } from '#/types/doujin.type'
-import { Hentai } from '#/types/hentai.type'
+import { Doujin } from '#types/doujin.type'
+import { Hentai } from '#types/hentai.type'
 
 @Discord()
 @SlashGroup('succubusspace', 'Retrieve data from Succubus.Space')
