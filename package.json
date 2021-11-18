@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/TurboCheetah/iTurbo",
   "devDependencies": {
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
     "@types/ms": "^0.7.31",
     "@types/node": "^16.11.7",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
@@ -35,6 +37,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^5.1.1",
+    "lint-staged": "^12.0.2",
     "nodemon": "^2.0.15",
     "prettier": "^2.4.1",
     "standard-version": "^9.3.2",
@@ -64,5 +67,13 @@
     "node-osu": "^2.2.1",
     "reflect-metadata": "^0.1.13",
     "taihou": "^2.0.6"
+  },
+  "commitlint": {
+		"extends": [
+			"@commitlint/config-conventional"
+		]
+	},
+  "lint-staged": {
+    "*.{js,ts}": "eslint --ignore-path .gitignore --ext .ts src/"
   }
 }
