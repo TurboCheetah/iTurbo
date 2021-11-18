@@ -1,7 +1,7 @@
 import { Pagination } from '@discordx/utilities'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, MetadataStorage, Slash } from 'discordx'
-import { IslaClient } from '../../Client'
+import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class HelpCommand {

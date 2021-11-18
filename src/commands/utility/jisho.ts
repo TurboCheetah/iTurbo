@@ -2,7 +2,7 @@ import c from '@aero/centra'
 import { Pagination } from '@discordx/utilities'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
-import { IslaClient } from '../../Client'
+import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class JishoCommand {

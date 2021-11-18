@@ -1,7 +1,7 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashChoice, SlashOption } from 'discordx'
 import ms from 'ms'
-import { IslaClient } from '../../Client'
+import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class OsuCommand {

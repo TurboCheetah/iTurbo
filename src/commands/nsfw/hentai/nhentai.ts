@@ -2,8 +2,8 @@ import { Pagination } from '@discordx/utilities'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Doujin } from 'nhentai'
-import { IslaClient } from '../../../Client'
-import { IsNsfw } from '../../../guards/IsNsfw'
+import { IslaClient } from '#/Client'
+import { IsNsfw } from '#guards/IsNsfw'
 
 @Discord()
 @SlashGroup('nhentai', 'Read doujin from nHentai')

@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv'
 import { join } from 'path'
 import { ShardingManager } from 'kurasuta'
-import { IslaClient } from './Client'
+import { IslaClient } from '#/Client'
 import { Client } from 'discord.js'
 
 dotenv.config({ path: join(__dirname, '/../.env') })

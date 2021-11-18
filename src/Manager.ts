@@ -1,5 +1,5 @@
 import { BaseCluster, ShardingManager } from 'kurasuta'
-import { IslaClient } from './Client'
+import { IslaClient } from '#/Client'
 
 export default class Manager extends BaseCluster {
   public client!: IslaClient

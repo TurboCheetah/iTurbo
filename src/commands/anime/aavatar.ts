@@ -1,7 +1,7 @@
 import centra from '@aero/centra'
 import { CommandInteraction, MessageEmbed, TextBasedChannels } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
-import { IslaClient } from '../../Client'
+import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class AavatarCommand {

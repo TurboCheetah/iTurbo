@@ -1,7 +1,7 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashChoice, SlashOption } from 'discordx'
-import { IslaClient } from '../../Client'
-import { IsNsfw } from '../../guards/IsNsfw'
+import { IslaClient } from '#/Client'
+import { IsNsfw } from '#guards/IsNsfw'
 
 @Discord()
 export abstract class RedditCommand {

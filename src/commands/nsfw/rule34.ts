@@ -2,8 +2,8 @@ import { Pagination } from '@discordx/utilities'
 import { search } from 'booru'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashOption } from 'discordx'
-import { IslaClient } from '../../Client'
-import { IsNsfw } from '../../guards/IsNsfw'
+import { IslaClient } from '#/Client'
+import { IsNsfw } from '#guards/IsNsfw'
 
 @Discord()
 export abstract class Rule34Command {

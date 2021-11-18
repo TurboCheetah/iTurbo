@@ -1,6 +1,6 @@
 import { Discord, ArgsOf, Once } from 'discordx'
-import { Logger } from '../utils/Logger'
-import { IslaClient } from '../Client'
+import { Logger } from '#utils/Logger'
+import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class ReadyEvent {

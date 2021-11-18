@@ -1,7 +1,7 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { time, TimestampStyles } from '@discordjs/builders'
 import { Discord, Slash, SlashOption } from 'discordx'
-import { IslaClient } from '../../Client'
+import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class ServerInfoCommand {

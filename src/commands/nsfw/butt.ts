@@ -1,8 +1,8 @@
 import centra from '@aero/centra'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashOption } from 'discordx'
-import { IsNsfw } from '../../guards/IsNsfw'
-import { OBoobs } from '../../types/oboobs.type'
+import { IsNsfw } from '#guards/IsNsfw'
+import { OBoobs } from '#types/oboobs.type'
 
 @Discord()
 export abstract class ButtCommand {

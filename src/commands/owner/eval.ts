@@ -3,8 +3,8 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { CommandInteraction, Formatters, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashOption } from 'discordx'
-import { IsOwner } from '../../guards/IsOwner'
-import { IslaClient } from '../../Client'
+import { IsOwner } from '#guards/IsOwner'
+import { IslaClient } from '#/Client'
 import { inspect } from 'util'
 
 @Discord()

@@ -1,5 +1,5 @@
 import { Discord, ArgsOf, On } from 'discordx'
-import { IslaClient } from '../Client'
+import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class InteractionCreateEvent {

@@ -1,7 +1,7 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashGroup, SlashOption } from 'discordx'
-import { IslaClient } from '../../../Client'
-import { IsNsfw } from '../../../guards/IsNsfw'
+import { IslaClient } from '#/Client'
+import { IsNsfw } from '#guards/IsNsfw'
 
 @Discord()
 @SlashGroup('hentai', 'Hentai related commands')
