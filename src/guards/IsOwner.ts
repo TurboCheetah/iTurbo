@@ -1,14 +1,8 @@
-import { GuardFunction, SimpleCommandMessage } from 'discordx'
 import { CommandInteraction } from 'discord.js'
+import { GuardFunction } from 'discordx'
 
-export const IsOwner: GuardFunction<CommandInteraction | SimpleCommandMessage> = async (arg, client, next) => {
-  if (arg instanceof SimpleCommandMessage) {
-    if (arg.message.author.id === '120306174225678336') {
-      await next()
-    }
-  } else {
-    if (arg?.member?.user?.id === '120306174225678336') {
-      await next()
-    }
+export const IsOwner: GuardFunction<CommandInteraction> = async (interaction, client, next) => {
+  if (interaction?.member?.user?.id === '120306174225678336') {
+    await next()
   }
 }
