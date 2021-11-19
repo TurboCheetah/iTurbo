@@ -9,7 +9,6 @@
   <p>
     <a href="https://github.com/TurboCheetah/iTurbo/actions/workflows/docker-image.yml"> <img src="https://github.com/TurboCheetah/iTurbo/actions/workflows/docker-publish.yml/badge.svg" alt="Docker status" /> </a>
     <a href="https://www.codefactor.io/repository/github/TurboCheetah/iTurbo"><img src="https://www.codefactor.io/repository/github/TurboCheetah/iTurbo/badge" alt="CodeFactor" /></a>
-    <a href="https://depfu.com/github/TurboCheetah/iTurbo?project_id=32899"><img src="https://badges.depfu.com/badges/037fbc8ea1d04d4772b6ea0fe842c2f0/overview.svg" alt="Depfu" /></a>
     <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="JavaScript Style Guide" /></a>
   </p>
 </div>
