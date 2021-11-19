@@ -1,4 +1,5 @@
 {
   "extends": ["config:base", "group:allNonMajor"],
-  "labels": ["Meta: Dependencies"]
+  "labels": ["Meta: Dependencies"],
+  "schedule": ["before 12pm on Sunday"]
 }
