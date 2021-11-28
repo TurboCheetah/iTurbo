@@ -4,22 +4,22 @@ import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class LickCommand {
-  @Slash('lick', { description: 'Lick someone' })
-  async lcik(
-    @SlashOption('user', { description: "The user who you'd like to lcik", required: true })
-    member: GuildMember,
-    interaction: CommandInteraction,
-    client: IslaClient
-  ): Promise<void> {
-    if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't lcik yourself!", ephemeral: true })
+    @Slash('lick', { description: 'Lick someone' })
+    async lcik(
+        @SlashOption('user', { description: "The user who you'd like to lcik", required: true })
+        member: GuildMember,
+        interaction: CommandInteraction,
+        client: IslaClient
+    ): Promise<void> {
+        if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't lcik yourself!", ephemeral: true })
 
-    await interaction.deferReply()
+        await interaction.deferReply()
 
-    const { url } = await client.taihou.toph.getRandomImage('lick', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannels) })
-    const embed = new MessageEmbed()
-      .setColor(0x9590ee)
-      .setDescription(`**${(interaction.member as GuildMember).displayName}** licked **${member.displayName}**`)
-      .setImage(url)
-    interaction.editReply({ embeds: [embed] })
-  }
+        const { url } = await client.taihou.toph.getRandomImage('lick', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannels) })
+        const embed = new MessageEmbed()
+            .setColor(0x9590ee)
+            .setDescription(`**${(interaction.member as GuildMember).displayName}** licked **${member.displayName}**`)
+            .setImage(url)
+        interaction.editReply({ embeds: [embed] })
+    }
 }

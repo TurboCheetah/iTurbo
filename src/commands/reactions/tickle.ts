@@ -4,22 +4,22 @@ import { IslaClient } from '#/Client'
 
 @Discord()
 export abstract class TickleCommand {
-  @Slash('tickle', { description: 'Tickle someone' })
-  async tickle(
-    @SlashOption('user', { description: "The user who you'd like to tickle", required: true })
-    member: GuildMember,
-    interaction: CommandInteraction,
-    client: IslaClient
-  ): Promise<void> {
-    if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't tickle yourself!", ephemeral: true })
+    @Slash('tickle', { description: 'Tickle someone' })
+    async tickle(
+        @SlashOption('user', { description: "The user who you'd like to tickle", required: true })
+        member: GuildMember,
+        interaction: CommandInteraction,
+        client: IslaClient
+    ): Promise<void> {
+        if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't tickle yourself!", ephemeral: true })
 
-    await interaction.deferReply()
+        await interaction.deferReply()
 
-    const { url } = await client.taihou.toph.getRandomImage('tickle', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannels) })
-    const embed = new MessageEmbed()
-      .setColor(0x9590ee)
-      .setDescription(`**${(interaction.member as GuildMember).displayName}** tickled **${member.displayName}**`)
-      .setImage(url)
-    interaction.editReply({ embeds: [embed] })
-  }
+        const { url } = await client.taihou.toph.getRandomImage('tickle', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannels) })
+        const embed = new MessageEmbed()
+            .setColor(0x9590ee)
+            .setDescription(`**${(interaction.member as GuildMember).displayName}** tickled **${member.displayName}**`)
+            .setImage(url)
+        interaction.editReply({ embeds: [embed] })
+    }
 }
