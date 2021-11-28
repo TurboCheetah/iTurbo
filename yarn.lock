@@ -3512,6 +3512,7 @@ __metadata:
     reflect-metadata: ^0.1.13
     standard-version: 9.3.2
     taihou: ^2.0.6
+    trace.moe.ts: ^1.3.7-patch2
     ts-node: ^10.4.0
     tsc-alias: 1.4.1
     tsconfig-paths: 3.11.0
@@ -5618,6 +5619,15 @@ __metadata:
   version: 0.0.3
   resolution: "tr46@npm:0.0.3"
   checksum: 726321c5eaf41b5002e17ffbd1fb7245999a073e8979085dacd47c4b4e8068ff5777142fc6726d6ca1fd2ff16921b48788b87225cbc57c72636f6efa8efbffe3
+  languageName: node
+  linkType: hard
+
+"trace.moe.ts@npm:^1.3.7-patch2":
+  version: 1.3.7
+  resolution: "trace.moe.ts@npm:1.3.7"
+  dependencies:
+    node-fetch: ^2.6.1
+  checksum: 2aebeb6ee608ccc52c7a2970dc1cd82023cd1cf87aa5b6268348845a3a55d0f1ce3a5e2d0fe25b20d43a72ba278b2402607b788b0aa61142e557ea2734993f65
   languageName: node
   linkType: hard
 

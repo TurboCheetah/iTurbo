@@ -6,6 +6,7 @@ import { KSoftClient } from '@ksoft/api'
 import { API } from 'nhentai'
 import Taihou from 'taihou'
 import { Api as Osu } from 'node-osu'
+import { TraceMoe } from 'trace.moe.ts'
 import { NotABot } from '#guards/NotABot'
 import { Constants } from '#utils/Constants'
 import { Utils } from '#utils/Utils'
@@ -17,6 +18,7 @@ export class IslaClient extends Client {
     public cluster?: Manager
     public taihou: typeof Taihou
     public osu: Osu
+    public trace: TraceMoe
     public utils = Utils
     public constants: typeof Constants
 
@@ -33,6 +35,7 @@ export class IslaClient extends Client {
         this.nhentai = new API()
         this.taihou = new Taihou(process.env.WEEBSH_TOKEN, true, { userAgent: 'iTurbo/3.0.0' })
         this.osu = new Osu(process.env.OSU_API as string, { completeScores: true })
+        this.trace = new TraceMoe()
         this.constants = Constants
     }
 }
