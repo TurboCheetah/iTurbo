@@ -569,7 +569,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^4.0.1":
+"@typescript-eslint/eslint-plugin@npm:4.33.0":
   version: 4.33.0
   resolution: "@typescript-eslint/eslint-plugin@npm:4.33.0"
   dependencies:
@@ -607,7 +607,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/parser@npm:^4.0.0":
+"@typescript-eslint/parser@npm:4.33.0, @typescript-eslint/parser@npm:^4.0.0":
   version: 4.33.0
   resolution: "@typescript-eslint/parser@npm:4.33.0"
   dependencies:
@@ -2234,7 +2234,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint@npm:^7.12.1":
+"eslint@npm:7.32.0":
   version: 7.32.0
   resolution: "eslint@npm:7.32.0"
   dependencies:
@@ -3488,8 +3488,8 @@ __metadata:
     "@ksoft/api": ^3.1.9
     "@types/ms": 0.7.31
     "@types/node": 16.11.10
-    "@typescript-eslint/eslint-plugin": ^4.0.1
-    "@typescript-eslint/parser": ^4.0.0
+    "@typescript-eslint/eslint-plugin": 4.33.0
+    "@typescript-eslint/parser": 4.33.0
     anilist-node: ^1.11.0
     booru: ^2.5.0
     chalk: ^4.1.2
@@ -3498,7 +3498,7 @@ __metadata:
     discord.js: ^13.3.1
     discordx: ^9.0.1
     dotenv: ^10.0.0
-    eslint: ^7.12.1
+    eslint: 7.32.0
     eslint-config-prettier: 8.3.0
     eslint-config-standard: 16.0.3
     eslint-config-standard-with-typescript: 21.0.1
@@ -3520,7 +3520,7 @@ __metadata:
     standard-version: 9.3.2
     taihou: ^2.0.6
     trace.moe.ts: ^1.3.8
-    ts-node: ^10.4.0
+    ts-node: 10.4.0
     tsc-alias: 1.4.1
     tsconfig-paths: 3.12.0
     typescript: 4.5.2
@@ -5660,7 +5660,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.4.0":
+"ts-node@npm:10.4.0":
   version: 10.4.0
   resolution: "ts-node@npm:10.4.0"
   dependencies:
