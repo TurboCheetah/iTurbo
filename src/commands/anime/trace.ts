@@ -2,7 +2,7 @@ import { IslaClient } from '#/Client'
 import { Collection, CommandInteraction, ContextMenuInteraction, MessageAttachment, MessageEmbed } from 'discord.js'
 import { ContextMenu, Discord, Slash, SlashOption } from 'discordx'
 import { Pagination } from '@discordx/utilities'
-import { Anilist, Result } from 'trace.moe.ts/lib/structures/Result'
+import { Anilist, Result } from 'trace.moe.ts/dist/structures/Result'
 
 @Discord()
 export abstract class TraceCommand {
