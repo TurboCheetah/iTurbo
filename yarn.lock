@@ -530,10 +530,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.11.10":
-  version: 16.11.10
-  resolution: "@types/node@npm:16.11.10"
-  checksum: 9c79419c5c3d92d5825bffa30f3668533f598d8b63a73ea7fc24e47f162bdbed92b0f8e4f4261cc3314b39cee050e303366d2aa154abc95c63a572a110b8c160
+"@types/node@npm:16.11.11":
+  version: 16.11.11
+  resolution: "@types/node@npm:16.11.11"
+  checksum: 1c472bd63f23ca0e4effc96e6e0c693b83b027f613a1f41b6d1bd7791f65ce171a351e0a5c92575cb59e84ad0a930875397bfbbb91a7c925ddbbb558f7461af8
   languageName: node
   linkType: hard
 
@@ -2181,12 +2181,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-promise@npm:5.1.1":
-  version: 5.1.1
-  resolution: "eslint-plugin-promise@npm:5.1.1"
+"eslint-plugin-promise@npm:5.2.0":
+  version: 5.2.0
+  resolution: "eslint-plugin-promise@npm:5.2.0"
   peerDependencies:
     eslint: ^7.0.0
-  checksum: 97ffd570265ed9677b4103ba3fb18b19fa3471eb6581c5c3c426bcec249c9e89cfac735e5ddb403a794cab7fda1b53be151a30e1d3b71485630d7f28e1bb1ad6
+  checksum: 5d6b2d28408c5afde6386942862427af3d83c9a130eb2555bb54b26a1761914e2c7326aca1be26dd3fee6405e65a2ee9432a4526147e5962545060ea0ef64058
   languageName: node
   linkType: hard
 
@@ -3487,7 +3487,7 @@ __metadata:
     "@discordx/utilities": ^3.1.5
     "@ksoft/api": ^3.1.9
     "@types/ms": 0.7.31
-    "@types/node": 16.11.10
+    "@types/node": 16.11.11
     "@typescript-eslint/eslint-plugin": 4.33.0
     "@typescript-eslint/parser": 4.33.0
     anilist-node: ^1.11.0
@@ -3505,7 +3505,7 @@ __metadata:
     eslint-plugin-import: 2.25.3
     eslint-plugin-node: 11.1.0
     eslint-plugin-prettier: 4.0.0
-    eslint-plugin-promise: 5.1.1
+    eslint-plugin-promise: 5.2.0
     graphql: 15.x
     graphql-request: ^3.6.1
     husky: 7.0.4
@@ -3515,13 +3515,13 @@ __metadata:
     nhentai: ^3.0.0
     node-osu: ^2.2.1
     nodemon: 2.0.15
-    prettier: 2.5.0
+    prettier: 2.5.1
     reflect-metadata: ^0.1.13
     standard-version: 9.3.2
     taihou: ^2.0.6
     trace.moe.ts: ^1.3.8
     ts-node: 10.4.0
-    tsc-alias: 1.4.1
+    tsc-alias: 1.4.2
     tsconfig-paths: 3.12.0
     typescript: 4.5.2
   languageName: unknown
@@ -4683,12 +4683,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.5.0":
-  version: 2.5.0
-  resolution: "prettier@npm:2.5.0"
+"prettier@npm:2.5.1":
+  version: 2.5.1
+  resolution: "prettier@npm:2.5.1"
   bin:
     prettier: bin-prettier.js
-  checksum: aad1b35b73e7c14596d389d90977a83dad0db689ba5802a0ef319c357b7867f55b885db197972aa6a56c30f53088c9f8e0d7f7930ae074c275a4e9cbe091d21d
+  checksum: 21b9408476ea1c544b0e45d51ceb94a84789ff92095abb710942d780c862d0daebdb29972d47f6b4d0f7ebbfb0ffbf56cc2cfa3e3e9d1cca54864af185b15b66
   languageName: node
   linkType: hard
 
@@ -5717,9 +5717,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsc-alias@npm:1.4.1":
-  version: 1.4.1
-  resolution: "tsc-alias@npm:1.4.1"
+"tsc-alias@npm:1.4.2":
+  version: 1.4.2
+  resolution: "tsc-alias@npm:1.4.2"
   dependencies:
     chokidar: ^3.5.2
     commander: ^8.2.0
@@ -5729,7 +5729,7 @@ __metadata:
     normalize-path: ^3.0.0
   bin:
     tsc-alias: dist/bin/index.js
-  checksum: e556014a8da2d62343acb923a1ed54d3e1e685fb7b47a8311b5b9fc8977de605a1546f1bc2ee72647e3b59d644d1d63eaf44f662cdcbc54fb52fcb1205670c08
+  checksum: 087f8336e4d29f3128e3f7f930a3dd6d8d0af4e9e0ed13b386acc467d0752e14939b3c1e3d9213ce96e734fa3d10b19d30ddb1e130b512f767d48b152abbf1c8
   languageName: node
   linkType: hard
 
