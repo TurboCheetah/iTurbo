@@ -50,6 +50,8 @@ export abstract class TraceContext {
 
         const data = await client.trace.fetchAnime(image, { anilistInfo: true })
 
+        if (data.error) return interaction.editReply(data.error)
+
         const pages = data.result.map((d: Result) => {
             const embed = new MessageEmbed()
                 .setColor(0x9590ee)
