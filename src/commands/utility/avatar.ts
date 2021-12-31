@@ -17,7 +17,7 @@ export abstract class AvatarCommand {
 
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
-            .setAuthor(member.user.tag, member.displayAvatarURL({ size: 256, dynamic: true }))
+            .setAuthor({ name: member.user.tag, iconURL: member.displayAvatarURL({ size: 256, dynamic: true }) })
             .setImage(member.displayAvatarURL({ size: 2048, dynamic: true }))
 
         interaction.editReply({ embeds: [embed] })

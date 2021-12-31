@@ -42,7 +42,7 @@ export abstract class ServerInfoCommand {
         const owner = await guild.fetchOwner()
 
         const embed = new MessageEmbed()
-            .setAuthor(guild.name, guild.iconURL({ size: 128, dynamic: true }) as string)
+            .setAuthor({ name: guild.name, iconURL: guild.iconURL({ size: 128, dynamic: true }) as string })
             .setColor(0x9590ee)
             .setThumbnail(guild.iconURL({ size: 512, dynamic: true }) as string)
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions

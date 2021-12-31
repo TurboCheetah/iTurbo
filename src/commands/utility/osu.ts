@@ -66,7 +66,7 @@ export abstract class OsuCommand {
                     const [top] = await client.osu.getUserBest({ u: user })
 
                     const embed = new MessageEmbed()
-                        .setAuthor(`${osuUser.name} | User Best`, `https://s.ppy.sh/a/${osuUser.id}`, `https://osu.ppy.sh/users/${osuUser.id}`)
+                        .setAuthor({ name: `${osuUser.name} | User Best`, iconURL: `https://s.ppy.sh/a/${osuUser.id}`, url: `https://osu.ppy.sh/users/${osuUser.id}` })
                         .setThumbnail(ranks[`${top.rank.toLowerCase()}URL` as keyof typeof ranks])
                         .setImage(`https://assets.ppy.sh/beatmaps/${top.beatmap.beatmapSetId}/covers/cover.jpg`)
                         .setColor(0x9590ee)
@@ -91,7 +91,7 @@ export abstract class OsuCommand {
                     const osuUser = await client.osu.getUser({ u: user })
                     const [recent] = await client.osu.getUserRecent({ u: user })
                     const embed = new MessageEmbed()
-                        .setAuthor(`${osuUser.name} | User Recent`, `https://s.ppy.sh/a/${osuUser.id}`, `https://osu.ppy.sh/users/${osuUser.id}`)
+                        .setAuthor({ name: `${osuUser.name} | User Recent`, iconURL: `https://s.ppy.sh/a/${osuUser.id}`, url: `https://osu.ppy.sh/users/${osuUser.id}` })
                         .setThumbnail(ranks[`${recent.rank.toLowerCase()}URL` as keyof typeof ranks])
                         .setImage(`https://assets.ppy.sh/beatmaps/${recent.beatmap.beatmapSetId}/covers/cover.jpg`)
                         .setColor(0x9590ee)

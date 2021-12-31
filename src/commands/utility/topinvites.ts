@@ -27,7 +27,7 @@ export abstract class TopInvitesCommand {
             .setColor(0x9590ee)
             .setTitle('Top Invites')
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            .setAuthor(interaction.guild!.name, interaction.guild!.iconURL({ size: 128, dynamic: true }) as string)
+            .setAuthor({ name: interaction.guild!.name, iconURL: interaction.guild!.iconURL({ size: 128, dynamic: true }) as string })
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             .setDescription(topTen.map(inv => `• **${inv.inviter!.username}**'s invite **${inv.code}** has **${inv.uses!.toLocaleString()}** uses.`).join('\n'))
 

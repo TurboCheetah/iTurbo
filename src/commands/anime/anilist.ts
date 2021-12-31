@@ -101,7 +101,7 @@ export abstract class AnilistCommands {
         const data = await client.anilist.user.all(user)
         const profileEmbed = new MessageEmbed()
             .setColor(0x9590ee)
-            .setAuthor('Profile')
+            .setAuthor({ name: 'Profile' })
             .setTitle(data.name)
             .setURL(data.siteUrl)
             .setThumbnail(data.avatar.large !== null ? data.avatar.large : '')
@@ -123,7 +123,7 @@ export abstract class AnilistCommands {
 
         const mangaStatsEmbed = new MessageEmbed()
             .setColor(0x9590ee)
-            .setAuthor(data.name, undefined, data.siteUrl)
+            .setAuthor({ name: data.name, url: data.siteUrl })
             .setTitle('Manga Stats')
             .setURL(data.siteUrl)
             .setThumbnail(data.avatar.large !== null ? data.avatar.large : '')
@@ -136,7 +136,7 @@ export abstract class AnilistCommands {
 
         const favoritesEmbed = new MessageEmbed()
             .setColor(0x9590ee)
-            .setAuthor(data.name, undefined, data.siteUrl)
+            .setAuthor({ name: data.name, url: data.siteUrl })
             .setTitle('Favorites')
             .setURL(data.siteUrl)
             .setThumbnail(data.avatar.large !== null ? data.avatar.large : '')
