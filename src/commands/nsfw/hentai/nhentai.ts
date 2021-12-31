@@ -58,7 +58,7 @@ export abstract class NHentaiCommands {
             .addField('Favorites', `${doujin.favorites}`, true)
             .addField('Length', `${doujin.length}`, true)
             .addField('Tags', `${doujin.tags.all.map(tag => tag.name).join(', ')}`)
-            .setFooter(`${doujin.id}`)
+            .setFooter({ text: `${doujin.id}` })
 
         const pages = doujin.pages.map((p, i) => {
             return new MessageEmbed()
@@ -66,7 +66,7 @@ export abstract class NHentaiCommands {
                 .setTitle(doujin.titles.pretty.length > 0 ? doujin.titles.pretty : doujin.titles.english.length > 0 ? doujin.titles.english : doujin.titles.japanese)
                 .setURL(doujin.url)
                 .setImage(p.url)
-                .setFooter(`${doujin.id} | Page ${i + 1} of ${doujin.pages.length}`)
+                .setFooter({ text: `${doujin.id} | Page ${i + 1} of ${doujin.pages.length}` })
         })
 
         return [coverEmbed, ...pages]

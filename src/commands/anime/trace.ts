@@ -27,7 +27,7 @@ export abstract class TraceCommand {
                 .addField('Episode', `${d.episode ?? 'null'}`, true)
                 .addField('Frames', `${d.from}-${d.to}`, true)
                 .addField('Similarity', `${(d.similarity * 100).toFixed(2)}%`, true)
-                .setFooter('Powered by Trace.moe')
+                .setFooter({ text: 'Powered by Trace.moe' })
             if (d.anilist.title.english) embed.setAuthor({ name: (d.anilist as Anilist).title.english })
 
             return embed
@@ -58,7 +58,7 @@ export abstract class TraceContext {
                 .addField('Episode', `${d.episode ?? 'null'}`, true)
                 .addField('Frames', `${d.from}-${d.to}`, true)
                 .addField('Similarity', `${(d.similarity * 100).toFixed(2)}%`, true)
-                .setFooter('Powered by Trace.moe')
+                .setFooter({ text: 'Powered by Trace.moe' })
             if (d.anilist.title.english) embed.setAuthor({ name: (d.anilist as Anilist).title.english })
 
             return embed

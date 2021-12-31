@@ -50,7 +50,7 @@ export abstract class ServerInfoCommand {
             .addField(client.constants.zws, client.constants.zws, true)
             .addField('Channels', `• **${guild.channels.cache.filter(c => c.type === 'GUILD_CATEGORY').map(c => c).length}** Categories, **${guild.channels.cache.filter(c => c.type === 'GUILD_TEXT').map(c => c).length}** Text, **${guild.channels.cache.filter(c => c.type === 'GUILD_VOICE').map(c => c).length}** Voice\n• AFK: **${guild.afkChannel ? guild.afkChannel.name : 'None'}**`, true)
             .addField('Other', `• Created: **${created}** (**${createdR}**)\n• Verification Level: **${verificationLevels[guild.verificationLevel]}**\n• Explicit Filter: **${filterLevels[guild.explicitContentFilter]}**\n• Roles: **${guild.roles.cache.size - 1}**\n• Bans: **${bans}**`, false)
-            .setFooter(`ID: ${guild.id}`)
+            .setFooter({ text: `ID: ${guild.id}` })
 
         interaction.editReply({ embeds: [embed] })
     }

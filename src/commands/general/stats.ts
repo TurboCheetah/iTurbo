@@ -50,7 +50,7 @@ export abstract class StatsCommand {
                 ].join('\n'),
                 true
             )
-            .setFooter(`Shard ${client.shard?.ids[0] as number}`)
+            .setFooter({ text: `Shard ${client.shard?.ids[0] as number}` })
             .setTimestamp()
 
         interaction.editReply({ embeds: [embed] })

@@ -30,7 +30,7 @@ export abstract class JishoCommand {
                 .addField('Reading', d.japanese[0].reading || d.japanese[0].word, false)
                 .addField('English Meaning', `${client.utils.toProperCase(d.senses[0].english_definitions.join(', '))}`, false)
                 .addField('Common', d.is_common ? 'Yes' : 'No', false)
-                .setFooter('Powered by Jisho.org')
+                .setFooter({ text: 'Powered by Jisho.org' })
         })
 
         const pagination = new Pagination(interaction, pages)

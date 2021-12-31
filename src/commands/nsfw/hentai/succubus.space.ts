@@ -63,7 +63,7 @@ export abstract class SuccubusSpaceCommands {
             .addField('Likes', hentai.likes.toLocaleString(), true)
             .addField('Interests', hentai.interests.toLocaleString(), true)
             .addField('Tags', `${tags.join(', ')}`)
-            .setFooter(`ID: ${hentai.id} | Powered by Succubus.Space`)
+            .setFooter({ text: `ID: ${hentai.id} | Powered by Succubus.Space` })
 
         interaction.editReply({ embeds: [embed] })
     }
@@ -120,7 +120,7 @@ export abstract class SuccubusSpaceCommands {
             .addField('Length', doujin.length.toLocaleString(), true)
             .addField('Favorites', doujin.favorites.toLocaleString(), true)
             .addField('Tags', `${tags.join(', ')}`)
-            .setFooter(`ID: ${doujin.id} | Powered by Succubus.Space`)
+            .setFooter({ text: `ID: ${doujin.id} | Powered by Succubus.Space` })
 
         interaction.editReply({ embeds: [embed] })
     }

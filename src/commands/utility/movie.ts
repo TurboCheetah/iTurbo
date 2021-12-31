@@ -20,7 +20,7 @@ export abstract class MovieCommand {
         if (!results.length) return interaction.editReply('No results found')
 
         const pages = results.map((m: { poster_path: string; title: string; overview: string; original_title: string; vote_count: number; vote_average: number; popularity: number; adult: boolean; release_date: string }) => {
-            const embed = new MessageEmbed().setColor(0x9590ee).setImage(`https://image.tmdb.org/t/p/original${m.poster_path}`).setTitle(`${m.title}`).setDescription(m.overview).setFooter('Powered by TheMovieDB', 'https://www.themoviedb.org/assets/1/v4/logos/408x161-powered-by-rectangle-green-bb4301c10ddc749b4e79463811a68afebeae66ef43d17bcfd8ff0e60ded7ce99.png')
+            const embed = new MessageEmbed().setColor(0x9590ee).setImage(`https://image.tmdb.org/t/p/original${m.poster_path}`).setTitle(`${m.title}`).setDescription(m.overview).setFooter({ text: 'Powered by TheMovieDB', iconURL: 'https://www.themoviedb.org/assets/1/v4/logos/408x161-powered-by-rectangle-green-bb4301c10ddc749b4e79463811a68afebeae66ef43d17bcfd8ff0e60ded7ce99.png' })
             if (m.title !== m.original_title) embed.addField('Original Title', m.original_title, true)
             embed
                 .addField('Vote Count', `${m.vote_count}` || '0', true)

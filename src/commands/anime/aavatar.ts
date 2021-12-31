@@ -16,7 +16,7 @@ export abstract class AavatarCommand {
 
         const { url } = await centra(`https://nekos.life/api/v2/img/${client.utils.isNSFW(interaction.channel as TextBasedChannel) ? 'nsfw_' : ''}avatar`, 'GET').json()
 
-        const embed = new MessageEmbed().setColor(0x9590ee).setImage(url).setFooter('Powered by nekos.life')
+        const embed = new MessageEmbed().setColor(0x9590ee).setImage(url).setFooter({ text: 'Powered by nekos.life' })
 
         interaction.editReply({ embeds: [embed] })
     }

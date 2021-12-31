@@ -17,7 +17,7 @@ export abstract class HentaiCommands {
         await interaction.deferReply({ ephemeral: !ephemeral })
         const res = await client.ksoft.images.random('ass', { nsfw: true })
 
-        const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
+        const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter({ text: 'Powered by KSoft.Si' })
 
         interaction.editReply({ embeds: [embed] })
     }
@@ -33,7 +33,7 @@ export abstract class HentaiCommands {
         await interaction.deferReply({ ephemeral: !ephemeral })
         const res = await client.ksoft.images.random(client.utils.random(['hentai', 'hentai_gif']), { nsfw: true })
 
-        const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
+        const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter({ text: 'Powered by KSoft.Si' })
 
         interaction.editReply({ embeds: [embed] })
     }
@@ -49,7 +49,7 @@ export abstract class HentaiCommands {
         await interaction.deferReply({ ephemeral: !ephemeral })
         const res = await client.ksoft.images.random('neko', { nsfw: true })
 
-        const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter('Powered by KSoft.Si')
+        const embed = new MessageEmbed().setColor(0x9590ee).setImage(res.url).setFooter({ text: 'Powered by KSoft.Si' })
 
         interaction.editReply({ embeds: [embed] })
     }

@@ -20,7 +20,7 @@ export abstract class HelpCommand {
                 .setColor(0x9590ee)
                 .setTitle(`**${client.utils.toProperCase(cmd.name)}**`)
                 .setDescription(cmd.description)
-                .setFooter(`Command ${i + 1} of ${commands.length}`)
+                .setFooter({ text: `Command ${i + 1} of ${commands.length}` })
         })
 
         const pagination = new Pagination(interaction, pages)

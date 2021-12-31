@@ -43,7 +43,7 @@ export abstract class UserInfoCommand {
             .addField('Highest Role', member.roles.highest ? `${member.roles.highest}` : 'None', true)
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             .addField('Hoist Role', member.roles.hoist ? `${member.roles.hoist}` : 'None', true)
-            .setFooter(`ID: ${member.user.id}`)
+            .setFooter({ text: `ID: ${member.user.id}` })
 
         interaction.editReply({ embeds: [embed] })
     }

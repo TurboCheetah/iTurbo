@@ -37,7 +37,7 @@ export abstract class EvalCommand {
             .setColor(0x36ed82)
             .setTitle(type)
             .setDescription(Formatters.codeBlock('js', evaled.length > 1900 ? 'Too long to print' : evaled))
-            .setFooter(`Latency: ${evalTime}ms`)
+            .setFooter({ text: `Latency: ${evalTime}ms` })
 
         interaction.editReply({ embeds: [embed] })
     }

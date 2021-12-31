@@ -45,7 +45,7 @@ export abstract class RedditCommand {
         await interaction.deferReply({ ephemeral: !ephemeral })
         const res = await client.ksoft.images.reddit(client.utils.random(subreddits), { removeNSFW: false, span: 'all' })
 
-        const embed = new MessageEmbed().setTitle(`${res.post.subreddit} - ${res.post.title}`).setURL(res.url).setColor(0x9590ee).setImage(res.url).setDescription(`:thumbsup: ${res.post.upvotes} | :speech_balloon: ${res.post.comments}`).setFooter('Powered by Reddit')
+        const embed = new MessageEmbed().setTitle(`${res.post.subreddit} - ${res.post.title}`).setURL(res.url).setColor(0x9590ee).setImage(res.url).setDescription(`:thumbsup: ${res.post.upvotes} | :speech_balloon: ${res.post.comments}`).setFooter({ text: 'Powered by Reddit' })
 
         interaction.editReply({ embeds: [embed] })
     }

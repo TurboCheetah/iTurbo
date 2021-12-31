@@ -40,7 +40,7 @@ export abstract class AnilistCommands {
                 .addField('Score', `${d.averageScore}%`, true)
                 .addField('Favorites', `${d.favourites}`, true)
                 .addField('Popularity', `${d.popularity}`, true)
-                .setFooter(`ID: ${d.id}`)
+                .setFooter({ text: `ID: ${d.id}` })
         })
 
         const pagination = new Pagination(interaction, pages)
@@ -80,7 +80,7 @@ export abstract class AnilistCommands {
                 .addField('Favorites', `${d.favourites}`, true)
                 .addField('Popularity', `${d.popularity}`, true)
                 .addField('Genre(s)', d.genres.join(', '), true)
-                .setFooter(`ID: ${d.id}`)
+                .setFooter({ text: `ID: ${d.id}` })
         })
 
         const pagination = new Pagination(interaction, pages)
@@ -119,7 +119,7 @@ export abstract class AnilistCommands {
                     .join(', ')
             )
             // .setImage(data.bannerImage ? data.bannerImage : '')
-            .setFooter(`ID: ${data.id} • React to view more details`, 'https://i.imgur.com/evdGjD6.png')
+            .setFooter({ text: `ID: ${data.id} • React to view more details`, iconURL: 'https://i.imgur.com/evdGjD6.png' })
 
         const mangaStatsEmbed = new MessageEmbed()
             .setColor(0x9590ee)
@@ -132,7 +132,7 @@ export abstract class AnilistCommands {
             .addField(client.constants.zws, client.constants.zws, true)
             // eslint-disable-next-line prettier/prettier
       .addField('Top Genres', (data.statistics.manga.genres.length > 0) ? data.statistics.manga.genres.slice(0, 5).map(g => `${g.genre} (${g.count})`).join(', ') : 'None')
-            .setFooter(`ID: ${data.id} • React to view more details`)
+            .setFooter({ text: `ID: ${data.id} • React to view more details` })
 
         const favoritesEmbed = new MessageEmbed()
             .setColor(0x9590ee)
@@ -168,7 +168,7 @@ export abstract class AnilistCommands {
                     : 'None',
                 true
             )
-            .setFooter(`ID: ${data.id} • React to view more details`)
+            .setFooter({ text: `ID: ${data.id} • React to view more details` })
 
         const pagination = new Pagination(interaction, [profileEmbed, mangaStatsEmbed, favoritesEmbed])
         await pagination.send()

@@ -43,7 +43,7 @@ export abstract class Rule34Command {
                         .setColor(0x9590ee)
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         .setImage(post.fileUrl!)
-                        .setFooter('Powered by Rule34.XXX')
+                        .setFooter({ text: 'Powered by Rule34.XXX' })
                 )
             })
 
