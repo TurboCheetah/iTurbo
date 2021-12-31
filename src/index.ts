@@ -1,6 +1,10 @@
+import 'reflect-metadata'
+import * as dotenv from 'dotenv'
 import { join } from 'path'
 import { ShardingManager } from 'discord.js'
 import { Logger } from '#utils/Logger'
+
+dotenv.config({ path: join(__dirname, '/../.env') })
 
 const manager = new ShardingManager(join(__dirname, `bot.js`), {
     totalShards: 'auto',
@@ -11,7 +15,7 @@ const manager = new ShardingManager(join(__dirname, `bot.js`), {
 
 manager
     .on('shardCreate', shard => {
-        Logger.success(`[ShardingManager] Shard #${shard.id} Spawned.`)
+        Logger.success(`[ShardingManager] Shard #${shard.id} spawned`)
 
         shard.on('disconnect', () => {
             Logger.warn(`[ShardingManager] Shard #${shard.id} disconnected`)
