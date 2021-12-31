@@ -10,9 +10,9 @@ export abstract class OsuCommand {
         @SlashChoice('User', 'user')
         @SlashChoice('Recent', 'recent')
         @SlashChoice('Top', 'top')
-        @SlashOption('type', { description: "Type of search you'd like to perform", required: true })
+        @SlashOption('type', { description: "Type of search you'd like to perform" })
         type: string,
-        @SlashOption('user', { description: "The use whose stats you'd like to retrieve", required: true })
+        @SlashOption('user', { description: "The use whose stats you'd like to retrieve" })
         user: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

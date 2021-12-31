@@ -6,7 +6,7 @@ import { IslaClient } from '#/Client'
 export abstract class TickleCommand {
     @Slash('tickle', { description: 'Tickle someone' })
     async tickle(
-        @SlashOption('user', { description: "The user who you'd like to tickle", required: true })
+        @SlashOption('user', { description: "The user who you'd like to tickle" })
         member: GuildMember,
         interaction: CommandInteraction,
         client: IslaClient

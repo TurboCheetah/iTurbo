@@ -6,7 +6,7 @@ import { IslaClient } from '#/Client'
 export abstract class LickCommand {
     @Slash('lick', { description: 'Lick someone' })
     async lcik(
-        @SlashOption('user', { description: "The user who you'd like to lcik", required: true })
+        @SlashOption('user', { description: "The user who you'd like to lcik" })
         member: GuildMember,
         interaction: CommandInteraction,
         client: IslaClient

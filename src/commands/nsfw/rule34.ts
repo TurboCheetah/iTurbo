@@ -10,7 +10,7 @@ export abstract class Rule34Command {
     @Slash('rule34', { description: "Rule 34: If it exists there's porn of it" })
     @Guard(IsNsfw)
     async rule34(
-        @SlashOption('query', { description: "What you'd like to search for", required: true })
+        @SlashOption('query', { description: "What you'd like to search for" })
         query: string,
         @SlashOption('animated', { description: 'Do you want videos/gifs?', required: false })
         animated: boolean,

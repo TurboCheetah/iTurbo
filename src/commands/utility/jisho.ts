@@ -8,7 +8,7 @@ import { IslaClient } from '#/Client'
 export abstract class JishoCommand {
     @Slash('jisho', { description: 'Search for a word on Jisho.org' })
     async jisho(
-        @SlashOption('word', { description: "The word whose definition you'd like to view", required: true })
+        @SlashOption('word', { description: "The word whose definition you'd like to view" })
         word: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

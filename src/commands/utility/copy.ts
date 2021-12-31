@@ -6,7 +6,7 @@ import { IslaClient } from '#/Client'
 export abstract class CopyCommand {
     @Slash('copy', { description: 'Copies an emoji by id or url' })
     async copy(
-        @SlashOption('emoji', { description: "The emoji you'd like to copy", required: true })
+        @SlashOption('emoji', { description: "The emoji you'd like to copy" })
         emoji: string,
         interaction: CommandInteraction,
         client: IslaClient

@@ -6,7 +6,7 @@ import c from '@aero/centra'
 export abstract class WolframCommand {
     @Slash('wolfram', { description: 'Query Wolfram|Alpha with any mathematical question' })
     async wolfram(
-        @SlashOption('query', { description: "What you'd like solved", required: true })
+        @SlashOption('query', { description: "What you'd like solved" })
         query: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

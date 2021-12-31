@@ -5,7 +5,7 @@ import { Discord, Slash, SlashOption } from 'discordx'
 export abstract class RoleInfoCommand {
     @Slash('roleinfo', { description: 'Get information about a role' })
     async roleinfo(
-        @SlashOption('role', { description: "The role whose data you'd like to view", required: true })
+        @SlashOption('role', { description: "The role whose data you'd like to view" })
         role: Role,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

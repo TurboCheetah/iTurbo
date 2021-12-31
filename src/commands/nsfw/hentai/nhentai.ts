@@ -11,7 +11,7 @@ export abstract class NHentaiCommands {
     @Slash('doujin', { description: 'Read doujin from nHentai' })
     @Guard(IsNsfw)
     async doujin(
-        @SlashOption('id', { description: "The name of the ID of the doujin you'd like to read", required: true })
+        @SlashOption('id', { description: "The name of the ID of the doujin you'd like to read" })
         id: number,
         @SlashOption('page', { description: "The page you'd like to view", required: false })
         page: number,

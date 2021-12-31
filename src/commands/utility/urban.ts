@@ -8,7 +8,7 @@ import { IslaClient } from '#/Client'
 export abstract class UrbanCommand {
     @Slash('urbandictionary', { description: 'Search for a word on UrbanDictionary' })
     async urbandictionary(
-        @SlashOption('word', { description: "The word you'd like to search for", required: true })
+        @SlashOption('word', { description: "The word you'd like to search for" })
         word: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

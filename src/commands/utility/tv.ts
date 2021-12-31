@@ -7,7 +7,7 @@ import { Discord, Slash, SlashOption } from 'discordx'
 export abstract class TVCommand {
     @Slash('tv', { description: 'Search for a show on TMDB.org' })
     async tv(
-        @SlashOption('show', { description: "The show you'd like to search for", required: true })
+        @SlashOption('show', { description: "The show you'd like to search for" })
         show: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

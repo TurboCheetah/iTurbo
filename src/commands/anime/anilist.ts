@@ -10,7 +10,7 @@ import { IslaClient } from '#/Client'
 export abstract class AnilistCommands {
     @Slash('anime', { description: 'Search for an anime on Anilist' })
     async anime(
-        @SlashOption('name', { description: "The name of the anime you'd like to search for", required: true })
+        @SlashOption('name', { description: "The name of the anime you'd like to search for" })
         name: string,
         @SlashOption('page', { description: "The page you'd like to view", required: false })
         page: number,
@@ -49,7 +49,7 @@ export abstract class AnilistCommands {
 
     @Slash('manga', { description: 'Search for a manga on Anilist' })
     async manga(
-        @SlashOption('name', { description: "The name of the anime you'd like to search for", required: true })
+        @SlashOption('name', { description: "The name of the anime you'd like to search for" })
         name: string,
         @SlashOption('page', { description: "The page you'd like to view", required: false })
         page: number,
@@ -89,7 +89,7 @@ export abstract class AnilistCommands {
 
     @Slash('user', { description: 'Search for a user on Anilist' })
     async user(
-        @SlashOption('user', { description: "The name of the user you'd like to search for", required: true })
+        @SlashOption('user', { description: "The name of the user you'd like to search for" })
         user: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

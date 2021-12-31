@@ -10,7 +10,7 @@ import { Hentai } from '#types/hentai.type'
 export abstract class SuccubusSpaceCommands {
     @Slash('hentai', { description: 'Search for a hentai on Succubus.Space' })
     async hentai(
-        @SlashOption('query', { description: "The ID or name of the hentai you'd like to search for", required: true })
+        @SlashOption('query', { description: "The ID or name of the hentai you'd like to search for" })
         search: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -70,7 +70,7 @@ export abstract class SuccubusSpaceCommands {
 
     @Slash('doujin', { description: 'Search for a doujin on Succubus.Space' })
     async doujin(
-        @SlashOption('query', { description: "The ID or name of the doujin you'd like to search for", required: true })
+        @SlashOption('query', { description: "The ID or name of the doujin you'd like to search for" })
         search: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

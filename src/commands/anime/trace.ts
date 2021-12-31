@@ -8,7 +8,7 @@ import { Anilist, Result } from 'trace.moe.ts/dist/structures/Result'
 export abstract class TraceCommand {
     @Slash('trace', { description: 'Identify an anime using Trace.moe' })
     async trace(
-        @SlashOption('url', { description: "The URL of the anime screenshot you'd like to identify", required: true })
+        @SlashOption('url', { description: "The URL of the anime screenshot you'd like to identify" })
         url: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,

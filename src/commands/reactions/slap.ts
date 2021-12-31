@@ -6,7 +6,7 @@ import { IslaClient } from '#/Client'
 export abstract class SlapCommand {
     @Slash('slap', { description: 'Slap someone' })
     async slap(
-        @SlashOption('user', { description: "The user who you'd like to slap", required: true })
+        @SlashOption('user', { description: "The user who you'd like to slap" })
         member: GuildMember,
         interaction: CommandInteraction,
         client: IslaClient

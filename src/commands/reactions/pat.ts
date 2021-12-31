@@ -6,7 +6,7 @@ import { IslaClient } from '#/Client'
 export abstract class PatCommand {
     @Slash('pat', { description: 'Pat someone' })
     async pat(
-        @SlashOption('user', { description: "The user who you'd like to pat", required: true })
+        @SlashOption('user', { description: "The user who you'd like to pat" })
         member: GuildMember,
         interaction: CommandInteraction,
         client: IslaClient
