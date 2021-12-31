@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-asserted-optional-chain */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { CommandInteraction, Message, MessageEmbed } from 'discord.js'
-import { Discord, Slash, SlashOption } from 'discordx'
+import { Discord, Guard, Slash, SlashOption } from 'discordx'
+import { ShardOnly } from '#guards/ShardOnly'
 import { IslaClient } from '#/Client'
 import { cpus, hostname, loadavg, totalmem } from 'os'
 
 @Discord()
 export abstract class StatsCommand {
+    @Guard(ShardOnly)
     @Slash('stats', { description: "Retrieves the bot's statistics" })
     async stats(
         @SlashOption('public', { description: 'Display this command publicly', required: false })
@@ -19,7 +21,7 @@ export abstract class StatsCommand {
         const guilds = ((await client.shard?.fetchClientValues('guilds.cache.size')) as number[]).reduce((acc, guildCount) => acc + guildCount, 0)
         const users = ((await client.shard?.fetchClientValues('users.cache.size')) as number[]).reduce((acc, userCount) => acc + userCount, 0)
         const channels = ((await client.shard?.fetchClientValues('channels.cache.size')) as number[]).reduce((acc, channelCount) => acc + channelCount, 0)
-        const shards = client.shard?.shards.length ?? 1
+        const shards = client.shard?.count ?? 1
         const ping = reply.createdTimestamp - interaction.createdTimestamp
 
         const seconds = Math.floor(client.uptime! / 1000) % 60
