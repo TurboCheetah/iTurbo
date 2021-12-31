@@ -1,4 +1,4 @@
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import { search } from 'booru'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashOption } from 'discordx'

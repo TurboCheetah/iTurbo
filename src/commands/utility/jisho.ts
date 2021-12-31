@@ -1,5 +1,5 @@
 import c from '@aero/centra'
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '#/Client'

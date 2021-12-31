@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption, SlashGroup } from 'discordx'
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import ms from 'ms'
 import { AnimeEntry, MangaEntry } from 'anilist-node'
 import { IslaClient } from '#/Client'
