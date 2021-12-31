@@ -5,13 +5,13 @@ import { IslaClient } from '#/Client'
 @Discord()
 export abstract class LickCommand {
     @Slash('lick', { description: 'Lick someone' })
-    async lcik(
-        @SlashOption('user', { description: "The user who you'd like to lcik" })
+    async lick(
+        @SlashOption('user', { description: "The user who you'd like to lick" })
         member: GuildMember,
         interaction: CommandInteraction,
         client: IslaClient
     ): Promise<void> {
-        if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't lcik yourself!", ephemeral: true })
+        if (member === (interaction.member as GuildMember)) return interaction.reply({ content: "You can't lick yourself!", ephemeral: true })
 
         await interaction.deferReply()
 
