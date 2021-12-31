@@ -1,5 +1,5 @@
 import c from '@aero/centra'
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '#/Client'
@@ -8,7 +8,7 @@ import { IslaClient } from '#/Client'
 export abstract class JishoCommand {
     @Slash('jisho', { description: 'Search for a word on Jisho.org' })
     async jisho(
-        @SlashOption('word', { description: "The word whose definition you'd like to view", required: true })
+        @SlashOption('word', { description: "The word whose definition you'd like to view" })
         word: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -30,7 +30,7 @@ export abstract class JishoCommand {
                 .addField('Reading', d.japanese[0].reading || d.japanese[0].word, false)
                 .addField('English Meaning', `${client.utils.toProperCase(d.senses[0].english_definitions.join(', '))}`, false)
                 .addField('Common', d.is_common ? 'Yes' : 'No', false)
-                .setFooter('Powered by Jisho.org')
+                .setFooter({ text: 'Powered by Jisho.org' })
         })
 
         const pagination = new Pagination(interaction, pages)

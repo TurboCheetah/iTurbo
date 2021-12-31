@@ -1,4 +1,4 @@
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Doujin } from 'nhentai'
@@ -11,7 +11,7 @@ export abstract class NHentaiCommands {
     @Slash('doujin', { description: 'Read doujin from nHentai' })
     @Guard(IsNsfw)
     async doujin(
-        @SlashOption('id', { description: "The name of the ID of the doujin you'd like to read", required: true })
+        @SlashOption('id', { description: "The name of the ID of the doujin you'd like to read" })
         id: number,
         @SlashOption('page', { description: "The page you'd like to view", required: false })
         page: number,
@@ -58,7 +58,7 @@ export abstract class NHentaiCommands {
             .addField('Favorites', `${doujin.favorites}`, true)
             .addField('Length', `${doujin.length}`, true)
             .addField('Tags', `${doujin.tags.all.map(tag => tag.name).join(', ')}`)
-            .setFooter(`${doujin.id}`)
+            .setFooter({ text: `${doujin.id}` })
 
         const pages = doujin.pages.map((p, i) => {
             return new MessageEmbed()
@@ -66,7 +66,7 @@ export abstract class NHentaiCommands {
                 .setTitle(doujin.titles.pretty.length > 0 ? doujin.titles.pretty : doujin.titles.english.length > 0 ? doujin.titles.english : doujin.titles.japanese)
                 .setURL(doujin.url)
                 .setImage(p.url)
-                .setFooter(`${doujin.id} | Page ${i + 1} of ${doujin.pages.length}`)
+                .setFooter({ text: `${doujin.id} | Page ${i + 1} of ${doujin.pages.length}` })
         })
 
         return [coverEmbed, ...pages]

@@ -1,5 +1,5 @@
 import c from '@aero/centra'
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '#/Client'
@@ -8,7 +8,7 @@ import { IslaClient } from '#/Client'
 export abstract class UrbanCommand {
     @Slash('urbandictionary', { description: 'Search for a word on UrbanDictionary' })
     async urbandictionary(
-        @SlashOption('word', { description: "The word you'd like to search for", required: true })
+        @SlashOption('word', { description: "The word you'd like to search for" })
         word: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -24,7 +24,7 @@ export abstract class UrbanCommand {
         const pages = list.map((d: { definition: string; permalink: string; thumbs_up: number; thumbs_down: number; author: string; example: string }) => {
             const definition = this.content(d.definition, d.permalink)
 
-            return new MessageEmbed().setColor(0x9590ee).setTitle(client.utils.toProperCase(word)).setURL(d.permalink).setThumbnail('http://i.imgur.com/CcIZZsa.png').addField('Definition', definition).addField('Example', this.example(d.example)).addField('Author', d.author, true).addField('Likes', `👍 ${d.thumbs_up}`, true).addField('Dislikes', `👎 ${d.thumbs_down}`, true).setFooter('Powered by UrbanDictionary')
+            return new MessageEmbed().setColor(0x9590ee).setTitle(client.utils.toProperCase(word)).setURL(d.permalink).setThumbnail('http://i.imgur.com/CcIZZsa.png').addField('Definition', definition).addField('Example', this.example(d.example)).addField('Author', d.author, true).addField('Likes', `👍 ${d.thumbs_up}`, true).addField('Dislikes', `👎 ${d.thumbs_down}`, true).setFooter({ text: 'Powered by UrbanDictionary' })
         })
 
         const pagination = new Pagination(interaction, pages, { type: 'BUTTON' })

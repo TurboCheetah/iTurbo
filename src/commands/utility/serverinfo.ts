@@ -42,7 +42,7 @@ export abstract class ServerInfoCommand {
         const owner = await guild.fetchOwner()
 
         const embed = new MessageEmbed()
-            .setAuthor(guild.name, guild.iconURL({ size: 128, dynamic: true }) as string)
+            .setAuthor({ name: guild.name, iconURL: guild.iconURL({ size: 128, dynamic: true }) as string })
             .setColor(0x9590ee)
             .setThumbnail(guild.iconURL({ size: 512, dynamic: true }) as string)
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
@@ -50,7 +50,7 @@ export abstract class ServerInfoCommand {
             .addField(client.constants.zws, client.constants.zws, true)
             .addField('Channels', `• **${guild.channels.cache.filter(c => c.type === 'GUILD_CATEGORY').map(c => c).length}** Categories, **${guild.channels.cache.filter(c => c.type === 'GUILD_TEXT').map(c => c).length}** Text, **${guild.channels.cache.filter(c => c.type === 'GUILD_VOICE').map(c => c).length}** Voice\n• AFK: **${guild.afkChannel ? guild.afkChannel.name : 'None'}**`, true)
             .addField('Other', `• Created: **${created}** (**${createdR}**)\n• Verification Level: **${verificationLevels[guild.verificationLevel]}**\n• Explicit Filter: **${filterLevels[guild.explicitContentFilter]}**\n• Roles: **${guild.roles.cache.size - 1}**\n• Bans: **${bans}**`, false)
-            .setFooter(`ID: ${guild.id}`)
+            .setFooter({ text: `ID: ${guild.id}` })
 
         interaction.editReply({ embeds: [embed] })
     }

@@ -10,7 +10,7 @@ import { Hentai } from '#types/hentai.type'
 export abstract class SuccubusSpaceCommands {
     @Slash('hentai', { description: 'Search for a hentai on Succubus.Space' })
     async hentai(
-        @SlashOption('query', { description: "The ID or name of the hentai you'd like to search for", required: true })
+        @SlashOption('query', { description: "The ID or name of the hentai you'd like to search for" })
         search: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -63,14 +63,14 @@ export abstract class SuccubusSpaceCommands {
             .addField('Likes', hentai.likes.toLocaleString(), true)
             .addField('Interests', hentai.interests.toLocaleString(), true)
             .addField('Tags', `${tags.join(', ')}`)
-            .setFooter(`ID: ${hentai.id} | Powered by Succubus.Space`)
+            .setFooter({ text: `ID: ${hentai.id} | Powered by Succubus.Space` })
 
         interaction.editReply({ embeds: [embed] })
     }
 
     @Slash('doujin', { description: 'Search for a doujin on Succubus.Space' })
     async doujin(
-        @SlashOption('query', { description: "The ID or name of the doujin you'd like to search for", required: true })
+        @SlashOption('query', { description: "The ID or name of the doujin you'd like to search for" })
         search: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -120,7 +120,7 @@ export abstract class SuccubusSpaceCommands {
             .addField('Length', doujin.length.toLocaleString(), true)
             .addField('Favorites', doujin.favorites.toLocaleString(), true)
             .addField('Tags', `${tags.join(', ')}`)
-            .setFooter(`ID: ${doujin.id} | Powered by Succubus.Space`)
+            .setFooter({ text: `ID: ${doujin.id} | Powered by Succubus.Space` })
 
         interaction.editReply({ embeds: [embed] })
     }

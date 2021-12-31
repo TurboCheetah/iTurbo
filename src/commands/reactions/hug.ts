@@ -1,4 +1,4 @@
-import { CommandInteraction, GuildMember, MessageEmbed, TextBasedChannels } from 'discord.js'
+import { CommandInteraction, GuildMember, MessageEmbed, TextBasedChannel } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '#/Client'
 
@@ -6,7 +6,7 @@ import { IslaClient } from '#/Client'
 export abstract class HugCommand {
     @Slash('hug', { description: 'Hug someone' })
     async hug(
-        @SlashOption('user', { description: "The user who you'd like to hug", required: true })
+        @SlashOption('user', { description: "The user who you'd like to hug" })
         member: GuildMember,
         interaction: CommandInteraction,
         client: IslaClient
@@ -15,7 +15,7 @@ export abstract class HugCommand {
 
         await interaction.deferReply()
 
-        const { url } = await client.taihou.toph.getRandomImage('hug', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannels) })
+        const { url } = await client.taihou.toph.getRandomImage('hug', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannel) })
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
             .setDescription(`**${(interaction.member as GuildMember).displayName}** hugged **${member.displayName}**`)

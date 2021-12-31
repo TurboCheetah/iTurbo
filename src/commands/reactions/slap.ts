@@ -1,4 +1,4 @@
-import { CommandInteraction, GuildMember, MessageEmbed, TextBasedChannels } from 'discord.js'
+import { CommandInteraction, GuildMember, MessageEmbed, TextBasedChannel } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '#/Client'
 
@@ -6,7 +6,7 @@ import { IslaClient } from '#/Client'
 export abstract class SlapCommand {
     @Slash('slap', { description: 'Slap someone' })
     async slap(
-        @SlashOption('user', { description: "The user who you'd like to slap", required: true })
+        @SlashOption('user', { description: "The user who you'd like to slap" })
         member: GuildMember,
         interaction: CommandInteraction,
         client: IslaClient
@@ -15,7 +15,7 @@ export abstract class SlapCommand {
 
         await interaction.deferReply()
 
-        const { url } = await client.taihou.toph.getRandomImage('slap', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannels) })
+        const { url } = await client.taihou.toph.getRandomImage('slap', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannel) })
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
             .setDescription(`**${(interaction.member as GuildMember).displayName}** slapped **${member.displayName}**`)

@@ -1,4 +1,4 @@
-import { TextBasedChannels } from 'discord.js'
+import { TextBasedChannel } from 'discord.js'
 
 export class Utils {
     constructor() {
@@ -21,7 +21,7 @@ export class Utils {
         return (+number).toLocaleString()
     }
 
-    public static isNSFW(channel: TextBasedChannels): boolean {
+    public static isNSFW(channel: TextBasedChannel): boolean {
         if (channel.type === 'GUILD_TEXT' && channel.nsfw) return true
         return false
     }

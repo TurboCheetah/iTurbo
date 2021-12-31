@@ -16,7 +16,7 @@ export abstract class BoobsCommand {
         await interaction.deferReply({ ephemeral: !ephemeral })
         const [data]: [OBoobs] = await centra('http://api.oboobs.ru/boobs/0/1/random', 'GET').json()
 
-        const embed = new MessageEmbed().setColor(0x9590ee).addField('ID', `${data.id}`, true).addField('Rank', `${data.rank}`, true).setImage(`http://media.oboobs.ru/${data.preview}`).setFooter('Powered by oBoobs.ru')
+        const embed = new MessageEmbed().setColor(0x9590ee).addField('ID', `${data.id}`, true).addField('Rank', `${data.rank}`, true).setImage(`http://media.oboobs.ru/${data.preview}`).setFooter({ text: 'Powered by oBoobs.ru' })
         if (data.model !== null) embed.setTitle(data.model)
         interaction.editReply({ embeds: [embed] })
     }

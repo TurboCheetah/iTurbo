@@ -11,7 +11,7 @@ import { inspect } from 'util'
 export abstract class EvalCommand {
     @Slash('eval', { description: 'Evaluates some code' })
     @Guard(IsOwner)
-    async eval(@SlashOption('code', { description: 'The code to evaluate', required: true }) code: string, interaction: CommandInteraction, client: IslaClient): Promise<void> {
+    async eval(@SlashOption('code', { description: 'The code to evaluate' }) code: string, interaction: CommandInteraction, client: IslaClient): Promise<void> {
         await interaction.deferReply({ ephemeral: true })
 
         const isAsync: boolean = code.includes('await') || code.includes('return')
@@ -37,7 +37,7 @@ export abstract class EvalCommand {
             .setColor(0x36ed82)
             .setTitle(type)
             .setDescription(Formatters.codeBlock('js', evaled.length > 1900 ? 'Too long to print' : evaled))
-            .setFooter(`Latency: ${evalTime}ms`)
+            .setFooter({ text: `Latency: ${evalTime}ms` })
 
         interaction.editReply({ embeds: [embed] })
     }

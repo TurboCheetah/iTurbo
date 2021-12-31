@@ -1,6 +1,6 @@
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption, SlashGroup } from 'discordx'
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import ms from 'ms'
 import { AnimeEntry, MangaEntry } from 'anilist-node'
 import { IslaClient } from '#/Client'
@@ -10,7 +10,7 @@ import { IslaClient } from '#/Client'
 export abstract class AnilistCommands {
     @Slash('anime', { description: 'Search for an anime on Anilist' })
     async anime(
-        @SlashOption('name', { description: "The name of the anime you'd like to search for", required: true })
+        @SlashOption('name', { description: "The name of the anime you'd like to search for" })
         name: string,
         @SlashOption('page', { description: "The page you'd like to view", required: false })
         page: number,
@@ -40,7 +40,7 @@ export abstract class AnilistCommands {
                 .addField('Score', `${d.averageScore}%`, true)
                 .addField('Favorites', `${d.favourites}`, true)
                 .addField('Popularity', `${d.popularity}`, true)
-                .setFooter(`ID: ${d.id}`)
+                .setFooter({ text: `ID: ${d.id}` })
         })
 
         const pagination = new Pagination(interaction, pages)
@@ -49,7 +49,7 @@ export abstract class AnilistCommands {
 
     @Slash('manga', { description: 'Search for a manga on Anilist' })
     async manga(
-        @SlashOption('name', { description: "The name of the anime you'd like to search for", required: true })
+        @SlashOption('name', { description: "The name of the anime you'd like to search for" })
         name: string,
         @SlashOption('page', { description: "The page you'd like to view", required: false })
         page: number,
@@ -80,7 +80,7 @@ export abstract class AnilistCommands {
                 .addField('Favorites', `${d.favourites}`, true)
                 .addField('Popularity', `${d.popularity}`, true)
                 .addField('Genre(s)', d.genres.join(', '), true)
-                .setFooter(`ID: ${d.id}`)
+                .setFooter({ text: `ID: ${d.id}` })
         })
 
         const pagination = new Pagination(interaction, pages)
@@ -89,7 +89,7 @@ export abstract class AnilistCommands {
 
     @Slash('user', { description: 'Search for a user on Anilist' })
     async user(
-        @SlashOption('user', { description: "The name of the user you'd like to search for", required: true })
+        @SlashOption('user', { description: "The name of the user you'd like to search for" })
         user: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -101,7 +101,7 @@ export abstract class AnilistCommands {
         const data = await client.anilist.user.all(user)
         const profileEmbed = new MessageEmbed()
             .setColor(0x9590ee)
-            .setAuthor('Profile')
+            .setAuthor({ name: 'Profile' })
             .setTitle(data.name)
             .setURL(data.siteUrl)
             .setThumbnail(data.avatar.large !== null ? data.avatar.large : '')
@@ -119,11 +119,11 @@ export abstract class AnilistCommands {
                     .join(', ')
             )
             // .setImage(data.bannerImage ? data.bannerImage : '')
-            .setFooter(`ID: ${data.id} • React to view more details`, 'https://i.imgur.com/evdGjD6.png')
+            .setFooter({ text: `ID: ${data.id} • React to view more details`, iconURL: 'https://i.imgur.com/evdGjD6.png' })
 
         const mangaStatsEmbed = new MessageEmbed()
             .setColor(0x9590ee)
-            .setAuthor(data.name, undefined, data.siteUrl)
+            .setAuthor({ name: data.name, url: data.siteUrl })
             .setTitle('Manga Stats')
             .setURL(data.siteUrl)
             .setThumbnail(data.avatar.large !== null ? data.avatar.large : '')
@@ -132,11 +132,11 @@ export abstract class AnilistCommands {
             .addField(client.constants.zws, client.constants.zws, true)
             // eslint-disable-next-line prettier/prettier
       .addField('Top Genres', (data.statistics.manga.genres.length > 0) ? data.statistics.manga.genres.slice(0, 5).map(g => `${g.genre} (${g.count})`).join(', ') : 'None')
-            .setFooter(`ID: ${data.id} • React to view more details`)
+            .setFooter({ text: `ID: ${data.id} • React to view more details` })
 
         const favoritesEmbed = new MessageEmbed()
             .setColor(0x9590ee)
-            .setAuthor(data.name, undefined, data.siteUrl)
+            .setAuthor({ name: data.name, url: data.siteUrl })
             .setTitle('Favorites')
             .setURL(data.siteUrl)
             .setThumbnail(data.avatar.large !== null ? data.avatar.large : '')
@@ -168,7 +168,7 @@ export abstract class AnilistCommands {
                     : 'None',
                 true
             )
-            .setFooter(`ID: ${data.id} • React to view more details`)
+            .setFooter({ text: `ID: ${data.id} • React to view more details` })
 
         const pagination = new Pagination(interaction, [profileEmbed, mangaStatsEmbed, favoritesEmbed])
         await pagination.send()

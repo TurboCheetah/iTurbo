@@ -10,9 +10,9 @@ export abstract class OsuCommand {
         @SlashChoice('User', 'user')
         @SlashChoice('Recent', 'recent')
         @SlashChoice('Top', 'top')
-        @SlashOption('type', { description: "Type of search you'd like to perform", required: true })
+        @SlashOption('type', { description: "Type of search you'd like to perform" })
         type: string,
-        @SlashOption('user', { description: "The use whose stats you'd like to retrieve", required: true })
+        @SlashOption('user', { description: "The use whose stats you'd like to retrieve" })
         user: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -53,7 +53,7 @@ export abstract class OsuCommand {
                         .addField(client.constants.zws, client.constants.zws, true)
                         .addField(`Country :flag_${osuUser.country.toLowerCase()}:`, `${client.utils.formatNumber(+osuUser.pp.countryRank)}`, true)
                         .addField('Scores', `${ranks.ssh}: ${client.utils.formatNumber(osuUser.counts.SSH)}\n${ranks.ss}: ${client.utils.formatNumber(osuUser.counts.SS)}\n${ranks.sh}: ${client.utils.formatNumber(osuUser.counts.SH)}\n${ranks.s}: ${client.utils.formatNumber(osuUser.counts.S)}\n${ranks.a}: ${client.utils.formatNumber(osuUser.counts.A)}\n`, true)
-                        .setFooter(`Started playing on ${(osuUser.joinDate as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`)
+                        .setFooter({ text: `Started playing on ${(osuUser.joinDate as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}` })
                     interaction.editReply({ embeds: [embed] })
                 } catch (err) {
                     interaction.editReply(`Error: \`${err as string}\``)
@@ -66,7 +66,7 @@ export abstract class OsuCommand {
                     const [top] = await client.osu.getUserBest({ u: user })
 
                     const embed = new MessageEmbed()
-                        .setAuthor(`${osuUser.name} | User Best`, `https://s.ppy.sh/a/${osuUser.id}`, `https://osu.ppy.sh/users/${osuUser.id}`)
+                        .setAuthor({ name: `${osuUser.name} | User Best`, iconURL: `https://s.ppy.sh/a/${osuUser.id}`, url: `https://osu.ppy.sh/users/${osuUser.id}` })
                         .setThumbnail(ranks[`${top.rank.toLowerCase()}URL` as keyof typeof ranks])
                         .setImage(`https://assets.ppy.sh/beatmaps/${top.beatmap.beatmapSetId}/covers/cover.jpg`)
                         .setColor(0x9590ee)
@@ -79,7 +79,7 @@ export abstract class OsuCommand {
                         .addField('Score', client.utils.formatNumber(top.score), true)
                         .addField('Hits', `Miss: **${client.utils.formatNumber(top.counts.miss)}**, 50: **${client.utils.formatNumber(top.counts['50'])}**, 100: **${client.utils.formatNumber(top.counts['100'])}**, 300: **${client.utils.formatNumber(top.counts['300'])}**`, false)
                         .addField('Mods', top.mods.length ? (top.mods as string[]).join(', ') : 'None', false)
-                        .setFooter(`Score placed on ${(top.date as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`)
+                        .setFooter({ text: `Score placed on ${(top.date as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}` })
                     interaction.editReply({ embeds: [embed] })
                 } catch (err) {
                     interaction.editReply(`Error: \`${err as string}\``)
@@ -91,7 +91,7 @@ export abstract class OsuCommand {
                     const osuUser = await client.osu.getUser({ u: user })
                     const [recent] = await client.osu.getUserRecent({ u: user })
                     const embed = new MessageEmbed()
-                        .setAuthor(`${osuUser.name} | User Recent`, `https://s.ppy.sh/a/${osuUser.id}`, `https://osu.ppy.sh/users/${osuUser.id}`)
+                        .setAuthor({ name: `${osuUser.name} | User Recent`, iconURL: `https://s.ppy.sh/a/${osuUser.id}`, url: `https://osu.ppy.sh/users/${osuUser.id}` })
                         .setThumbnail(ranks[`${recent.rank.toLowerCase()}URL` as keyof typeof ranks])
                         .setImage(`https://assets.ppy.sh/beatmaps/${recent.beatmap.beatmapSetId}/covers/cover.jpg`)
                         .setColor(0x9590ee)
@@ -105,7 +105,7 @@ export abstract class OsuCommand {
                         .addField('Mods', recent.mods.length ? (recent.mods as string[]).join(', ') : 'None', true)
                         .addField(client.constants.zws, client.constants.zws, true)
                         .addField('Hits', `Miss: **${client.utils.formatNumber(recent.counts.miss)}**\n50: **${client.utils.formatNumber(recent.counts['50'])}**\n100: **${client.utils.formatNumber(recent.counts['100'])}**\n300: **${client.utils.formatNumber(recent.counts['300'])}**`, true)
-                        .setFooter(`Score placed on ${(recent.date as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`)
+                        .setFooter({ text: `Score placed on ${(recent.date as Date).toLocaleDateString(undefined, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}` })
                     interaction.editReply({ embeds: [embed] })
                 } catch (err) {
                     interaction.editReply(`Error: \`${err as string}\``)

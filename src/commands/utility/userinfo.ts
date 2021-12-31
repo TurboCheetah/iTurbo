@@ -24,7 +24,7 @@ export abstract class UserInfoCommand {
         const joinedR = time(member.joinedAt!, TimestampStyles.RelativeTime)
 
         const embed = new MessageEmbed()
-            .setAuthor(`${member.user.tag} ${member.nickname ? `(${member.nickname})` : ''}`, member.user.displayAvatarURL({ size: 128, dynamic: true }))
+            .setAuthor({ name: `${member.user.tag} ${member.nickname ? `(${member.nickname})` : ''}`, iconURL: member.user.displayAvatarURL({ size: 128, dynamic: true }) })
             .setColor(member.roles.cache.size > 1 ? member.displayHexColor : 0x9590ee)
             .setThumbnail(member.user.displayAvatarURL({ size: 512, dynamic: true }))
             .addField('Discord Join Date', `${created} (${createdR})`, true)
@@ -43,7 +43,7 @@ export abstract class UserInfoCommand {
             .addField('Highest Role', member.roles.highest ? `${member.roles.highest}` : 'None', true)
             // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
             .addField('Hoist Role', member.roles.hoist ? `${member.roles.hoist}` : 'None', true)
-            .setFooter(`ID: ${member.user.id}`)
+            .setFooter({ text: `ID: ${member.user.id}` })
 
         interaction.editReply({ embeds: [embed] })
     }

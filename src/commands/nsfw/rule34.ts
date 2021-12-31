@@ -1,4 +1,4 @@
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import { search } from 'booru'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Guard, Slash, SlashOption } from 'discordx'
@@ -10,7 +10,7 @@ export abstract class Rule34Command {
     @Slash('rule34', { description: "Rule 34: If it exists there's porn of it" })
     @Guard(IsNsfw)
     async rule34(
-        @SlashOption('query', { description: "What you'd like to search for", required: true })
+        @SlashOption('query', { description: "What you'd like to search for" })
         query: string,
         @SlashOption('animated', { description: 'Do you want videos/gifs?', required: false })
         animated: boolean,
@@ -43,7 +43,7 @@ export abstract class Rule34Command {
                         .setColor(0x9590ee)
                         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         .setImage(post.fileUrl!)
-                        .setFooter('Powered by Rule34.XXX')
+                        .setFooter({ text: 'Powered by Rule34.XXX' })
                 )
             })
 

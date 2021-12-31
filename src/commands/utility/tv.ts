@@ -1,5 +1,5 @@
 import c from '@aero/centra'
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import { CommandInteraction, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 
@@ -7,7 +7,7 @@ import { Discord, Slash, SlashOption } from 'discordx'
 export abstract class TVCommand {
     @Slash('tv', { description: 'Search for a show on TMDB.org' })
     async tv(
-        @SlashOption('show', { description: "The show you'd like to search for", required: true })
+        @SlashOption('show', { description: "The show you'd like to search for" })
         show: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -21,7 +21,7 @@ export abstract class TVCommand {
         console.log(results)
 
         const pages = results.map((s: { poster_path: string; name: string; overview: string; original_name: string; vote_count: number; vote_average: number; popularity: number; first_air_date: string }) => {
-            const embed = new MessageEmbed().setColor(0x9590ee).setImage(`https://image.tmdb.org/t/p/original${s.poster_path}`).setTitle(`${s.name}`).setDescription(s.overview).setFooter('Powered by TheMovieDB', 'https://www.themoviedb.org/assets/1/v4/logos/408x161-powered-by-rectangle-green-bb4301c10ddc749b4e79463811a68afebeae66ef43d17bcfd8ff0e60ded7ce99.png')
+            const embed = new MessageEmbed().setColor(0x9590ee).setImage(`https://image.tmdb.org/t/p/original${s.poster_path}`).setTitle(`${s.name}`).setDescription(s.overview).setFooter({ text: 'Powered by TheMovieDB', iconURL: 'https://www.themoviedb.org/assets/1/v4/logos/408x161-powered-by-rectangle-green-bb4301c10ddc749b4e79463811a68afebeae66ef43d17bcfd8ff0e60ded7ce99.png' })
             if (s.name !== s.original_name) embed.addField('Original Title', s.original_name, true)
             embed
                 .addField('Vote Count', `${s.vote_count}` || '0', true)

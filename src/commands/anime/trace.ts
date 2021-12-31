@@ -1,14 +1,14 @@
 import { IslaClient } from '#/Client'
 import { Collection, CommandInteraction, ContextMenuInteraction, MessageAttachment, MessageEmbed } from 'discord.js'
 import { ContextMenu, Discord, Slash, SlashOption } from 'discordx'
-import { Pagination } from '@discordx/utilities'
+import { Pagination } from '@discordx/pagination'
 import { Anilist, Result } from 'trace.moe.ts/dist/structures/Result'
 
 @Discord()
 export abstract class TraceCommand {
     @Slash('trace', { description: 'Identify an anime using Trace.moe' })
     async trace(
-        @SlashOption('url', { description: "The URL of the anime screenshot you'd like to identify", required: true })
+        @SlashOption('url', { description: "The URL of the anime screenshot you'd like to identify" })
         url: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
@@ -27,8 +27,8 @@ export abstract class TraceCommand {
                 .addField('Episode', `${d.episode ?? 'null'}`, true)
                 .addField('Frames', `${d.from}-${d.to}`, true)
                 .addField('Similarity', `${(d.similarity * 100).toFixed(2)}%`, true)
-                .setFooter('Powered by Trace.moe')
-            if (d.anilist.title.english) embed.setAuthor((d.anilist as Anilist).title.english)
+                .setFooter({ text: 'Powered by Trace.moe' })
+            if (d.anilist.title.english) embed.setAuthor({ name: (d.anilist as Anilist).title.english })
 
             return embed
         })
@@ -58,8 +58,8 @@ export abstract class TraceContext {
                 .addField('Episode', `${d.episode ?? 'null'}`, true)
                 .addField('Frames', `${d.from}-${d.to}`, true)
                 .addField('Similarity', `${(d.similarity * 100).toFixed(2)}%`, true)
-                .setFooter('Powered by Trace.moe')
-            if (d.anilist.title.english) embed.setAuthor((d.anilist as Anilist).title.english)
+                .setFooter({ text: 'Powered by Trace.moe' })
+            if (d.anilist.title.english) embed.setAuthor({ name: (d.anilist as Anilist).title.english })
 
             return embed
         })

@@ -1,19 +1,23 @@
-import 'reflect-metadata'
-import * as dotenv from 'dotenv'
 import { join } from 'path'
-import { ShardingManager } from 'kurasuta'
-import { IslaClient } from '#/Client'
-import { Client } from 'discord.js'
+import { ShardingManager } from 'discord.js'
+import { Logger } from '#utils/Logger'
 
-dotenv.config({ path: join(__dirname, '/../.env') })
-process.env.NODE_ENV ??= 'development'
-process.on('unhandledRejection', (err: Error) => console.error(err))
-
-const manager = new ShardingManager(join(__dirname, 'Manager'), {
-    development: process.env.NODE_ENV === 'development',
-    client: IslaClient as typeof Client,
-    token: process.env.NODE_ENV === 'development' ? process.env.DEV_TOKEN : process.env.TOKEN,
-    clusterCount: 1
+const manager = new ShardingManager(join(__dirname, `bot.js`), {
+    totalShards: 'auto',
+    respawn: true,
+    token: process.env.TOKEN,
+    mode: 'process'
 })
 
-manager.spawn()
+manager
+    .on('shardCreate', shard => {
+        Logger.success(`[ShardingManager] Shard #${shard.id} Spawned.`)
+
+        shard.on('disconnect', () => {
+            Logger.warn(`[ShardingManager] Shard #${shard.id} disconnected`)
+        })
+
+        if (manager.shards.size === manager.totalShards) Logger.success('[ShardingManager] All shards spawned successfully')
+    })
+    .spawn()
+    .catch(err => Logger.error(`[ShardingManager] ${(err as Error).message}`))

@@ -7,7 +7,7 @@ import { IslaClient } from '#/Client'
 export abstract class WikipediaCommand {
     @Slash('wikipedia', { description: 'Search for something on Wikipedia' })
     async wikipedia(
-        @SlashOption('query', { description: "What you'd like to search for", required: true })
+        @SlashOption('query', { description: "What you'd like to search for" })
         query: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })
         ephemeral: boolean,
