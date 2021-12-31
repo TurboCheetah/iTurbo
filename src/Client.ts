@@ -26,7 +26,6 @@ export class IslaClient extends Client {
         super({
             intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES],
             botGuilds: process.env.NODE_ENV === 'development' ? [String(process.env.DEV_GUILD) ?? ''] : undefined,
-            silent: true,
             guards: [NotABot]
         })
 
