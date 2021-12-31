@@ -55,7 +55,7 @@
     "@ksoft/api": "^3.1.9",
     "anilist-node": "^1.11.0",
     "booru": "^2.5.0",
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.0",
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "discord.js": "13.5.0",
