@@ -36,7 +36,7 @@ export abstract class StatsCommand {
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
             .setTitle('Stats')
-            .addField('Bot Stats', [`Guilds: **${guilds}**`, `Users: **${users}**`, `Channels: **${channels}**`, `Shards: **${shards}**`, `Clusters: **${client.cluster?.manager.clusterCount as number}**`, `Uptime: **${uptime}**`, `Ping: **${ping}ms**`, `API Latency: **${client.ws.ping}ms**`].join('\n'), true)
+            .addField('Bot Stats', [`Guilds: **${guilds}**`, `Users: **${users}**`, `Channels: **${channels}**`, `Shards: **${shards}**`, `Uptime: **${uptime}**`, `Ping: **${ping}ms**`, `API Latency: **${client.ws.ping}ms**`].join('\n'), true)
             .addField(client.constants.zws, client.constants.zws, true)
             .addField(
                 'Host Stats',
@@ -50,7 +50,7 @@ export abstract class StatsCommand {
                 ].join('\n'),
                 true
             )
-            .setFooter(`Cluster ${client.cluster?.id as number} • Shard ${client.shard?.id as number}`)
+            .setFooter(`Shard ${client.shard?.ids[0] as number}`)
             .setTimestamp()
 
         interaction.editReply({ embeds: [embed] })
