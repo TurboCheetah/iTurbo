@@ -1831,6 +1831,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"discord-api-types@npm:^0.26.0":
+  version: 0.26.0
+  resolution: "discord-api-types@npm:0.26.0"
+  checksum: 5c2a3f7309fec3830a8da5e98e5260b25304512ae856c770d783492aa4a8c514a64025bb30ceda0c4381bc749db9545c0d7d5573fa0d60bb1718add27c8b4d7d
+  languageName: node
+  linkType: hard
+
 "discord.js@npm:^13.1.0, discord.js@npm:^13.3.1":
   version: 13.3.1
   resolution: "discord.js@npm:13.3.1"
@@ -1848,18 +1855,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discordx@npm:^9.0.1":
-  version: 9.0.1
-  resolution: "discordx@npm:9.0.1"
+"discordx@npm:9.1.7":
+  version: 9.1.7
+  resolution: "discordx@npm:9.1.7"
   dependencies:
-    discord-api-types: ^0.24.0
-    discord.js: ^13.3.1
-    glob: ^7.2.0
+    discord-api-types: ^0.26.0
     lodash: ^4.17.21
     reflect-metadata: ^0.1.13
     tslib: ^2.3.1
     tsyringe: ^4.6.0
-  checksum: b7bc0a770ba142c810d40574578669e7d67960eee5367429dd722ed3431c4fc4e78045c6e179c9f987da87820111e3c8b3b077233966d9686acd9309da2190b3
+  peerDependencies:
+    discord.js: ">=13 || ^14.0.0-dev || ^15.0.0-dev"
+  checksum: 90320a2e112d03e6172bfee19f87d1ce27d2adcca1e2b5f67d36bedeb4062c9f57dc36a08344cfe41f9599ebd4907606b8807bd15584519b14646093d9c537cb
   languageName: node
   linkType: hard
 
@@ -3496,7 +3503,7 @@ __metadata:
     cross-env: ^7.0.3
     dayjs: ^1.10.7
     discord.js: ^13.3.1
-    discordx: ^9.0.1
+    discordx: 9.1.7
     dotenv: ^10.0.0
     eslint: 7.32.0
     eslint-config-prettier: 8.3.0
