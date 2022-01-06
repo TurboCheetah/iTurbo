@@ -18,7 +18,7 @@ export abstract class SuccubusSpaceCommands {
         client: IslaClient
     ): Promise<any> {
         const query = gql`
-            query hentai($id: Int, $name: String) {
+            query hentai($id: Float, $name: String) {
                 hentai(id: $id, name: $name) {
                     id
                     name
@@ -26,14 +26,17 @@ export abstract class SuccubusSpaceCommands {
                     coverURL
                     posterURL
                     releasedAt
-                    brand
+                    brand {
+                        title
+                    }
                     isCensored
                     views
                     likes
                     interests
-                    tags
+                    tags {
+                        text
+                    }
                     url
-                    invalid
                 }
             }
         `
@@ -42,12 +45,7 @@ export abstract class SuccubusSpaceCommands {
 
         const { hentai }: { hentai: Hentai } = await request('https://api.succubus.space/graphql', query, isNaN(+search) ? { name: search } : { id: +search })
 
-        if (hentai.invalid === true) return interaction.editReply('This hentai could not be found.')
-
-        const tags = []
-        for (let i = 0; i < hentai.tags.length; i++) {
-            tags[i] = hentai.tags[i]
-        }
+        if (!hentai) return interaction.editReply('This hentai could not be found.')
 
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
@@ -55,14 +53,14 @@ export abstract class SuccubusSpaceCommands {
             .setURL(hentai.url)
             .setThumbnail(hentai.coverURL)
             .setImage(hentai.posterURL)
-            .addField('Description', hentai.description !== null ? client.utils.shorten(hentai.description) : 'No description given.')
+            .addField('Description', hentai.malDescription ? client.utils.shorten(hentai.malDescription) : hentai.description ? client.utils.shorten(hentai.description) : 'No description given.')
             .addField('Release Date', new Date(hentai.releasedAt).toLocaleDateString(), true)
-            .addField('Producer', hentai.brand, true)
+            .addField('Producer', hentai.brand.title, true)
             .addField('Censored', client.utils.toProperCase(hentai.isCensored.toString()), true)
             .addField('Views', hentai.views.toLocaleString(), true)
             .addField('Likes', hentai.likes.toLocaleString(), true)
             .addField('Interests', hentai.interests.toLocaleString(), true)
-            .addField('Tags', `${tags.join(', ')}`)
+            .addField('Tags', `${hentai.tags.map(tag => tag.text).join(', ')}`)
             .setFooter({ text: `ID: ${hentai.id} | Powered by Succubus.Space` })
 
         interaction.editReply({ embeds: [embed] })
