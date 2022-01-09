@@ -520,10 +520,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.11.17":
-  version: 16.11.17
-  resolution: "@types/node@npm:16.11.17"
-  checksum: 86ed84f79450f6aba1a6ef09f8407c10076966c3cc7cc4eb3d35b8ae4f47817e525641396ef0a667fa0a88fcdf484f6182812c074601403083bdf3b5e1ac0313
+"@types/node@npm:16.11.19":
+  version: 16.11.19
+  resolution: "@types/node@npm:16.11.19"
+  checksum: a9ba0cd1e61c8ad50f3fc9c2b37b795bf0286dacb39dcc985da90328abf0c5151dffe9932d20bc9a6a52c3ce7bfc1e5a7c2dc1416480fb84f1c2d70e25caeba0
   languageName: node
   linkType: hard
 
@@ -1833,9 +1833,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord.js@npm:13.5.0":
-  version: 13.5.0
-  resolution: "discord.js@npm:13.5.0"
+"discord.js@npm:13.5.1":
+  version: 13.5.1
+  resolution: "discord.js@npm:13.5.1"
   dependencies:
     "@discordjs/builders": ^0.11.0
     "@discordjs/collection": ^0.4.0
@@ -1846,22 +1846,21 @@ __metadata:
     form-data: ^4.0.0
     node-fetch: ^2.6.1
     ws: ^8.4.0
-  checksum: 2c4e38b94ef2f19b8d63829cae753fac27e4aba06599871977499f04bb7384f03dbd158562967c624918a183396b592ef9d6c63c3c5e65e76eb4c62f398daaf0
+  checksum: bb38d2675688838b183ce7f273ac322b10b8eec9d38b44397334b5a9277efcfd25b04ef9393dcd805b00945690abc1960bc849181c53f40580729f7542df10b5
   languageName: node
   linkType: hard
 
-"discordx@npm:9.1.7":
-  version: 9.1.7
-  resolution: "discordx@npm:9.1.7"
+"discordx@npm:9.1.9":
+  version: 9.1.9
+  resolution: "discordx@npm:9.1.9"
   dependencies:
-    discord-api-types: ^0.26.0
     lodash: ^4.17.21
     reflect-metadata: ^0.1.13
     tslib: ^2.3.1
     tsyringe: ^4.6.0
   peerDependencies:
     discord.js: ">=13 || ^14.0.0-dev || ^15.0.0-dev"
-  checksum: 90320a2e112d03e6172bfee19f87d1ce27d2adcca1e2b5f67d36bedeb4062c9f57dc36a08344cfe41f9599ebd4907606b8807bd15584519b14646093d9c537cb
+  checksum: 7af8e08c89aba370cb50d91507a0e39500f9a5704e0349f7267a050868101f17f87c73cd9ff663553b47a8b54e70e6f46339d720d54c4a9d76061008d1d43066
   languageName: node
   linkType: hard
 
@@ -2097,14 +2096,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-module-utils@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "eslint-module-utils@npm:2.7.1"
+"eslint-module-utils@npm:^2.7.2":
+  version: 2.7.2
+  resolution: "eslint-module-utils@npm:2.7.2"
   dependencies:
     debug: ^3.2.7
     find-up: ^2.1.0
-    pkg-dir: ^2.0.0
-  checksum: c30dfa125aafe65e5f6a30a31c26932106fcf09934a2f47d7f8a393ed9106da7b07416f2337b55c85f9db0175c873ee0827be5429a24ec381b49940f342b9ac3
+  checksum: 3e6407461d12b1568556fc9a84668415693ecce92d17d7407353defcfcafec5d3d8dfa2d9eda3743b3b53ef04101d8aa69072b3d634d92e766c3dfa10505542d
   languageName: node
   linkType: hard
 
@@ -2120,26 +2118,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-import@npm:2.25.3":
-  version: 2.25.3
-  resolution: "eslint-plugin-import@npm:2.25.3"
+"eslint-plugin-import@npm:2.25.4":
+  version: 2.25.4
+  resolution: "eslint-plugin-import@npm:2.25.4"
   dependencies:
     array-includes: ^3.1.4
     array.prototype.flat: ^1.2.5
     debug: ^2.6.9
     doctrine: ^2.1.0
     eslint-import-resolver-node: ^0.3.6
-    eslint-module-utils: ^2.7.1
+    eslint-module-utils: ^2.7.2
     has: ^1.0.3
     is-core-module: ^2.8.0
     is-glob: ^4.0.3
     minimatch: ^3.0.4
     object.values: ^1.1.5
     resolve: ^1.20.0
-    tsconfig-paths: ^3.11.0
+    tsconfig-paths: ^3.12.0
   peerDependencies:
     eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
-  checksum: 8bdf4b1fafb0e5c8f57a1673f72d84307d32c06a23942990d198c8b32a85a5ae0098872d1ef5bf80d7dfe8ec542f6a671e3c5e706731a80b493c9015f7a147f5
+  checksum: 0af24f5c7c6ca692f42e3947127f0ae7dfe44f1e02740f7cbe988b510a9c52bab0065d7df04e2d953dcc88a4595a00cbdcf14018acf8cd75cfd47b72efcbb734
   languageName: node
   linkType: hard
 
@@ -3491,7 +3489,7 @@ __metadata:
     "@discordx/pagination": ^1.0.1
     "@ksoft/api": ^3.1.9
     "@types/ms": 0.7.31
-    "@types/node": 16.11.17
+    "@types/node": 16.11.19
     "@typescript-eslint/eslint-plugin": 4.33.0
     "@typescript-eslint/parser": 4.33.0
     anilist-node: ^1.11.0
@@ -3499,21 +3497,21 @@ __metadata:
     chalk: ^4.1.2
     cross-env: ^7.0.3
     dayjs: ^1.10.7
-    discord.js: 13.5.0
-    discordx: 9.1.7
+    discord.js: 13.5.1
+    discordx: 9.1.9
     dotenv: ^10.0.0
     eslint: 7.32.0
     eslint-config-prettier: 8.3.0
     eslint-config-standard: 16.0.3
     eslint-config-standard-with-typescript: 21.0.1
-    eslint-plugin-import: 2.25.3
+    eslint-plugin-import: 2.25.4
     eslint-plugin-node: 11.1.0
     eslint-plugin-prettier: 4.0.0
     eslint-plugin-promise: 5.2.0
     graphql: 15.x
     graphql-request: ^3.6.1
     husky: 7.0.4
-    lint-staged: 12.1.4
+    lint-staged: 12.1.7
     ms: ^2.1.3
     nhentai: ^3.0.0
     node-osu: ^2.2.1
@@ -3678,9 +3676,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:12.1.4":
-  version: 12.1.4
-  resolution: "lint-staged@npm:12.1.4"
+"lint-staged@npm:12.1.7":
+  version: 12.1.7
+  resolution: "lint-staged@npm:12.1.7"
   dependencies:
     cli-truncate: ^3.1.0
     colorette: ^2.0.16
@@ -3697,7 +3695,7 @@ __metadata:
     yaml: ^1.10.2
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: f1f829328fbd0878e8c2100fe0968101e94903ce5acf95bae98ec6daa84c4e95f87957f9040782427be2087659f3809626ea42ba53bbe5f0036c4d3806cb313d
+  checksum: 3d0757706c8b0ca3f004bb2ffa89a9d5fc97ccdebfa4cde29a9636c661538780e194b99cbc5e4b8b89b13986187b33c97e009b09014511bbd45ee05ba557d0eb
   languageName: node
   linkType: hard
 
@@ -4618,15 +4616,6 @@ __metadata:
   version: 3.0.0
   resolution: "pify@npm:3.0.0"
   checksum: 6cdcbc3567d5c412450c53261a3f10991665d660961e06605decf4544a61a97a54fefe70a68d5c37080ff9d6f4cf51444c90198d1ba9f9309a6c0d6e9f5c4fde
-  languageName: node
-  linkType: hard
-
-"pkg-dir@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "pkg-dir@npm:2.0.0"
-  dependencies:
-    find-up: ^2.1.0
-  checksum: 8c72b712305b51e1108f0ffda5ec1525a8307e54a5855db8fb1dcf77561a5ae98e2ba3b4814c9806a679f76b2f7e5dd98bde18d07e594ddd9fdd25e9cf242ea1
   languageName: node
   linkType: hard
 
@@ -5679,7 +5668,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfig-paths@npm:3.12.0":
+"tsconfig-paths@npm:3.12.0, tsconfig-paths@npm:^3.12.0":
   version: 3.12.0
   resolution: "tsconfig-paths@npm:3.12.0"
   dependencies:
@@ -5688,18 +5677,6 @@ __metadata:
     minimist: ^1.2.0
     strip-bom: ^3.0.0
   checksum: 4999ec6cd1c7cc06750a460dbc0d39fe3595a4308cb5f1d0d0a8283009cf9c0a30d5a156508c28fe3a47760508af5263ab288fc23d71e9762779674257a95d3b
-  languageName: node
-  linkType: hard
-
-"tsconfig-paths@npm:^3.11.0":
-  version: 3.11.0
-  resolution: "tsconfig-paths@npm:3.11.0"
-  dependencies:
-    "@types/json5": ^0.0.29
-    json5: ^1.0.1
-    minimist: ^1.2.0
-    strip-bom: ^3.0.0
-  checksum: e14aaa6883f316d611db41cbb0fc8779b59c66b31d1e045565ad4540c77ccd3d2bb66f7c261b74ff535d3cc6b4a1ce21dc84774bf2a2a603ed6b0fb96f7e0cc7
   languageName: node
   linkType: hard
 
