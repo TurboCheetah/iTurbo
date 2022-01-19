@@ -48,9 +48,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commitlint/cli@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@commitlint/cli@npm:16.0.1"
+"@commitlint/cli@npm:16.0.3":
+  version: 16.0.3
+  resolution: "@commitlint/cli@npm:16.0.3"
   dependencies:
     "@commitlint/format": ^16.0.0
     "@commitlint/lint": ^16.0.0
@@ -63,7 +63,7 @@ __metadata:
     yargs: ^17.0.0
   bin:
     commitlint: cli.js
-  checksum: a4ec182911a6a26cd4e5ad878089075ca96c417aac538b6bb42a4e7fd9c96e1c73ef4c9034c153f017ce28bf1c2ca837f403034e6462910f4c51a383aba3d5ee
+  checksum: d4aeb8e32abf597707743f4e5f66726255e55604c18e1e9459153bfed721173e18a12d6351f496f62b22dc6f1f177d581ec34a3297dc9a97e25c3c767ddb43b0
   languageName: node
   linkType: hard
 
@@ -271,6 +271,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@discordx/di@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@discordx/di@npm:1.0.2"
+  dependencies:
+    tsyringe: ^4.6.0
+  checksum: 0458f024a715f668f4871f8a098923e963feb4f91c2bed84384ea531df968dfb2d8938c936d3c79baa2d8c29e6b9f69d58dfb8a767bc5532300da01d369db70f
+  languageName: node
+  linkType: hard
+
 "@discordx/importer@npm:^1.1.2":
   version: 1.1.2
   resolution: "@discordx/importer@npm:1.1.2"
@@ -279,6 +288,15 @@ __metadata:
     tslib: ^2.3.1
     typescript: ^4.4.4
   checksum: 2104021ac90e15d1da9bfe4b2d44d81544e958c364576855e6b8095306a06f19719a03963f31d0548b7ea437f5e1a6f58ef2f9d45786dcc95cca4b4fff025a60
+  languageName: node
+  linkType: hard
+
+"@discordx/internal@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@discordx/internal@npm:1.0.2"
+  dependencies:
+    tslib: ^2.3.1
+  checksum: cc35f7be0ab66d04a8d0eb38103b651c195510d92f9fd901c81d2a0436b3da11d7f87e8eb8ca0826805ab2074b5ccf7efd31a7bf5937dcb8510a47f543bdb6a2
   languageName: node
   linkType: hard
 
@@ -520,10 +538,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.11.19":
-  version: 16.11.19
-  resolution: "@types/node@npm:16.11.19"
-  checksum: a9ba0cd1e61c8ad50f3fc9c2b37b795bf0286dacb39dcc985da90328abf0c5151dffe9932d20bc9a6a52c3ce7bfc1e5a7c2dc1416480fb84f1c2d70e25caeba0
+"@types/node@npm:16.11.21":
+  version: 16.11.21
+  resolution: "@types/node@npm:16.11.21"
+  checksum: 75b679dc6375cf09bc14a2d1b344be6f3fd8ea50f212b0d60970dc9e175cef45e44c284c716eb9e766ffa52d0c83b689adb3d1911b6dd8649c560b8f77442a22
   languageName: node
   linkType: hard
 
@@ -1833,9 +1851,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"discord.js@npm:13.5.1":
-  version: 13.5.1
-  resolution: "discord.js@npm:13.5.1"
+"discord.js@npm:13.6.0":
+  version: 13.6.0
+  resolution: "discord.js@npm:13.6.0"
   dependencies:
     "@discordjs/builders": ^0.11.0
     "@discordjs/collection": ^0.4.0
@@ -1846,21 +1864,22 @@ __metadata:
     form-data: ^4.0.0
     node-fetch: ^2.6.1
     ws: ^8.4.0
-  checksum: bb38d2675688838b183ce7f273ac322b10b8eec9d38b44397334b5a9277efcfd25b04ef9393dcd805b00945690abc1960bc849181c53f40580729f7542df10b5
+  checksum: 59c1297fbebf9b25c90ea125808bc9177c134fd7c481f82ace636ab88cfdc90bc6ec777c844d375d26231fc1664a67e80a1aad2aed484b808e4cd7d55cc1d9e3
   languageName: node
   linkType: hard
 
-"discordx@npm:9.1.9":
-  version: 9.1.9
-  resolution: "discordx@npm:9.1.9"
+"discordx@npm:9.1.12":
+  version: 9.1.12
+  resolution: "discordx@npm:9.1.12"
   dependencies:
+    "@discordx/di": ^1.0.2
+    "@discordx/internal": ^1.0.2
     lodash: ^4.17.21
     reflect-metadata: ^0.1.13
     tslib: ^2.3.1
-    tsyringe: ^4.6.0
   peerDependencies:
     discord.js: ">=13 || ^14.0.0-dev || ^15.0.0-dev"
-  checksum: 7af8e08c89aba370cb50d91507a0e39500f9a5704e0349f7267a050868101f17f87c73cd9ff663553b47a8b54e70e6f46339d720d54c4a9d76061008d1d43066
+  checksum: 07f43f19169664051ad3fd2a46977fef3f29a93ac796752fa7a028bf42d02154d1f6fd86cf526011c938e375a316a11009ac399522293561fae52033be9cda37
   languageName: node
   linkType: hard
 
@@ -3483,13 +3502,13 @@ __metadata:
   resolution: "iturbo@workspace:."
   dependencies:
     "@aero/centra": ^1.0.8
-    "@commitlint/cli": 16.0.1
+    "@commitlint/cli": 16.0.3
     "@commitlint/config-conventional": 16.0.0
     "@discordx/importer": ^1.1.2
     "@discordx/pagination": ^1.0.1
     "@ksoft/api": ^3.1.9
     "@types/ms": 0.7.31
-    "@types/node": 16.11.19
+    "@types/node": 16.11.21
     "@typescript-eslint/eslint-plugin": 4.33.0
     "@typescript-eslint/parser": 4.33.0
     anilist-node: ^1.11.0
@@ -3497,8 +3516,8 @@ __metadata:
     chalk: ^4.1.2
     cross-env: ^7.0.3
     dayjs: ^1.10.7
-    discord.js: 13.5.1
-    discordx: 9.1.9
+    discord.js: 13.6.0
+    discordx: 9.1.12
     dotenv: ^10.0.0
     eslint: 7.32.0
     eslint-config-prettier: 8.3.0
@@ -3511,7 +3530,7 @@ __metadata:
     graphql: 15.x
     graphql-request: ^3.6.1
     husky: 7.0.4
-    lint-staged: 12.1.7
+    lint-staged: 12.2.1
     ms: ^2.1.3
     nhentai: ^3.0.0
     node-osu: ^2.2.1
@@ -3676,9 +3695,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:12.1.7":
-  version: 12.1.7
-  resolution: "lint-staged@npm:12.1.7"
+"lint-staged@npm:12.2.1":
+  version: 12.2.1
+  resolution: "lint-staged@npm:12.2.1"
   dependencies:
     cli-truncate: ^3.1.0
     colorette: ^2.0.16
@@ -3695,7 +3714,7 @@ __metadata:
     yaml: ^1.10.2
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 3d0757706c8b0ca3f004bb2ffa89a9d5fc97ccdebfa4cde29a9636c661538780e194b99cbc5e4b8b89b13986187b33c97e009b09014511bbd45ee05ba557d0eb
+  checksum: e75c70b3c5476d73475ec1a95847b67c2172005cfd6018e28876def7f46a6d329031d2441ad952e9b70a601b935040d2b5d67c058d3192bb997b1129913bb5e3
   languageName: node
   linkType: hard
 
