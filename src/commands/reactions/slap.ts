@@ -15,7 +15,7 @@ export abstract class SlapCommand {
 
         await interaction.deferReply()
 
-        const { url } = await client.taihou.toph.getRandomImage('slap', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannel) })
+        const { url } = await client.taihou.toph.getRandomImage('slap')
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
             .setDescription(`**${(interaction.member as GuildMember).displayName}** slapped **${member.displayName}**`)

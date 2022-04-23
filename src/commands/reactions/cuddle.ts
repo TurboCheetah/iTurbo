@@ -15,7 +15,7 @@ export abstract class CuddleCommand {
 
         await interaction.deferReply()
 
-        const { url } = await client.taihou.toph.getRandomImage('cuddle', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannel) })
+        const { url } = await client.taihou.toph.getRandomImage('cuddle')
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
             .setDescription(`**${(interaction.member as GuildMember).displayName}** cuddled **${member.displayName}**`)

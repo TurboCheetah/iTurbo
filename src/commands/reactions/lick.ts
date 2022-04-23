@@ -15,7 +15,7 @@ export abstract class LickCommand {
 
         await interaction.deferReply()
 
-        const { url } = await client.taihou.toph.getRandomImage('lick', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannel) })
+        const { url } = await client.taihou.toph.getRandomImage('lick')
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
             .setDescription(`**${(interaction.member as GuildMember).displayName}** licked **${member.displayName}**`)

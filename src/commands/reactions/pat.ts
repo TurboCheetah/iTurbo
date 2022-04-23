@@ -15,7 +15,7 @@ export abstract class PatCommand {
 
         await interaction.deferReply()
 
-        const { url } = await client.taihou.toph.getRandomImage('pat', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannel) })
+        const { url } = await client.taihou.toph.getRandomImage('pat')
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
             .setDescription(`**${(interaction.member as GuildMember).displayName}** patted **${member.displayName}**`)

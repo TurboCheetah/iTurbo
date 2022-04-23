@@ -15,7 +15,7 @@ export abstract class KissCommand {
 
         await interaction.deferReply()
 
-        const { url } = await client.taihou.toph.getRandomImage('kiss', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannel) })
+        const { url } = await client.taihou.toph.getRandomImage('kiss')
         const embed = new MessageEmbed()
             .setColor(0x9590ee)
             .setDescription(`**${(interaction.member as GuildMember).displayName}** kissed **${member.displayName}**`)

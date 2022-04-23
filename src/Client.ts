@@ -14,7 +14,7 @@ export class IslaClient extends Client {
     public anilist: Anilist
     public ksoft: KSoftClient
     public nhentai: API
-    public taihou: typeof Taihou
+    public taihou: Taihou
     public osu: Osu
     public trace: TraceMoe
     public utils = Utils
@@ -23,13 +23,13 @@ export class IslaClient extends Client {
     constructor(options: ClientOptions) {
         super(options)
 
+        this.constants = Constants
         this.anilist = new Anilist(process.env.ANILIST_TOKEN)
         this.ksoft = new KSoftClient(process.env.KSOFT_TOKEN as string)
         this.nhentai = new API()
-        this.taihou = new Taihou(process.env.WEEBSH_TOKEN, true, { userAgent: 'iTurbo/3.0.0' })
+        this.taihou = new Taihou(process.env.WEEBSH_TOKEN as string, true, { userAgent: this.constants.userAgent })
         this.osu = new Osu(process.env.OSU_API as string, { completeScores: true })
         this.trace = new TraceMoe()
-        this.constants = Constants
     }
 
     async launch(): Promise<this> {

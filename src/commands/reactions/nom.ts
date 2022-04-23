@@ -8,7 +8,7 @@ export abstract class NomCommand {
     async nom(interaction: CommandInteraction, client: IslaClient): Promise<void> {
         await interaction.deferReply()
 
-        const { url } = await client.taihou.toph.getRandomImage('nom', { nsfw: client.utils.isNSFW(interaction.channel as TextBasedChannel) })
+        const { url } = await client.taihou.toph.getRandomImage('nom')
         const embed = new MessageEmbed().setColor(0x9590ee).setImage(url)
         interaction.editReply({ embeds: [embed] })
     }
