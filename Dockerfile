@@ -2,7 +2,7 @@ FROM node:16-alpine AS builder
 WORKDIR /app
 COPY package.json yarn.lock .yarnrc.yml ./
 COPY .yarn/ .yarn/
-RUN yarn install --immutable --immutable-cache --check-cache
+RUN yarn install --immutable
 COPY . .
 RUN yarn build
 
