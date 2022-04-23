@@ -8,10 +8,10 @@ export abstract class RedditCommand {
     @Slash('reddit', { description: 'Returns a reddit post for the specified category' })
     @Guard(IsNsfw)
     async reddit(
-        @SlashChoice('Ass', 'ass')
-        @SlashChoice('Boobs', 'boobs')
-        @SlashChoice('Thighs', 'thighs')
-        @SlashChoice('Gifs', 'gifs')
+        @SlashChoice({ name: 'Ass', value: 'ass' })
+        @SlashChoice({ name: 'Boobs', value: 'boobs' })
+        @SlashChoice({ name: 'Thighs', value: 'thighs' })
+        @SlashChoice({ name: 'Gifs', value: 'gifs' })
         @SlashOption('category', { description: 'What category would you like to search in?' })
         query: string,
         @SlashOption('public', { description: 'Display this command publicly', required: false })

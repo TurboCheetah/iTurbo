@@ -7,9 +7,9 @@ import { IslaClient } from '#/Client'
 export abstract class OsuCommand {
     @Slash('osu', { description: 'Retrieves osu! stats, recent, or top plays of a user' })
     async copy(
-        @SlashChoice('User', 'user')
-        @SlashChoice('Recent', 'recent')
-        @SlashChoice('Top', 'top')
+        @SlashChoice({ name: 'User', value: 'user' })
+        @SlashChoice({ name: 'Recent', value: 'recent' })
+        @SlashChoice({ name: 'Top', value: 'top' })
         @SlashOption('type', { description: "Type of search you'd like to perform" })
         type: string,
         @SlashOption('user', { description: "The use whose stats you'd like to retrieve" })
