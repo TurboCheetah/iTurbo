@@ -1,4 +1,4 @@
-import { CommandInteraction, GuildMember, MessageEmbed, TextBasedChannel } from 'discord.js'
+import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '#/Client'
 
