@@ -6,7 +6,7 @@ import { IslaClient } from '#/Client'
 import { IsNsfw } from '#guards/IsNsfw'
 
 @Discord()
-@SlashGroup('nhentai', 'Read doujin from nHentai')
+@SlashGroup({ name: 'nhentai', description: 'Read doujin from nHentai' })
 export abstract class NHentaiCommands {
     @Slash('doujin', { description: 'Read doujin from nHentai' })
     @Guard(IsNsfw)

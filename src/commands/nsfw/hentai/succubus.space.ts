@@ -6,7 +6,7 @@ import { Doujin } from '#types/doujin.type'
 import { Hentai } from '#types/hentai.type'
 
 @Discord()
-@SlashGroup('succubusspace', 'Retrieve data from Succubus.Space')
+@SlashGroup({ name: 'succubusspace', description: 'Retrieve data from Succubus.Space' })
 export abstract class SuccubusSpaceCommands {
     @Slash('hentai', { description: 'Search for a hentai on Succubus.Space' })
     async hentai(

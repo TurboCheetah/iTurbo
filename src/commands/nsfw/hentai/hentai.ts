@@ -4,7 +4,7 @@ import { IslaClient } from '#/Client'
 import { IsNsfw } from '#guards/IsNsfw'
 
 @Discord()
-@SlashGroup('hentai', 'Hentai related commands')
+@SlashGroup({ name: 'hentai', description: 'Hentai related commands' })
 export abstract class HentaiCommands {
     @Slash('ass', { description: 'Returns a picture of a hentai ass' })
     @Guard(IsNsfw)

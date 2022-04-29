@@ -6,7 +6,7 @@ import { AnimeEntry, MangaEntry } from 'anilist-node'
 import { IslaClient } from '#/Client'
 
 @Discord()
-@SlashGroup('anilist', 'Retrieve data from anilist')
+@SlashGroup({ name: 'anilist', description: 'Retrieve data from anilist' })
 export abstract class AnilistCommands {
     @Slash('anime', { description: 'Search for an anime on Anilist' })
     async anime(
