@@ -10,8 +10,8 @@ RUN sed -i 's/"prepare": "husky install"/"prepare": ""/' ./package.json \
 
 ENV GROUP=nodejs
 ENV USER=iturbo
-ENV UID=1000
-ENV GID=1000
+ENV UID=1001
+ENV GID=1001
 
 RUN addgroup \
     --system \
