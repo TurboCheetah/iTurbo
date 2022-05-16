@@ -1,5 +1,4 @@
-import { CommandInteraction, GuildMember, MessageEmbed } from 'discord.js'
-import { time, TimestampStyles } from '@discordjs/builders'
+import { CommandInteraction, GuildMember, MessageEmbed, Formatters } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 
 @Discord()
@@ -16,12 +15,12 @@ export abstract class UserInfoCommand {
 
         if (!member) member = interaction.member as GuildMember
 
-        const created = time(member.user.createdAt, TimestampStyles.ShortDateTime)
-        const createdR = time(member.user.createdAt, TimestampStyles.RelativeTime)
+        const created = Formatters.time(member.user.createdAt, Formatters.TimestampStyles.ShortDateTime)
+        const createdR = Formatters.time(member.user.createdAt, Formatters.TimestampStyles.RelativeTime)
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const joined = time(member.joinedAt!, TimestampStyles.ShortDateTime)
+        const joined = Formatters.time(member.joinedAt!, Formatters.TimestampStyles.ShortDateTime)
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const joinedR = time(member.joinedAt!, TimestampStyles.RelativeTime)
+        const joinedR = Formatters.time(member.joinedAt!, Formatters.TimestampStyles.RelativeTime)
 
         const embed = new MessageEmbed()
             .setAuthor({ name: `${member.user.tag} ${member.nickname ? `(${member.nickname})` : ''}`, iconURL: member.user.displayAvatarURL({ size: 128, dynamic: true }) })

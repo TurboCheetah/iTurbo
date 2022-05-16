@@ -1,5 +1,4 @@
-import { CommandInteraction, MessageEmbed } from 'discord.js'
-import { time, TimestampStyles } from '@discordjs/builders'
+import { CommandInteraction, MessageEmbed, Formatters } from 'discord.js'
 import { Discord, Slash, SlashOption } from 'discordx'
 import { IslaClient } from '#/Client'
 
@@ -31,8 +30,8 @@ export abstract class ServerInfoCommand {
             ALL_MEMBERS: 'Everyone'
         }
 
-        const created = time(guild.createdAt, TimestampStyles.ShortDateTime)
-        const createdR = time(guild.createdAt, TimestampStyles.RelativeTime)
+        const created = Formatters.time(guild.createdAt, Formatters.TimestampStyles.ShortDateTime)
+        const createdR = Formatters.time(guild.createdAt, Formatters.TimestampStyles.RelativeTime)
 
         const bans = await guild.bans
             .fetch()
