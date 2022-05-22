@@ -26,10 +26,10 @@
   "devDependencies": {
     "@commitlint/cli": "16.3.0",
     "@commitlint/config-conventional": "16.2.4",
-    "@types/node": "16.11.35",
-    "@typescript-eslint/eslint-plugin": "5.23.0",
-    "@typescript-eslint/parser": "5.23.0",
-    "eslint": "8.15.0",
+    "@types/node": "16.11.36",
+    "@typescript-eslint/eslint-plugin": "5.25.0",
+    "@typescript-eslint/parser": "5.25.0",
+    "eslint": "8.16.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.26.0",
@@ -42,7 +42,7 @@
     "nodemon": "2.0.16",
     "prettier": "2.6.2",
     "standard-version": "9.5.0",
-    "ts-node": "10.7.0"
+    "ts-node": "10.8.0"
   },
   "dependencies": {
     "@aero/centra": "^1.0.8",
@@ -56,7 +56,7 @@
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "discord.js": "13.7.0",
-    "discordx": "9.6.0",
+    "discordx": "9.7.0",
     "dotenv": "^16.0.0",
     "graphql": "15.x",
     "graphql-request": "^4.0.0",
@@ -79,5 +79,5 @@
   "lint-staged": {
     "*.{js,ts}": "eslint --ignore-path .gitignore --ext .ts src/"
   },
-  "packageManager": "pnpm@7.1.0"
+  "packageManager": "pnpm@7.1.3"
 }
