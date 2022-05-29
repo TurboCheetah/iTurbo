@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/TurboCheetah/iTurbo",
   "devDependencies": {
-    "@commitlint/cli": "17.0.0",
+    "@commitlint/cli": "17.0.1",
     "@commitlint/config-conventional": "17.0.0",
     "@types/node": "16.11.36",
     "@typescript-eslint/eslint-plugin": "5.26.0",
@@ -38,7 +38,7 @@
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-promise": "6.0.0",
     "husky": "8.0.1",
-    "lint-staged": "12.4.1",
+    "lint-staged": "12.4.2",
     "nodemon": "2.0.16",
     "prettier": "2.6.2",
     "standard-version": "9.5.0",
@@ -56,7 +56,7 @@
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "discord.js": "13.7.0",
-    "discordx": "9.7.0",
+    "discordx": "9.7.1",
     "dotenv": "^16.0.0",
     "graphql": "15.x",
     "graphql-request": "^4.0.0",
@@ -69,7 +69,7 @@
     "tsc-alias": "1.6.7",
     "tsconfig-paths": "4.0.0",
     "tslib": "2.4.0",
-    "typescript": "4.6.4"
+    "typescript": "4.7.2"
   },
   "commitlint": {
     "extends": [
@@ -79,5 +79,5 @@
   "lint-staged": {
     "*.{js,ts}": "eslint --ignore-path .gitignore --ext .ts src/"
   },
-  "packageManager": "pnpm@7.1.5"
+  "packageManager": "pnpm@7.1.6"
 }
