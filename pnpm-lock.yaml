@@ -5,7 +5,7 @@ specifiers:
   '@commitlint/cli': 17.0.3
   '@commitlint/config-conventional': 17.0.3
   '@discordx/importer': ^1.1.2
-  '@discordx/pagination': ^1.0.1
+  '@discordx/pagination': ^2.0.0
   '@ksoft/api': ^3.1.9
   '@types/ms': 0.7.31
   '@types/node': 16.11.41
@@ -49,7 +49,7 @@ specifiers:
 dependencies:
   '@aero/centra': 1.0.8
   '@discordx/importer': 1.1.9
-  '@discordx/pagination': 1.2.0_discord.js@13.8.1
+  '@discordx/pagination': 2.2.2_discord.js@13.8.1
   '@ksoft/api': 3.1.9
   '@types/ms': 0.7.31
   anilist-node: 1.12.0
@@ -327,8 +327,8 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@discordx/pagination/1.2.0_discord.js@13.8.1:
-    resolution: {integrity: sha512-O0e3CRvKJXT/hlGeKcUZUOhrafzeR/pWbVmRVulMZimpuNpIUYQaKCgHzNX5hsBqst46P+4sok4pSWyIdntW5A==}
+  /@discordx/pagination/2.2.2_discord.js@13.8.1:
+    resolution: {integrity: sha512-YNHjNUh5dPN0RY4JGNsP5LUpafGWBdGQq/PR+cbap4T4NaguLCR0yXduyJWorILsb6dvU6y8EsgCvk5YispdjA==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     peerDependencies:
       discord.js: '>=13 || ^13.0.0-dev'
