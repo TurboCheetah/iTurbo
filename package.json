@@ -26,23 +26,23 @@
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
-    "@types/node": "16.11.41",
-    "@typescript-eslint/eslint-plugin": "5.29.0",
-    "@typescript-eslint/parser": "5.29.0",
-    "eslint": "8.18.0",
+    "@types/node": "16.11.42",
+    "@typescript-eslint/eslint-plugin": "5.30.3",
+    "@typescript-eslint/parser": "5.30.3",
+    "eslint": "8.19.0",
     "eslint-config-prettier": "8.5.0",
     "eslint-config-standard": "17.0.0",
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-n": "15.2.3",
     "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-promise": "6.0.0",
     "husky": "8.0.1",
     "lint-staged": "13.0.3",
     "nodemon": "2.0.18",
     "prettier": "2.7.1",
     "standard-version": "9.5.0",
-    "ts-node": "10.8.1"
+    "ts-node": "10.8.2"
   },
   "dependencies": {
     "@aero/centra": "^1.0.8",
@@ -56,7 +56,7 @@
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "discord.js": "13.8.1",
-    "discordx": "9.7.3",
+    "discordx": "9.8.0",
     "dotenv": "^16.0.0",
     "graphql": "15.x",
     "graphql-request": "^4.0.0",
@@ -79,5 +79,5 @@
   "lint-staged": {
     "*.{js,ts}": "eslint --ignore-path .gitignore --ext .ts src/"
   },
-  "packageManager": "pnpm@7.3.0"
+  "packageManager": "pnpm@7.5.0"
 }
