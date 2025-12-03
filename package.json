@@ -56,7 +56,7 @@
     "cross-env": "^7.0.3",
     "dayjs": "^1.10.7",
     "discord.js": "13.8.1",
-    "discordx": "9.8.0",
+    "discordx": "11.13.2",
     "dotenv": "^16.0.0",
     "graphql": "15.x",
     "graphql-request": "^4.0.0",
