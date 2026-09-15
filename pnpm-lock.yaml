@@ -5,7 +5,7 @@ specifiers:
   '@commitlint/cli': 17.0.3
   '@commitlint/config-conventional': 17.0.3
   '@discordx/importer': ^1.1.2
-  '@discordx/pagination': ^1.0.1
+  '@discordx/pagination': ^4.0.0
   '@ksoft/api': ^3.1.9
   '@types/ms': 0.7.31
   '@types/node': 16.11.45
@@ -49,7 +49,7 @@ specifiers:
 dependencies:
   '@aero/centra': 1.0.8
   '@discordx/importer': 1.3.2
-  '@discordx/pagination': 1.2.0_discord.js@13.8.1
+  '@discordx/pagination': 4.4.2_discord.js@13.8.1
   '@ksoft/api': 3.1.9
   '@types/ms': 0.7.31
   anilist-node: 1.14.1
@@ -326,15 +326,14 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@discordx/pagination/1.2.0_discord.js@13.8.1:
-    resolution: {integrity: sha512-O0e3CRvKJXT/hlGeKcUZUOhrafzeR/pWbVmRVulMZimpuNpIUYQaKCgHzNX5hsBqst46P+4sok4pSWyIdntW5A==}
+  /@discordx/pagination/4.4.2_discord.js@13.8.1:
+    resolution: {integrity: sha512-0VuNSfVTWj7UqQVDrk1NrNoHxEAerJ4nfCulY6YqFEvqebBm35S6APmUhWJek1I4PpGuyu+BivjlQ4aL59uQjQ==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     peerDependencies:
-      discord.js: '>=13 || ^13.0.0-dev'
+      discord.js: '>=14 || ^14.0.0-dev'
     dependencies:
       discord.js: 13.8.1
-      lodash: 4.17.21
-      tslib: 2.4.0
+      lodash: 4.18.1
     dev: false
 
   /@eslint/eslintrc/1.3.0:
@@ -2654,6 +2653,10 @@ packages:
 
   /lodash/4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+
+  /lodash/4.18.1:
+    resolution: {integrity: sha512-dMInicTPVE8d1e5otfwmmjlxkZoUpiVLwyeTdUsi/Caj/gfzzblBcCE5sRHV/AsjuCmxWrte2TNGSYuCeCq+0Q==}
+    dev: false
 
   /log-update/4.0.0:
     resolution: {integrity: sha512-9fkkDevMefjg0mmzWFBW8YkFP91OrizzkW3diF7CpG+S2EYdy4+TVfGwz1zeF8x7hCx1ovSPTOE9Ngib74qqUg==}
