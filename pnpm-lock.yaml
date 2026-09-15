@@ -17,7 +17,7 @@ specifiers:
   cross-env: ^7.0.3
   dayjs: ^1.10.7
   discord.js: 13.8.1
-  discordx: 9.8.0
+  discordx: 11.13.3
   dotenv: ^16.0.0
   eslint: 8.20.0
   eslint-config-prettier: 8.5.0
@@ -58,7 +58,7 @@ dependencies:
   cross-env: 7.0.3
   dayjs: 1.11.13
   discord.js: 13.8.1
-  discordx: 9.8.0_discord.js@13.8.1
+  discordx: 11.13.3_discord.js@13.8.1
   dotenv: 16.5.0
   graphql: 15.10.1
   graphql-request: 4.2.0_graphql@15.10.1
@@ -305,11 +305,11 @@ packages:
     engines: {node: '>=16.9.0'}
     dev: false
 
-  /@discordx/di/2.0.1:
-    resolution: {integrity: sha512-aIGd97QJwdMkpANcaErYj0iv25loKdJQulUB1+a83Z3Jm+YVBFI7MHSad5zjdg4GYpGsOV1JW+xHhAwW21IhoA==}
+  /@discordx/di/3.3.4:
+    resolution: {integrity: sha512-8AUkf/j04jv/dTAkgfF3fpU91+Ax+9IOqEV4OhFswD2/jscerK0MN495Yc4ALfBlN0uXvMvXCd+ZcNZYJ2X1Kg==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      tsyringe: 4.6.0
+      tsyringe: 4.10.0
       typedi: 0.10.0
     dev: false
 
@@ -319,11 +319,9 @@ packages:
       glob: 11.0.3
     dev: false
 
-  /@discordx/internal/1.0.2:
-    resolution: {integrity: sha512-+vv5QS133O3TDDBvPp+ugQy5ExCFjVTxVn5AwQRgwpKNyXSplarNXA4TzACuiYBnXb6ecwtjfbDLcy/xMjYIoQ==}
+  /@discordx/internal/1.2.0:
+    resolution: {integrity: sha512-UVWR3ZmIlLti9O45Xft2aVQ3fiI420hrC14oInDoirCjgYCyVyOGEITyCnTfCf/O1tILYpWi3PD6Bp2gmsT+jQ==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
-    dependencies:
-      tslib: 2.4.0
     dev: false
 
   /@discordx/pagination/1.2.0_discord.js@13.8.1:
@@ -1390,19 +1388,16 @@ packages:
       - utf-8-validate
     dev: false
 
-  /discordx/9.8.0_discord.js@13.8.1:
-    resolution: {integrity: sha512-uZYQvGK69q2rCAvNvudtDMRCeoY3sYnGCj5/X191oL11b42tnU1Okh2Zc14n55ZmdFjVjmfjsX+jzqsxTEhNAg==}
+  /discordx/11.13.3_discord.js@13.8.1:
+    resolution: {integrity: sha512-cURUD44xC/DY4oKyndYc1UvUQZpe7qO4wARxNyEyqD6Uf2tm0Xi0eIeMqsYh7oSNQbBCKRhUsc+wpzaKxl7Lhg==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     peerDependencies:
-      discord.js: '>=13 || ^13.0.0-dev'
+      discord.js: '>=14 || ^14.0.0-dev'
     dependencies:
-      '@discordx/di': 2.0.1
-      '@discordx/internal': 1.0.2
-      discord-api-types: 0.33.5
+      '@discordx/di': 3.3.4
+      '@discordx/internal': 1.2.0
       discord.js: 13.8.1
       lodash: 4.17.21
-      reflect-metadata: 0.1.13
-      tslib: 2.4.0
     dev: false
 
   /doctrine/2.1.0:
@@ -3795,8 +3790,8 @@ packages:
       typescript: 4.7.4
     dev: true
 
-  /tsyringe/4.6.0:
-    resolution: {integrity: sha512-BMQAZamSfEmIQzH8WJeRu1yZGQbPSDuI9g+yEiKZFIcO46GPZuMOC2d0b52cVBdw1d++06JnDSIIZvEnogMdAw==}
+  /tsyringe/4.10.0:
+    resolution: {integrity: sha512-axr3IdNuVIxnaK5XGEUFTu3YmAQ6lllgrvqfEoR16g/HGnYY/6We4oWENtAnzK6/LpJ2ur9PAb80RBt7/U4ugw==}
     engines: {node: '>= 6.0.0'}
     dependencies:
       tslib: 1.14.1
