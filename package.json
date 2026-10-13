@@ -47,7 +47,7 @@
   "dependencies": {
     "@aero/centra": "^1.0.8",
     "@discordx/importer": "^1.1.2",
-    "@discordx/pagination": "^1.0.1",
+    "@discordx/pagination": "^4.0.0",
     "@ksoft/api": "^3.1.9",
     "@types/ms": "0.7.31",
     "anilist-node": "^1.11.0",
